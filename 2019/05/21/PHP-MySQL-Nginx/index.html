@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>PHP+MySQL+Nginx | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="环境搭建第一步：下载软件PHP：http://php.net/downloads.phpMySQL：http://dev.mysql.com/downloads/utilities/(SQLyog):http://soft.onlinedown.net/soft/24926.htm(可搭配MySQL使用)Nginx：http://nginx.org/en/download.html 第二部：安装软">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP+MySQL+Nginx">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="环境搭建第一步：下载软件PHP：http://php.net/downloads.phpMySQL：http://dev.mysql.com/downloads/utilities/(SQLyog):http://soft.onlinedown.net/soft/24926.htm(可搭配MySQL使用)Nginx：http://nginx.org/en/download.html 第二部：安装软">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-21T14:59:16.968Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP+MySQL+Nginx">
+<meta name="twitter:description" content="环境搭建第一步：下载软件PHP：http://php.net/downloads.phpMySQL：http://dev.mysql.com/downloads/utilities/(SQLyog):http://soft.onlinedown.net/soft/24926.htm(可搭配MySQL使用)Nginx：http://nginx.org/en/download.html 第二部：安装软">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-PHP-MySQL-Nginx" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/21/PHP-MySQL-Nginx/" class="article-date">
+  <time datetime="2019-05-21T14:58:13.000Z" itemprop="datePublished">2019-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PHP+MySQL+Nginx
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h3 id="第一步：下载软件"><a href="#第一步：下载软件" class="headerlink" title="第一步：下载软件"></a>第一步：下载软件</h3><p>PHP：<a href="http://php.net/downloads.php" target="_blank" rel="noopener">http://php.net/downloads.php</a><br><br>MySQL：<a href="http://dev.mysql.com/downloads/utilities/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/utilities/</a><br><br>(SQLyog):<a href="http://soft.onlinedown.net/soft/24926.htm(可搭配MySQL使用)" target="_blank" rel="noopener">http://soft.onlinedown.net/soft/24926.htm(可搭配MySQL使用)</a><br><br>Nginx：<a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a><br></p>
+<h3 id="第二部：安装软件"><a href="#第二部：安装软件" class="headerlink" title="第二部：安装软件"></a>第二部：安装软件</h3><p>1.打开我的电脑(避免C盘)建立wnap文件夹，并且创建Nginx，PHP，MySQL文件夹。<br><br>2.运行wnap文件夹内的Nginx文件夹，启动nginx.exe。<br><br>3.打开浏览器访问<a href="http://localhost如果出现“Welcome" target="_blank" rel="noopener">http://localhost如果出现“Welcome</a> To Nginx”则说明启动成功。若启动失败，查看端口是否被占用。<br><br>4.启动Nginx失败查看端口的方式。 a.查看端口占用情况：sudo netstat -apn | grep 80； b.查看占用端口的进程：ps -ef | grep 3345(该进程根据电脑实际状况修改)； c.杀掉进程，重新启动Nginx：杀掉进程:sudo kill -9 3345 重新启动:sudo netstat -apn | grep 80；<br><br>5.安装PHP与MySQL分别置wnap内的PHP文件夹与MySQL文件夹<br></p>
+<h2 id="Nginx的搭建"><a href="#Nginx的搭建" class="headerlink" title="Nginx的搭建"></a>Nginx的搭建</h2><p>配置Nginx conf：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line"></span><br><span class="line">            index index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        #打开下面几行注释</span><br><span class="line">        location ~ \.php$ &#123;</span><br><span class="line">            root           html;</span><br><span class="line">            *修改html为你要存放文件的文件夹的绝对路径;</span><br><span class="line">            fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">            fastcgi_index  index.php;</span><br><span class="line">            *重要: 把 /scripts 修改成 $document_root</span><br><span class="line">            *fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span><br><span class="line">            include        fastcgi_params;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="PHP的搭建"><a href="#PHP的搭建" class="headerlink" title="PHP的搭建"></a>PHP的搭建</h2><p>1.指定PHP的ext路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">搜索extension_dir，找到：</span><br><span class="line">;extension_dir = &quot;./ext&quot;</span><br><span class="line">更改为：</span><br><span class="line">extension_dir = &quot;D:\wnmp\php\ext你的ext文件所在的绝对路径&quot;</span><br></pre></td></tr></table></figure></p>
+<p>2.支持MySQL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">搜索mysqli,找到：</span><br><span class="line">;extension=mysqli</span><br><span class="line">改为</span><br><span class="line">extension=mysqli</span><br><span class="line">去掉前面的分号。</span><br></pre></td></tr></table></figure></p>
+<p>3.支持Nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">搜索pathinfo，找到</span><br><span class="line">;cgi.fix_pathinfo=1</span><br><span class="line">改为</span><br><span class="line">cgi.fix_pathinfo=1</span><br><span class="line">去掉前面的分号</span><br></pre></td></tr></table></figure></p>
+<p>4.其他配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">找到：;date.timezone =先去前面的分号再改为</span><br><span class="line">date.timezone = Asia/Shanghai</span><br><span class="line">找到：enable_dl = Off改为</span><br><span class="line">enable_dl = On</span><br><span class="line">找到： ;cgi.force_redirect = 1先去前面的分号再改为</span><br><span class="line">cgi.force_redirect = 0</span><br><span class="line">找到： </span><br><span class="line">;fastcgi.impersonate = 1 去掉前面的分号</span><br><span class="line">找到：;cgi.rfc2616_headers = 0先去前面的分号再改为</span><br><span class="line">cgi.rfc2616_headers = 1</span><br></pre></td></tr></table></figure></p>
+<h2 id="MySQL的搭建"><a href="#MySQL的搭建" class="headerlink" title="MySQL的搭建"></a>MySQL的搭建</h2><p>将mysql加入环境变量：<br><br>1.打开计算机——系统属性<br><br>2.在上方菜单栏中点开高级属性<br><br>3.在高级属性中查找环境变量按钮<br><br>4.选中系统变量中的”path”<br><br>5.将D:\wnmp\mysql\bin(此地址根据电脑实际地址更改)加入环境变量</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjvxxd27300014ctnkmpzhfjc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/21/PHP+MySQL+Nginx/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/21/PHP-MySQL-Nginx/">PHP+MySQL+Nginx</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/PHP+MySQL+Nginx/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/17/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
