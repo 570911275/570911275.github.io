@@ -96,41 +96,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjvxxd27300014ctnkmpzhfjc" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-PHP+MySQL+Nginx" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/21/PHP+MySQL+Nginx/" class="article-date">
-  <time datetime="2019-05-21T14:51:07.361Z" itemprop="datePublished">2019-05-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="�����"><a href="#�����" class="headerlink" title="�����"></a>�����</h1><h3 id="��һ������������"><a href="#��һ������������" class="headerlink" title="��һ������������"></a>��һ������������</h3><p>PHP��<a href="http://php.net/downloads.php" target="_blank" rel="noopener">http://php.net/downloads.php</a><br><br>MySQL��<a href="http://dev.mysql.com/downloads/utilities/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/utilities/</a><br><br>(SQLyog):<a href="http://soft.onlinedown.net/soft/24926.htm(�ɴ���MySQLʹ��)" target="_blank" rel="noopener">http://soft.onlinedown.net/soft/24926.htm(�ɴ���MySQLʹ��)</a><br><br>Nginx��<a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a><br></p>
-<h3 id="�ڶ�������װ����"><a href="#�ڶ�������װ����" class="headerlink" title="�ڶ�������װ����"></a>�ڶ�������װ����</h3><p>1.���ҵĵ���(����C��)����wnap�ļ��У����Ҵ���Nginx��PHP��MySQL�ļ��С�<br><br>2.����wnap�ļ����ڵ�Nginx�ļ��У�����nginx.exe��<br><br>3.�����������<a href="http://localhost������֡�Welcome" target="_blank" rel="noopener">http://localhost������֡�Welcome</a> To Nginx”��˵�������ɹ���������ʧ�ܣ��鿴�˿��Ƿ�ռ�á�<br><br>4.����Nginxʧ�ܲ鿴�˿ڵķ�ʽ�� a.�鿴�˿�ռ�������sudo netstat -apn | grep 80�� b.�鿴ռ�ö˿ڵĽ��̣�ps -ef | grep 3345(�ý��̸��ݵ���ʵ��״���޸�)�� c.ɱ�����̣���������Nginx��ɱ������:sudo kill -9 3345 ��������:sudo netstat -apn | grep 80��<br><br>5.��װPHP��MySQL�ֱ���wnap�ڵ�PHP�ļ�����MySQL�ļ���<br></p>
-<h2 id="Nginx�J"><a href="#Nginx�J" class="headerlink" title="Nginx�Ĵ"></a>Nginx�Ĵ</h2><p>����Nginx conf��<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line"></span><br><span class="line">            index index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        #�����漸��ע��</span><br><span class="line">        location ~ \.php$ &#123;</span><br><span class="line">            root           html;</span><br><span class="line">            *�޸�htmlΪ��Ҫ����ļ����ļ��еľ���·��;</span><br><span class="line">            fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">            fastcgi_index  index.php;</span><br><span class="line">            *��Ҫ: �� /scripts �޸ĳ� $document_root</span><br><span class="line">            *fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span><br><span class="line">            include        fastcgi_params;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="PHP�J"><a href="#PHP�J" class="headerlink" title="PHP�Ĵ"></a>PHP�Ĵ</h2><p>1.ָ��PHP��ext·��<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">����extension_dir���ҵ���</span><br><span class="line">;extension_dir = &quot;./ext&quot;</span><br><span class="line">����Ϊ��</span><br><span class="line">extension_dir = &quot;D:\wnmp\php\ext���ext�ļ����ڵľ���·��&quot;</span><br></pre></td></tr></table></figure></p>
-<p>2.֧��MySQL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">����mysqli,�ҵ���</span><br><span class="line">;extension=mysqli</span><br><span class="line">��Ϊ</span><br><span class="line">extension=mysqli</span><br><span class="line">ȥ��ǰ��ķֺš�</span><br></pre></td></tr></table></figure></p>
-<p>3.֧��Nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">����pathinfo���ҵ�</span><br><span class="line">;cgi.fix_pathinfo=1</span><br><span class="line">��Ϊ</span><br><span class="line">cgi.fix_pathinfo=1</span><br><span class="line">ȥ��ǰ��ķֺ�</span><br></pre></td></tr></table></figure></p>
-<p>4.��������<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">�ҵ���;date.timezone =��ȥǰ��ķֺ��ٸ�Ϊ</span><br><span class="line">date.timezone = Asia/Shanghai</span><br><span class="line">�ҵ���enable_dl = Off��Ϊ</span><br><span class="line">enable_dl = On</span><br><span class="line">�ҵ��� ;cgi.force_redirect = 1��ȥǰ��ķֺ��ٸ�Ϊ</span><br><span class="line">cgi.force_redirect = 0</span><br><span class="line">�ҵ��� </span><br><span class="line">;fastcgi.impersonate = 1 ȥ��ǰ��ķֺ�</span><br><span class="line">�ҵ���;cgi.rfc2616_headers = 0��ȥǰ��ķֺ��ٸ�Ϊ</span><br><span class="line">cgi.rfc2616_headers = 1</span><br></pre></td></tr></table></figure></p>
-<h2 id="MySQL�J"><a href="#MySQL�J" class="headerlink" title="MySQL�Ĵ"></a>MySQL�Ĵ</h2><p>��mysql���뻷��������<br><br>1.�򿪼��������ϵͳ����<br><br>2.���Ϸ��˵����е㿪�߼�����<br><br>3.�ڸ߼������в��һ���������ť<br><br>4.ѡ��ϵͳ�����е�”path”<br><br>5.��D:\wnmp\mysql\bin(�˵�ַ���ݵ���ʵ�ʵ�ַ����)���뻷������</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP+MySQL+Nginx/" data-id="cjvxxd26q00004ctn40y7oa2n" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjvxxi9p800013ktnjqslob90" class="article-share-link">Share</a>
       
       
     </footer>
@@ -175,7 +141,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjvxxd27900024ctnifgzgwq6" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjvxxi9ow00003ktnjss4bxqs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -217,10 +183,6 @@
         
           <li>
             <a href="/2019/05/21/PHP-MySQL-Nginx/">PHP+MySQL+Nginx</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/21/PHP+MySQL+Nginx/">(no title)</a>
           </li>
         
           <li>
