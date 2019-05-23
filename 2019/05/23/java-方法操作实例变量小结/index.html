@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>java_方法操作实例变量小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.对象有状态和行为1.同一类型的每个对象能够有不同的方法行为方法根据实例变量的值来表现不同的行为123456789101112void play()&amp;#123;    soundPlayer.playSound(title);&amp;#125;Song t2 = new Song();t2.setArtist(&amp;quot;Travis&amp;quot;);t2.setTitle(&amp;quot;Sing&amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java_方法操作实例变量小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.对象有状态和行为1.同一类型的每个对象能够有不同的方法行为方法根据实例变量的值来表现不同的行为123456789101112void play()&amp;#123;    soundPlayer.playSound(title);&amp;#125;Song t2 = new Song();t2.setArtist(&amp;quot;Travis&amp;quot;);t2.setTitle(&amp;quot;Sing&amp;quo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-23T11:56:57.088Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java_方法操作实例变量小结">
+<meta name="twitter:description" content="1.对象有状态和行为1.同一类型的每个对象能够有不同的方法行为方法根据实例变量的值来表现不同的行为123456789101112void play()&amp;#123;    soundPlayer.playSound(title);&amp;#125;Song t2 = new Song();t2.setArtist(&amp;quot;Travis&amp;quot;);t2.setTitle(&amp;quot;Sing&amp;quo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-java-方法操作实例变量小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/23/java-方法操作实例变量小结/" class="article-date">
+  <time datetime="2019-05-23T11:54:48.000Z" itemprop="datePublished">2019-05-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java_方法操作实例变量小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-对象有状态和行为"><a href="#1-对象有状态和行为" class="headerlink" title="1.对象有状态和行为"></a>1.对象有状态和行为</h2><p>1.同一类型的每个对象能够有不同的方法行为<br><br><strong>方法根据实例变量的值来表现不同的行为</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">void play()&#123;</span><br><span class="line">    soundPlayer.playSound(title);</span><br><span class="line">&#125;</span><br><span class="line">Song t2 = new Song();</span><br><span class="line">t2.setArtist(&quot;Travis&quot;);</span><br><span class="line">t2.setTitle(&quot;Sing&quot;);</span><br><span class="line">t2.play();</span><br><span class="line">\\调用t2的play()会播放Sing;</span><br><span class="line">t2.setArtist(&quot;Sex Pistols&quot;);</span><br><span class="line">t2.setTitle(&quot;My Way&quot;);</span><br><span class="line">t2.play();</span><br><span class="line">\\调用t2的play()会播放My Way;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="2-方法的参数"><a href="#2-方法的参数" class="headerlink" title="2.方法的参数"></a>2.方法的参数</h2><p>1.传值给方法<br><br><strong>方法会运用形参,调用的一方会传入实参</strong><br><br><strong>形参改变,不影响实参</strong><br><br>实参:是传给方法的值。<br><br>形参:从实参传入的参数,进入方法后就成了形参。<br><br>参数和局部变量是一样的,它有类型和名称<br><br><strong>如果某个方法需要参数，一定得传参数给它，并且该参数得是适当类型的值</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Dog d = new Dog();</span><br><span class="line">d.bark(3);//此处传入&quot;3&quot;这个参数，&quot;3&quot;为实参。</span><br><span class="line">void bark(int numOfBarks)&#123;//&quot;3&quot;这个实参传入bark这个方法中，&quot;numOfBarks&quot;为形参。</span><br><span class="line">    while(numOfBarks &gt; 0)&#123;</span><br><span class="line">        System.out.println(&quot;ruff&quot;);</span><br><span class="line">        numOfBarks = numOfBarks-1;//此处&quot;numOfBarks&quot;这个形参的大小发生改变不影响&quot;3&quot;这个实参的大小。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.从方法中取得返回值<br><br>a.void类型的方法,表示这个方法没有返回任何东西<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void give()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>b.若需返回值,可将方法声明为有返回值类型。但此时必须返回所声明类型的值。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int giveSecret()&#123;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>c.调用具有返回值的变量，该变量的类型需要和方法返回值类型相同</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int theSecret = life.giveSecret();</span><br><span class="line">//变量类型为int</span><br><span class="line">int giveSecret()&#123;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//方法返回值类型为int</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="3-多个参数"><a href="#3-多个参数" class="headerlink" title="3.多个参数"></a>3.多个参数</h2><p>1.方法可有多个参数，在声明的时候用<strong>逗号</strong>隔开，同时传入的时候也是用<strong>逗号</strong>隔开。<br><br><strong>以正确数量、类型和顺序来传递参数</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">void go()&#123;</span><br><span class="line">    int foo = 7;</span><br><span class="line">    int bar = 3;</span><br><span class="line">    t.takeTwo(foo,bar);</span><br><span class="line">&#125;</span><br><span class="line">void takeTwo(num1,num2)&#123;</span><br><span class="line">    int num = num1+num2;</span><br><span class="line">    System.out.println(&quot;Total is &quot;+num);</span><br><span class="line">    //此处会打印出Total is 10。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="4-封装"><a href="#4-封装" class="headerlink" title="4.封装"></a>4.封装</h2><p>1.数据隐藏:使用公用(public)和私有(private)这两个存取修饰符，可以对数据进行隐藏<br><br>2.封装的基本原则:实例变量标记为私有的(private);并提供公有(public)的<strong>getter</strong>与<strong>setter</strong>进行控制存取动作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class GoodGog&#123;</span><br><span class="line">    private int size;</span><br><span class="line">    public  int getSize()&#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">    //获取Size的值</span><br><span class="line">    public  int setSize(int s)&#123;</span><br><span class="line">        size = s;</span><br><span class="line">    &#125;</span><br><span class="line">    //赋值给Size</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class GoodDogTestDrive&#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        GoodDog one = new GoodDog();</span><br><span class="line">        one.SetSize(10);</span><br><span class="line">        //赋值给one的Size为10。</span><br><span class="line">        GoodDog two = new GoodDog();</span><br><span class="line">        two.SetSize(100);</span><br><span class="line">        //赋值给two的Size为100。</span><br><span class="line">        System.out.println(&quot;Dog one: &quot;+one.getSize());</span><br><span class="line">        //此处输出Dog one 10。</span><br><span class="line">        System.out.println(&quot;Dog two: &quot;+two.getSize());</span><br><span class="line">        //此处输出Dog two 100。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjw0lo22q000190tn19yqweus" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/22/Java-primitive主数据类型和引用小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java_primitive主数据类型和引用小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/23/java-方法操作实例变量小结/">java_方法操作实例变量小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/Java-primitive主数据类型和引用小结/">Java_primitive主数据类型和引用小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/PHP的orm搭建/">PHP的orm搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/PHP-MySQL-Nginx/">PHP+MySQL+Nginx</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/17/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
