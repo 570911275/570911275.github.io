@@ -62,6 +62,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-java-继承与多态小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/26/java-继承与多态小结/" class="article-date">
+  <time datetime="2019-05-26T11:00:07.000Z" itemprop="datePublished">2019-05-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/26/java-继承与多态小结/">java_继承与多态小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-继承的设计"><a href="#1-继承的设计" class="headerlink" title="1.继承的设计"></a>1.继承的设计</h2><p>1.找出Class中<strong>共有的部分</strong><br><br>2.提取出<strong>共有部分</strong>,并设计代表共同状态与行为的新的类<br><br>3.将原先的类以称为<strong>继承</strong>的关系连接到新的类上<br><br>//此时原先的类称为”<strong>子类</strong>“，新的类称为”<strong>父类</strong>“。<br><br>//子类会<strong>自动</strong>获得父类的<strong>功能</strong><br><br>4.决定子类是否需要让<strong>某些行为</strong>(也就是<strong>方法的实现</strong>)有特定的<strong>不同的</strong>运作方式<br><br>5.当子类与父类同一方法有所改变时，可进行<strong>覆盖</strong>。<strong>覆盖</strong>:由子类<strong>重新定义</strong>继承下来的方法以<strong>改变或延伸此方法的行为</strong>。<br><br>//此时<strong>调用对象引用的方法</strong>时,会调用到该对象类型<strong>最接近</strong>的方法<br><br>//(也就是先看本人有没有该方法，没有则找父亲有没有，再没有寻找他爷爷，逐级升高)</p>
+<hr>
+
+<h2 id="2-继承的运行方式"><a href="#2-继承的运行方式" class="headerlink" title="2.继承的运行方式"></a>2.继承的运行方式</h2><p>1.类的成员:实例变和方法<br><br>2.继承的关系意味着子类继承了父类的<strong>方法</strong><br><br>&nbsp;&nbsp;&nbsp;a.子类可以加入自己的<strong>实例变量和方法</strong>也可以覆盖掉来自父类的方法。<br><br>&nbsp;&nbsp;&nbsp;b.实例变量无法被覆盖的原因为:不需要。它们并没有定义特殊的行为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">父类:</span><br><span class="line">public class Doctor&#123;</span><br><span class="line">    boolean worksAtHospital;</span><br><span class="line">    void treatPatient()&#123;</span><br><span class="line">        //检查</span><br><span class="line">    &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">子类一:</span><br><span class="line">public class FamilyDoctor extends Doctor&#123;</span><br><span class="line">    boolean makesHouseCalls;</span><br><span class="line">    void giveAdvice();</span><br><span class="line">    //增加新的方法</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">子类二:</span><br><span class="line">public class Surgeon extends Doctor&#123;</span><br><span class="line">    void treatPaient() &#123;</span><br><span class="line">        //手术</span><br><span class="line">    &#125;;</span><br><span class="line">    //覆盖父类方法</span><br><span class="line">    </span><br><span class="line">    void makeIncision() &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="3-继承设计的判断"><a href="#3-继承设计的判断" class="headerlink" title="3.继承设计的判断"></a>3.继承设计的判断</h2><p>1.IS-A:通过IS-A来判断某物是否一个继承另一物<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">三角形是一个多边形    T</span><br><span class="line">黄丫丫是一个人类      T</span><br><span class="line">苹果是香蕉            F</span><br><span class="line">水是水杯              F</span><br></pre></td></tr></table></figure></p>
+<p>2.如果类X是继承类Y的,且类Y是继承类Z的,则X可以通过IS-A Z的测试。<br><br>//即继承具有传递性<br>3.<strong>继承概念下的IS-A是一个单向的概念</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;三角形是一个多边形这个是符合的<br><br>&nbsp;&nbsp;&nbsp;&nbsp;多边形是一个三角形这个是不符合的<br></p>
+<hr>
+
+<h2 id="4-继承的权限限制"><a href="#4-继承的权限限制" class="headerlink" title="4.继承的权限限制"></a>4.继承的权限限制</h2><p>父类可以通过存取权限觉得子类是否能够继承某些特定的成员<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以下4种权限:</span><br><span class="line">最限制  ————————&gt;  最公开</span><br><span class="line">private default protected public</span><br></pre></td></tr></table></figure></p>
+<p>其中<strong>public</strong> 类型的成员会被继承<br><br><strong>private</strong> 类型的成员不会被继承<br></p>
+<hr>
+
+<h2 id="5-继承的意义"><a href="#5-继承的意义" class="headerlink" title="5.继承的意义"></a>5.继承的意义</h2><p>1.避免了<strong>重复的程序代码</strong><br><br>2.定义了<strong>共同的协议</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;//共同协议:在父类中定义方法是,他们会被子类继承。这是在什么说所有继承的类都可以<br>执行这些方法，这里面也包括了<strong>方法的参数和返回类型</strong>。<br></p>
+<hr>
+
+<h2 id="6-多态与一般对象的区别"><a href="#6-多态与一般对象的区别" class="headerlink" title="6.多态与一般对象的区别"></a>6.多态与一般对象的区别</h2><p>1.一般的声明引用和创建对象的方法<br><br><code>Dog myDog = new Dog();</code><br><br>其中<strong>引用类型和对象类型必须相符</strong>,例子中两者都是Dog<br><br>2.多态下的声明引用和创建对象的方法<br><br><code>Animal myDog = new Dog();</code><br><br>其中<strong>多态下引用类型和对象类型可以不相符</strong>,例子中引用类型为Animal,对象类型为Dog。<br></p>
+<hr>
+
+<h2 id="7-多态的运用范围"><a href="#7-多态的运用范围" class="headerlink" title="7.多态的运用范围"></a>7.多态的运用范围</h2><p>1.运用多态时,引用类型可以是<strong>实际对象类的父类</strong>(即继承树上方的类可以引用下方的子类)<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Animal[] animals = new Animal[2];</span><br><span class="line"></span><br><span class="line">animals [0] = new Dog();</span><br><span class="line">animals [1] = new Cat();</span><br><span class="line">//可以用animal 引用任何Animal的子类对象</span><br><span class="line"></span><br><span class="line">for(int i=0; i&lt;animals.length; i++)&#123;</span><br><span class="line">    animals[i].eat();</span><br><span class="line">    //当i为0是会调用Dog的eat();</span><br><span class="line">    //当i为1是会调用Cat的eat();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.<strong>返回类型</strong>和<strong>参数</strong>也可以多态<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Vet&#123;</span><br><span class="line">    public void giveShot(Animal a)&#123;</span><br><span class="line">    //参数可以是任何一种Animal下面的子类的类型对象</span><br><span class="line">        a.makeNoise();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class PetOwner&#123;</span><br><span class="line">    public void start()&#123;</span><br><span class="line">        Vet v = new Vet();</span><br><span class="line">        Dog d = new Dog();</span><br><span class="line">        Hippo h = new Hippo();</span><br><span class="line">        v.giveShot(d);</span><br><span class="line">        //执行Dog的makeNoise方法</span><br><span class="line">        v.giveShot(h);</span><br><span class="line">        //执行Hippo的makeNoise方法</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="8-覆盖的规则与方法的重载"><a href="#8-覆盖的规则与方法的重载" class="headerlink" title="8.覆盖的规则与方法的重载"></a>8.覆盖的规则与方法的重载</h2><p>1.覆盖的规则<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>参数</strong>必须<strong>一样</strong>，且<strong>返回类型必须兼容</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;父类中的方法使用了哪种参数,覆盖此方法的子类也一定要<strong>使用相同的参数</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而无论父类中的方法声明的返回类型是什么,子类必须声明返回<strong>一样的类型</strong>或者<strong>该类型的子类</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>不能降低</strong>方法的<strong>存取权限</strong>(即权限必须相同,或者更加公开)<br><br><br><br>2.方法的重载<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.重载与多态毫无关系。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重载可以有<strong>同一方法</strong>的<strong>多个不同参数版本</strong>以方便调用。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重载只是刚好有<strong>相同名字的方法</strong>,它与多态和继承没有关系。<strong>重载的方法和覆盖的方法不一样</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.重载的返回类型可以不同<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以任意的<strong>改变</strong>重载方法的<strong>返回类型</strong>,只要所有的<strong>覆盖</strong>使用<strong>不同的参数</strong>即可。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;c.重载不能只改变返回类型<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果<strong>只有返回类型不同</strong>,<strong>参数是一样的</strong>。这样是无法通过编译的。重载的条件是<strong>使用不同的参数</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;d.重载可以<strong>更改存取权限</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/26/java-继承与多态小结/" data-id="cjw4u1iul00040wtnuwsgbhbd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java-认识java的API之使用java函数库小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/25/java-认识java的API之使用java函数库小结/" class="article-date">
@@ -106,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/25/java-认识java的API之使用java函数库小结/" data-id="cjw3mkb0m000brctnqwhynq1k" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/25/java-认识java的API之使用java函数库小结/" data-id="cjw4u1iwo000c0wtnmki1ay60" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -156,7 +219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/24/java-编写程序之超强力方法小结/" data-id="cjw3mkb020005rctnw6tllciv" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/24/java-编写程序之超强力方法小结/" data-id="cjw4u1ive00070wtnl2fljemu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -207,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjw3mkazy0004rctnccqm1rdu" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjw4u1ivz000a0wtn12seyhd0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -248,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/Java-primitive主数据类型和引用小结/" data-id="cjw3mkazl0001rctng38xum2z" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/Java-primitive主数据类型和引用小结/" data-id="cjw4u1itx00000wtnxi15jdp8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -300,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/PHP的orm搭建/" data-id="cjw3mkb0k000arctnkei0d9r9" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/PHP的orm搭建/" data-id="cjw4u1ivi00080wtnamzzolqa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -344,7 +407,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjw3mkaye0000rctnyd9jjtmv" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjw4u1iu900010wtnkv2u6uov" class="article-share-link">Share</a>
       
       
     </footer>
@@ -389,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjw3mkazp0002rctnfutgwtl6" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjw4u1iuh00030wtnba4zoiia" class="article-share-link">Share</a>
       
       
     </footer>
@@ -444,6 +507,10 @@
       <ul>
         
           <li>
+            <a href="/2019/05/26/java-继承与多态小结/">java_继承与多态小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/25/java-认识java的API之使用java函数库小结/">java_认识java的API之使用java函数库小结</a>
           </li>
         
@@ -457,10 +524,6 @@
         
           <li>
             <a href="/2019/05/22/Java-primitive主数据类型和引用小结/">Java_primitive主数据类型和引用小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/22/PHP的orm搭建/">PHP的orm搭建</a>
           </li>
         
       </ul>
