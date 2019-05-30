@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>java_数字与静态之上小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.Math的方法1.Math这个类中所有的方法都不需要实例变量值。因为这些方法都是静态的,所有无需Math的实例。只会用到他的类本身。12int x = Math.round(42.2);int y = Math.min(56,12); 2.Math的方法1234567891011121314151617181920Math.random()//返回介于0.0~1.0之间的双精度浮点数doubl">
+<meta name="keywords" content="java_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java_数字与静态之上小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/05/30/java-数字与静态之上小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.Math的方法1.Math这个类中所有的方法都不需要实例变量值。因为这些方法都是静态的,所有无需Math的实例。只会用到他的类本身。12int x = Math.round(42.2);int y = Math.min(56,12); 2.Math的方法1234567891011121314151617181920Math.random()//返回介于0.0~1.0之间的双精度浮点数doubl">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-30T14:46:02.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java_数字与静态之上小结">
+<meta name="twitter:description" content="1.Math的方法1.Math这个类中所有的方法都不需要实例变量值。因为这些方法都是静态的,所有无需Math的实例。只会用到他的类本身。12int x = Math.round(42.2);int y = Math.min(56,12); 2.Math的方法1234567891011121314151617181920Math.random()//返回介于0.0~1.0之间的双精度浮点数doubl">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-java-数字与静态之上小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/30/java-数字与静态之上小结/" class="article-date">
+  <time datetime="2019-05-30T14:45:41.000Z" itemprop="datePublished">2019-05-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java_数字与静态之上小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-Math的方法"><a href="#1-Math的方法" class="headerlink" title="1.Math的方法"></a>1.Math的方法</h2><p>1.Math这个类中<strong>所有的方法</strong>都不需要实例变量值。因为这些方法都是<strong>静态</strong>的,所有<strong>无需Math的实例</strong>。只会用到他的<strong>类</strong>本身。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int x = Math.round(42.2);</span><br><span class="line">int y = Math.min(56,12);</span><br></pre></td></tr></table></figure></p>
+<p>2.Math的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Math.random()</span><br><span class="line">//返回介于0.0~1.0之间的双精度浮点数</span><br><span class="line">double r1 = Math.random();</span><br><span class="line">int r2 = (int) (Math.random() * 5);</span><br><span class="line"></span><br><span class="line">Math.abs()</span><br><span class="line">//返回双精度浮点类型参数的绝对值。</span><br><span class="line">//这个方法有覆盖的版本,传入整数会返回整数,传入双精度浮点数会返回双精度浮点数。</span><br><span class="line">int x = Math.abs(-24); //返回24</span><br><span class="line">double d = Math.abs(240.25); //返回240.25</span><br><span class="line"></span><br><span class="line">Math.min()</span><br><span class="line">//返回两个精度中较小的那一个</span><br><span class="line">//这个有int,long,float或double的覆盖版本</span><br><span class="line">int x = Math.min(24,240); //返回24</span><br><span class="line">double y = Math.min(982.25,654.32); //返回982.25</span><br><span class="line"></span><br><span class="line">Math.max()</span><br><span class="line">//返回两个精度中较大的一个</span><br><span class="line">//同Math.min()一致</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="2-静态方法"><a href="#2-静态方法" class="headerlink" title="2.静态方法"></a>2.静态方法</h2><p>1.非静态方法与静态方法的差别<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.”<strong>static</strong>“这个关键词可以标记出<strong>不需类实例</strong>的方法。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.一个静态方法代表说<strong>一种不依靠实例变量</strong>也就<strong>不需要对象</strong>的行为。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//静态方法中<strong>绝对没有对象</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;c.区别:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;静态方法:<strong>不依靠实例变量</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;非静态方法:<strong>实例变量</strong>的值会<strong>影响到方法</strong>的行为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">非静态方法:</span><br><span class="line">public class Song&#123;</span><br><span class="line">    String title;</span><br><span class="line">    //实例变量将影响方法的行为</span><br><span class="line">    public Song(String t)&#123;</span><br><span class="line">        title = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void play()&#123;</span><br><span class="line">        SoundPlayer player = new SoundPlayer();</span><br><span class="line">        player.playSound(title);</span><br><span class="line">        //&quot;title&quot;的值会决定&quot;play()&quot;的行为</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">静态方法:</span><br><span class="line">public static int min(int a,int b)&#123;</span><br><span class="line">    //返回a与b之间较小的值</span><br><span class="line">    //没有实例变量</span><br><span class="line">    //没有对象</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.静态方法的调用<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.以<strong>类的名称</strong>调用<strong>静态的方法</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Math.min(86,88);</code><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//虽然可以用引用变量的名称调用静态方法但是<strong>不建议</strong>使用。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.以<strong>引用变量的名称</strong>调用<strong>非静态的方法</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Song t2 = new Song();</span><br><span class="line">t2.play();</span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;c.静态方法<strong>不能调用</strong>非静态的变量:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>静态方法</strong>是在<strong>无关特定特定类</strong>的实例情况下执行的。甚至<strong>不会有该类的实例</strong>出现。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为<strong>静态方法是通过类的名称</strong>调用的,所以静态方法<strong>无法引用</strong>到该类的<strong>任何实例变量</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所以静态方法<strong>无法识别</strong>可以使用哪一个实例变量。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Duck&#123;</span><br><span class="line">    private int size;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        System.out.println(&quot;Size of duck is &quot; + size);</span><br><span class="line">        //此刻静态方法&quot;main()&quot;无法得知堆上是否有Duck</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setSize(int s)&#123;</span><br><span class="line">        size = s;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getSize()&#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;d.静态方法<strong>不能调用</strong>非静态方法<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;非静态方法同上是<strong>以实例变量的状态</strong>来影响该<strong>方法</strong>的行为。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同上方c同理<strong>静态方法无法识别</strong>是哪一个实例变量。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//即便非静态方法中<strong>无使用到实例变量</strong>也<strong>无法</strong>通过编译。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//因为<strong>无法确保</strong>之后是否会将非静态方法<strong>改为需要</strong>实例变量的。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//亦或者是无法保证不发生<strong>子类去覆盖</strong>这个方法成有用到实例变量的版本。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Duck&#123;</span><br><span class="line">    private int size;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        System.out.println(&quot;Size of duck is &quot; + getSize());</span><br><span class="line">        //同c一样此刻静态方法&quot;main()&quot;无法识别需要的是哪一个实例变量</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setSize(int s)&#123;</span><br><span class="line">        size = s;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getSize()&#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.静态变量<br><br>静态变量对<strong>所有的实例</strong>来说都相同。<br><br>静态变量是<strong>共享的</strong>。<br><br><strong>同一个类</strong>所有的实例变量<strong>共享一份静态变量</strong>。<br><br>实例变量:每个<strong>实例</strong>一个。<br><br>静态变量:每个<strong>类</strong>一个。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">在构造函数中增加静态变量</span><br><span class="line">class Duck&#123;</span><br><span class="line">    int duckCount = 0;</span><br><span class="line">    public Duck()&#123;</span><br><span class="line">        duckCount++;</span><br><span class="line">        //这无法在创建Duck对象的时候执行递增</span><br><span class="line">        //因为duckCount是一个实例变量</span><br><span class="line">        //所以每个Duck在初始化的时候duckCount的值都是0</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck&#123;</span><br><span class="line">    private int size; </span><br><span class="line">    private static int duckCount = 0;</span><br><span class="line">    //静态变量&quot;duckCount&quot;只有在类第一次载入的时候被初始化</span><br><span class="line">    </span><br><span class="line">    public Duck()&#123;</span><br><span class="line">        duckCount++;</span><br><span class="line">        //每当构造函数执行的时候</span><br><span class="line">        //这个值就会递增</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setSize(int s)&#123;</span><br><span class="line">        size = s;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getSize()&#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>静态变量会在该类的<strong>任何对象</strong>创建之前就完成初始化。<br>静态变量会在该类<strong>任何静态方法</strong>执行之前就初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Player&#123;</span><br><span class="line">    static int palyerCount = 0;</span><br><span class="line">    private String name;</span><br><span class="line">    public Player(String n)&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        playerCount++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public calss PlayerTestDrive&#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        System.out.println(Player.playerCount);</span><br><span class="line">        Player one = new Player(&quot;Tiger Woods&quot;);</span><br><span class="line">        Systrm.out.println(Player.playerCount);</span><br><span class="line">        //静态变量通过类的名称来存取</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出为:</span><br><span class="line">0    //实例创建之前</span><br><span class="line">1    //对象创建之后</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/30/java-数字与静态之上小结/" data-id="cjwarubkh0004lotn2et5r2yh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/29/java-构造器与垃圾回收器之垃圾回收器小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java_构造器与垃圾回收器之垃圾回收器小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/30/java-数字与静态之上小结/">java_数字与静态之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/29/java-构造器与垃圾回收器之垃圾回收器小结/">java_构造器与垃圾回收器之垃圾回收器小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/28/java-构造器与垃圾回收器之构造器小结/">java_构造器与垃圾回收器之构造器小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/27/java-接口与抽象类小结/">java_接口与抽象类小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/26/java-继承与多态小结/">java_继承与多态小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
