@@ -5,20 +5,20 @@
   
 
   
-  <title>java_集合_Collection小结 | Hexo</title>
+  <title>java_IO_数据源与流小结 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Collection接口中定义的方法boolean add(Object element)添加元素到容器中boolean remove(Object element)从容器中移除元素boolean contains(Object element)容器中是否包含该元素int size()容器的元素数量boolean isEmpty()容器是否为空void clear()清空容器中的所有元素Itera">
+  <meta name="description" content="IO之数据源与流1.数据源数据源data source，提供数据的原始媒介。常见的数据源有：数据库、文件、其他程序、内存、网络连接、IO设备。数据源分为：源设备、目标设备。 1.源设备：为程序提供数据，一般对应输入流。 2.目标设备：程序数据的目的地，一般对应输出流。 2.流的概念流是一个抽象、动态的概念，是一连串连续动态的数据集合。对于输入流而言，数据源就像水箱，流(stream)就像水管中流动">
 <meta name="keywords" content="java_基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java_集合_Collection小结">
-<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/index.html">
+<meta property="og:title" content="java_IO_数据源与流小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Collection接口中定义的方法boolean add(Object element)添加元素到容器中boolean remove(Object element)从容器中移除元素boolean contains(Object element)容器中是否包含该元素int size()容器的元素数量boolean isEmpty()容器是否为空void clear()清空容器中的所有元素Itera">
+<meta property="og:description" content="IO之数据源与流1.数据源数据源data source，提供数据的原始媒介。常见的数据源有：数据库、文件、其他程序、内存、网络连接、IO设备。数据源分为：源设备、目标设备。 1.源设备：为程序提供数据，一般对应输入流。 2.目标设备：程序数据的目的地，一般对应输出流。 2.流的概念流是一个抽象、动态的概念，是一连串连续动态的数据集合。对于输入流而言，数据源就像水箱，流(stream)就像水管中流动">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-14T06:29:39.347Z">
+<meta property="og:updated_time" content="2019-07-14T09:35:19.714Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java_集合_Collection小结">
-<meta name="twitter:description" content="Collection接口中定义的方法boolean add(Object element)添加元素到容器中boolean remove(Object element)从容器中移除元素boolean contains(Object element)容器中是否包含该元素int size()容器的元素数量boolean isEmpty()容器是否为空void clear()清空容器中的所有元素Itera">
+<meta name="twitter:title" content="java_IO_数据源与流小结">
+<meta name="twitter:description" content="IO之数据源与流1.数据源数据源data source，提供数据的原始媒介。常见的数据源有：数据库、文件、其他程序、内存、网络连接、IO设备。数据源分为：源设备、目标设备。 1.源设备：为程序提供数据，一般对应输入流。 2.目标设备：程序数据的目的地，一般对应输出流。 2.流的概念流是一个抽象、动态的概念，是一连串连续动态的数据集合。对于输入流而言，数据源就像水箱，流(stream)就像水管中流动">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-集合之Collection接口" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-IO之数据源与流" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/09/集合之Collection接口/" class="article-date">
-  <time datetime="2019-07-09T06:26:41.000Z" itemprop="datePublished">2019-07-09</time>
+    <a href="/2019/07/10/IO之数据源与流/" class="article-date">
+  <time datetime="2019-07-10T09:35:42.000Z" itemprop="datePublished">2019-07-10</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java_集合_Collection小结
+      java_IO_数据源与流小结
     </h1>
   
 
@@ -87,12 +87,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Collection接口中定义的方法"><a href="#Collection接口中定义的方法" class="headerlink" title="Collection接口中定义的方法"></a>Collection接口中定义的方法</h2><p><strong>boolean add(Object element)<br><br>添加元素到容器中<br><br>boolean remove(Object element)<br><br>从容器中移除元素<br><br>boolean contains(Object element)<br><br>容器中是否包含该元素<br><br>int size()<br><br>容器的元素数量<br><br>boolean isEmpty()<br><br>容器是否为空<br><br>void clear()<br><br>清空容器中的所有元素<br><br>Iterator iterator()<br><br>获得迭代器，遍历容器中的所有元素<br><br>boolean addAll(Collection c)<br><br>将C容器中的所有元素添加到容器<br><br>boolean containAll(Collection c)<br><br>本容器是有包含C容器中的所有元素<br><br>boolean removeAll(Collection c)<br><br>移除本容器中所有C容器中的元素<br><br>boolean retainAll(Collection c)<br><br>取本容器和C容器中都包含的元素，移除非交集元素<br><br>Object[] to Array()<br><br>转化成Object数组</strong><br></p>
-
+        <h2 id="IO之数据源与流"><a href="#IO之数据源与流" class="headerlink" title="IO之数据源与流"></a>IO之数据源与流</h2><h3 id="1-数据源"><a href="#1-数据源" class="headerlink" title="1.数据源"></a>1.数据源</h3><p><strong>数据源data source</strong>，提供数据的<strong>原始媒介</strong>。常见的数据源有：数据库、文件、其他程序、内存、网络连接、IO设备。<br>数据源分为：<strong>源设备</strong>、<strong>目标设备</strong>。<br></p>
+<p>1.<strong>源设备</strong>：为程序<strong>提供数据</strong>，一般对应<strong>输入流</strong>。<br></p>
+<p>2.<strong>目标设</strong>备：程序<strong>数据</strong>的<strong>目的地</strong>，一般对应<strong>输出流</strong>。<br></p>
+<h3 id="2-流的概念"><a href="#2-流的概念" class="headerlink" title="2.流的概念"></a>2.流的概念</h3><p>流是一个<strong>抽象、动态</strong>的概念，是<strong>一连串连续动态</strong>的<strong>数据集合</strong>。<br><br><strong>对于输入流</strong>而言，<strong>数据源</strong>就像<strong>水箱</strong>，<strong>流(stream)</strong>就像<strong>水管中流动着的水流</strong>，<strong>程序</strong>就是我们<strong>最终的用户</strong>。我们通过<strong>流(A<br> Stream)将数据源(Source)中的数据(information)输送到程序(Program)中</strong>。<br><br><strong>对于输出流</strong>而言，<strong>目标数据源</strong>就是<strong>目的地(dest)</strong>，我们通过<strong>流(A Stream)将程序(Program)中的数据(information)输送到目的数据源(dest)中</strong>。<br></p>
+<h4 id="输入-输出流的划分是相对程序而言的，并不是相对数据源。"><a href="#输入-输出流的划分是相对程序而言的，并不是相对数据源。" class="headerlink" title="输入/输出流的划分是相对程序而言的，并不是相对数据源。"></a>输入/输出流的划分是相对程序而言的，并不是相对数据源。<br></h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjy2rjivq000sr8tn8eg5ilp1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjy2rjiu60004r8tniz690vkb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -103,19 +106,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/07/09/集合之List的常用方法与特点/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/07/10/IO之流的体系与概念/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          java_集合_List的常用方法与特点小结
+          java_IO_数据源与流小结
         
       </div>
     </a>
   
   
-    <a href="/2019/06/04/java-图形用户接口之下小结/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/10/IO之基本概念/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">java_图形用户接口之下小结</div>
+      <div class="article-nav-title">java_IO_基本概念小结</div>
     </a>
   
 </nav>

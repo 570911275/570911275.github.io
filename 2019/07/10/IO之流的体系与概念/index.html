@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>java_IO_数据源与流小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IO之流的体系与概念1.流的概念1.按流的方向分类： 输入流：数据流向是数据源到程序(以InputStream、Reader结尾的流)。 输出流：数据流向是程序到目的地(以OutPutStream、Writer结尾的流)。  2.按处理的数据单元分类： 字节流：以字节为单位获取数据，命名上以Stream结尾的流一般是字节流，如FileInputStream、FileOutputStream。 字符">
+<meta name="keywords" content="java_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java_IO_数据源与流小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="IO之流的体系与概念1.流的概念1.按流的方向分类： 输入流：数据流向是数据源到程序(以InputStream、Reader结尾的流)。 输出流：数据流向是程序到目的地(以OutPutStream、Writer结尾的流)。  2.按处理的数据单元分类： 字节流：以字节为单位获取数据，命名上以Stream结尾的流一般是字节流，如FileInputStream、FileOutputStream。 字符">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-14T11:06:24.307Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java_IO_数据源与流小结">
+<meta name="twitter:description" content="IO之流的体系与概念1.流的概念1.按流的方向分类： 输入流：数据流向是数据源到程序(以InputStream、Reader结尾的流)。 输出流：数据流向是程序到目的地(以OutPutStream、Writer结尾的流)。  2.按处理的数据单元分类： 字节流：以字节为单位获取数据，命名上以Stream结尾的流一般是字节流，如FileInputStream、FileOutputStream。 字符">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-IO之流的体系与概念" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/10/IO之流的体系与概念/" class="article-date">
+  <time datetime="2019-07-10T11:05:32.000Z" itemprop="datePublished">2019-07-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java_IO_数据源与流小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="IO之流的体系与概念"><a href="#IO之流的体系与概念" class="headerlink" title="IO之流的体系与概念"></a>IO之流的体系与概念</h2><h3 id="1-流的概念"><a href="#1-流的概念" class="headerlink" title="1.流的概念"></a>1.流的概念</h3><h4 id="1-按流的方向分类："><a href="#1-按流的方向分类：" class="headerlink" title="1.按流的方向分类："></a>1.按流的方向分类：</h4><ol>
+<li>输入流：<strong>数据流向</strong>是<strong>数据源到程序</strong>(以InputStream、Reader结尾的流)。</li>
+<li>输出流：<strong>数据流向</strong>是<strong>程序到目的地</strong>(以OutPutStream、Writer结尾的流)。</li>
+</ol>
+<h4 id="2-按处理的数据单元分类："><a href="#2-按处理的数据单元分类：" class="headerlink" title="2.按处理的数据单元分类："></a>2.按处理的数据单元分类：</h4><ol>
+<li>字节流：以<strong>字节为单位获取数据</strong>，命名上以<strong>Stream</strong>结尾的流一般是字节流，如FileInputStream、FileOutputStream。</li>
+<li>字符流：以<strong>字符为单位获取数据</strong>，命名上以<strong>Reader/Writer</strong>结尾的流一般是字符流，如FileReader、FileWriter。</li>
+</ol>
+<h4 id="3-按处理对象不同分类："><a href="#3-按处理对象不同分类：" class="headerlink" title="3.按处理对象不同分类："></a>3.按处理对象不同分类：</h4><ol>
+<li>节点流：可以<strong>直接从数据源或目的地读写数据</strong>，如FileInputStream、FileReader、DataInputStream等。<br></li>
+<li>处理流：<strong>不直接连接到数据源或目的地</strong>，是”<strong>处理流的流</strong>”。通过对其他流的处理提高程序的性能，如BufferedInputStream、BufferedReader等。<strong>处理流也叫包装流</strong>。<br><br><strong>节点流</strong>处于IO操作的<strong>第一线</strong>，所有操作必须通过它们进行;<strong>处理流</strong>可以对<strong>节点流进行包装</strong>，提高性能或提高程序的灵活性。</li>
+</ol>
+<h3 id="2-流的体系"><a href="#2-流的体系" class="headerlink" title="2.流的体系"></a>2.流的体系</h3><ol>
+<li>InputStream/OutputStream<br><br>字节流的抽象类。<br></li>
+<li>Reader/Writer<br><br>字符流的抽象类。<br></li>
+<li>FileInputStream/FileOutputStream<br><br>节点流：以字节为单位直接操作“文件”。<br></li>
+<li>ByteArrayInputStream/ByteArrayOutputStream<br><br>节点流：以字节为单位直接操作“字节数组对象”。<br></li>
+<li>ObjectInputStream/ObjectOutputStream<br><br>处理流：以字节为单位直接操作“对象”。<br></li>
+<li>DataInputStream/DataOutputStream<br><br>处理流：以字节为单位直接操作“基本数据类型与字符串类型”。<br></li>
+<li>FileReader/FileWriter<br><br>节点流：以字符为单位直接操作“文本文件”(注意：只能读写文本文件)。<br></li>
+<li>BufferedReader/BufferedWriter<br><br>处理流：将Reader/Writer对象进行包装，增加缓存功能，提高读写效率。<br></li>
+<li>BufferedInputStream/BufferedOutputStream<br><br>处理流：将InputStream/OutputStream对象进行包装，增加缓存功能，提高 读写效率。<br></li>
+<li>InputStreamReader/OutputStreamWriter<br><br>处理流：将字节流对象转化成字符流对象。<br></li>
+<li>PrintStream<br><br>处理流：将OutputStream进行包装，可以方便地输出字符，更加灵活**<br><h3 id="3-简单的IO操作"><a href="#3-简单的IO操作" class="headerlink" title="3.简单的IO操作"></a>3.简单的IO操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class IOTest1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        BasicTest(&quot;D:/Test/src/IOBasicTest&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public  static  void BasicTest(String src)&#123;</span><br><span class="line">            FileInputStream fis = null;</span><br><span class="line">            try &#123;</span><br><span class="line">                fis = new FileInputStream(src);</span><br><span class="line">                int s1 = fis.read();</span><br><span class="line">                int s2 = fis.read();</span><br><span class="line">                int s3 = fis.read();</span><br><span class="line">                int s4 = fis.read();</span><br><span class="line">                System.out.println(s1);</span><br><span class="line">                System.out.println(s1);</span><br><span class="line">                System.out.println(s2);</span><br><span class="line">                System.out.println(s3);</span><br><span class="line">                System.out.println(s4);</span><br><span class="line">            &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">104</span><br><span class="line">104</span><br><span class="line">101</span><br><span class="line">108</span><br><span class="line">108</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjy2ut3el0000votndny64vzi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/10/IO之数据源与流/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java_IO_数据源与流小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/10/IO之流的体系与概念/">java_IO_数据源与流小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/10/IO之数据源与流/">java_IO_数据源与流小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/10/IO之基本概念/">java_IO_基本概念小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/集合之Map的常用方法与特点/">java_集合_Map的常用方法与特点小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/集合之List下的三种list类型的区别/">java_集合_List下的三种list类型的区别小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
