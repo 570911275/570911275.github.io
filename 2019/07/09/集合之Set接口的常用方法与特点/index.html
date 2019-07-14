@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>java_集合_Set接口的常用方法与特点小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Set接口的常用方法与特点1.Set的特点Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。 2.Set的常用方法Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。 3.Set的常用方法的使用12345678910111213141516171819public class Test">
+<meta name="keywords" content="java_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java_集合_Set接口的常用方法与特点小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Set接口的常用方法与特点1.Set的特点Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。 2.Set的常用方法Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。 3.Set的常用方法的使用12345678910111213141516171819public class Test">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-14T08:59:37.234Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java_集合_Set接口的常用方法与特点小结">
+<meta name="twitter:description" content="Set接口的常用方法与特点1.Set的特点Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。 2.Set的常用方法Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。 3.Set的常用方法的使用12345678910111213141516171819public class Test">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-集合之Set接口的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之Set接口的常用方法与特点/" class="article-date">
+  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java_集合_Set接口的常用方法与特点小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Set接口的常用方法与特点"><a href="#Set接口的常用方法与特点" class="headerlink" title="Set接口的常用方法与特点"></a>Set接口的常用方法与特点</h2><h3 id="1-Set的特点"><a href="#1-Set的特点" class="headerlink" title="1.Set的特点"></a>1.Set的特点</h3><p>Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。</p>
+<h3 id="2-Set的常用方法"><a href="#2-Set的常用方法" class="headerlink" title="2.Set的常用方法"></a>2.Set的常用方法</h3><p>Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。</p>
+<h3 id="3-Set的常用方法的使用"><a href="#3-Set的常用方法的使用" class="headerlink" title="3.Set的常用方法的使用"></a>3.Set的常用方法的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Set&lt;String&gt; s = new HashSet&lt;String&gt;();</span><br><span class="line">        s.add(&quot;hello&quot;);</span><br><span class="line">        s.add(&quot;world&quot;);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(&quot;hello&quot;); //相同的元素不会被加入</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[world, hello]</span><br><span class="line">[world, hello]</span><br><span class="line">[null, world, hello]</span><br><span class="line">[null, world, hello]</span><br></pre></td></tr></table></figure>
+<h3 id="TreeSet和Comparable接口的使用"><a href="#TreeSet和Comparable接口的使用" class="headerlink" title="TreeSet和Comparable接口的使用"></a>TreeSet和Comparable接口的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        User u1 = new User(1001, &quot;高淇&quot;, 18);</span><br><span class="line">        User u2 = new User(2001, &quot;高希希&quot;, 5);</span><br><span class="line">        Set&lt;User&gt; set = new TreeSet&lt;User&gt;();</span><br><span class="line">        set.add(u1);</span><br><span class="line">        set.add(u2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">class User implements Comparable&lt;User&gt; &#123;</span><br><span class="line">    int id;</span><br><span class="line">    String uname;</span><br><span class="line">    int age;</span><br><span class="line"> </span><br><span class="line">    public User(int id, String uname, int age) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">        this.uname = uname;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 返回0 表示 this == obj 返回正数表示 this &gt; obj 返回负数表示 this &lt; obj</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(User o) &#123;</span><br><span class="line">        if (this.id &gt; o.id) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125; else if (this.id &lt; o.id) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjy2qa1r90000zstnjles0uqv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/09/集合之List的常用方法与特点/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          java_集合_List的常用方法与特点小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/09/集合之Collection接口/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java_集合_Collection小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/09/集合之Map的常用方法与特点/">java_集合_Map的常用方法与特点小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/集合之List下的三种list类型的区别/">java_集合_List下的三种list类型的区别小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/集合之Map下三种map类型区别/">java_集合_Map下三种map类型区别小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/集合之List的常用方法与特点/">java_集合_List的常用方法与特点小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/集合之Set接口的常用方法与特点/">java_集合_Set接口的常用方法与特点小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
