@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>java_集合_List下的三种list类型的区别小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="List下的三种list类型的区别1.ArrayListArrayList底层是用数组实现的存储。 特点：查询效率高，增删效率低，线程不安全。我们一般使用它ArrayList底层使用Object数组来存储元素数据。所有的方法，都围绕这个核心的Object数组来开展。数组长度是有限的，而ArrayList是可以存放任意数量的对象，长度不受限制本质上就是通过定义新的更大的数组，将旧数组中的内容拷贝到新">
+<meta name="keywords" content="java_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java_集合_List下的三种list类型的区别小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="List下的三种list类型的区别1.ArrayListArrayList底层是用数组实现的存储。 特点：查询效率高，增删效率低，线程不安全。我们一般使用它ArrayList底层使用Object数组来存储元素数据。所有的方法，都围绕这个核心的Object数组来开展。数组长度是有限的，而ArrayList是可以存放任意数量的对象，长度不受限制本质上就是通过定义新的更大的数组，将旧数组中的内容拷贝到新">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-14T07:26:17.407Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java_集合_List下的三种list类型的区别小结">
+<meta name="twitter:description" content="List下的三种list类型的区别1.ArrayListArrayList底层是用数组实现的存储。 特点：查询效率高，增删效率低，线程不安全。我们一般使用它ArrayList底层使用Object数组来存储元素数据。所有的方法，都围绕这个核心的Object数组来开展。数组长度是有限的，而ArrayList是可以存放任意数量的对象，长度不受限制本质上就是通过定义新的更大的数组，将旧数组中的内容拷贝到新">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-集合之List下的三种list类型的区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之List下的三种list类型的区别/" class="article-date">
+  <time datetime="2019-07-09T07:25:53.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java_集合_List下的三种list类型的区别小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="List下的三种list类型的区别"><a href="#List下的三种list类型的区别" class="headerlink" title="List下的三种list类型的区别"></a>List下的三种list类型的区别</h2><h3 id="1-ArrayList"><a href="#1-ArrayList" class="headerlink" title="1.ArrayList"></a>1.ArrayList</h3><p>ArrayList底层是用<strong>数组</strong>实现的存储。<br> 特点：<strong>查询效率高，增删效率低，线程不安全</strong>。我们一般使用它<br><br>ArrayList底层使用<strong>Object数组</strong>来存储元素数据。所有的方法，都围绕这个核心的Object数组来开展。<br><br><strong>数组</strong>长度是<strong>有</strong>限的，而<strong>ArrayLis</strong>t是可以存放<strong>任意数量</strong>的对象，长度不受限制<br><br>本质上就是通过<strong>定义新的更大的数组</strong>，将<strong>旧数组中的内容拷贝到新数组</strong>，来实现扩容。<br> ArrayList的Object数组初始化长度为10，如果我们存储满了这个数组，需要存储第11个对象，就会定义新的长度更大的数组，并将原数组内容和新的元素一起加入到新数组中<br></p>
+<h3 id="2-LinkedList"><a href="#2-LinkedList" class="headerlink" title="2.LinkedList"></a>2.LinkedList</h3><p>LinkedList底层用<strong>双向链表</strong>实现的存储。<br><br>特点：<strong>查询效率低，增删效率高，线程不安全</strong>。<br><br>双向链表也叫<strong>双链表</strong>，是链表的一种，它的<strong>每个数据节点</strong>中都<strong>有两个指针</strong>，分别指向<strong>前一个节</strong>点和<strong>后一个节点</strong>。所以，从双向链表中的任意一个节点开始，都可以很方便地找到所有节点。<br><br>每个节点都应该有<strong>3部分内容</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  class  Node &#123;</span><br><span class="line">        Node  previous;     //前一个节点</span><br><span class="line">        Object  element;    //本节点保存的数据</span><br><span class="line">        Node  next;         //后一个节点</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-Vector"><a href="#3-Vector" class="headerlink" title="3.Vector"></a>3.Vector</h3><p>Vector底层是用<strong>数组</strong>实现的List，相关的方法都加了<strong>同步检查</strong>，因此“<strong>线程安全,效率低</strong>”。</p>
+<h3 id="4-选用标准"><a href="#4-选用标准" class="headerlink" title="4.选用标准"></a>4.选用标准</h3><ol>
+<li><p>需要<strong>线程安全</strong>时，用<strong>Vector</strong>。</p>
+</li>
+<li><p><strong>不存在线程安全</strong>问题时，并且<strong>查找较</strong>多用<strong>ArrayList</strong>(一般使用它)。</p>
+</li>
+<li><p><strong>不存在线程安全</strong>问题时，<strong>增加或删除元素较</strong>多用<strong>LinkedList</strong>。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjy2mydef000riotn7nwhe9v5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/09/集合之List的常用方法与特点/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java_集合_List的常用方法与特点小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/09/集合之List下的三种list类型的区别/">java_集合_List下的三种list类型的区别小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/集合之List的常用方法与特点/">java_集合_List的常用方法与特点小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/集合之Collection接口/">java_集合_Collection小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/04/java-图形用户接口之下小结/">java_图形用户接口之下小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java-图形用户接口之中小结/">java_图形用户接口之中小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
