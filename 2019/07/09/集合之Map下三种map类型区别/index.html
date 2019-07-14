@@ -5,17 +5,20 @@
   
 
   
-  <title>java_图形用户接口之下小结 | Hexo</title>
+  <title>java_集合_Map下三种map类型区别小结 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="java_基础">
+  <meta name="description" content="Map下三种map类型区别1.HashMapHashMap采用哈希算法实现，是Map接口最常用的实现类。底层采用了哈希表存储数据，我们要求键不能重复，如果发生重复，新的键值对会替换旧的键值对。 HashMap在查找、删除、修改方面都有非常高的效率。 2.TreeMapTreeMap是红黑二叉树的典型实现TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashM">
+<meta name="keywords" content="java_基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java_图形用户接口之下小结">
-<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/index.html">
+<meta property="og:title" content="java_集合_Map下三种map类型区别小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Map下三种map类型区别1.HashMapHashMap采用哈希算法实现，是Map接口最常用的实现类。底层采用了哈希表存储数据，我们要求键不能重复，如果发生重复，新的键值对会替换旧的键值对。 HashMap在查找、删除、修改方面都有非常高的效率。 2.TreeMapTreeMap是红黑二叉树的典型实现TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashM">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-06T11:55:42.003Z">
+<meta property="og:updated_time" content="2019-07-14T08:24:56.640Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java_图形用户接口之下小结">
+<meta name="twitter:title" content="java_集合_Map下三种map类型区别小结">
+<meta name="twitter:description" content="Map下三种map类型区别1.HashMapHashMap采用哈希算法实现，是Map接口最常用的实现类。底层采用了哈希表存储数据，我们要求键不能重复，如果发生重复，新的键值对会替换旧的键值对。 HashMap在查找、删除、修改方面都有非常高的效率。 2.TreeMapTreeMap是红黑二叉树的典型实现TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashM">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -62,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-java-图形用户接口之下小结" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-集合之Map下三种map类型区别" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/06/04/java-图形用户接口之下小结/" class="article-date">
-  <time datetime="2019-06-04T07:36:28.000Z" itemprop="datePublished">2019-06-04</time>
+    <a href="/2019/07/09/集合之Map下三种map类型区别/" class="article-date">
+  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
 </a>
     
   </div>
@@ -76,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java_图形用户接口之下小结
+      java_集合_Map下三种map类型区别小结
     </h1>
   
 
@@ -84,11 +87,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="Map下三种map类型区别"><a href="#Map下三种map类型区别" class="headerlink" title="Map下三种map类型区别"></a>Map下三种map类型区别</h2><h3 id="1-HashMap"><a href="#1-HashMap" class="headerlink" title="1.HashMap"></a>1.HashMap</h3><p>HashMap采用<strong>哈希算法</strong>实现，是Map接口最常用的实现类。<br><br>底层采用了哈希表存储数据，我们要求<strong>键不能重复</strong>，如果发生重复，<strong>新的键值对会替换旧的键值对</strong>。<br> HashMap在<strong>查找、删除、修改</strong>方面都有非常<strong>高的效率</strong>。</p>
+<h3 id="2-TreeMap"><a href="#2-TreeMap" class="headerlink" title="2.TreeMap"></a>2.TreeMap</h3><p>TreeMap是<strong>红黑二叉树</strong>的典型实现<br><br>TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashMap实现了同样的接口Map。<br><br>因此，用法对于调用者来说没有区别。<strong>HashMap效率高于TreeMap</strong>;在<strong>需要排序的Map时才选用TreeMap</strong>。</p>
+<h3 id="3-HashTable"><a href="#3-HashTable" class="headerlink" title="3.HashTable"></a>3.HashTable</h3><p><strong>HashTable类和HashMap用法几乎一样</strong>，底层实现几乎一样，只不过<strong>HashTable</strong>的方法添加了<strong>synchronized关键字</strong>确保<strong>线程</strong>同步检查，效率较低。<br><br>HashMap与HashTable的区别</p>
+<ol>
+<li>HashMap: <strong>线程不安全，效率高</strong>。<strong>允许key或value为null</strong>。<br><ol start="2">
+<li>HashTable: <strong>线程安全，效率低*</strong>。<strong>不允许key或value为null</strong>。</li>
+</ol>
+</li>
+</ol>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjy2og61l0005zgtn99kohm8e" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjy2p1fq5000070tnjwbm92io" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -99,19 +111,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/07/09/集合之Collection接口/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/07/09/集合之List下的三种list类型的区别/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          java_集合_Collection小结
+          java_集合_List下的三种list类型的区别小结
         
       </div>
     </a>
   
   
-    <a href="/2019/06/03/java-图形用户接口之中小结/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/09/集合之List的常用方法与特点/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">java_图形用户接口之中小结</div>
+      <div class="article-nav-title">java_集合_List的常用方法与特点小结</div>
     </a>
   
 </nav>
