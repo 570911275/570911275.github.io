@@ -62,6 +62,46 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-集合之Map的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之Map的常用方法与特点/" class="article-date">
+  <time datetime="2019-07-09T08:07:53.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/集合之Map的常用方法与特点/">java_集合_Map的常用方法与特点小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Map的常用方法与特点"><a href="#Map的常用方法与特点" class="headerlink" title="Map的常用方法与特点"></a>Map的常用方法与特点</h2><h3 id="1-Map的特点"><a href="#1-Map的特点" class="headerlink" title="1. Map的特点"></a>1. Map的特点</h3><p>Map就是用来存储“<strong>键(key)-值(value) 对</strong>”的。<br> Map类中存储的“<strong>键值对</strong>”通过键来标识，所以“键对象”不能重复。</p>
+<h3 id="2-常用方法"><a href="#2-常用方法" class="headerlink" title="2.常用方法"></a>2.常用方法</h3><p><strong>Object put(Object key,Object value)<br><br>存放键值对<br><br>Object get(Object key)<br><br>通过键对象查找得到值对象<br><br>Object remove(Object key)<br><br>删除键对象对应的键值对<br><br>boolean containsKey(Object key)<br><br>Map容器中是否包含键对象对应的键值对<br><br>boolean containsValue(Object Value)<br><br>Map容器中是否包含值对象对应的键值对<br><br>int size()<br><br>包含键值对的数量<br><br>boolean isEmpty()<br><br>Map是否为空<br><br>void putAll(Map t)<br><br>将t的所有键值对存放到本map对象<br><br>void clear()<br><br>清空本map对象所有键值对</strong><br></p>
+<h3 id="3-Map中的常用方法"><a href="#3-Map中的常用方法" class="headerlink" title="3.Map中的常用方法"></a>3.Map中的常用方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class MapTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Map&lt;Integer,String&gt; m1 = new HashMap&lt;Integer,String&gt;();</span><br><span class="line">        Map&lt;Integer,String&gt; m2 = new HashMap&lt;Integer, String&gt;();</span><br><span class="line">        m1.put(1,&quot;one&quot;);</span><br><span class="line">        m1.put(2,&quot;two&quot;);</span><br><span class="line">        m1.put(3,&quot;three&quot;);</span><br><span class="line">        m2.put(1,&quot;一&quot;);</span><br><span class="line">        m2.put(2,&quot;二&quot;);</span><br><span class="line">        System.out.println(m1.size());</span><br><span class="line">        System.out.println(m1.containsKey(1));</span><br><span class="line">        System.out.println(m2.containsValue(&quot;two&quot;));</span><br><span class="line">        m1.put(3,&quot;third&quot;);</span><br><span class="line">        Map&lt;Integer,String&gt; m3 = new HashMap&lt;Integer, String&gt;();</span><br><span class="line">        m3.putAll(m1);</span><br><span class="line">        m3.putAll(m2);</span><br><span class="line">        System.out.println(&quot;m1&quot;+m1);</span><br><span class="line">        System.out.println(&quot;m2&quot;+m2);</span><br><span class="line">        System.out.println(&quot;m3&quot;+m3);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">3</span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">m1&#123;1=one, 2=two, 3=third&#125;</span><br><span class="line">m2&#123;1=一, 2=二&#125;</span><br><span class="line">m3&#123;1=一, 2=二, 3=third&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjy2ofi020000swtncsfrt4u5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-集合之List下的三种list类型的区别" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/09/集合之List下的三种list类型的区别/" class="article-date">
@@ -99,7 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjy2mydef000riotn7nwhe9v5" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjy2mzrqg000qxgtn9rssru9o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -142,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjy2mydel000tiotnybpilagl" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjy2mzrqk000sxgtn8rr6v5g4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -181,7 +221,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjy2myde5000liotn7f2viyq5" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjy2mzrqd000oxgtn1ivdkolm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -219,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjy2mydcd0005iotn9zs2m57w" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjy2mzrp70005xgtn9qb2e1fq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -257,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/03/java-图形用户接口之中小结/" data-id="cjy2mydd80009iotn20f8eb33" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/03/java-图形用户接口之中小结/" data-id="cjy2mzrpa0006xgtn9qjnycpg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -295,7 +335,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/02/java-图形用户接口之上小结/" data-id="cjy2mydcb0004iotn45x1v8dd" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/02/java-图形用户接口之上小结/" data-id="cjy2mzrpd0008xgtngm3im4v6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -363,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/01/java-异常处理小结/" data-id="cjy2mydf5000xiotn1deabt9i" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/01/java-异常处理小结/" data-id="cjy2mzrrj000xxgtnt5ztj6hm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -417,7 +457,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/31/java-数字与静态之下小结/" data-id="cjy2myddg000ciotn3h0o8t5z" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/31/java-数字与静态之下小结/" data-id="cjy2mzrpw000gxgtn1yrbdlhs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -465,48 +505,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/30/java-数字与静态之上小结/" data-id="cjy2myddy000hiotn0cofp4xx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-构造器与垃圾回收器之垃圾回收器小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/29/java-构造器与垃圾回收器之垃圾回收器小结/" class="article-date">
-  <time datetime="2019-05-29T15:34:46.000Z" itemprop="datePublished">2019-05-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/29/java-构造器与垃圾回收器之垃圾回收器小结/">java_构造器与垃圾回收器之垃圾回收器小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><p>1.引用永久性的离开他的返回<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class StackRef&#123;</span><br><span class="line">    public void foof()&#123;</span><br><span class="line">    //foof()处于栈上,无声明变量</span><br><span class="line">        barf();</span><br><span class="line">    //barf()处于栈上</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void barf()&#123;</span><br><span class="line">        Duck d = new Duck();</span><br><span class="line">    //创建一个对象以及他的引用</span><br><span class="line">    //barf()执行完毕</span><br><span class="line">    //引用彻底的离开</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2.引用被赋值到其他的对象上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">pubilc class ReRef&#123;</span><br><span class="line">    Duck d = new Duck();</span><br><span class="line">    //创建一个对象以及他的引用&quot;d&quot;</span><br><span class="line">    </span><br><span class="line">    public void go()&#123;</span><br><span class="line">        d = new Duck();</span><br><span class="line">    //引用&quot;d&quot;被赋值给新的Duck对象</span><br><span class="line">    //原先的Duck对象无引用所以死亡</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>3.直接将引用设定成null<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class ReRef&#123;</span><br><span class="line">    Duck d = new Duck();</span><br><span class="line">    //创建一个对象以及他的引用&quot;d&quot;</span><br><span class="line">    </span><br><span class="line">    public void go()&#123;</span><br><span class="line">        d = null;</span><br><span class="line">    //引用&quot;d&quot;被赋值为null</span><br><span class="line">    //原先的Duck对象无引用死亡</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/29/java-构造器与垃圾回收器之垃圾回收器小结/" data-id="cjy2myddq000fiotnz11nao65" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/30/java-数字与静态之上小结/" data-id="cjy2mzrpl000cxgtngo33tah9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -522,7 +521,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -568,6 +567,10 @@
       <ul>
         
           <li>
+            <a href="/2019/07/09/集合之Map的常用方法与特点/">java_集合_Map的常用方法与特点小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/09/集合之List下的三种list类型的区别/">java_集合_List下的三种list类型的区别小结</a>
           </li>
         
@@ -581,10 +584,6 @@
         
           <li>
             <a href="/2019/06/04/java-图形用户接口之下小结/">java_图形用户接口之下小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/06/03/java-图形用户接口之中小结/">java_图形用户接口之中小结</a>
           </li>
         
       </ul>
