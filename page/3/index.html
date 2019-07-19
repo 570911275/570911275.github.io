@@ -62,6 +62,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-java-接口与抽象类小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/27/java-接口与抽象类小结/" class="article-date">
+  <time datetime="2019-05-27T15:01:14.000Z" itemprop="datePublished">2019-05-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/27/java-接口与抽象类小结/">java_接口与抽象类小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-抽象类与具体类"><a href="#1-抽象类与具体类" class="headerlink" title="1.抽象类与具体类"></a>1.抽象类与具体类</h2><p>1.<strong>抽象类</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.有些类不该被<strong>初始化</strong>,则通过<strong>标记类为抽象类</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//抽象类仍可以作为<strong>引用类型</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//抽象类<strong>不可被初始化</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.抽象类<strong>除了被继承过</strong>之外,是<strong>没有用途</strong>、<strong>没有值</strong>、<strong>没有目的</strong>的。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">abstract public class Canine extends Animal</span><br><span class="line">&#123;</span><br><span class="line">    //定义一个抽象类&quot;Canine&quot;;</span><br><span class="line">    public void roam();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class MakeCanine&#123;</span><br><span class="line">    public void go()&#123;</span><br><span class="line">        Canine c;</span><br><span class="line">        c = new Dog;</span><br><span class="line">        //此处是可以通过编译器的;</span><br><span class="line">        //因为可以赋值子类对象给父类的引用&quot;c&quot;。即使该父类&quot;Canine&quot;为抽象的。</span><br><span class="line">        c = new Canine();</span><br><span class="line">        //此处是不可以通过编译器的;</span><br><span class="line">        //因为这个类&quot;Canine&quot;已经被标记为抽象的了。不可以被初始化</span><br><span class="line">        c.roam();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.<strong>具体类</strong><br><br>不是抽象的类,就是<strong>具体类</strong><br></p>
+<hr>
+
+<h2 id="2-抽象的方法"><a href="#2-抽象的方法" class="headerlink" title="2.抽象的方法"></a>2.抽象的方法</h2><p>1.除了类之外,也可以将<strong>方法</strong>标记为”<strong>abstract</strong>“。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>抽象的类</strong>代表此类<strong>必须要被继承”extend”过</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>抽象的方法</strong>代表此方法<strong>必须要被覆盖过</strong>。<br><br><br>2.抽象的方法<strong>没有实体</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;//因为抽象的方法<strong>必须要被覆盖</strong>,所以编写出抽象方法的代码<strong>没有意义</strong>(即不会含有方法在其中)。<br><br><br>3.抽象的方法<strong>所在的类</strong>必须为<strong>抽象</strong>的<br><br>&nbsp;&nbsp;&nbsp;&nbsp;//就算<strong>只有一个</strong>方法是抽象的,该类也必须为<strong>抽象类</strong>。<br><br>4.抽象方法的<strong>意义</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.抽象的意义在于:就算无法实现出方法的的内容，但是还可以定义出一组<strong>子型共同的协议</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.好处:利于多态。这样所有的子型都会有那些抽象的方法。<br><br><br>5.抽象方法的<strong>要求</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong><em>第一个具体类</em></strong>必须实现<strong>所有</strong>的<strong>抽象方法</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//必须实现所有的方法:表示必须<strong>写出内容</strong>,必须以<strong>相同的方法</strong>鉴名(<strong>名称</strong>和<strong>参数</strong>)和<strong>相容的返回类型</strong>创建出<strong>非抽象的方法</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.抽象类可以带有<strong>抽象</strong>的和<strong>非抽象</strong>的方法。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//这表示抽象类可以<strong>实现部分抽象方法</strong>,这样<strong>第一个具体类</strong>就可以<strong>不必去实现</strong>这一部分。<br></p>
+<hr>
+
+<h2 id="3-对象之母——Object"><a href="#3-对象之母——Object" class="headerlink" title="3.对象之母——Object"></a>3.对象之母——Object</h2><p>1.<strong>在java中所有的类都是从Object这个类继承出来的</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>Object</strong>是<strong>所有类的源头</strong>,他是<strong>所有类的父类</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.如果java中<strong>没有共同的父类</strong>,讲<strong>无法创建</strong>出可以处理<strong>自定义类型的类</strong>(即无法写出如同<strong>ArrayList</strong>这样可以<strong>处理各种类的类</strong>)。<br><br><br>2.<strong>没有继承</strong>过其他类的类会是<strong>隐含的继承对象</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;//如同”Dog”这个类<strong>没有直接继承”extend”对象”Object”</strong>,但是还是会<strong>通过”Dog”的父类</strong>“Animal”来<strong>继承对象”Object”</strong>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">关于上述1——b的ArrayList</span><br><span class="line">ArrayList:</span><br><span class="line">boolean remove(Object elem)</span><br><span class="line">//根据索引参数移动对象,如果list中没有元素返回true。</span><br><span class="line"></span><br><span class="line">boolean contains(Object elem)</span><br><span class="line">//如果和对象的参数相匹配的话返回true</span><br><span class="line"></span><br><span class="line">int indexOf(Object elem)</span><br><span class="line">//返回对象参数的索引或-1</span><br><span class="line"></span><br><span class="line">由上述例子可知,许多的ArrayList的方法都用到了Object这个终极类型。</span><br><span class="line">因为每个类都是对象&quot;Object&quot;的子类,所以ArrayList可以处理任何类。</span><br></pre></td></tr></table></figure></p>
+<p>3.<strong>Object中的方法</strong>(部分)<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">1.equals(Object o) 判断是否相等</span><br><span class="line">eg:</span><br><span class="line">Dog d = new Dog();</span><br><span class="line">Cat c = new Cat();</span><br><span class="line">if(d.equals(c))&#123;</span><br><span class="line">    System.out.println(&quot;true&quot;);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    System.out.println(&quot;false&quot;);</span><br><span class="line">&#125;</span><br><span class="line">//此处打印出&quot;flase&quot;</span><br><span class="line"></span><br><span class="line">2.getClass() 告知用户对象是从哪里被初始化的</span><br><span class="line">eg:</span><br><span class="line">Cat c = new Cat();</span><br><span class="line">Systrm.out.println(c.getClass())</span><br><span class="line">//此处打印出&quot;class Cat&quot;</span><br><span class="line"></span><br><span class="line">3.hashCode() 列出此对象的哈希代码(如同唯一的ID)</span><br><span class="line">eg:</span><br><span class="line">Cat c = new Cat();</span><br><span class="line">Systrm.out.println(c.hashCode())</span><br><span class="line">//此处打印出&quot;8202111&quot;</span><br><span class="line"></span><br><span class="line">4.toString() 列出类的名称和一串数字</span><br><span class="line">eg:</span><br><span class="line">Cat c = new Cat();</span><br><span class="line">Systrm.out.println(c.toString())</span><br><span class="line">//此处打印出&quot;Cat@7d277f&quot;</span><br></pre></td></tr></table></figure></p>
+<p>4.使用<strong>Object类型的多态引用</strong>的后果<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.此处<strong>不涉及</strong>制作出<strong>Object类型的实例</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.任何<strong>被Object类型的引用变量</strong>所引用的对象,将被编译器认为为<strong>Object类型</strong>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">正常的:</span><br><span class="line">ArrayList&lt;Dog&gt; myDogArrayList = new ArrayList&lt;Dog&gt;();</span><br><span class="line">//保存Dog的Arraylist</span><br><span class="line">Dog aDog = new Dog();</span><br><span class="line">//新建一个Dog</span><br><span class="line">myDogArrayList.add(aDog);</span><br><span class="line">//将aDog放入ArrayList中</span><br><span class="line">Dog d = myDogArrayList.get(0);</span><br><span class="line">//讲Dog赋值给新的Dog引用变量</span><br><span class="line"></span><br><span class="line">Object类型的引用变量下:</span><br><span class="line">ArrayList&lt;Object&gt; myDogArrayList = new ArrayList&lt;Object&gt;();</span><br><span class="line">//保存Object的Arraylist</span><br><span class="line">Dog aDog = new Dog();</span><br><span class="line">//新建一个Dog</span><br><span class="line">myDogArrayList.add(aDog);</span><br><span class="line">//将aDog放入ArrayList中</span><br><span class="line">Dog d = myDogArrayList.get(0);</span><br><span class="line">//此处无法通过编译器</span><br><span class="line">//因为对ArrayList&lt;Object&gt;调用get()方法会返回Object类型</span><br><span class="line">//编译器无法确认它为Dog</span><br><span class="line">//即任何从ArrayList&lt;Object&gt;中取出的Object都会被当做是Object这个类的实例。</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="4-引用类型"><a href="#4-引用类型" class="headerlink" title="4.引用类型"></a>4.引用类型</h2><p>1.从上述3——4——b中可以得知当<strong>引用类型改变</strong>时,编译器将<strong>无法识别原先的类型</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;//即引用仍为<strong>同一个引用</strong>,但是<strong>引用类型</strong>已经发生了<strong>改变</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">3——4——b的修改方法:</span><br><span class="line">ArrayList&lt;Object&gt; myDogArrayList = new ArrayList&lt;Object&gt;();</span><br><span class="line">Dog aDog = new Dog();</span><br><span class="line">myDogArrayList.add(aDog);</span><br><span class="line">Object d = myDogArrayList.get(0);</span><br><span class="line">//这样则可以通过编译</span><br></pre></td></tr></table></figure></p>
+<p>2.编译器是<strong>根据引用类型</strong>来<strong>判断</strong>有<strong>哪些方法”method”可以调用</strong>的,而<strong>不是根据</strong>Object<strong>确实的类型</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;//即便用户知道对象有这个功能,但是编译器只会把他当成<strong>一般的Object</strong>来看待。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;//即他只能调用<strong>Object内所含有的方法</strong>。编译器只管<strong>引用的类型</strong>,而<strong>不是对象的类型</strong>。<br></p>
+<hr>
+
+<h2 id="5-对象类型的装换"><a href="#5-对象类型的装换" class="headerlink" title="5.对象类型的装换"></a>5.对象类型的装换</h2><p>1.<strong>可以确认</strong>该变量为什么类型,并且<strong>希望调用该变量本身类型的方法</strong>。则可以将其<strong>声明</strong>为<strong>该变量本身类型</strong>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object o = al.get(index);</span><br><span class="line">Dog d = (Dog) o ;</span><br><span class="line">//o本身类型为Dog的情况下</span><br><span class="line">//可以通过此方式进行类型转换</span><br><span class="line">d.roam();</span><br></pre></td></tr></table></figure></p>
+<p>2.<strong>无法确认</strong>变量类型时,可以通过使用<strong>“instanceof”</strong>这个<strong>运算符</strong>来<strong>进行检查</strong>。如果类型转换错误,则在执行期将遇到<strong>“ClassCastException”异常</strong>并且<strong>终止</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(o instanceof Dog)&#123;</span><br><span class="line">    Dog d = (Dog) o ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="6-接口"><a href="#6-接口" class="headerlink" title="6.接口"></a>6.接口</h2><p>1.接口的<strong>定义与实现</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">接口的定义:</span><br><span class="line">public interface Pet&#123;...&#125;</span><br><span class="line">//使用&quot;interface&quot;来代替&quot;class&quot;</span><br><span class="line"></span><br><span class="line">接口的实现:</span><br><span class="line">public class Dog extends Canine impements Pet&#123;...&#125;</span><br><span class="line">//使用&quot;implements&quot;这个关键词</span><br></pre></td></tr></table></figure></p>
+<p>2.接口中的<strong>方法</strong><br><br>接口中<strong>全部的</strong>方法都是<strong>抽象的</strong>。<br><br>这样子类则必须实现此方法。可解决”致命方块”问题。<br><br>3.接口的<strong>意义</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>利于多态</strong>,接口具有<strong>无比的适用性</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//使用接口取代<strong>具体的子类</strong>或<strong>抽象的父类</strong>作为<strong>参数或返回类型</strong>。则可以<strong>传入任何</strong>有<strong>实现该接口</strong>的东西。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.继承<strong>超过一个以上</strong>的来源<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//使用接口的情况下,类有<strong>继承”extend”过某个父类</strong>并且<strong>实现其他的接口</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//同时<strong>其他的类</strong>也可以实现<strong>同一个接口</strong>。<br><br><br>4.<strong>不同继承树的类</strong>也可以实现<strong>相同的接口</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.当把一个<strong>类</strong>作为<strong>多态类型</strong>运用时,<strong>相同的类型</strong>必定来自<strong>同一个继承树</strong>。并且为<strong>该多态类型的子类</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.当把<strong>接口</strong>作为<strong>多态类型</strong>运用时,对象就可以来自<strong>任何的地方</strong>了。<strong>唯一的条件是该对象必须是来自有实现此接口的类</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;c.类可以实现<strong>多个接口</strong><br><br><code>public class Dog extends Animal implements Pet, Saveable, paintable{...}</code><br><br><br>5.<strong>设计类</strong>、<strong>子类</strong>、<strong>抽象类</strong>、<strong>接口</strong>的判断<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.如果新的类无法对其他的类通过IS-A的测试时,就设计不继承其他类的类。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.只有在需要某类的特殊版本时,以覆盖或增加新的方法来继承现有的类。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;c.当你需要定义一群子类的模版,又不想让程序初始化此模版时,设计出抽象的类给。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;d.如果想要定义出类可以扮演的角色,使用接口。<br></p>
+<hr>
+
+<h2 id="7-调用父类的方法"><a href="#7-调用父类的方法" class="headerlink" title="7.调用父类的方法"></a>7.调用父类的方法</h2><p>当想要调用父类中的方法时,可以使用<strong>“super”</strong>这个关键词在<strong>子类中调用父类</strong>的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">abstract class Report&#123;</span><br><span class="line">    void runReport()&#123;</span><br><span class="line">        //设置报告</span><br><span class="line">    &#125;</span><br><span class="line">    void printReport()&#123;</span><br><span class="line">        //输出</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class BuzzwordsReport extends Report&#123;</span><br><span class="line">    void runReport()&#123;</span><br><span class="line">        super.runReport();</span><br><span class="line">        //调用父类的方法</span><br><span class="line">        buzzwordCompliance();</span><br><span class="line">        printReport();</span><br><span class="line">    &#125;</span><br><span class="line">    void buzzwordCompliance()&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/27/java-接口与抽象类小结/" data-id="cjy9j9tiv001f6ctnld0h40vi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java-继承与多态小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/26/java-继承与多态小结/" class="article-date">
@@ -113,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/26/java-继承与多态小结/" data-id="cjy9j62hz000uagtnl080lkps" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/26/java-继承与多态小结/" data-id="cjy9j9tht000u6ctng84iyf9w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -169,7 +232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/25/java-认识java的API之使用java函数库小结/" data-id="cjy9j62jo0018agtnf4vp3s90" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/25/java-认识java的API之使用java函数库小结/" data-id="cjy9j9tj0001i6ctnwlnv5u1d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -219,7 +282,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/24/java-编写程序之超强力方法小结/" data-id="cjy9j62i6000yagtnqyqbp9sm" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/24/java-编写程序之超强力方法小结/" data-id="cjy9j9ti0000y6ctnla870xoc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -270,7 +333,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjy9j62hs000qagtnr5ngilrb" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjy9j9thq000s6ctngt8468ib" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -311,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/Java-primitive主数据类型和引用小结/" data-id="cjy9j62g80005agtnd958dy8l" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/Java-primitive主数据类型和引用小结/" data-id="cjy9j9tg800046ctnm85cf813" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -363,7 +426,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/PHP的orm搭建/" data-id="cjy9j62ja0013agtn7td56wph" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/PHP的orm搭建/" data-id="cjy9j9tit001e6ctngaujdkio" class="article-share-link">Share</a>
       
       
     </footer>
@@ -407,7 +470,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjy9j62go000aagtnan5aj6z4" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjy9j9tgt000d6ctnlo2rh36c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -452,7 +515,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjy9j62gu000dagtnyft6eow2" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjy9j9tgn000a6ctn2yzygu50" class="article-share-link">Share</a>
       
       
     </footer>
@@ -512,6 +575,10 @@
       <ul>
         
           <li>
+            <a href="/2019/07/16/JavaEE之Http协议小结/">JavaEE之Http协议小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/16/JavaEE之Servlit小结/">JavaEE之Servlit小结</a>
           </li>
         
@@ -525,10 +592,6 @@
         
           <li>
             <a href="/2019/07/10/IO之数据源与流/">java_IO_数据源与流小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/10/IO之基本概念/">java_IO_基本概念小结</a>
           </li>
         
       </ul>
