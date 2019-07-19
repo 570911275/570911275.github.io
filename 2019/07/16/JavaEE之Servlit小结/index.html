@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Java_primitive主数据类型和引用小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Servlet: server applet* 一、概念：运行在服务器端的小程序     * Servlet就是一个接口，定义了Java类被浏览器访问到(tomcat)识别的规则。     * 将来我们自定义一个类，实现Servlet接口，复写方法   * 二、快速入门：     1. 创建JavaEE项目     2. 定义一个类，实现Servlet接口     public class Ser">
+<meta name="keywords" content="javaEE_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java_primitive主数据类型和引用小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Servlet: server applet* 一、概念：运行在服务器端的小程序     * Servlet就是一个接口，定义了Java类被浏览器访问到(tomcat)识别的规则。     * 将来我们自定义一个类，实现Servlet接口，复写方法   * 二、快速入门：     1. 创建JavaEE项目     2. 定义一个类，实现Servlet接口     public class Ser">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-19T03:13:56.046Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java_primitive主数据类型和引用小结">
+<meta name="twitter:description" content="Servlet: server applet* 一、概念：运行在服务器端的小程序     * Servlet就是一个接口，定义了Java类被浏览器访问到(tomcat)识别的规则。     * 将来我们自定义一个类，实现Servlet接口，复写方法   * 二、快速入门：     1. 创建JavaEE项目     2. 定义一个类，实现Servlet接口     public class Ser">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaEE之Servlit小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/16/JavaEE之Servlit小结/" class="article-date">
+  <time datetime="2019-07-16T03:13:38.000Z" itemprop="datePublished">2019-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java_primitive主数据类型和引用小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Servlet-server-applet"><a href="#Servlet-server-applet" class="headerlink" title="Servlet: server applet"></a>Servlet: server applet</h2><pre><code>* 一、概念：运行在服务器端的小程序
+    * Servlet就是一个接口，定义了Java类被浏览器访问到(tomcat)识别的规则。
+    * 将来我们自定义一个类，实现Servlet接口，复写方法
+
+
+* 二、快速入门：
+    1. 创建JavaEE项目
+    2. 定义一个类，实现Servlet接口
+    public class ServletDemo01 implements Servlet 
+    3. 实现接口中的抽象方法
+    4. 配置Serlet:在web.xml中配置
+        &lt;!--配置Servlet--&gt;
+        &lt;servlet&gt;
+           &lt;servlet-name&gt;demo01&lt;/servlet-name&gt;
+           &lt;servlet-class&gt;cn.itcast.web.servlet.ServletDemo01&lt;/servlet-class&gt;
+        &lt;/servlet&gt;
+        &lt;servlet-mapping&gt;
+           &lt;servlet-name&gt;demo01&lt;/servlet-name&gt;
+           &lt;url-pattern&gt;/demo01&lt;/url-pattern&gt;
+        &lt;/servlet-mapping&gt;
+
+
+ * 三、执行原理：
+     1.当服务器接受到客户端浏览器的请求后，会解析请求URL路径，获取访问的Servlet的资源路径
+     2.查找web.xml文件，是否有对应的&lt;url-pattern&gt;标签体内容。
+     3.如果有，则在找到对应的&lt;servlet-class&gt;全类名
+     4.Tomcat会将字节码文件加载进内存，并且创建其对象
+     5.调用其方法
+
+
+ * 四、Servlet中的生命周期：
+     1. 被创建：执行init方法，只执行一次
+         *Servlet什么时候被创建？
+            *默认情况下，第一次被访问时，Servlet被创建
+            *可以配置执行Servlet的创建时机。
+               *在&lt;servlet&gt;标签下配置
+                 1.第一次被访问时，创建
+                     *&lt;load-on-startup&gt;的值为负数
+                 2.在服务器启动时，创建
+                     *&lt;load-on-startup&gt;的值为0或者正整数
+         *Servlet的init方法，只执行一次，说明一个Servlet在内存中只存在一个对象，说明Servlet是单例的
+            *多个用户同时访问时，可能存在线程安全问题
+            *解决：尽量不要在Servlet中定义成员变量，即使定义了成员变量，也不要对其修改值(当有的线程在读取时，有的线程进行了修改，则会发生线程错误)；
+
+     2. 提供服务：执行service方法，执行多次
+         *每次访问Servlet时，Service方法都会被调用一次
+     3. 被销毁：执行destroy方法，只执行一次
+         *Servlet被销毁时执行。服务器关闭时，Servlet被销毁
+         *只有服务器正常关闭时，才会执行destroy方法 
+         *destroy方法在Servlet被销毁之前执行，一般用来释放资源
+
+
+  * 五、Servlet3.0：
+      *好处：
+           *支持注解配置，可以不需要web.xml了
+      *步骤：
+         1. 创建JavaEE项目，选择Servlet的版本3.0以上，可以不创建web.xml
+         2. 定义一个类，实现Servlet接口
+         3. 复写方法
+         4. 在类上使用@webServlet注解，进行配置
+             *@WebServlet(&quot;Demo01//资源路径&quot;)
+
+
+   * 六、Servlet的体系结构
+      Servlet -- 接口
+          |
+      GenericServlet -- 抽象类
+          |
+      HttpServlet -- 抽象类
+
+      *GenericServlet:将Servlet接口中其他的方法做了默认空实现，只将service（）方法作为抽象
+         *将来定义Servlet类时，可以继承GenericServlet，实现service()方法即可  
+
+      *HttpServlet:对http协议的一种封装，简化操作
+         1.定义类继承HTTPServlet
+         2.复写doGet/doPost方法
+</code></pre><h2 id="IDEA和Tomcat的配置"><a href="#IDEA和Tomcat的配置" class="headerlink" title="IDEA和Tomcat的配置"></a>IDEA和Tomcat的配置</h2><pre><code>1.IDEA会为每一个Tomcat部署的项目单独建立一份配置文件
+   *查看控制台的log：Using CATALINA_BASE:  &quot;C:\Users\fqy\.IntellijIdea2018.1\system.tomcat\_itcast&quot;
+2.工作空间项目 和 Tomcat部署的web项目
+   *Tomcat真正访问的是“Tomcat部署的web项目”，“Tomcat部署的web项目”对应着“工作空间项目”的web目录下的所有资源   
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjy9j55bf000098tnlpb48wab" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/10/IO之四大抽象类/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java_IO_四大抽象类小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 10px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 20px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/16/JavaEE之Servlit小结/">Java_primitive主数据类型和引用小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/10/IO之四大抽象类/">java_IO_四大抽象类小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/10/IO之流的体系与概念/">java_IO_数据源与流小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/10/IO之数据源与流/">java_IO_数据源与流小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/10/IO之基本概念/">java_IO_基本概念小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

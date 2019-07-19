@@ -5,20 +5,20 @@
   
 
   
-  <title>java_集合_Collection小结 | Hexo</title>
+  <title>java_IO_四大抽象类小结 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Collection接口中定义的方法boolean add(Object element)添加元素到容器中boolean remove(Object element)从容器中移除元素boolean contains(Object element)容器中是否包含该元素int size()容器的元素数量boolean isEmpty()容器是否为空void clear()清空容器中的所有元素Itera">
+  <meta name="description" content="IO之四大抽象类·InputStream 此抽象类是表示字节输入流的所有类的父类。InputSteam是一个抽象类，它不可以实例化。 数据的读取需要由它的子类来实现。根据节点的不同，它派生了不同的节点流子类 。  继承自InputSteam的流都是用于向程序中输入数据，且数据的单位为字节(8 bit)。  常用方法：  int read()：读取一个字节的数据，并将字节的值作为int类型返回(0-">
 <meta name="keywords" content="java_基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java_集合_Collection小结">
-<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/index.html">
+<meta property="og:title" content="java_IO_四大抽象类小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Collection接口中定义的方法boolean add(Object element)添加元素到容器中boolean remove(Object element)从容器中移除元素boolean contains(Object element)容器中是否包含该元素int size()容器的元素数量boolean isEmpty()容器是否为空void clear()清空容器中的所有元素Itera">
+<meta property="og:description" content="IO之四大抽象类·InputStream 此抽象类是表示字节输入流的所有类的父类。InputSteam是一个抽象类，它不可以实例化。 数据的读取需要由它的子类来实现。根据节点的不同，它派生了不同的节点流子类 。  继承自InputSteam的流都是用于向程序中输入数据，且数据的单位为字节(8 bit)。  常用方法：  int read()：读取一个字节的数据，并将字节的值作为int类型返回(0-">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-14T06:29:39.347Z">
+<meta property="og:updated_time" content="2019-07-14T11:18:13.708Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java_集合_Collection小结">
-<meta name="twitter:description" content="Collection接口中定义的方法boolean add(Object element)添加元素到容器中boolean remove(Object element)从容器中移除元素boolean contains(Object element)容器中是否包含该元素int size()容器的元素数量boolean isEmpty()容器是否为空void clear()清空容器中的所有元素Itera">
+<meta name="twitter:title" content="java_IO_四大抽象类小结">
+<meta name="twitter:description" content="IO之四大抽象类·InputStream 此抽象类是表示字节输入流的所有类的父类。InputSteam是一个抽象类，它不可以实例化。 数据的读取需要由它的子类来实现。根据节点的不同，它派生了不同的节点流子类 。  继承自InputSteam的流都是用于向程序中输入数据，且数据的单位为字节(8 bit)。  常用方法：  int read()：读取一个字节的数据，并将字节的值作为int类型返回(0-">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-集合之Collection接口" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-IO之四大抽象类" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/09/集合之Collection接口/" class="article-date">
-  <time datetime="2019-07-09T06:26:41.000Z" itemprop="datePublished">2019-07-09</time>
+    <a href="/2019/07/10/IO之四大抽象类/" class="article-date">
+  <time datetime="2019-07-10T11:18:43.000Z" itemprop="datePublished">2019-07-10</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java_集合_Collection小结
+      java_IO_四大抽象类小结
     </h1>
   
 
@@ -87,12 +87,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Collection接口中定义的方法"><a href="#Collection接口中定义的方法" class="headerlink" title="Collection接口中定义的方法"></a>Collection接口中定义的方法</h2><p><strong>boolean add(Object element)<br><br>添加元素到容器中<br><br>boolean remove(Object element)<br><br>从容器中移除元素<br><br>boolean contains(Object element)<br><br>容器中是否包含该元素<br><br>int size()<br><br>容器的元素数量<br><br>boolean isEmpty()<br><br>容器是否为空<br><br>void clear()<br><br>清空容器中的所有元素<br><br>Iterator iterator()<br><br>获得迭代器，遍历容器中的所有元素<br><br>boolean addAll(Collection c)<br><br>将C容器中的所有元素添加到容器<br><br>boolean containAll(Collection c)<br><br>本容器是有包含C容器中的所有元素<br><br>boolean removeAll(Collection c)<br><br>移除本容器中所有C容器中的元素<br><br>boolean retainAll(Collection c)<br><br>取本容器和C容器中都包含的元素，移除非交集元素<br><br>Object[] to Array()<br><br>转化成Object数组</strong><br></p>
+        <h2 id="IO之四大抽象类"><a href="#IO之四大抽象类" class="headerlink" title="IO之四大抽象类"></a>IO之四大抽象类</h2><p>·InputStream</p>
+<pre><code>此抽象类是表示字节输入流的所有类的父类。InputSteam是一个抽象类，它不可以实例化。 数据的读取需要由它的子类来实现。根据节点的不同，它派生了不同的节点流子类 。
 
+继承自InputSteam的流都是用于向程序中输入数据，且数据的单位为字节(8 bit)。
+
+常用方法：
+
+int read()：读取一个字节的数据，并将字节的值作为int类型返回(0-255之间的一个值)。如果未读出字节则返回-1(返回值为-1表示读取结束)。
+
+void close()：关闭输入流对象，释放相关系统资源。
+</code></pre><p>· OutputStream</p>
+<pre><code>此抽象类是表示字节输出流的所有类的父类。输出流接收输出字节并将这些字节发送到某个目的地。
+
+常用方法：
+
+void write(int n)：向目的地中写入一个字节。
+
+void close()：关闭输出流对象，释放相关系统资源。
+</code></pre><p>· Reader</p>
+<pre><code>Reader用于读取的字符流抽象类，数据单位为字符。
+
+int read(): 读取一个字符的数据，并将字符的值作为int类型返回(0-65535之间的一个值，即Unicode值)。如果未读出字符则返回-1(返回值为-1表示读取结束)。
+
+void close() ： 关闭流对象，释放相关系统资源。
+</code></pre><p>· Writer</p>
+<pre><code>Writer用于写入的字符流抽象类，数据单位为字符。
+
+void write(int n)： 向输出流中写入一个字符。
+
+void close() ： 关闭输出流对象，释放相关系统资源。
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjy2utty00015i0tnm0rn6jq0" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjy2v7rg1001gi0tn4fvbq49k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -103,19 +132,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/07/09/集合之Map下三种map类型区别/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/07/16/JavaEE之Servlit小结/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          java_集合_Map下三种map类型区别小结
+          Java_primitive主数据类型和引用小结
         
       </div>
     </a>
   
   
-    <a href="/2019/06/04/java-图形用户接口之下小结/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/10/IO之流的体系与概念/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">java_图形用户接口之下小结</div>
+      <div class="article-nav-title">java_IO_数据源与流小结</div>
     </a>
   
 </nav>
