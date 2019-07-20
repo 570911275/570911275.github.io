@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaEE之Request小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Request:1.request对象和response对象的原理     1.request和response对象是由服务器创建的，我们使用它们     2.request对象是来获取请求信息，response对象是来设置响应消息   2.request的继承体系结构：      ServletRequest  --  接口             |  继承      HTTPServletR">
+<meta name="keywords" content="javaEE_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE之Request小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Request:1.request对象和response对象的原理     1.request和response对象是由服务器创建的，我们使用它们     2.request对象是来获取请求信息，response对象是来设置响应消息   2.request的继承体系结构：      ServletRequest  --  接口             |  继承      HTTPServletR">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-20T06:22:29.298Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaEE之Request小结">
+<meta name="twitter:description" content="Request:1.request对象和response对象的原理     1.request和response对象是由服务器创建的，我们使用它们     2.request对象是来获取请求信息，response对象是来设置响应消息   2.request的继承体系结构：      ServletRequest  --  接口             |  继承      HTTPServletR">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaEE之Request小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/17/JavaEE之Request小结/" class="article-date">
+  <time datetime="2019-07-17T06:22:39.000Z" itemprop="datePublished">2019-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaEE之Request小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Request"><a href="#Request" class="headerlink" title="Request:"></a>Request:</h2><pre><code>1.request对象和response对象的原理
+    1.request和response对象是由服务器创建的，我们使用它们
+    2.request对象是来获取请求信息，response对象是来设置响应消息
+
+
+2.request的继承体系结构：
+     ServletRequest  --  接口
+            |  继承
+     HTTPServletRequest  --  接口
+            |  实现
+     org.apache.catalina.connector.RequestFacade 类(Tomcat)
+
+
+3.request功能：
+
+   1.获取请求消息数据
+       1.获取请求行数据
+           *GET /day14/demo0\?name=zhangsan HTTP/1.1
+           *方法：
+       //1.获取请求方式：GET
+       String method = request.getMethod();
+   System.out.println(method);
+
+       (*)//2.获取虚拟目录：/day14
+       String ContestPath = request.getContextPath();
+   System.out.println(ContestPath);
+
+       //3.获取Servlet路径：/demo01
+       String ServletPath = request.getServletPath();
+   System.out.println(ServletPath);
+
+       //4.获取get方式请求参数：name=zhangsan
+       String Query = request.getQueryString();
+   System.out.println(Query);
+
+       (*)//5.获取请求URI：/day14、demo01
+       String RequestURI = request.getRequestURI();   // /day14/demo01
+   System.out.println(RequestURI);
+       StringBuffer RequestURL = request.getRequestURL();  //http://localhost/day14/demo01
+
+       //6.获取协议及版本：HTTP/1.1
+       String Protocol = request.getProtocol();
+   System.out.println(Protocol);
+
+       //7.获取客户机的IP地址
+       String Remote = request.getRemoteAddr();
+   System.out.println(Remote);
+
+       2.获取请求头数据
+           *方法：
+               *（*）String getHeader(String name);通过请求头的名称获取头的值
+               *Enumeration&lt;String&gt; getHeaderNames();获取所有的请求名称
+       3.获取请求体数据
+               *请求体：只有POST请求方式，才有请求体，在请求体中封装了POST请求的请求参数
+               *步骤：
+                   1.获取流对象
+                        *BufferedReader getReader();获取字符输入流，只能操作字符数据
+                        *ServletInputStream getInputStream();获取字节数据，可以操作所有类型的数据
+
+                   2.再从流对象中拿数据
+
+   2.其他功能：
+        1.获取请求参数通用方式
+            1.String getParameter(String name):根据参数名称获取参数值   username=zs&amp;password=123
+            2.String[] getParameterValues(String name):根据参数名称获取参数值的数组，多用于复选框  hobby=xx&amp;hobby=game
+            3.EnUmeration&lt;String&gt; getParameterNames():获取所有请求的参数名称
+            4.Map&lt;String,String[]&gt; getParameterMap():获取所有参数的map集合
+
+                 *中文乱码问题：
+                      *get方式：Tomcat8以上已经解决
+                      *post方式：在获取参数钱，设置request的编码request.setCharacterEncoding(&quot;utf-8);
+        2.请求转发：一种在服务器内部的资源跳转方式
+             1.步骤：
+                 1.通过request对象获取请求转发器对象 ：RequestDispatcher getRequestDispatcher(String path)
+                 2.使用RequestDispatcher对象来进行转发：forWord(ServletRequest request，ServletResponse response)
+             2.特点：
+                 1.浏览器地址路径不发生变化
+                 2.只能转发到当前服务器内部资源中
+                 3.转发是一次请求
+        3.共享数据：
+             *域对象：一个有作用范围的对象，可以在范围内共享数据
+             *request域：代表一次请求的范围，一般用于请求转发的多个资源中共享数据
+             *方法：
+                1.void setAttribute(String name,Object obj):存储数据
+                2.Object getAttitude(String name:通过键获取值
+                3.void removeAttribute(String name):通过键移除键值对
+        4.获取ServletContest：
+             *ServletContext getServletContext（）
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjyb5bgqa0000z4tn8h0prorv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/16/JavaEE之Http协议小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaEE之Http协议小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 10px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 20px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/17/JavaEE之Request小结/">JavaEE之Request小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/16/JavaEE之Http协议小结/">JavaEE之Http协议小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/16/JavaEE之Servlit小结/">JavaEE之Servlit小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/10/IO之四大抽象类/">java_IO_四大抽象类小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/10/IO之流的体系与概念/">java_IO_数据源与流小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
