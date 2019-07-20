@@ -62,6 +62,136 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之Response小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/17/JavaEE之Response小结/" class="article-date">
+  <time datetime="2019-07-17T13:57:05.000Z" itemprop="datePublished">2019-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/17/JavaEE之Response小结/">JavaEE之Response小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Response对象"><a href="#Response对象" class="headerlink" title="Response对象"></a>Response对象</h2><pre><code>*功能：设置响应消息
+   1.设置响应行
+       1.格式：HTTP、1.1 200 ok
+       2.设置状态码：setStatus(int sc)
+
+   2.设置响应头:setHeader(String name,String value)
+
+   3.设置响应体:
+       *使用步骤：
+           1.获取输出流
+                *字符输出流：PrintWriter getWriter()
+                *字节输出流：ServletOutputStream getOutputStream()
+           2.使用输出流将数据输出到客户端浏览器
+
+*案例：
+   1.完成重定向
+      *重定向：资源跳转的方式
+
+      *代码实现：
+        //访问这个资源，会自动跳转到、responseDemo02资源
+        //1.设置状态码为302
+        response.setStatus(302);
+        //设置响应头location
+        response.setHeader(&quot;location&quot;,&quot;/day15/responseDemo02&quot;);
+
+        //简单的重定向方法
+        response.sendRedirect(&quot;/day15/responseDemo02&quot;);
+
+       *重定向的特点：redirect
+            1.地址栏路径发生变化
+            2.重定向可以访问其他站点(服务器)下的资源
+            3.重定向是两次请求，不能使用request对象来共享数据
+       *转发的特点(转发也是资源跳转的方式)：forward
+            1.转发地址栏路径不变
+            2.转发只能访问当前服务器下的资源
+            3.转发是一次请求，可以使用request对象来共享数据
+
+       *forward和redirect的区别
+
+       *路径写法：
+           1.路径分类：
+                1.相对路径：通过相对路径不可以确定唯一资源(jsp中不推荐使用)
+                     *如：./index.html
+                     *不以/开头，以.开头路径
+                     *规则：确定当前资源和目标资源直接的相对位置关系
+                        *./：当前目录
+                        *../:后退一级目录
+
+                2.绝对路径：通过绝对路径可以确定唯一资源  
+                     *如：http://localhost:8080/day15/responseDemo02      简化：/day15/responseDemo02
+                     *以/开头的路径
+                     *规则：判断定义的路径是给谁用的？判断请求从哪儿发出
+                        *给客户端浏览器使用：需要加虚拟目录（项目的访问路径）
+                         (重定向是客户端使用，需要加虚拟目录)(建议动态获取)
+                        *给服务器使用：不需要加虚拟目录
+                        （转发是给服务器使用，可以不加虚拟目录）
+                     *动态获取虚拟目录:
+                         String contextPath = request.getContextPath();
+
+
+   2.服务器输出字符数据到浏览器
+       *步骤：
+          1.获取字符输出流
+          2.输出数据
+       *乱码原因：编解码的字符集不一样
+          1.字符集默认：GBK
+          2.解决方法：
+            1.PrintWriter pw = response.getWriter();获取的流的默认编码为ISO-8859-1
+            2.设置该流的默认编码
+            3.告诉浏览器响应体使用的编码
+              //获取流对象之前，设置流的默认编码
+              response.setCharacterEncoding(&quot;GBK&quot;);
+
+              //告诉浏览器，服务器发送的消息的数据的编码，建议浏览器使用该编码解码
+              //包含了上一步
+              response.setHeader(&quot;content-type&quot;,&quot;text/html;charset=utf-8&quot;);
+
+              //简单的形式，设置编码
+              //为上一步的简化形式
+              response.setContentType(&quot;text/html;charset=utf-8&quot;);
+
+
+   3.服务器输出字节数据到浏览器
+       *步骤：
+          1.获取字符输出流
+          2.输出数据
+       *response.setContentType(&quot;text/html;charset=utf-8&quot;);同样要加上此句
+
+
+   4.验证码
+      1.本质：图片
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">    int width = 100;</span><br><span class="line">    int height = 50;</span><br><span class="line">    //1.创建一对象，在内存中图片(验证码图片对象)</span><br><span class="line">    BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);</span><br><span class="line"></span><br><span class="line">    //2.美化图片</span><br><span class="line">    //2.1填充背景色</span><br><span class="line">    Graphics gs = image.getGraphics();//画笔对象</span><br><span class="line">    gs.setColor(Color.PINK);</span><br><span class="line">    gs.fillRect(0,0,width,height);</span><br><span class="line">    //2.2</span><br><span class="line">    gs.setColor(Color.BLUE);</span><br><span class="line">    gs.drawRect(0,0,width-1,height-1);</span><br><span class="line">    //2.3写验证码</span><br><span class="line">    String str =&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&quot;;</span><br><span class="line">    //生成随机角标</span><br><span class="line">    Random ran = new Random();</span><br><span class="line"></span><br><span class="line">    for(int i=0;i&lt;4;i++) &#123;</span><br><span class="line">        int index = ran.nextInt(str.length());</span><br><span class="line">        //获取字符</span><br><span class="line">        char ch = str.charAt(index);//随机字符</span><br><span class="line">        gs.drawString(ch+&quot;&quot;, width/5*i, height/2);</span><br><span class="line">    &#125;</span><br><span class="line">    //2.4画干扰线</span><br><span class="line">    gs.setColor(Color.GREEN);</span><br><span class="line">    //随机生成坐标点</span><br><span class="line">   for(int i=0;i&lt;10;i++)&#123;</span><br><span class="line">       int x1 = ran.nextInt(width);</span><br><span class="line">       int x2 = ran.nextInt(width);</span><br><span class="line">       int y1 = ran.nextInt(height);</span><br><span class="line">       int y2 = ran.nextInt(height);</span><br><span class="line">       gs.drawLine(x1,x2,y1,y2);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    //3.将图片输出到页面展示</span><br><span class="line">    ImageIO.write(image,&quot;jpg&quot;,response.getOutputStream());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        window.onload = function()&#123;</span><br><span class="line">            //1.获取图片对象</span><br><span class="line">            var img = document.getElementById(&quot;checkCode&quot;);</span><br><span class="line">            //2.绑定单击事件</span><br><span class="line">            img.onclick = function()&#123;</span><br><span class="line">                //加时间戳</span><br><span class="line">                var date = new Date().getTime();</span><br><span class="line"></span><br><span class="line">                img.src = &quot;/day15/checkCodeServlet?&quot;+date;</span><br><span class="line">            &#125;</span><br><span class="line">            //1.获取图片对象</span><br><span class="line">            var path = document.getElementById(&quot;change&quot;);</span><br><span class="line">            //2.绑定单击事件</span><br><span class="line">            path.onclick = function()&#123;</span><br><span class="line">                //加时间戳</span><br><span class="line">                var date = new Date().getTime();</span><br><span class="line"></span><br><span class="line">                path.src = &quot;/day15/checkCodeServlet?&quot;+date;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">         &lt;img id=&quot;checkCode&quot; src=&quot;/day15/checkCodeServlet&quot;/&gt;</span><br><span class="line">         &lt;a id=&quot;change&quot; href=&quot;&quot;&gt;看不清换一张&lt;/a&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Response小结/" data-id="cjybllgip0000sotnw8v2cdko" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之Http协议下小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/17/JavaEE之Http协议下小结/" class="article-date">
@@ -132,7 +262,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjybbhgvk00004wtnnrl5dl3o" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjybbj8dy0008wctntyf59axq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -258,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjyb5cqn9000cagtnjg6tcgpx" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjybbj8eb000dwctn6zg5oe1s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -351,7 +481,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjyb5cqne000eagtnnbv1y9va" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjybbj8e4000awctn6ui2gfs9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -469,7 +599,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjyb5cqni000gagtnrkx3vivu" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjybbj8eq000iwctnuooo0lxz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -537,7 +667,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjyb5cql90000agtnrx20hsjr" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjybbj8cn0000wctnk3b6jaxa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -600,7 +730,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjyb5cqll0001agtnlbttgru4" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjybbj8df0003wctnmcg628d0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -642,7 +772,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjyb5cqlv0003agtne92xqrow" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjybbj8do0005wctnisilkh3c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -690,7 +820,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjyb5cqly0004agtn3iboxzxf" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjybbj8d30001wctneew2ffe5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -730,56 +860,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjyb5cqp9001dagtn5fa3897a" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-集合之List下的三种list类型的区别" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/09/集合之List下的三种list类型的区别/" class="article-date">
-  <time datetime="2019-07-09T07:25:53.000Z" itemprop="datePublished">2019-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之List下的三种list类型的区别/">java_集合_List下的三种list类型的区别小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="List下的三种list类型的区别"><a href="#List下的三种list类型的区别" class="headerlink" title="List下的三种list类型的区别"></a>List下的三种list类型的区别</h2><h3 id="1-ArrayList"><a href="#1-ArrayList" class="headerlink" title="1.ArrayList"></a>1.ArrayList</h3><p>ArrayList底层是用<strong>数组</strong>实现的存储。<br> 特点：<strong>查询效率高，增删效率低，线程不安全</strong>。我们一般使用它<br><br>ArrayList底层使用<strong>Object数组</strong>来存储元素数据。所有的方法，都围绕这个核心的Object数组来开展。<br><br><strong>数组</strong>长度是<strong>有</strong>限的，而<strong>ArrayLis</strong>t是可以存放<strong>任意数量</strong>的对象，长度不受限制<br><br>本质上就是通过<strong>定义新的更大的数组</strong>，将<strong>旧数组中的内容拷贝到新数组</strong>，来实现扩容。<br> ArrayList的Object数组初始化长度为10，如果我们存储满了这个数组，需要存储第11个对象，就会定义新的长度更大的数组，并将原数组内容和新的元素一起加入到新数组中<br></p>
-<h3 id="2-LinkedList"><a href="#2-LinkedList" class="headerlink" title="2.LinkedList"></a>2.LinkedList</h3><p>LinkedList底层用<strong>双向链表</strong>实现的存储。<br><br>特点：<strong>查询效率低，增删效率高，线程不安全</strong>。<br><br>双向链表也叫<strong>双链表</strong>，是链表的一种，它的<strong>每个数据节点</strong>中都<strong>有两个指针</strong>，分别指向<strong>前一个节</strong>点和<strong>后一个节点</strong>。所以，从双向链表中的任意一个节点开始，都可以很方便地找到所有节点。<br><br>每个节点都应该有<strong>3部分内容</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  class  Node &#123;</span><br><span class="line">        Node  previous;     //前一个节点</span><br><span class="line">        Object  element;    //本节点保存的数据</span><br><span class="line">        Node  next;         //后一个节点</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-Vector"><a href="#3-Vector" class="headerlink" title="3.Vector"></a>3.Vector</h3><p>Vector底层是用<strong>数组</strong>实现的List，相关的方法都加了<strong>同步检查</strong>，因此“<strong>线程安全,效率低</strong>”。</p>
-<h3 id="4-选用标准"><a href="#4-选用标准" class="headerlink" title="4.选用标准"></a>4.选用标准</h3><ol>
-<li><p>需要<strong>线程安全</strong>时，用<strong>Vector</strong>。</p>
-</li>
-<li><p><strong>不存在线程安全</strong>问题时，并且<strong>查找较</strong>多用<strong>ArrayList</strong>(一般使用它)。</p>
-</li>
-<li><p><strong>不存在线程安全</strong>问题时，<strong>增加或删除元素较</strong>多用<strong>LinkedList</strong>。</p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjyb5cqp00017agtn0toh0qcd" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjybbj8ja001mwctnyqak9qra" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -841,6 +922,10 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       <ul>
         
           <li>
+            <a href="/2019/07/17/JavaEE之Response小结/">JavaEE之Response小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/17/JavaEE之Http协议下小结/">JavaEE之Http协议下小结</a>
           </li>
         
@@ -854,10 +939,6 @@ void close() ： 关闭输出流对象，释放相关系统资源。
         
           <li>
             <a href="/2019/07/16/JavaEE之Servlit小结/">JavaEE之Servlit小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/10/IO之四大抽象类/">java_IO_四大抽象类小结</a>
           </li>
         
       </ul>
