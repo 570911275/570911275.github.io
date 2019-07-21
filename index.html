@@ -62,6 +62,97 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之Cookie小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/18/JavaEE之Cookie小结/" class="article-date">
+  <time datetime="2019-07-18T07:22:03.000Z" itemprop="datePublished">2019-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/18/JavaEE之Cookie小结/">JavaEE之Cookie小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><pre><code>1.概念：客户端会话技术，将数据保存到客户端
+
+2.快速入门：
+    *使用步骤：
+       1.创建Cookie对象，绑定数据
+            *new Cookie(String name,String value)
+       2.发送Cookie对象
+            *response,addCookie(Cookie cookie)
+       3.获取Cookie，拿到数据
+            *Cookie[] request.getCookies()\
+
+3.实现原理：
+    *基于响应头set-cookie和请求头cookie实现
+
+4.Cookie的细节：
+     1.一次可不可以发送多个Cookie？
+         *可以
+         *可以创建多个Cookie对象，使用response调用多次addCookie方法发送Cookie即可。
+
+     2.Cookie在浏览器中保存多长时间？
+         1.默认情况下：当浏览器关闭后，Cookie数据被销毁
+         2.持久化存储：
+                *setMaxAge(int seconds)
+                   1.正数：将Cookie数据写到硬盘的文件中。持久化存储。cookie存活时间
+                   2.负数：默认值
+                   3.零：删除Cookie信息
+
+     3.Cookie能不能存中文？
+          *在Tomcat8 之前 cookie中不能直接存储中文数据。
+                 *需要将中文数据转码 ----一般采用URL编码(%)
+          *在Tomcat8 之后 cookie支持中文数据。
+
+     4.Cookie共享问题？
+         1.*假设在一个Tomcat服务器中，部署了多个web项目，那么在这些web项目中cookie能不能共享？
+              *默认情况下cookie不能共享
+
+              *setPath（String path）:设置cookie的获取范围。默认情况下，设置当前的虚拟目录
+              *如果要共享，则可以将path设置为“/” ；setPath（/）此情况下，可使得不同项目之间相互共享 
+
+         2.不同的Tomcat服务器间cookie共享问题？
+               *调用setDomain(String path//字符串的一个域名)：如果设置一级域名相同，那么多个服务器之间可以共享
+                    *setDomain（“.baidu.com）；
+                        那么tieba.baidu.com和news.baidu.com之间可以共享
+
+ 5. Cookie的特点和作用：
+      1. cookie存储数据在客户端浏览器
+              *存储在客户端的数据，相较不安全，易被串改获取
+
+      2. 浏览器对于单个cookie的大小有限制（4k）以及对同一个域名下的总Cookie数量有所限制(一般在20个以内) 
+
+      *作用：
+          1.cookie一般用于存储少量的不太敏感的数据
+          2.在不登录的情况下，完成服务器对客户端的身份识别
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjycmw33s0022e8tnf60r7k6g" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之会话技术概念小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/18/JavaEE之会话技术概念小结/" class="article-date">
@@ -98,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之会话技术概念小结/" data-id="cjycjathq000024tneysxhr25" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之会话技术概念小结/" data-id="cjycjbp1w000me8tn8hzt7vtu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -181,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjyceydwp000d1ctn0w1g9itw" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjycjbp16000ee8tn254vjvwm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -311,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Response小结/" data-id="cjyceydx1000i1ctnxzuc63m1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Response小结/" data-id="cjycjbp0q0008e8tnlneklmbo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -393,7 +484,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjyceydwk000a1ctnrwvkisvb" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjycjbp0j0005e8tng0w8awg0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -519,7 +610,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjyceydwd00081ctnzpub79dx" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjycjbp1g000he8tnjxkojkg3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -612,7 +703,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjyceydws000f1ctn39ch5hp5" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjycjbp0y000ae8tnk81c1xh5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -730,7 +821,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjyceydxd000m1ctndo76w0z5" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjycjbp1j000je8tniubeuga6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -798,7 +889,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjyceydw300041ctn1gdl3txk" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjycjbozk0000e8tnjt3jbhde" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -861,49 +952,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjyceydw600051ctnay6hr8go" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-IO之数据源与流" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/10/IO之数据源与流/" class="article-date">
-  <time datetime="2019-07-10T09:35:42.000Z" itemprop="datePublished">2019-07-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/10/IO之数据源与流/">java_IO_数据源与流小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="IO之数据源与流"><a href="#IO之数据源与流" class="headerlink" title="IO之数据源与流"></a>IO之数据源与流</h2><h3 id="1-数据源"><a href="#1-数据源" class="headerlink" title="1.数据源"></a>1.数据源</h3><p><strong>数据源data source</strong>，提供数据的<strong>原始媒介</strong>。常见的数据源有：数据库、文件、其他程序、内存、网络连接、IO设备。<br>数据源分为：<strong>源设备</strong>、<strong>目标设备</strong>。<br></p>
-<p>1.<strong>源设备</strong>：为程序<strong>提供数据</strong>，一般对应<strong>输入流</strong>。<br></p>
-<p>2.<strong>目标设</strong>备：程序<strong>数据</strong>的<strong>目的地</strong>，一般对应<strong>输出流</strong>。<br></p>
-<h3 id="2-流的概念"><a href="#2-流的概念" class="headerlink" title="2.流的概念"></a>2.流的概念</h3><p>流是一个<strong>抽象、动态</strong>的概念，是<strong>一连串连续动态</strong>的<strong>数据集合</strong>。<br><br><strong>对于输入流</strong>而言，<strong>数据源</strong>就像<strong>水箱</strong>，<strong>流(stream)</strong>就像<strong>水管中流动着的水流</strong>，<strong>程序</strong>就是我们<strong>最终的用户</strong>。我们通过<strong>流(A<br> Stream)将数据源(Source)中的数据(information)输送到程序(Program)中</strong>。<br><br><strong>对于输出流</strong>而言，<strong>目标数据源</strong>就是<strong>目的地(dest)</strong>，我们通过<strong>流(A Stream)将程序(Program)中的数据(information)输送到目的数据源(dest)中</strong>。<br></p>
-<h4 id="输入-输出流的划分是相对程序而言的，并不是相对数据源。"><a href="#输入-输出流的划分是相对程序而言的，并不是相对数据源。" class="headerlink" title="输入/输出流的划分是相对程序而言的，并不是相对数据源。"></a>输入/输出流的划分是相对程序而言的，并不是相对数据源。<br></h4>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjyceydvp00011ctnnkh2g2ol" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjycjbp0f0004e8tnzdvzn7ba" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -965,6 +1014,10 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       <ul>
         
           <li>
+            <a href="/2019/07/18/JavaEE之Cookie小结/">JavaEE之Cookie小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/18/JavaEE之会话技术概念小结/">JavaEE之会话技术概念小结</a>
           </li>
         
@@ -978,10 +1031,6 @@ void close() ： 关闭输出流对象，释放相关系统资源。
         
           <li>
             <a href="/2019/07/17/JavaEE之Http协议下小结/">JavaEE之Http协议下小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/17/JavaEE之Request小结/">JavaEE之Request小结</a>
           </li>
         
       </ul>

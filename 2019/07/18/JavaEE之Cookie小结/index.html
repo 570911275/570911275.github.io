@@ -5,20 +5,20 @@
   
 
   
-  <title>java_IO_四大抽象类小结 | Hexo</title>
+  <title>JavaEE之Cookie小结 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="IO之四大抽象类·InputStream 此抽象类是表示字节输入流的所有类的父类。InputSteam是一个抽象类，它不可以实例化。 数据的读取需要由它的子类来实现。根据节点的不同，它派生了不同的节点流子类 。  继承自InputSteam的流都是用于向程序中输入数据，且数据的单位为字节(8 bit)。  常用方法：  int read()：读取一个字节的数据，并将字节的值作为int类型返回(0-">
-<meta name="keywords" content="java_基础">
+  <meta name="description" content="Cookie1.概念：客户端会话技术，将数据保存到客户端  2.快速入门：     *使用步骤：        1.创建Cookie对象，绑定数据             *new Cookie(String name,String value)        2.发送Cookie对象             *response,addCookie(Cookie cookie)        3.">
+<meta name="keywords" content="javaEE_基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java_IO_四大抽象类小结">
-<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/index.html">
+<meta property="og:title" content="JavaEE之Cookie小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="IO之四大抽象类·InputStream 此抽象类是表示字节输入流的所有类的父类。InputSteam是一个抽象类，它不可以实例化。 数据的读取需要由它的子类来实现。根据节点的不同，它派生了不同的节点流子类 。  继承自InputSteam的流都是用于向程序中输入数据，且数据的单位为字节(8 bit)。  常用方法：  int read()：读取一个字节的数据，并将字节的值作为int类型返回(0-">
+<meta property="og:description" content="Cookie1.概念：客户端会话技术，将数据保存到客户端  2.快速入门：     *使用步骤：        1.创建Cookie对象，绑定数据             *new Cookie(String name,String value)        2.发送Cookie对象             *response,addCookie(Cookie cookie)        3.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-14T11:18:13.708Z">
+<meta property="og:updated_time" content="2019-07-21T07:22:25.120Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java_IO_四大抽象类小结">
-<meta name="twitter:description" content="IO之四大抽象类·InputStream 此抽象类是表示字节输入流的所有类的父类。InputSteam是一个抽象类，它不可以实例化。 数据的读取需要由它的子类来实现。根据节点的不同，它派生了不同的节点流子类 。  继承自InputSteam的流都是用于向程序中输入数据，且数据的单位为字节(8 bit)。  常用方法：  int read()：读取一个字节的数据，并将字节的值作为int类型返回(0-">
+<meta name="twitter:title" content="JavaEE之Cookie小结">
+<meta name="twitter:description" content="Cookie1.概念：客户端会话技术，将数据保存到客户端  2.快速入门：     *使用步骤：        1.创建Cookie对象，绑定数据             *new Cookie(String name,String value)        2.发送Cookie对象             *response,addCookie(Cookie cookie)        3.">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-IO之四大抽象类" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JavaEE之Cookie小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/10/IO之四大抽象类/" class="article-date">
-  <time datetime="2019-07-10T11:18:43.000Z" itemprop="datePublished">2019-07-10</time>
+    <a href="/2019/07/18/JavaEE之Cookie小结/" class="article-date">
+  <time datetime="2019-07-18T07:22:03.000Z" itemprop="datePublished">2019-07-18</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java_IO_四大抽象类小结
+      JavaEE之Cookie小结
     </h1>
   
 
@@ -87,44 +87,67 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="IO之四大抽象类"><a href="#IO之四大抽象类" class="headerlink" title="IO之四大抽象类"></a>IO之四大抽象类</h2><p>·InputStream</p>
-<pre><code>此抽象类是表示字节输入流的所有类的父类。InputSteam是一个抽象类，它不可以实例化。 数据的读取需要由它的子类来实现。根据节点的不同，它派生了不同的节点流子类 。
+        <h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><pre><code>1.概念：客户端会话技术，将数据保存到客户端
 
-继承自InputSteam的流都是用于向程序中输入数据，且数据的单位为字节(8 bit)。
+2.快速入门：
+    *使用步骤：
+       1.创建Cookie对象，绑定数据
+            *new Cookie(String name,String value)
+       2.发送Cookie对象
+            *response,addCookie(Cookie cookie)
+       3.获取Cookie，拿到数据
+            *Cookie[] request.getCookies()\
 
-常用方法：
+3.实现原理：
+    *基于响应头set-cookie和请求头cookie实现
 
-int read()：读取一个字节的数据，并将字节的值作为int类型返回(0-255之间的一个值)。如果未读出字节则返回-1(返回值为-1表示读取结束)。
+4.Cookie的细节：
+     1.一次可不可以发送多个Cookie？
+         *可以
+         *可以创建多个Cookie对象，使用response调用多次addCookie方法发送Cookie即可。
 
-void close()：关闭输入流对象，释放相关系统资源。
-</code></pre><p>· OutputStream</p>
-<pre><code>此抽象类是表示字节输出流的所有类的父类。输出流接收输出字节并将这些字节发送到某个目的地。
+     2.Cookie在浏览器中保存多长时间？
+         1.默认情况下：当浏览器关闭后，Cookie数据被销毁
+         2.持久化存储：
+                *setMaxAge(int seconds)
+                   1.正数：将Cookie数据写到硬盘的文件中。持久化存储。cookie存活时间
+                   2.负数：默认值
+                   3.零：删除Cookie信息
 
-常用方法：
+     3.Cookie能不能存中文？
+          *在Tomcat8 之前 cookie中不能直接存储中文数据。
+                 *需要将中文数据转码 ----一般采用URL编码(%)
+          *在Tomcat8 之后 cookie支持中文数据。
 
-void write(int n)：向目的地中写入一个字节。
+     4.Cookie共享问题？
+         1.*假设在一个Tomcat服务器中，部署了多个web项目，那么在这些web项目中cookie能不能共享？
+              *默认情况下cookie不能共享
 
-void close()：关闭输出流对象，释放相关系统资源。
-</code></pre><p>· Reader</p>
-<pre><code>Reader用于读取的字符流抽象类，数据单位为字符。
+              *setPath（String path）:设置cookie的获取范围。默认情况下，设置当前的虚拟目录
+              *如果要共享，则可以将path设置为“/” ；setPath（/）此情况下，可使得不同项目之间相互共享 
 
-int read(): 读取一个字符的数据，并将字符的值作为int类型返回(0-65535之间的一个值，即Unicode值)。如果未读出字符则返回-1(返回值为-1表示读取结束)。
+         2.不同的Tomcat服务器间cookie共享问题？
+               *调用setDomain(String path//字符串的一个域名)：如果设置一级域名相同，那么多个服务器之间可以共享
+                    *setDomain（“.baidu.com）；
+                        那么tieba.baidu.com和news.baidu.com之间可以共享
 
-void close() ： 关闭流对象，释放相关系统资源。
-</code></pre><p>· Writer</p>
-<pre><code>Writer用于写入的字符流抽象类，数据单位为字符。
+ 5. Cookie的特点和作用：
+      1. cookie存储数据在客户端浏览器
+              *存储在客户端的数据，相较不安全，易被串改获取
 
-void write(int n)： 向输出流中写入一个字符。
+      2. 浏览器对于单个cookie的大小有限制（4k）以及对同一个域名下的总Cookie数量有所限制(一般在20个以内) 
 
-void close() ： 关闭输出流对象，释放相关系统资源。
+      *作用：
+          1.cookie一般用于存储少量的不太敏感的数据
+          2.在不登录的情况下，完成服务器对客户端的身份识别
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjycjbozk0000e8tnjt3jbhde" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjycmw33s0022e8tnf60r7k6g" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
 
     </footer>
   </div>
@@ -132,19 +155,10 @@ void close() ： 关闭输出流对象，释放相关系统资源。
     
 <nav id="article-nav">
   
-    <a href="/2019/07/16/JavaEE之Servlit小结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          JavaEE之Servlit小结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/07/10/IO之流的体系与概念/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/18/JavaEE之会话技术概念小结/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">java_IO_数据源与流小结</div>
+      <div class="article-nav-title">JavaEE之会话技术概念小结</div>
     </a>
   
 </nav>
