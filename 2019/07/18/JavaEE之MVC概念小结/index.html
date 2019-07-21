@@ -5,17 +5,20 @@
   
 
   
-  <title>java_图形用户接口之下小结 | Hexo</title>
+  <title>JavaEE之MVC概念小结 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="java_基础">
+  <meta name="description" content="MVC：开发模式1.JSP演变历史     1. 早期只有servlet，只能使用response输出标签数据，非常的麻烦     2. 后来有了jsp,简化了Servlet的开发，如果过度使用jsp,在jsp中即写大量的java代码，有写HTML表，造成难于维护，难于分工协作     3. 再后来，java的web开发，借鉴mvc开发模式，使得程序的设计更加合理性  2.MVC:降低耦合度">
+<meta name="keywords" content="javaEE_基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java_图形用户接口之下小结">
-<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/index.html">
+<meta property="og:title" content="JavaEE之MVC概念小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之MVC概念小结/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MVC：开发模式1.JSP演变历史     1. 早期只有servlet，只能使用response输出标签数据，非常的麻烦     2. 后来有了jsp,简化了Servlet的开发，如果过度使用jsp,在jsp中即写大量的java代码，有写HTML表，造成难于维护，难于分工协作     3. 再后来，java的web开发，借鉴mvc开发模式，使得程序的设计更加合理性  2.MVC:降低耦合度">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-06T11:55:42.003Z">
+<meta property="og:updated_time" content="2019-07-21T13:56:22.444Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java_图形用户接口之下小结">
+<meta name="twitter:title" content="JavaEE之MVC概念小结">
+<meta name="twitter:description" content="MVC：开发模式1.JSP演变历史     1. 早期只有servlet，只能使用response输出标签数据，非常的麻烦     2. 后来有了jsp,简化了Servlet的开发，如果过度使用jsp,在jsp中即写大量的java代码，有写HTML表，造成难于维护，难于分工协作     3. 再后来，java的web开发，借鉴mvc开发模式，使得程序的设计更加合理性  2.MVC:降低耦合度">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -62,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-java-图形用户接口之下小结" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JavaEE之MVC概念小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/06/04/java-图形用户接口之下小结/" class="article-date">
-  <time datetime="2019-06-04T07:36:28.000Z" itemprop="datePublished">2019-06-04</time>
+    <a href="/2019/07/18/JavaEE之MVC概念小结/" class="article-date">
+  <time datetime="2019-07-18T13:56:24.000Z" itemprop="datePublished">2019-07-18</time>
 </a>
     
   </div>
@@ -76,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java_图形用户接口之下小结
+      JavaEE之MVC概念小结
     </h1>
   
 
@@ -84,14 +87,54 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="MVC：开发模式"><a href="#MVC：开发模式" class="headerlink" title="MVC：开发模式"></a>MVC：开发模式</h2><pre><code>1.JSP演变历史
+    1. 早期只有servlet，只能使用response输出标签数据，非常的麻烦
+    2. 后来有了jsp,简化了Servlet的开发，如果过度使用jsp,在jsp中即写大量的java代码，有写HTML表，造成难于维护，难于分工协作
+    3. 再后来，java的web开发，借鉴mvc开发模式，使得程序的设计更加合理性
+
+2.MVC:降低耦合度
+    1. M：Model,模型   JavaBean
+          *完成具体的业务操作，如：查询数据库，封装对象
+    2. V：View,视图    JSP
+          *展示数据 
+    3. C：Controller,控制器   Servlet
+          *获取用户的输入
+          *调用模型
+          *将数据交给视图进行展示
+
+3.流程
+            调用
+    1.控制器————&gt;模型：模型进行业务操作（数据从数据库查询等）
+
+    2.模型————&gt;控制器：返回数据
+
+    3.控制器————视图： 展示
+
+            *控制器：获取客户端的输入  （Servlet）
+                    调用模型
+                    将数据交给视图展示
+
+            *模型： 业务逻辑操作（JavaBean）
+
+            *视图： 展示数据    (JSP)
+
+
+  4. 优缺点
+       1.优点：
+           *耦合性低——&gt;方便维护，利于分工协作
+           *重用性高
+           *可维护性高
+
+       2.缺点： 
+            *使得项目架构变得复杂，对开发人员要求高
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjyczocq600125otn1ffz4fqn" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之MVC概念小结/" data-id="cjyd0yedf00265otnm4q7m5ao" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
 
     </footer>
   </div>
@@ -99,19 +142,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/07/09/集合之Collection接口/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          java_集合_Collection小结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/06/03/java-图形用户接口之中小结/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/18/JavaEE之JSP补充学习小结/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">java_图形用户接口之中小结</div>
+      <div class="article-nav-title">JavaEE之JSP补充学习小结</div>
     </a>
   
 </nav>
