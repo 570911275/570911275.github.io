@@ -62,6 +62,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-IO之流的体系与概念" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/10/IO之流的体系与概念/" class="article-date">
+  <time datetime="2019-07-10T11:05:32.000Z" itemprop="datePublished">2019-07-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/10/IO之流的体系与概念/">java_IO_数据源与流小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="IO之流的体系与概念"><a href="#IO之流的体系与概念" class="headerlink" title="IO之流的体系与概念"></a>IO之流的体系与概念</h2><h3 id="1-流的概念"><a href="#1-流的概念" class="headerlink" title="1.流的概念"></a>1.流的概念</h3><h4 id="1-按流的方向分类："><a href="#1-按流的方向分类：" class="headerlink" title="1.按流的方向分类："></a>1.按流的方向分类：</h4><ol>
+<li>输入流：<strong>数据流向</strong>是<strong>数据源到程序</strong>(以InputStream、Reader结尾的流)。</li>
+<li>输出流：<strong>数据流向</strong>是<strong>程序到目的地</strong>(以OutPutStream、Writer结尾的流)。</li>
+</ol>
+<h4 id="2-按处理的数据单元分类："><a href="#2-按处理的数据单元分类：" class="headerlink" title="2.按处理的数据单元分类："></a>2.按处理的数据单元分类：</h4><ol>
+<li>字节流：以<strong>字节为单位获取数据</strong>，命名上以<strong>Stream</strong>结尾的流一般是字节流，如FileInputStream、FileOutputStream。</li>
+<li>字符流：以<strong>字符为单位获取数据</strong>，命名上以<strong>Reader/Writer</strong>结尾的流一般是字符流，如FileReader、FileWriter。</li>
+</ol>
+<h4 id="3-按处理对象不同分类："><a href="#3-按处理对象不同分类：" class="headerlink" title="3.按处理对象不同分类："></a>3.按处理对象不同分类：</h4><ol>
+<li>节点流：可以<strong>直接从数据源或目的地读写数据</strong>，如FileInputStream、FileReader、DataInputStream等。<br></li>
+<li>处理流：<strong>不直接连接到数据源或目的地</strong>，是”<strong>处理流的流</strong>”。通过对其他流的处理提高程序的性能，如BufferedInputStream、BufferedReader等。<strong>处理流也叫包装流</strong>。<br><br><strong>节点流</strong>处于IO操作的<strong>第一线</strong>，所有操作必须通过它们进行;<strong>处理流</strong>可以对<strong>节点流进行包装</strong>，提高性能或提高程序的灵活性。</li>
+</ol>
+<h3 id="2-流的体系"><a href="#2-流的体系" class="headerlink" title="2.流的体系"></a>2.流的体系</h3><ol>
+<li>InputStream/OutputStream<br><br>字节流的抽象类。<br></li>
+<li>Reader/Writer<br><br>字符流的抽象类。<br></li>
+<li>FileInputStream/FileOutputStream<br><br>节点流：以字节为单位直接操作“文件”。<br></li>
+<li>ByteArrayInputStream/ByteArrayOutputStream<br><br>节点流：以字节为单位直接操作“字节数组对象”。<br></li>
+<li>ObjectInputStream/ObjectOutputStream<br><br>处理流：以字节为单位直接操作“对象”。<br></li>
+<li>DataInputStream/DataOutputStream<br><br>处理流：以字节为单位直接操作“基本数据类型与字符串类型”。<br></li>
+<li>FileReader/FileWriter<br><br>节点流：以字符为单位直接操作“文本文件”(注意：只能读写文本文件)。<br></li>
+<li>BufferedReader/BufferedWriter<br><br>处理流：将Reader/Writer对象进行包装，增加缓存功能，提高读写效率。<br></li>
+<li>BufferedInputStream/BufferedOutputStream<br><br>处理流：将InputStream/OutputStream对象进行包装，增加缓存功能，提高 读写效率。<br></li>
+<li>InputStreamReader/OutputStreamWriter<br><br>处理流：将字节流对象转化成字符流对象。<br></li>
+<li>PrintStream<br><br>处理流：将OutputStream进行包装，可以方便地输出字符，更加灵活**<br><h3 id="3-简单的IO操作"><a href="#3-简单的IO操作" class="headerlink" title="3.简单的IO操作"></a>3.简单的IO操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class IOTest1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        BasicTest(&quot;D:/Test/src/IOBasicTest&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public  static  void BasicTest(String src)&#123;</span><br><span class="line">            FileInputStream fis = null;</span><br><span class="line">            try &#123;</span><br><span class="line">                fis = new FileInputStream(src);</span><br><span class="line">                int s1 = fis.read();</span><br><span class="line">                int s2 = fis.read();</span><br><span class="line">                int s3 = fis.read();</span><br><span class="line">                int s4 = fis.read();</span><br><span class="line">                System.out.println(s1);</span><br><span class="line">                System.out.println(s1);</span><br><span class="line">                System.out.println(s2);</span><br><span class="line">                System.out.println(s3);</span><br><span class="line">                System.out.println(s4);</span><br><span class="line">            &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">104</span><br><span class="line">104</span><br><span class="line">101</span><br><span class="line">108</span><br><span class="line">108</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjycmxa3p000ajktnewz7iahe" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-IO之数据源与流" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/10/IO之数据源与流/" class="article-date">
@@ -92,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjycjbp0b0003e8tn7ol236w3" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjycmxa370003jktnwd6vrdhd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -140,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjycjbp010001e8tn7lt7kcmk" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjycmxa2x0001jktnuz2c3tdp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -180,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjycjbp47001ke8tne18cwvv1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjycmxa8d001vjktnh4g4t1py" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -229,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjycjbp3x001ge8tnatu5u7sw" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjycmxa7s001njktnheyl91td" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -276,48 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjycjbp4a001me8tngsd128aq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-集合之Set接口的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/09/集合之Set接口的常用方法与特点/" class="article-date">
-  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之Set接口的常用方法与特点/">java_集合_Set接口的常用方法与特点小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Set接口的常用方法与特点"><a href="#Set接口的常用方法与特点" class="headerlink" title="Set接口的常用方法与特点"></a>Set接口的常用方法与特点</h2><h3 id="1-Set的特点"><a href="#1-Set的特点" class="headerlink" title="1.Set的特点"></a>1.Set的特点</h3><p>Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。</p>
-<h3 id="2-Set的常用方法"><a href="#2-Set的常用方法" class="headerlink" title="2.Set的常用方法"></a>2.Set的常用方法</h3><p>Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。</p>
-<h3 id="3-Set的常用方法的使用"><a href="#3-Set的常用方法的使用" class="headerlink" title="3.Set的常用方法的使用"></a>3.Set的常用方法的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Set&lt;String&gt; s = new HashSet&lt;String&gt;();</span><br><span class="line">        s.add(&quot;hello&quot;);</span><br><span class="line">        s.add(&quot;world&quot;);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(&quot;hello&quot;); //相同的元素不会被加入</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[world, hello]</span><br><span class="line">[world, hello]</span><br><span class="line">[null, world, hello]</span><br><span class="line">[null, world, hello]</span><br></pre></td></tr></table></figure>
-<h3 id="TreeSet和Comparable接口的使用"><a href="#TreeSet和Comparable接口的使用" class="headerlink" title="TreeSet和Comparable接口的使用"></a>TreeSet和Comparable接口的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        User u1 = new User(1001, &quot;高淇&quot;, 18);</span><br><span class="line">        User u2 = new User(2001, &quot;高希希&quot;, 5);</span><br><span class="line">        Set&lt;User&gt; set = new TreeSet&lt;User&gt;();</span><br><span class="line">        set.add(u1);</span><br><span class="line">        set.add(u2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">class User implements Comparable&lt;User&gt; &#123;</span><br><span class="line">    int id;</span><br><span class="line">    String uname;</span><br><span class="line">    int age;</span><br><span class="line"> </span><br><span class="line">    public User(int id, String uname, int age) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">        this.uname = uname;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 返回0 表示 this == obj 返回正数表示 this &gt; obj 返回负数表示 this &lt; obj</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(User o) &#123;</span><br><span class="line">        if (this.id &gt; o.id) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125; else if (this.id &lt; o.id) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjycjbp4d001oe8tnk734e5nx" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjycmxa8a001tjktnopltxwq0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -360,7 +382,48 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjycjbp43001ie8tn1dsvg5xj" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjycmxa86001rjktngynbot43" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-集合之Set接口的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之Set接口的常用方法与特点/" class="article-date">
+  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/集合之Set接口的常用方法与特点/">java_集合_Set接口的常用方法与特点小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Set接口的常用方法与特点"><a href="#Set接口的常用方法与特点" class="headerlink" title="Set接口的常用方法与特点"></a>Set接口的常用方法与特点</h2><h3 id="1-Set的特点"><a href="#1-Set的特点" class="headerlink" title="1.Set的特点"></a>1.Set的特点</h3><p>Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。</p>
+<h3 id="2-Set的常用方法"><a href="#2-Set的常用方法" class="headerlink" title="2.Set的常用方法"></a>2.Set的常用方法</h3><p>Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。</p>
+<h3 id="3-Set的常用方法的使用"><a href="#3-Set的常用方法的使用" class="headerlink" title="3.Set的常用方法的使用"></a>3.Set的常用方法的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Set&lt;String&gt; s = new HashSet&lt;String&gt;();</span><br><span class="line">        s.add(&quot;hello&quot;);</span><br><span class="line">        s.add(&quot;world&quot;);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(&quot;hello&quot;); //相同的元素不会被加入</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[world, hello]</span><br><span class="line">[world, hello]</span><br><span class="line">[null, world, hello]</span><br><span class="line">[null, world, hello]</span><br></pre></td></tr></table></figure>
+<h3 id="TreeSet和Comparable接口的使用"><a href="#TreeSet和Comparable接口的使用" class="headerlink" title="TreeSet和Comparable接口的使用"></a>TreeSet和Comparable接口的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        User u1 = new User(1001, &quot;高淇&quot;, 18);</span><br><span class="line">        User u2 = new User(2001, &quot;高希希&quot;, 5);</span><br><span class="line">        Set&lt;User&gt; set = new TreeSet&lt;User&gt;();</span><br><span class="line">        set.add(u1);</span><br><span class="line">        set.add(u2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">class User implements Comparable&lt;User&gt; &#123;</span><br><span class="line">    int id;</span><br><span class="line">    String uname;</span><br><span class="line">    int age;</span><br><span class="line"> </span><br><span class="line">    public User(int id, String uname, int age) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">        this.uname = uname;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 返回0 表示 this == obj 返回正数表示 this &gt; obj 返回负数表示 this &lt; obj</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(User o) &#123;</span><br><span class="line">        if (this.id &gt; o.id) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125; else if (this.id &lt; o.id) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjycmxa8g001xjktnrcjskrqu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -399,7 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjycjbp3j001ae8tnnz9vnne5" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjycmxa7w001pjktnavtqliij" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -437,45 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjycjbp2d000te8tnq9ytuo10" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-图形用户接口之中小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/03/java-图形用户接口之中小结/" class="article-date">
-  <time datetime="2019-06-03T04:05:00.000Z" itemprop="datePublished">2019-06-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/03/java-图形用户接口之中小结/">java_图形用户接口之中小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/03/java-图形用户接口之中小结/" data-id="cjycjbp2p000ye8tntud5tgxc" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjycmxa53000yjktnpczpei77" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -537,6 +562,10 @@
       <ul>
         
           <li>
+            <a href="/2019/07/18/JavaEE之JSP入门学习小结/">JavaEE之JSP入门学习小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/18/JavaEE之Cookie小结/">JavaEE之Cookie小结</a>
           </li>
         
@@ -550,10 +579,6 @@
         
           <li>
             <a href="/2019/07/17/JavaEE之Response小结/">JavaEE之Response小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/17/JavaEE之Http协议下小结/">JavaEE之Http协议下小结</a>
           </li>
         
       </ul>
