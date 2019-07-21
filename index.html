@@ -62,6 +62,87 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之JSP补充学习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/18/JavaEE之JSP补充学习小结/" class="article-date">
+  <time datetime="2019-07-18T13:18:37.000Z" itemprop="datePublished">2019-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/18/JavaEE之JSP补充学习小结/">JavaEE之JSP补充学习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JSP补充学习"><a href="#JSP补充学习" class="headerlink" title="JSP补充学习"></a>JSP补充学习</h2><pre><code>1. 指令
+    *作用：用于配置JSP页面，导入资源文件
+    *格式：
+       &lt;%@ 指令名称 属性名1=属性值1 属性名2=属性值2%&gt;//多个属性名=属性值之间用空格隔开
+    *分类：
+       1. page    :配置JSP页面的
+            *contentType ： 等同于response.setContentType()
+                1.设置响应体的mime类型以及字符集
+                2.设置当前jsp页面的编码（只能是高级的IDE才能生效，如果使用低级工具，则需要设置pageEncoding属性设置当前页面的字符集）
+            *import：导包
+            *errorPage：当前页面发生异常后，会自动跳转到指定的错误页面
+            *isErrorPage：标识当前页面是否是错误页面
+                 1.true：是，可以使用内置对象exception
+                 2.false。否，默认值。不可以使用内置对象exception
+
+       2. include :页面包含的。导入页面的资源文件
+            *&lt;%@include file=&quot;top.jsp&quot;%&gt;
+            *不同文件之间相互导入，例如导入头标签等
+
+       3. taglib  :导入资源（导入标签库）
+            *&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;
+               *prefix:前缀，自定义的
+
+ 2. 注释：
+     1. html注释：
+        &lt;!----!&gt;:只能注释html代码片段 
+     2. jsp注释：推荐使用
+        &lt;%----%&gt;:可以注释所有
+
+ 3. 内置对象
+       *在JSP页面中不需要创建，直接使用的对象
+       *一共有9个：
+          *域对象是用来共享数据的，需要得知域的范围
+              变量名                      真实类型                      作用
+          *pageContext//域对象           PageContext                 当前页面共享数据，还可以获取其他其他8个内置对象
+          *request//域对象               HttpServletRequest          一次请求访问的多个资源(转发)
+          *session//域对象               HttpSession                 一次会话的多个请求间
+          *application//域对象           ServletContext              所有用户间共享数据
+          *response//响应对象            HttpServletResponse         响应对象
+          *page                         Object                      当前页面(Servlet)的对象——&gt; this的引用
+          *out//输出对象                 JSPWriter                   输出对象，数据输出到页面上
+          *config//配置对象              ServletConfig               Servlet的配置对象
+          *exception                    Throwable                   异常对象
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP补充学习小结/" data-id="cjyczncoa0000o0tn28ksms5t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之Session小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/18/JavaEE之Session小结/" class="article-date">
@@ -150,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Session小结/" data-id="cjycwh7w30024z0tn0v0wsmzp" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Session小结/" data-id="cjycwilzp001v08tndeqitvf6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -212,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP入门学习小结/" data-id="cjycplj70000fz0tnki9dx6fz" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP入门学习小结/" data-id="cjycwilwz000d08tnp6n8qv1w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -303,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjycplj660004z0tnp26fgqsa" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjycwilwf000308tno41nzjr1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -351,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之会话技术概念小结/" data-id="cjycplj7w000rz0tn8cqyskit" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之会话技术概念小结/" data-id="cjycwilxp000r08tnuxaq1crg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -434,7 +515,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjycplj7k000mz0tne665ecm7" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjycwilxk000n08tn3qaloez3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -564,7 +645,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Response小结/" data-id="cjycplj76000iz0tnf3g72fy4" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Response小结/" data-id="cjycwilxd000k08tnzdfuygvc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -646,7 +727,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjycplj6o000az0tnigcpnx3w" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjycwilws000808tnjkwjzrhg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -772,7 +853,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjycplj7c000jz0tn5gzydi92" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjycwilxa000i08tnfc3wb2au" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -865,125 +946,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjycplj6u000dz0tn7d66h5dq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之Servlit小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/16/JavaEE之Servlit小结/" class="article-date">
-  <time datetime="2019-07-16T03:13:38.000Z" itemprop="datePublished">2019-07-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/16/JavaEE之Servlit小结/">JavaEE之Servlit小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Servlet-server-applet"><a href="#Servlet-server-applet" class="headerlink" title="Servlet: server applet"></a>Servlet: server applet</h2><pre><code>* 一、概念：运行在服务器端的小程序
-    * Servlet就是一个接口，定义了Java类被浏览器访问到(tomcat)识别的规则。
-    * 将来我们自定义一个类，实现Servlet接口，复写方法
-
-
-* 二、快速入门：
-    1. 创建JavaEE项目
-    2. 定义一个类，实现Servlet接口
-    public class ServletDemo01 implements Servlet 
-    3. 实现接口中的抽象方法
-    4. 配置Serlet:在web.xml中配置
-        &lt;!--配置Servlet--&gt;
-        &lt;servlet&gt;
-           &lt;servlet-name&gt;demo01&lt;/servlet-name&gt;
-           &lt;servlet-class&gt;cn.itcast.web.servlet.ServletDemo01&lt;/servlet-class&gt;
-        &lt;/servlet&gt;
-        &lt;servlet-mapping&gt;
-           &lt;servlet-name&gt;demo01&lt;/servlet-name&gt;
-           &lt;url-pattern&gt;/demo01&lt;/url-pattern&gt;
-        &lt;/servlet-mapping&gt;
-
-
- * 三、执行原理：
-     1.当服务器接受到客户端浏览器的请求后，会解析请求URL路径，获取访问的Servlet的资源路径
-     2.查找web.xml文件，是否有对应的&lt;url-pattern&gt;标签体内容。
-     3.如果有，则在找到对应的&lt;servlet-class&gt;全类名
-     4.Tomcat会将字节码文件加载进内存，并且创建其对象
-     5.调用其方法
-
-
- * 四、Servlet中的生命周期：
-     1. 被创建：执行init方法，只执行一次
-         *Servlet什么时候被创建？
-            *默认情况下，第一次被访问时，Servlet被创建
-            *可以配置执行Servlet的创建时机。
-               *在&lt;servlet&gt;标签下配置
-                 1.第一次被访问时，创建
-                     *&lt;load-on-startup&gt;的值为负数
-                 2.在服务器启动时，创建
-                     *&lt;load-on-startup&gt;的值为0或者正整数
-         *Servlet的init方法，只执行一次，说明一个Servlet在内存中只存在一个对象，说明Servlet是单例的
-            *多个用户同时访问时，可能存在线程安全问题
-            *解决：尽量不要在Servlet中定义成员变量，即使定义了成员变量，也不要对其修改值(当有的线程在读取时，有的线程进行了修改，则会发生线程错误)；
-
-     2. 提供服务：执行service方法，执行多次
-         *每次访问Servlet时，Service方法都会被调用一次
-     3. 被销毁：执行destroy方法，只执行一次
-         *Servlet被销毁时执行。服务器关闭时，Servlet被销毁
-         *只有服务器正常关闭时，才会执行destroy方法 
-         *destroy方法在Servlet被销毁之前执行，一般用来释放资源
-
-
-  * 五、Servlet3.0：
-      *好处：
-           *支持注解配置，可以不需要web.xml了
-      *步骤：
-         1. 创建JavaEE项目，选择Servlet的版本3.0以上，可以不创建web.xml
-         2. 定义一个类，实现Servlet接口
-         3. 复写方法
-         4. 在类上使用@webServlet注解，进行配置
-             *@WebServlet(&quot;Demo01//资源路径&quot;)
-
-
-   * 六、Servlet的体系结构
-      Servlet -- 接口
-          |
-      GenericServlet -- 抽象类
-          |
-      HttpServlet -- 抽象类
-
-      *GenericServlet:将Servlet接口中其他的方法做了默认空实现，只将service（）方法作为抽象
-         *将来定义Servlet类时，可以继承GenericServlet，实现service()方法即可  
-
-      *HttpServlet:对http协议的一种封装，简化操作
-         1.定义类继承HTTPServlet
-         2.复写doGet/doPost方法
-</code></pre><h2 id="IDEA和Tomcat的配置"><a href="#IDEA和Tomcat的配置" class="headerlink" title="IDEA和Tomcat的配置"></a>IDEA和Tomcat的配置</h2><pre><code>1.IDEA会为每一个Tomcat部署的项目单独建立一份配置文件
-   *查看控制台的log：Using CATALINA_BASE:  &quot;C:\Users\fqy\.IntellijIdea2018.1\system.tomcat\_itcast&quot;
-2.工作空间项目 和 Tomcat部署的web项目
-   *Tomcat真正访问的是“Tomcat部署的web项目”，“Tomcat部署的web项目”对应着“工作空间项目”的web目录下的所有资源   
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjycplj7n000oz0tnw83kuph2" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjycwilwv000a08tn097fl1jt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1045,6 +1008,10 @@
       <ul>
         
           <li>
+            <a href="/2019/07/18/JavaEE之JSP补充学习小结/">JavaEE之JSP补充学习小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/18/JavaEE之Session小结/">JavaEE之Session小结</a>
           </li>
         
@@ -1058,10 +1025,6 @@
         
           <li>
             <a href="/2019/07/18/JavaEE之会话技术概念小结/">JavaEE之会话技术概念小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/18/JavaEE之ServletContext小结/">JavaEE之ServletContext小结</a>
           </li>
         
       </ul>
