@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="ServletContext对象1.概念：代表整个web应用，可以和程序的容器（服务器）来通信 2.获取：     1.通过request对象获取        request.getServletContext();     2.通过HttpServlet获取        this.getServletContext(); 3.功能：     1.获取MIME类型：        *MIME类">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-21T03:38:47.708Z">
+<meta property="og:updated_time" content="2019-07-21T05:19:45.280Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE之ServletContext小结">
 <meta name="twitter:description" content="ServletContext对象1.概念：代表整个web应用，可以和程序的容器（服务器）来通信 2.获取：     1.通过request对象获取        request.getServletContext();     2.通过HttpServlet获取        this.getServletContext(); 3.功能：     1.获取MIME类型：        *MIME类">
@@ -108,10 +108,35 @@
     3.获取文件的真实(服务器)路径
         1.方法：String getRealPath(String path)
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//获取文件的真实路径</span><br><span class="line">String realPath = context.getRealPath(&quot;/WEB-INF/classes/b.text&quot;);//src目录下资源访问</span><br><span class="line">System.out.println(realPath);</span><br><span class="line">File file  = new File(realPath);</span><br><span class="line"></span><br><span class="line">//获取文件的真实路径</span><br><span class="line">String realPath2 = context.getRealPath(&quot;/WEB-INF/c.text&quot;);//WEB-INF目录下资源访问</span><br><span class="line">System.out.println(realPath2);</span><br><span class="line">File file2  = new File(realPath2);</span><br><span class="line"></span><br><span class="line">//获取文件的真实路径</span><br><span class="line">String realPath3 = context.getRealPath(&quot;a.text&quot;);//web目录下资源访问</span><br><span class="line">System.out.println(realPath3);</span><br><span class="line">File file3  = new File(realPath3);</span><br></pre></td></tr></table></figure>
+<h2 id="案例："><a href="#案例：" class="headerlink" title="案例："></a>案例：</h2><pre><code>*文件下载需求：
+   1.页面显示超链接
+   2.点击超链接后弹出下载提示框
+   3.完成图片文件下载
+
+ *分析：
+    1.超链接指向的资源如果能够被浏览器解析，则在浏览器中展示，如果不能解析，则弹出下载提示框。（不满足需求）
+    2.任何资源的必须弹出下载提示框
+    3.使用响应头设置资源的打开方式：
+          *content-disposition:attachment;filename=xxx
+
+  *步骤：
+     1.定义页面，编辑超链接herf属性，指向Servlet，传递资源名称filename
+     2.定义Servlet
+         1.获取文件名称
+         2.使用字节输入流加载文件进内存
+         3.指定response的响应头：content-disposition:attachment;filename=xxx
+         4.将数据写出到response输出流
+
+  *问题：
+    *中文文件问题：
+        *解决思路：
+            1.获取客户端使用的浏览器版本信息
+            2.根据不同的版本信息，设置filename的编码方式不同
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjycewpot00003ctnc4n9q7ar" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjyceydwp000d1ctn0w1g9itw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -121,6 +146,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/07/18/JavaEE之会话技术概念小结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaEE之会话技术概念小结
+        
+      </div>
+    </a>
   
   
     <a href="/2019/07/17/JavaEE之Response小结/" id="article-nav-older" class="article-nav-link-wrap">
@@ -176,6 +210,10 @@
       <ul>
         
           <li>
+            <a href="/2019/07/18/JavaEE之会话技术概念小结/">JavaEE之会话技术概念小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/18/JavaEE之ServletContext小结/">JavaEE之ServletContext小结</a>
           </li>
         
@@ -189,10 +227,6 @@
         
           <li>
             <a href="/2019/07/17/JavaEE之Request小结/">JavaEE之Request小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/16/JavaEE之Http协议小结/">JavaEE之Http协议小结</a>
           </li>
         
       </ul>
