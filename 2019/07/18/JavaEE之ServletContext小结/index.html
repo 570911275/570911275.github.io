@@ -5,20 +5,20 @@
   
 
   
-  <title>JavaEE之Http协议下小结 | Hexo</title>
+  <title>JavaEE之ServletContext小结 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="HTTP协议1.请求消息：客户端发送给服务器端的数据     *数据格式：        1.请求行        2.请求头        3.请求空行        4.请求体 2.响应消息：服务器端发送给客户端的数据      *数据格式：         1.响应行：              1.组成：协议、版本  响应状态码 状态码描述              2.响应状态码：服务器">
+  <meta name="description" content="ServletContext对象1.概念：代表整个web应用，可以和程序的容器（服务器）来通信 2.获取：     1.通过request对象获取        request.getServletContext();     2.通过HttpServlet获取        this.getServletContext(); 3.功能：     1.获取MIME类型：        *MIME类">
 <meta name="keywords" content="javaEE_基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaEE之Http协议下小结">
-<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/index.html">
+<meta property="og:title" content="JavaEE之ServletContext小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="HTTP协议1.请求消息：客户端发送给服务器端的数据     *数据格式：        1.请求行        2.请求头        3.请求空行        4.请求体 2.响应消息：服务器端发送给客户端的数据      *数据格式：         1.响应行：              1.组成：协议、版本  响应状态码 状态码描述              2.响应状态码：服务器">
+<meta property="og:description" content="ServletContext对象1.概念：代表整个web应用，可以和程序的容器（服务器）来通信 2.获取：     1.通过request对象获取        request.getServletContext();     2.通过HttpServlet获取        this.getServletContext(); 3.功能：     1.获取MIME类型：        *MIME类">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-20T09:15:04.726Z">
+<meta property="og:updated_time" content="2019-07-21T03:38:47.708Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaEE之Http协议下小结">
-<meta name="twitter:description" content="HTTP协议1.请求消息：客户端发送给服务器端的数据     *数据格式：        1.请求行        2.请求头        3.请求空行        4.请求体 2.响应消息：服务器端发送给客户端的数据      *数据格式：         1.响应行：              1.组成：协议、版本  响应状态码 状态码描述              2.响应状态码：服务器">
+<meta name="twitter:title" content="JavaEE之ServletContext小结">
+<meta name="twitter:description" content="ServletContext对象1.概念：代表整个web应用，可以和程序的容器（服务器）来通信 2.获取：     1.通过request对象获取        request.getServletContext();     2.通过HttpServlet获取        this.getServletContext(); 3.功能：     1.获取MIME类型：        *MIME类">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-JavaEE之Http协议下小结" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JavaEE之ServletContext小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/17/JavaEE之Http协议下小结/" class="article-date">
-  <time datetime="2019-07-17T09:14:16.000Z" itemprop="datePublished">2019-07-17</time>
+    <a href="/2019/07/18/JavaEE之ServletContext小结/" class="article-date">
+  <time datetime="2019-07-18T03:38:26.000Z" itemprop="datePublished">2019-07-18</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      JavaEE之Http协议下小结
+      JavaEE之ServletContext小结
     </h1>
   
 
@@ -87,55 +87,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><pre><code>1.请求消息：客户端发送给服务器端的数据
-    *数据格式：
-       1.请求行
-       2.请求头
-       3.请求空行
-       4.请求体
-2.响应消息：服务器端发送给客户端的数据
-     *数据格式：
-        1.响应行：
-             1.组成：协议、版本  响应状态码 状态码描述
-             2.响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态
-                 1.状态码都是3位数字
-                 *分类：
-                    1.1xx:服务器接受客户端消息，但没有接受完成，等待一段时间后，发送1xx多状态码
-                    2.2xx:成功。代表：200
-                    3.3xx:重定向。代表：302（重定向），304（访问缓冲）
-                    4.4xx:客户端错误。代表：404（请求路劲没有对应的资源）405（请求方式没有对应的doxxx方法）
-                    5.5xx:服务器端错误。代表：500（服务器内部出现异常）
+        <h2 id="ServletContext对象"><a href="#ServletContext对象" class="headerlink" title="ServletContext对象"></a>ServletContext对象</h2><pre><code>1.概念：代表整个web应用，可以和程序的容器（服务器）来通信
+2.获取：
+    1.通过request对象获取
+       request.getServletContext();
+    2.通过HttpServlet获取
+       this.getServletContext();
+3.功能：
+    1.获取MIME类型：
+       *MIME类型：在互联网通信过程中定义的一种文件数据类型
+          *格式：大类型/小类型 text/html  image/jpeg
 
-        2.响应头：
-            1.格式：头名称：值
-            2.常见的响应头：
-                1.Content-Type：服务器告诉客户端本次响应体数据格式以及编码格式
-                2.Content-disposition：服务器告诉客户端以什么格式打开响应体数据
-                     *值：
-                       *in-line:默认值，在当前页面打开
-                       *attachment；filename=xx：以附件形式打开响应体。文件下载中使用较多
-        3.响应空行：
-        4.响应体：传输的数据
+    2.域对象：共享数据
+        1.setAttribute(String name,Object value)
+        2.getAttribute(String name)
+        3.removeAttribute(String name)
 
-     *响应字符串格式
-        HTTP/1.1 200 OK
-        Date: Sat, 20 Jul 2019 08:33:11 GMT
-        Content-Type: image/png
-        Transfer-Encoding: chunked
-        Connection: keep-alive
-        Expires: Sun, 01 Jul 2029 06:36:09 GMT
-        Server: nginx
-        Last-Modified: Wed, 17 Apr 2019 08:33:53 GMT
-        ETag: W/&quot;5cb6e4f1-7da&quot;
-        Cache-Control: max-age=315360000
-        Content-Encoding: gzip
-        Age: 1
-        X-Via: 1.1 PSzjjxdx10tk79:7 (Cdn Cache Server V2.0), 1.1 zhj168:14 (Cdn Cache Server V2.0)
-</code></pre>
+        *ServletContex对象范围：所有用户请求的数据
+
+    3.获取文件的真实(服务器)路径
+        1.方法：String getRealPath(String path)
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//获取文件的真实路径</span><br><span class="line">String realPath = context.getRealPath(&quot;/WEB-INF/classes/b.text&quot;);//src目录下资源访问</span><br><span class="line">System.out.println(realPath);</span><br><span class="line">File file  = new File(realPath);</span><br><span class="line"></span><br><span class="line">//获取文件的真实路径</span><br><span class="line">String realPath2 = context.getRealPath(&quot;/WEB-INF/c.text&quot;);//WEB-INF目录下资源访问</span><br><span class="line">System.out.println(realPath2);</span><br><span class="line">File file2  = new File(realPath2);</span><br><span class="line"></span><br><span class="line">//获取文件的真实路径</span><br><span class="line">String realPath3 = context.getRealPath(&quot;a.text&quot;);//web目录下资源访问</span><br><span class="line">System.out.println(realPath3);</span><br><span class="line">File file3  = new File(realPath3);</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjyblm8600004zktnsuxcl1pq" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjycewpot00003ctnc4n9q7ar" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -146,19 +122,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/07/17/JavaEE之Response小结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          JavaEE之Response小结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/07/17/JavaEE之Request小结/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/17/JavaEE之Response小结/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">JavaEE之Request小结</div>
+      <div class="article-nav-title">JavaEE之Response小结</div>
     </a>
   
 </nav>
