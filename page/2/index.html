@@ -62,6 +62,68 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之JSP入门学习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/18/JavaEE之JSP入门学习小结/" class="article-date">
+  <time datetime="2019-07-18T08:35:43.000Z" itemprop="datePublished">2019-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/18/JavaEE之JSP入门学习小结/">JavaEE之JSP入门学习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JSP入门学习"><a href="#JSP入门学习" class="headerlink" title="JSP入门学习"></a>JSP入门学习</h2><pre><code>1. 概念：
+   *Java Server Pages: java服务器端页面
+     *可以理解为一个特殊的页面，其中既可以定义HTML标签，又可以定义java代码
+     *用于简化书写！！！
+
+ 2. 原理：
+    *JSP本质上就是一个Servlet
+
+ 3. JSP的的脚本：
+       *JSP定义java代码的方式
+       1.&lt;% 代码 %&gt;：定义的java代码，在service方法中。Service方法中可以定义什么，该脚本中就可以定义什么
+       2.&lt;%! 代码 %&gt;： 定义的java代码，在jsp转换后的java类的成员位置。用的较少，尽量不要尽量成员变量，不然容易尝试线程错误
+       3.&lt;&lt;%= 代码 %&gt;&gt;：定义的java代码，会输出到页面上，输出语句中可以定义什么，该脚本中就可以定义什么
+
+ 4. JSP的内置对象：
+      *在JSP页面中不需要获取和创建，就可以直接使用的对象
+      *在JSP中一共有9个内置对象
+      *3个基本内置对象：
+           *request：请求
+           *response：响应
+           *out：字符输出流对象。可以将数据输出到页面上。与response,getWriter()类似
+               *response.getWriter()和out.write()的区别：
+                  1.在Tomcat服务器真正给客户端做出响应之前，会先找response缓冲区数据，再找out缓冲区数据
+                  2.response.getWriter（）数据永远在out.Write()之前
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP入门学习小结/" data-id="cjyefsj7f000jxctn1dwuvg5l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之Cookie小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/18/JavaEE之Cookie小结/" class="article-date">
@@ -141,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjye89ij600058otnzyoebpiq" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjyefsj6o000axctn29apo0fg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -189,7 +251,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之会话技术概念小结/" data-id="cjye89ilo00108otn7bplf1kf" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之会话技术概念小结/" data-id="cjyefsj930012xctnon2b71r0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -272,7 +334,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjye89ilf000w8otno9w4fdds" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjyefsj8i000wxctnooufaxed" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -402,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Response小结/" data-id="cjye89il7000t8otn68cy1nai" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Response小结/" data-id="cjyefsj8p000yxctnleb9zj9y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -484,7 +546,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjye89ijs000d8otnvh1pg2id" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjyefsj6t000dxctnak4p6t6i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -610,7 +672,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjye89il3000r8otnjzxsahw0" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjyefsj84000txctn58k4ljat" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -703,7 +765,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjye89ijm000a8otn9pymlfdf" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjyefsj70000fxctnqrljrq26" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -821,7 +883,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjye89ill000y8otnyt656h31" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjyefsj8y0010xctn6b9zbeks" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -889,70 +951,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjye89ij100048otn4cfz4uxd" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-IO之流的体系与概念" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/10/IO之流的体系与概念/" class="article-date">
-  <time datetime="2019-07-10T11:05:32.000Z" itemprop="datePublished">2019-07-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/10/IO之流的体系与概念/">java_IO_数据源与流小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="IO之流的体系与概念"><a href="#IO之流的体系与概念" class="headerlink" title="IO之流的体系与概念"></a>IO之流的体系与概念</h2><h3 id="1-流的概念"><a href="#1-流的概念" class="headerlink" title="1.流的概念"></a>1.流的概念</h3><h4 id="1-按流的方向分类："><a href="#1-按流的方向分类：" class="headerlink" title="1.按流的方向分类："></a>1.按流的方向分类：</h4><ol>
-<li>输入流：<strong>数据流向</strong>是<strong>数据源到程序</strong>(以InputStream、Reader结尾的流)。</li>
-<li>输出流：<strong>数据流向</strong>是<strong>程序到目的地</strong>(以OutPutStream、Writer结尾的流)。</li>
-</ol>
-<h4 id="2-按处理的数据单元分类："><a href="#2-按处理的数据单元分类：" class="headerlink" title="2.按处理的数据单元分类："></a>2.按处理的数据单元分类：</h4><ol>
-<li>字节流：以<strong>字节为单位获取数据</strong>，命名上以<strong>Stream</strong>结尾的流一般是字节流，如FileInputStream、FileOutputStream。</li>
-<li>字符流：以<strong>字符为单位获取数据</strong>，命名上以<strong>Reader/Writer</strong>结尾的流一般是字符流，如FileReader、FileWriter。</li>
-</ol>
-<h4 id="3-按处理对象不同分类："><a href="#3-按处理对象不同分类：" class="headerlink" title="3.按处理对象不同分类："></a>3.按处理对象不同分类：</h4><ol>
-<li>节点流：可以<strong>直接从数据源或目的地读写数据</strong>，如FileInputStream、FileReader、DataInputStream等。<br></li>
-<li>处理流：<strong>不直接连接到数据源或目的地</strong>，是”<strong>处理流的流</strong>”。通过对其他流的处理提高程序的性能，如BufferedInputStream、BufferedReader等。<strong>处理流也叫包装流</strong>。<br><br><strong>节点流</strong>处于IO操作的<strong>第一线</strong>，所有操作必须通过它们进行;<strong>处理流</strong>可以对<strong>节点流进行包装</strong>，提高性能或提高程序的灵活性。</li>
-</ol>
-<h3 id="2-流的体系"><a href="#2-流的体系" class="headerlink" title="2.流的体系"></a>2.流的体系</h3><ol>
-<li>InputStream/OutputStream<br><br>字节流的抽象类。<br></li>
-<li>Reader/Writer<br><br>字符流的抽象类。<br></li>
-<li>FileInputStream/FileOutputStream<br><br>节点流：以字节为单位直接操作“文件”。<br></li>
-<li>ByteArrayInputStream/ByteArrayOutputStream<br><br>节点流：以字节为单位直接操作“字节数组对象”。<br></li>
-<li>ObjectInputStream/ObjectOutputStream<br><br>处理流：以字节为单位直接操作“对象”。<br></li>
-<li>DataInputStream/DataOutputStream<br><br>处理流：以字节为单位直接操作“基本数据类型与字符串类型”。<br></li>
-<li>FileReader/FileWriter<br><br>节点流：以字符为单位直接操作“文本文件”(注意：只能读写文本文件)。<br></li>
-<li>BufferedReader/BufferedWriter<br><br>处理流：将Reader/Writer对象进行包装，增加缓存功能，提高读写效率。<br></li>
-<li>BufferedInputStream/BufferedOutputStream<br><br>处理流：将InputStream/OutputStream对象进行包装，增加缓存功能，提高 读写效率。<br></li>
-<li>InputStreamReader/OutputStreamWriter<br><br>处理流：将字节流对象转化成字符流对象。<br></li>
-<li>PrintStream<br><br>处理流：将OutputStream进行包装，可以方便地输出字符，更加灵活**<br><h3 id="3-简单的IO操作"><a href="#3-简单的IO操作" class="headerlink" title="3.简单的IO操作"></a>3.简单的IO操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class IOTest1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        BasicTest(&quot;D:/Test/src/IOBasicTest&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public  static  void BasicTest(String src)&#123;</span><br><span class="line">            FileInputStream fis = null;</span><br><span class="line">            try &#123;</span><br><span class="line">                fis = new FileInputStream(src);</span><br><span class="line">                int s1 = fis.read();</span><br><span class="line">                int s2 = fis.read();</span><br><span class="line">                int s3 = fis.read();</span><br><span class="line">                int s4 = fis.read();</span><br><span class="line">                System.out.println(s1);</span><br><span class="line">                System.out.println(s1);</span><br><span class="line">                System.out.println(s2);</span><br><span class="line">                System.out.println(s3);</span><br><span class="line">                System.out.println(s4);</span><br><span class="line">            &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">104</span><br><span class="line">104</span><br><span class="line">101</span><br><span class="line">108</span><br><span class="line">108</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjye89iik00018otnc03h0qy7" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjyefsj500000xctn1b6li7lt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -1014,6 +1013,10 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       <ul>
         
           <li>
+            <a href="/2019/07/19/JavaEE之JDBCTemplate小结/">JavaEE之JDBCTemplate小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/19/JavaEE之连接池小结/">JavaEE之连接池小结</a>
           </li>
         
@@ -1027,10 +1030,6 @@ void close() ： 关闭输出流对象，释放相关系统资源。
         
           <li>
             <a href="/2019/07/19/JavaEE之三层架构小结/">JavaEE之三层架构小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/19/JavaEE之JSTL表达式小结/">JavaEE之JSTL表达式小结</a>
           </li>
         
       </ul>

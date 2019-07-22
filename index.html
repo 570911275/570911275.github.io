@@ -62,6 +62,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之JDBCTemplate小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/19/JavaEE之JDBCTemplate小结/" class="article-date">
+  <time datetime="2019-07-19T13:59:20.000Z" itemprop="datePublished">2019-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/19/JavaEE之JDBCTemplate小结/">JavaEE之JDBCTemplate小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Spring-JDBC"><a href="#Spring-JDBC" class="headerlink" title="Spring JDBC"></a>Spring JDBC</h2><pre><code>* Spring框架对JDBC的简单封装。提供了一个JDBCTemplate对象简化JDBC的开发
+
+* 步骤：
+    1. 导入jar包
+
+    2. 创建JDBCTemplate对象。依赖于数据源DataSource
+         *jdbcTemplate template = new JdbcTemplate(ds);
+
+    3. 调用JdbcTemplate的方法来完成CRUD的操作
+         *update():执行DML语句。增、删、改语句
+         *queryForMap()：查询结果将结果封装成map集合————&gt;将列名作为key，将值作为value，将这条记录封装成一个map集合
+            *此方法查询的结果集长度只能是1
+         *queryForList（）：查询结果将结果封装成list集合————&gt;List(Map&lt;String,Object&gt; stringObjectMap : list)
+            *此方法将每一条记录封装为一个map集合，再将map集合装载到list集合中
+         *query（）：查询结果，将结果封装成JavaBean对象
+            *query的参数：RowMapper
+               *一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装
+               *new BeanPropertyRowMapper&lt;类型&gt;（类型.class） 
+         *queryForObject：查询结果，将结果封装成对象
+               *一般用于聚合函数的查询
+
+    4. Junit单元测试，可以让方法独立执行
+         *添加注解@Test
+         *方法为public void 
+
+    5. 小技巧：
+         *iter为加强版for循环的快捷键
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjyegioli002oxctnw77yl5ol" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之连接池小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/19/JavaEE之连接池小结/" class="article-date">
@@ -133,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjyeeee8b002m8otnmvhm69q1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjyefsj9l0018xctn7ldcm7ad" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -185,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC事务小结/" data-id="cjye9bnx6002i8otndvf1gbqs" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC事务小结/" data-id="cjyefsj78000ixctnze9mx2nm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -557,7 +622,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjye89iro002g8otn426ae0nv" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjyefsjfi002kxctnqus8tu2b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -600,7 +665,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之三层架构小结/" data-id="cjye89ilw00128otnjq3pqpvf" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之三层架构小结/" data-id="cjyefsj980014xctn3es80067" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -686,7 +751,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/" data-id="cjye89ikr000o8otnrh0x1r99" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/" data-id="cjyefsj7o000mxctnt1fsjhs3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -783,7 +848,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/" data-id="cjye89ije00088otndvnhds9b" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/" data-id="cjyefsj6i0008xctn7qx7qth2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -861,7 +926,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之MVC概念小结/" data-id="cjye89iko000m8otn9dwvh7yc" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之MVC概念小结/" data-id="cjyefsj81000rxctnyqtit93f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -942,7 +1007,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP补充学习小结/" data-id="cjye89ikc000j8otnpyvsh249" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP补充学习小结/" data-id="cjyefsj7u000oxctnkng2tdxg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1042,69 +1107,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Session小结/" data-id="cjye89iq000268otn55u90kgp" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之JSP入门学习小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/18/JavaEE之JSP入门学习小结/" class="article-date">
-  <time datetime="2019-07-18T08:35:43.000Z" itemprop="datePublished">2019-07-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/18/JavaEE之JSP入门学习小结/">JavaEE之JSP入门学习小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JSP入门学习"><a href="#JSP入门学习" class="headerlink" title="JSP入门学习"></a>JSP入门学习</h2><pre><code>1. 概念：
-   *Java Server Pages: java服务器端页面
-     *可以理解为一个特殊的页面，其中既可以定义HTML标签，又可以定义java代码
-     *用于简化书写！！！
-
- 2. 原理：
-    *JSP本质上就是一个Servlet
-
- 3. JSP的的脚本：
-       *JSP定义java代码的方式
-       1.&lt;% 代码 %&gt;：定义的java代码，在service方法中。Service方法中可以定义什么，该脚本中就可以定义什么
-       2.&lt;%! 代码 %&gt;： 定义的java代码，在jsp转换后的java类的成员位置。用的较少，尽量不要尽量成员变量，不然容易尝试线程错误
-       3.&lt;&lt;%= 代码 %&gt;&gt;：定义的java代码，会输出到页面上，输出语句中可以定义什么，该脚本中就可以定义什么
-
- 4. JSP的内置对象：
-      *在JSP页面中不需要获取和创建，就可以直接使用的对象
-      *在JSP中一共有9个内置对象
-      *3个基本内置对象：
-           *request：请求
-           *response：响应
-           *out：字符输出流对象。可以将数据输出到页面上。与response,getWriter()类似
-               *response.getWriter()和out.write()的区别：
-                  1.在Tomcat服务器真正给客户端做出响应之前，会先找response缓冲区数据，再找out缓冲区数据
-                  2.response.getWriter（）数据永远在out.Write()之前
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP入门学习小结/" data-id="cjye89ik6000h8otnck0xz3ep" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Session小结/" data-id="cjyefsje7002axctn3t1qrbn9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1166,6 +1169,10 @@ public boolean login2(String username,String password){
       <ul>
         
           <li>
+            <a href="/2019/07/19/JavaEE之JDBCTemplate小结/">JavaEE之JDBCTemplate小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/19/JavaEE之连接池小结/">JavaEE之连接池小结</a>
           </li>
         
@@ -1179,10 +1186,6 @@ public boolean login2(String username,String password){
         
           <li>
             <a href="/2019/07/19/JavaEE之三层架构小结/">JavaEE之三层架构小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/19/JavaEE之JSTL表达式小结/">JavaEE之JSTL表达式小结</a>
           </li>
         
       </ul>

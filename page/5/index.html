@@ -62,6 +62,56 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-java-编写程序之超强力方法小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/24/java-编写程序之超强力方法小结/" class="article-date">
+  <time datetime="2019-05-24T10:14:11.000Z" itemprop="datePublished">2019-05-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/24/java-编写程序之超强力方法小结/">java_编写程序之超强力方法小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-编写真正的游戏"><a href="#1-编写真正的游戏" class="headerlink" title="1.编写真正的游戏"></a>1.编写真正的游戏</h2><p>1.高层设计:<br><br>　一:玩家启动游戏<br><br>　　a.计算机创建３个网站。<br><br>　　b.将此3个网站停在虚拟战场上。<br><br>　二:游戏开始<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重复下面的操作指导所有的网站被歼灭。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.提示玩家输入坐标。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.检查是否击中。<br><br>&nbsp;&nbsp;&nbsp;三:游戏结束<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据玩家猜测数，给出结果。<br></p>
+<hr>
+
+<h2 id="2-游戏的简单版"><a href="#2-游戏的简单版" class="headerlink" title="2.游戏的简单版"></a>2.游戏的简单版</h2><p>1.简单的开始<br><br>&nbsp;&nbsp;游戏至少需要两个类:<strong>Game</strong>类和<strong>DotCom</strong>类<br><br>2.开发类<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.找出类应该做的事情<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.列出实例变量和方法<br><br>&nbsp;&nbsp;&nbsp;&nbsp;c.编写方法的伪码<br><br>&nbsp;&nbsp;&nbsp;&nbsp;d.编写方法的测试用程序<br><br>&nbsp;&nbsp;&nbsp;&nbsp;e.实现类<br><br>&nbsp;&nbsp;&nbsp;&nbsp;f.测试方法<br><br>&nbsp;&nbsp;&nbsp;&nbsp;g.除错或重新设计<br></p>
+<hr>
+
+<h2 id="3-代码区"><a href="#3-代码区" class="headerlink" title="3.代码区"></a>3.代码区</h2><p>1.<strong>SimpleDotCom</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class SimpleDotCom&#123;</span><br><span class="line">    int[] locationCells;</span><br><span class="line">    int numOfHits = 0;</span><br><span class="line">    public void setLocationCells(int[] locs)&#123;</span><br><span class="line">        locationCells = locs;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public String checkYourself(String stringGuess)&#123;</span><br><span class="line">        int guess = Integer.parseInt(stringGuess);</span><br><span class="line">        //此处将字符串转换为int</span><br><span class="line">        //其中Integer为java的一个内建类;parseInt为Integer的一个方法</span><br><span class="line">        String result = &quot;miss&quot;;</span><br><span class="line">        for(int cell : locationCells)&#123;</span><br><span class="line">        //此处为新的for循环表示方法</span><br><span class="line">        //将locationCells这个数组中的元素逐个赋值给cell中。</span><br><span class="line">            if(guess == cell)&#123;</span><br><span class="line">                result = &quot;hit&quot;;</span><br><span class="line">                numOfHits++;</span><br><span class="line">                breal;</span><br><span class="line">                //此处判断击中状态存在bug。无法判断是否重复击中同一格子。</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(numOfHits == locationCells.length)&#123;</span><br><span class="line">        //击中数量与数组长度相比较，若在不考虑上方bug情况下，二者相等则为击沉状态</span><br><span class="line">            result = &quot;kill&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(result);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.<strong>main</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args)&#123;</span><br><span class="line">    int numOfGuesses = 0;</span><br><span class="line">    GameHelper helper = new GameHelper();</span><br><span class="line">    //使用这个类来获取玩家的输入</span><br><span class="line">    </span><br><span class="line">    SimpleDotCom theDotCom = new SimpleDotCom();</span><br><span class="line">    int randomNum = (int) (Math.random()*5);</span><br><span class="line">    //产生随机数</span><br><span class="line">    //Math是java的内建的一个类;random是Math中内含的一个方法</span><br><span class="line">    //Math.random会产生一个0&lt;=x&lt;1的数</span><br><span class="line">    //在*5之后，随机数的范围扩大为0&lt;=x&lt;5</span><br><span class="line">    </span><br><span class="line">    int[] locations = &#123;randomNum,randomNum+1,randomNum+2&#125;;</span><br><span class="line">    theDotCom.setLocationCells(locations);</span><br><span class="line">    boolean isAlive = true;</span><br><span class="line">    </span><br><span class="line">    while(isAlive == true)&#123;</span><br><span class="line">        String guess = helper.getUserInput(&quot;enter a number&quot;);</span><br><span class="line">        //获取玩家的输入，并且用&quot;guess&quot;这个变量来承载玩家的输入值</span><br><span class="line">        String result = theDotCom.checkYourself(guess);</span><br><span class="line">        </span><br><span class="line">        numOfGuesses++;</span><br><span class="line">        if(result.equals(&quot;kill&quot;))&#123;</span><br><span class="line">            isAlive = false;</span><br><span class="line">            System.out.println(&quot;You took&quot;+ numOfGuesses+&quot;guesses&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.<strong>GameHelper</strong><br><br>//该代码区较难理解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import java.io.*;</span><br><span class="line">public class GameHelper&#123;</span><br><span class="line">    public String getUserInput(String prompt)&#123;</span><br><span class="line">        String inputLine = null;</span><br><span class="line">        System.out.print(prppt+&quot; &quot;);</span><br><span class="line">        try&#123;</span><br><span class="line">            BufferedReader is = new BufferedReader(new InputStreamReader(System.in));</span><br><span class="line">            inputLine = is.readLine();</span><br><span class="line">            if(inputLine.length() == 0) return null;</span><br><span class="line">        &#125;</span><br><span class="line">        catch(IOException e)&#123;</span><br><span class="line">            System.out.println(&quot;IOException:&quot; +e);</span><br><span class="line">        &#125;</span><br><span class="line">        return inputLine;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="4-加强版for循环"><a href="#4-加强版for循环" class="headerlink" title="4.加强版for循环"></a>4.加强版for循环</h2><p><strong>for(String name : nameArray){}</strong><br><br>1.创建名称为”name”的String变量<br><br>2.将nameArray的第一个元素赋值给name<br><br>3.执行重复内容<br><br>4.赋值下一元素给name<br><br>5.重复执行至所有元素被运行完<br><br><br><br>补充；<br><br>1.”:”表示in;在其他语言中这种循环又被叫做”for in”或者“foreach”循环<br>2.name如同一个容器，每次循环装载来自nameArray的元素<br>3.nameArray如同一个具有多杯饮料的杯框。每次循环，将nameArray中一杯饮料取出，倒入name这个容器中。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/24/java-编写程序之超强力方法小结/" data-id="cjyefsjbj001uxctnqsanzb4h" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java-方法操作实例变量小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/23/java-方法操作实例变量小结/" class="article-date">
@@ -101,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjye89in4001k8otn40jkkdti" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjyefsjak001mxctn557z3xc7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -142,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/Java-primitive主数据类型和引用小结/" data-id="cjye89ijw000e8otn6i1ysvns" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/Java-primitive主数据类型和引用小结/" data-id="cjyefsj680005xctnl66gthf6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -194,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/PHP的orm搭建/" data-id="cjye89iq900288otn5i0my48r" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/PHP的orm搭建/" data-id="cjyefsjeg002cxctntubilsxo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -238,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjye89im200148otnrexkgxor" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjyefsj9f0016xctnel33dxh8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -283,7 +333,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjye89im700168otnxufz0qj1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjyefsj9r001axctn154qafgo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -343,6 +393,10 @@
       <ul>
         
           <li>
+            <a href="/2019/07/19/JavaEE之JDBCTemplate小结/">JavaEE之JDBCTemplate小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/19/JavaEE之连接池小结/">JavaEE之连接池小结</a>
           </li>
         
@@ -356,10 +410,6 @@
         
           <li>
             <a href="/2019/07/19/JavaEE之三层架构小结/">JavaEE之三层架构小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/19/JavaEE之JSTL表达式小结/">JavaEE之JSTL表达式小结</a>
           </li>
         
       </ul>
