@@ -90,7 +90,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjye5iblr0020lwtnl1sjwmho" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjye872mr00241otnwxai1wgf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -139,91 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjye5ibl2001qlwtn7shx4m88" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-集合之Set接口的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/09/集合之Set接口的常用方法与特点/" class="article-date">
-  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之Set接口的常用方法与特点/">java_集合_Set接口的常用方法与特点小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Set接口的常用方法与特点"><a href="#Set接口的常用方法与特点" class="headerlink" title="Set接口的常用方法与特点"></a>Set接口的常用方法与特点</h2><h3 id="1-Set的特点"><a href="#1-Set的特点" class="headerlink" title="1.Set的特点"></a>1.Set的特点</h3><p>Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。</p>
-<h3 id="2-Set的常用方法"><a href="#2-Set的常用方法" class="headerlink" title="2.Set的常用方法"></a>2.Set的常用方法</h3><p>Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。</p>
-<h3 id="3-Set的常用方法的使用"><a href="#3-Set的常用方法的使用" class="headerlink" title="3.Set的常用方法的使用"></a>3.Set的常用方法的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Set&lt;String&gt; s = new HashSet&lt;String&gt;();</span><br><span class="line">        s.add(&quot;hello&quot;);</span><br><span class="line">        s.add(&quot;world&quot;);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(&quot;hello&quot;); //相同的元素不会被加入</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[world, hello]</span><br><span class="line">[world, hello]</span><br><span class="line">[null, world, hello]</span><br><span class="line">[null, world, hello]</span><br></pre></td></tr></table></figure>
-<h3 id="TreeSet和Comparable接口的使用"><a href="#TreeSet和Comparable接口的使用" class="headerlink" title="TreeSet和Comparable接口的使用"></a>TreeSet和Comparable接口的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        User u1 = new User(1001, &quot;高淇&quot;, 18);</span><br><span class="line">        User u2 = new User(2001, &quot;高希希&quot;, 5);</span><br><span class="line">        Set&lt;User&gt; set = new TreeSet&lt;User&gt;();</span><br><span class="line">        set.add(u1);</span><br><span class="line">        set.add(u2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">class User implements Comparable&lt;User&gt; &#123;</span><br><span class="line">    int id;</span><br><span class="line">    String uname;</span><br><span class="line">    int age;</span><br><span class="line"> </span><br><span class="line">    public User(int id, String uname, int age) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">        this.uname = uname;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 返回0 表示 this == obj 返回正数表示 this &gt; obj 返回负数表示 this &lt; obj</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(User o) &#123;</span><br><span class="line">        if (this.id &gt; o.id) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125; else if (this.id &lt; o.id) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjye5iblw0022lwtnlm4681zb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-集合之List的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/09/集合之List的常用方法与特点/" class="article-date">
-  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之List的常用方法与特点/">java_集合_List的常用方法与特点小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="List的常用方法以及特点"><a href="#List的常用方法以及特点" class="headerlink" title="List的常用方法以及特点"></a>List的常用方法以及特点</h2><h3 id="一、List的特点"><a href="#一、List的特点" class="headerlink" title="一、List的特点"></a>一、List的特点</h3><p>1.有序：List中每个元素都有索引标记。可以根据元素的索引标记(在List中的位置)访问元素，从而精确控制这些元素。<br>2. 可重复：List允许加入重复的元素。更确切地讲，List通常允许满足 e1.equals(e2) 的元素重复加入容器。</p>
-<h3 id="二、List的常用方法"><a href="#二、List的常用方法" class="headerlink" title="二、List的常用方法"></a>二、List的常用方法</h3><p><strong>void add(int index,Object element)<br><br>在指定位置插入元素，以前元素全部后移一位<br><br>Object set(int index,Object element)<br><br>修改指定位置的元素<br><br>Object get(int index)<br><br>获取指定位置的元素<br><br>Object remove(int index)<br><br>删除指定位置的元素，后面的元素全部前移一位<br><br>int indexOf(Object o)<br><br>返回第一个元素的索引，如果没有该元素，返回-1<br><br>int lastIndexOf(Object o)<br><br>返回最后一个元素的索引，如果没有该元素，返回-1</strong><br></p>
-<h3 id="三、List方法的运用"><a href="#三、List方法的运用" class="headerlink" title="三、List方法的运用"></a>三、List方法的运用</h3><p>1.List的常用方法的运用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        System.out.println(list.isEmpty());//判断list中是否包含元素【此时为空】</span><br><span class="line">        list.add(&quot;黄&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        System.out.println(list.isEmpty());//再次判断list中是否包含元素【此时非空】</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.remove(0);//移除索引为0的元素</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        System.out.println(list.size());//输出list此时的元素数量</span><br><span class="line">        System.out.println(list.contains(&quot;黄&quot;));//判断list中是否包含“黄”这个元素【此时为false】</span><br><span class="line">        Object[] objs = list.toArray();//将list转化为数组</span><br><span class="line">        System.out.println(&quot;转换为Object数组&quot; + Arrays.toString(objs));</span><br><span class="line">        list.clear();//清空list中所有的元素</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">[黄, 丫, 丫]</span><br><span class="line">[丫, 丫]</span><br><span class="line">2</span><br><span class="line">false</span><br><span class="line">转换为Object数组[丫, 丫]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
-<p>2.两个List之间的元素处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        list.add(&quot;黄&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; list2 = new ArrayList&lt;String&gt;();//创建String类型的list2</span><br><span class="line">        list2.add(&quot;黄&quot;);//加入元素到list中2</span><br><span class="line">        list2.add(&quot;大&quot;);</span><br><span class="line">        list2.add(&quot;小&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(list.containsAll(list2));//判断list中是否包含list2容器中的所有元素【此时为false】</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.addAll(list2);//将list2中的所有元素添加到list中</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        list.removeAll(list2);//从list中删除同时在list和list2中存在的元素</span><br><span class="line">        System.out.println(list);</span><br><span class="line">        list.retainAll(list2);//取list和list2的交集</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">false</span><br><span class="line">[黄, 丫, 丫]</span><br><span class="line">[黄, 丫, 丫, 黄, 大, 小]</span><br><span class="line">[丫, 丫]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
-<p>3.List中操作索引的常用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        list.add(&quot;A&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;B&quot;);</span><br><span class="line">        list.add(&quot;C&quot;);</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.add(2,&quot;黄&quot;);//在索引为2的位置添加元素“黄”</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.remove(2);//移除索引为2的元素</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.set(2,&quot;c&quot;);//将索引为2的元素置换为c</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        System.out.println(list.get(1));//输出索引位置为1的元素</span><br><span class="line">        list.add(&quot;B&quot;);//添加元素“B”</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        System.out.println(list.indexOf(&quot;B&quot;));//输出第一个元素为“B”的索引位置</span><br><span class="line">        System.out.println(list.lastIndexOf(&quot;B&quot;));//输出最后一个元素为“B”的索引位置</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[A, B, C]</span><br><span class="line">[A, B, 黄, C]</span><br><span class="line">[A, B, C]</span><br><span class="line">[A, B, c]</span><br><span class="line">B</span><br><span class="line">[A, B, c, B]</span><br><span class="line">1</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjye5iblo001ylwtnzsza0xgv" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjye872m5001w1otnqu56dzdk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -270,7 +186,91 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjye5ibll001wlwtnvneawqeb" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjye872mm00221otny1ia3v3s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-集合之Set接口的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之Set接口的常用方法与特点/" class="article-date">
+  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/集合之Set接口的常用方法与特点/">java_集合_Set接口的常用方法与特点小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Set接口的常用方法与特点"><a href="#Set接口的常用方法与特点" class="headerlink" title="Set接口的常用方法与特点"></a>Set接口的常用方法与特点</h2><h3 id="1-Set的特点"><a href="#1-Set的特点" class="headerlink" title="1.Set的特点"></a>1.Set的特点</h3><p>Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。</p>
+<h3 id="2-Set的常用方法"><a href="#2-Set的常用方法" class="headerlink" title="2.Set的常用方法"></a>2.Set的常用方法</h3><p>Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。</p>
+<h3 id="3-Set的常用方法的使用"><a href="#3-Set的常用方法的使用" class="headerlink" title="3.Set的常用方法的使用"></a>3.Set的常用方法的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Set&lt;String&gt; s = new HashSet&lt;String&gt;();</span><br><span class="line">        s.add(&quot;hello&quot;);</span><br><span class="line">        s.add(&quot;world&quot;);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(&quot;hello&quot;); //相同的元素不会被加入</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[world, hello]</span><br><span class="line">[world, hello]</span><br><span class="line">[null, world, hello]</span><br><span class="line">[null, world, hello]</span><br></pre></td></tr></table></figure>
+<h3 id="TreeSet和Comparable接口的使用"><a href="#TreeSet和Comparable接口的使用" class="headerlink" title="TreeSet和Comparable接口的使用"></a>TreeSet和Comparable接口的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        User u1 = new User(1001, &quot;高淇&quot;, 18);</span><br><span class="line">        User u2 = new User(2001, &quot;高希希&quot;, 5);</span><br><span class="line">        Set&lt;User&gt; set = new TreeSet&lt;User&gt;();</span><br><span class="line">        set.add(u1);</span><br><span class="line">        set.add(u2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">class User implements Comparable&lt;User&gt; &#123;</span><br><span class="line">    int id;</span><br><span class="line">    String uname;</span><br><span class="line">    int age;</span><br><span class="line"> </span><br><span class="line">    public User(int id, String uname, int age) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">        this.uname = uname;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 返回0 表示 this == obj 返回正数表示 this &gt; obj 返回负数表示 this &lt; obj</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(User o) &#123;</span><br><span class="line">        if (this.id &gt; o.id) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125; else if (this.id &lt; o.id) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjye872mg00201otn84mb9msf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-集合之List的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之List的常用方法与特点/" class="article-date">
+  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/集合之List的常用方法与特点/">java_集合_List的常用方法与特点小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="List的常用方法以及特点"><a href="#List的常用方法以及特点" class="headerlink" title="List的常用方法以及特点"></a>List的常用方法以及特点</h2><h3 id="一、List的特点"><a href="#一、List的特点" class="headerlink" title="一、List的特点"></a>一、List的特点</h3><p>1.有序：List中每个元素都有索引标记。可以根据元素的索引标记(在List中的位置)访问元素，从而精确控制这些元素。<br>2. 可重复：List允许加入重复的元素。更确切地讲，List通常允许满足 e1.equals(e2) 的元素重复加入容器。</p>
+<h3 id="二、List的常用方法"><a href="#二、List的常用方法" class="headerlink" title="二、List的常用方法"></a>二、List的常用方法</h3><p><strong>void add(int index,Object element)<br><br>在指定位置插入元素，以前元素全部后移一位<br><br>Object set(int index,Object element)<br><br>修改指定位置的元素<br><br>Object get(int index)<br><br>获取指定位置的元素<br><br>Object remove(int index)<br><br>删除指定位置的元素，后面的元素全部前移一位<br><br>int indexOf(Object o)<br><br>返回第一个元素的索引，如果没有该元素，返回-1<br><br>int lastIndexOf(Object o)<br><br>返回最后一个元素的索引，如果没有该元素，返回-1</strong><br></p>
+<h3 id="三、List方法的运用"><a href="#三、List方法的运用" class="headerlink" title="三、List方法的运用"></a>三、List方法的运用</h3><p>1.List的常用方法的运用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        System.out.println(list.isEmpty());//判断list中是否包含元素【此时为空】</span><br><span class="line">        list.add(&quot;黄&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        System.out.println(list.isEmpty());//再次判断list中是否包含元素【此时非空】</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.remove(0);//移除索引为0的元素</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        System.out.println(list.size());//输出list此时的元素数量</span><br><span class="line">        System.out.println(list.contains(&quot;黄&quot;));//判断list中是否包含“黄”这个元素【此时为false】</span><br><span class="line">        Object[] objs = list.toArray();//将list转化为数组</span><br><span class="line">        System.out.println(&quot;转换为Object数组&quot; + Arrays.toString(objs));</span><br><span class="line">        list.clear();//清空list中所有的元素</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">[黄, 丫, 丫]</span><br><span class="line">[丫, 丫]</span><br><span class="line">2</span><br><span class="line">false</span><br><span class="line">转换为Object数组[丫, 丫]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
+<p>2.两个List之间的元素处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        list.add(&quot;黄&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; list2 = new ArrayList&lt;String&gt;();//创建String类型的list2</span><br><span class="line">        list2.add(&quot;黄&quot;);//加入元素到list中2</span><br><span class="line">        list2.add(&quot;大&quot;);</span><br><span class="line">        list2.add(&quot;小&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(list.containsAll(list2));//判断list中是否包含list2容器中的所有元素【此时为false】</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.addAll(list2);//将list2中的所有元素添加到list中</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        list.removeAll(list2);//从list中删除同时在list和list2中存在的元素</span><br><span class="line">        System.out.println(list);</span><br><span class="line">        list.retainAll(list2);//取list和list2的交集</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">false</span><br><span class="line">[黄, 丫, 丫]</span><br><span class="line">[黄, 丫, 丫, 黄, 大, 小]</span><br><span class="line">[丫, 丫]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
+<p>3.List中操作索引的常用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        list.add(&quot;A&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;B&quot;);</span><br><span class="line">        list.add(&quot;C&quot;);</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.add(2,&quot;黄&quot;);//在索引为2的位置添加元素“黄”</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.remove(2);//移除索引为2的元素</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.set(2,&quot;c&quot;);//将索引为2的元素置换为c</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        System.out.println(list.get(1));//输出索引位置为1的元素</span><br><span class="line">        list.add(&quot;B&quot;);//添加元素“B”</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        System.out.println(list.indexOf(&quot;B&quot;));//输出第一个元素为“B”的索引位置</span><br><span class="line">        System.out.println(list.lastIndexOf(&quot;B&quot;));//输出最后一个元素为“B”的索引位置</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[A, B, C]</span><br><span class="line">[A, B, 黄, C]</span><br><span class="line">[A, B, C]</span><br><span class="line">[A, B, c]</span><br><span class="line">B</span><br><span class="line">[A, B, c, B]</span><br><span class="line">1</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjye872m8001y1otn8nejupeu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -309,7 +309,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjye5iblh001ulwtndkcqi5vs" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjye872lz001u1otnstze9rau" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -347,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjye5ibk9001clwtnvtokj9x2" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjye872k700191otnqlnyzcir" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -385,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/03/java-图形用户接口之中小结/" data-id="cjye5ibk6001alwtnf2gaqkkf" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/03/java-图形用户接口之中小结/" data-id="cjye872km001f1otnbxn2gv7r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -423,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/02/java-图形用户接口之上小结/" data-id="cjye5ibk30018lwtn9uxsbkst" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/02/java-图形用户接口之上小结/" data-id="cjye872kb001b1otn2k6lfe5i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -491,7 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/01/java-异常处理小结/" data-id="cjye5ibnl002dlwtnvz9cz2zo" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/01/java-异常处理小结/" data-id="cjye872nz002c1otnm7243rbi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>

@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="JDBC1.概念：Java DataBase Connectivity Java数据库连接，Java语言操作数据库*JDBC本质：官方（sun公司）定义的一套操作所有关系型数据库的规则，即接口。各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类 2.快速入门：*步骤：    1.导入驱动jar包    mysql-co">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-22T10:05:24.946Z">
+<meta property="og:updated_time" content="2019-07-22T10:06:35.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE之JDBC小结">
 <meta name="twitter:description" content="JDBC1.概念：Java DataBase Connectivity Java数据库连接，Java语言操作数据库*JDBC本质：官方（sun公司）定义的一套操作所有关系型数据库的规则，即接口。各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类 2.快速入门：*步骤：    1.导入驱动jar包    mysql-co">
@@ -353,21 +353,79 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
     }
 }
 </code></pre><p>}</p>
-<p><code>`</code></p>
-<h2 id="练习登录界面"><a href="#练习登录界面" class="headerlink" title="练习登录界面"></a>练习登录界面</h2><pre><code>*需求：
-   1. 通过键盘录入用户名和密码
-   2. 判断用户是否登录成功
-          *select * from user where username = &quot;&quot; and password = &quot;&quot;;
-          *如果这个SQL有查询结果，则成功，反之，则失败
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 练习登录界面</span><br><span class="line">      *需求：</span><br><span class="line">         1. 通过键盘录入用户名和密码</span><br><span class="line">         2. 判断用户是否登录成功</span><br><span class="line">                *select * from user where username = &quot;&quot; and password = &quot;&quot;;</span><br><span class="line">                *如果这个SQL有查询结果，则成功，反之，则失败</span><br><span class="line">        </span><br><span class="line">      *步骤：</span><br><span class="line">         1. 创建数据库表 user</span><br><span class="line">         2. 创建一个类，完成登录逻辑</span><br></pre></td></tr></table></figure>
+<p>package cn.itcast.jdbc;</p>
+<p>import cn.itcast.Utils.JDBCUtils;</p>
+<p>import java.sql.*;<br>import java.util.Scanner;</p>
+<p>/**</p>
+<ul>
+<li><ol>
+<li>通过键盘录入用户名和密码</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>判断用户是否登录成功<br>*/<br>public class JDBCExe {<br>public static void main(String[] args) {<br>//1.键盘录入，接受用户名和密码<br>Scanner sc = new Scanner(System.in);<br>System.out.println(“请输入用户名”);<br>String username = sc.nextLine();<br>System.out.println(“请输入密码”);<br>String password = sc.nextLine();<br>//2.调用方法<br>boolean flag = new JDBCExe().login2(username, password);<br>//3.判断结果，输出不同结果<br>if (flag) {<br>//登录成功<br>System.out.println(“登录成功”);<br>} else {<br>System.out.println(“用户名或密码错误”);<br>}<br>}</li>
+</ol>
+<p>/**</p>
+<ul>
+<li>登录方法<br><em>/<br>public boolean login(String username,String password){<br>/</em>Connection conn = null;<br>Statement stmt = null;<br>ResultSet rs =  null;<em>/<br>if(username == null || password == null){<br>return false;<br>}<br>//连接数据库判断是否登录成功<br>Connection conn = null;<br>Statement stmt = null;<br>ResultSet rs =  null;<br>//连接数据库，判断是否登录成功<br>try {<br>//1.获取连接<br>conn = JDBCUtils.getConnection();<br>//2.定义SQL<br>String sql = “select </em> from user where username = ‘“+username+”‘and password = ‘“+password+”‘“;<br>  System.out.println(sql);<br>//3.获取执行SQL的对象<br>stmt = conn.createStatement();<br>//4.执行查询<br>rs = stmt.executeQuery(sql);<br>//5.判断<br>  return  rs.next();</li>
+</ul>
+<p>} catch (SQLException e) {</p>
+<pre><code>e.printStackTrace();
+</code></pre><p>}finally {</p>
+<pre><code>JDBCUtils.close(rs,stmt,conn);
+</code></pre><p>}<br>return false;</p>
+</li>
+</ul>
+<p>}</p>
+<pre><code>/**
+ * 登录方法,使用PreparedStatement
+ */
+public boolean login2(String username,String password){
+    /*Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs =  null;*/
+    if(username == null || password == null){
+        return false;
+    }
+    //连接数据库判断是否登录成功
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs =  null;
+    //连接数据库，判断是否登录成功
+    try {
+        //1.获取连接
+        conn = JDBCUtils.getConnection();
+        //2.定义SQL
+        String sql = &quot;select * from user where username = ? and password = ?&quot;;
 
-*步骤：
-   1. 创建数据库表 user
-   2. 创建一个类，完成登录逻辑
-</code></pre>
+        System.out.println(sql);
+        //3.1获取执行SQL的对象
+        pstmt = conn.prepareStatement(sql);
+        //3.2给问号赋值
+        pstmt.setString(1,username);
+        pstmt.setString(2,password);
+        //4.执行查询,不需要传参数
+        rs = pstmt.executeQuery();
+        //5.判断
+        return  rs.next();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }finally {
+
+        JDBCUtils.close(rs,pstmt,conn);
+    }
+    return false;
+
+}
+</code></pre><p>}</p>
+<p><code>`</code></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjye5ibn00027lwtniy214nfy" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjye872nn00281otni994mf5p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
