@@ -62,6 +62,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-java-构造器与垃圾回收器之构造器小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/28/java-构造器与垃圾回收器之构造器小结/" class="article-date">
+  <time datetime="2019-05-28T15:32:38.000Z" itemprop="datePublished">2019-05-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/28/java-构造器与垃圾回收器之构造器小结/">java_构造器与垃圾回收器之构造器小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-栈与堆-生存空间"><a href="#1-栈与堆-生存空间" class="headerlink" title="1.栈与堆:生存空间"></a>1.栈与堆:生存空间</h2><p>1.堆与栈的基本概念<br><br>堆:<strong>对象</strong>的生存空间堆<br><br>&nbsp;&nbsp;&nbsp;&nbsp;//<strong>实例变量</strong>是被<strong>声明在类</strong>而不是方法里面。它们代表的每个独立对象的”字段”。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;//<strong>实例变量</strong>存在于<strong>所属的对象</strong>中。<br><br>栈:<strong>方法调用</strong>及<strong>局部变量</strong>的生存空间<br><br>&nbsp;&nbsp;&nbsp;&nbsp;//<strong>局部变量</strong>和<strong>方法的参数</strong>是被<strong>声明在方法</strong>中。它们是<strong>暂时的</strong>。<br>&nbsp;&nbsp;&nbsp;&nbsp;//其<strong>生命周期</strong>只限于<strong>方法被放在栈上</strong>的这段时间。<br><br><br>2.栈上的<strong>对象引用</strong><br><br>非primitive的变量只是<strong>保存对象的引用</strong>。而不是对象的本身,<br><br>如果<strong>局部变量</strong>是个对该<strong>对象的引用</strong>,<strong>只有变量本身会被放在栈上，对象本身只会存在堆上。</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class StackRef&#123;</span><br><span class="line">    public void foof()&#123;</span><br><span class="line">        barf();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void barf()&#123;</span><br><span class="line">        Duck d = new Duck();</span><br><span class="line">        //其中&quot;d&quot;这个局部变量是存在于栈上的。</span><br><span class="line">        //&quot;Duck&quot;这个对象是存在于堆上。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="2-构造函数"><a href="#2-构造函数" class="headerlink" title="2.构造函数"></a>2.构造函数</h2><p>1.对象的<strong>声明</strong>与<strong>赋值</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.声明引用变量</span><br><span class="line">&quot;Duck myDuck&quot; = new Duck();</span><br><span class="line">2.创建对象</span><br><span class="line">Duck myDuck = &quot;new Duck()&quot;;</span><br><span class="line">//构造函数就在这一步进行操作</span><br><span class="line">3.连接对象与引用</span><br><span class="line">Duck myDuck &quot;=&quot; new Duck();</span><br></pre></td></tr></table></figure></p>
+<p>2.构造函数的<strong>调用</strong><br><br><code>Duck myDuck = &quot;new Duck()&quot;;</code><br><br>这一步调用了Duck的<strong>构造函数</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.在用户<strong>没有编写构造函数</strong>的情况下,编译器将会<strong>自动编写</strong>。<br>&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>唯一</strong>能够在<strong>构造函数之外调用构造函数</strong>的方式为–新建一个类**。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在用户无编写构造函数的情况下,系统自行编写的构造函数</span><br><span class="line">public Duck()&#123;</span><br><span class="line">    //其中构造函数的名称必须与类的名称相同</span><br><span class="line">    //与方法区别的一点为:</span><br><span class="line">    //方法有返回类型,构造函数没有返回类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.构造函数的<strong>意义</strong><br><br>构造函数:会在对象能够<strong>被赋值给引用之前</strong>就执行。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;//这意味着用户有机会在对象<strong>被使用之前</strong>介入。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;//使得用户在构造过程的步骤中<strong>加入一些操作</strong>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class Duck&#123;</span><br><span class="line">    public Duck()&#123;</span><br><span class="line">        System.out.println(&quot;Quack&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UseADuck&#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Duck d = new Duck();</span><br><span class="line">        //启动Duck的构造函数</span><br><span class="line">        //此处输出Quack</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4.构造函数的<strong>参数</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.使用构造函数来初始化对象的状态。(即设置和给对象的实例变量赋值)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//讲构造函数设定成需要参数的。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.一定要有不需要参数的构造函数。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//使得用户在创建对象的时候有两个选择:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//1.可以初始化对象的状态(通过构造函数的参数)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//2.使用默认值无需初始化<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">构造函数含参数时:</span><br><span class="line">public class Duck&#123;</span><br><span class="line">    int size;</span><br><span class="line">    </span><br><span class="line">    public Duck(int duckSize)&#123;</span><br><span class="line">        System.out.println(&quot;Quack&quot;);</span><br><span class="line">        </span><br><span class="line">        size = duckSize;</span><br><span class="line">        </span><br><span class="line">        System.out.println(&quot;size is &quot; + size);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UseADuck&#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Duck d = new Duck(2);</span><br><span class="line">        //此处传值给构造函数</span><br><span class="line">        //此处输出</span><br><span class="line">        //       Quack </span><br><span class="line">        //       size is 2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5.构造函数的<strong>重载</strong><br><br>1.如果一个类有了<strong>一个以上</strong>的构造函数,则<strong>参数</strong>一定要<strong>不一样</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.包括了<strong>参数的顺序</strong>与<strong>类型</strong>。只要<strong>不一样</strong>即可。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.编译器查看的是<strong>参数的类型</strong>和<strong>顺序</strong>而不是参数的名字。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public clas Mushroom&#123;</span><br><span class="line">    public Mushroom(int size) &#123;&#125;</span><br><span class="line">    //只含有一个参数</span><br><span class="line">    </span><br><span class="line">    public Mushroom() &#123;&#125;</span><br><span class="line">    //无参数类型</span><br><span class="line">    </span><br><span class="line">    public Mushroom(boolean isMagic) &#123;&#125;</span><br><span class="line">    //只含有一个参数(参数类型发生改变)</span><br><span class="line">    </span><br><span class="line">    public Mushroom(boolean isMagic, int size) &#123;&#125;</span><br><span class="line">    public Mushroom(int size, boolean isMagic) &#123;&#125;</span><br><span class="line">    //顺序不同通过编译</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>6.调用<strong>父类</strong>的构造函数<br><br>唯一调用父类构造函数的方法是调用super()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Duck extends Animal&#123;</span><br><span class="line">    int size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Duck(int newSize)&#123;</span><br><span class="line">    super();</span><br><span class="line">    size = newSize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/28/java-构造器与垃圾回收器之构造器小结/" data-id="cjyd0zhlv001cg8tngnqckhej" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java-接口与抽象类小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/27/java-接口与抽象类小结/" class="article-date">
@@ -113,7 +160,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/27/java-接口与抽象类小结/" data-id="cjyczocs100215otnxxfaj4lo" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/27/java-接口与抽象类小结/" data-id="cjyd0zhnb0022g8tn07s7p4xm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -176,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/26/java-继承与多态小结/" data-id="cjyczocqq001e5otnjmdixdvo" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/26/java-继承与多态小结/" data-id="cjyd0zhm5001ig8tndjtuhmtf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -232,7 +279,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/25/java-认识java的API之使用java函数库小结/" data-id="cjyczocs400235otnlf182b40" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/25/java-认识java的API之使用java函数库小结/" data-id="cjyd0zhng0025g8tnoslnrjbs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -282,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/24/java-编写程序之超强力方法小结/" data-id="cjyczocqw001i5otn9jwbcsid" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/24/java-编写程序之超强力方法小结/" data-id="cjyd0zhm8001kg8tndddjxy4f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -333,7 +380,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjyczocqf00185otn8s1iai9x" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjyd0zhlz001eg8tnirdhvkbm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -374,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/Java-primitive主数据类型和引用小结/" data-id="cjyczocow000e5otnvl8kbixm" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/Java-primitive主数据类型和引用小结/" data-id="cjyd0zhju000cg8tn984zuebt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -426,7 +473,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/PHP的orm搭建/" data-id="cjyczocrw001y5otn4xlgmfm3" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/PHP的orm搭建/" data-id="cjyd0zhn80020g8tnn4fg4p90" class="article-share-link">Share</a>
       
       
     </footer>
@@ -470,7 +517,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjyczocpu000u5otnxa56d57v" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjyd0zhl5000yg8tn6jnlok9x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -515,7 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjyczocq0000y5otn97fzf807" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjyd0zhlb0012g8tnkw2owl0r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -575,6 +622,10 @@
       <ul>
         
           <li>
+            <a href="/2019/07/19/JavaEE之EL表达式小结/">JavaEE之EL表达式小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/18/JavaEE之MVC概念小结/">JavaEE之MVC概念小结</a>
           </li>
         
@@ -588,10 +639,6 @@
         
           <li>
             <a href="/2019/07/18/JavaEE之JSP入门学习小结/">JavaEE之JSP入门学习小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/18/JavaEE之Cookie小结/">JavaEE之Cookie小结</a>
           </li>
         
       </ul>

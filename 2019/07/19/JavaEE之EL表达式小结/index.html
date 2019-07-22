@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaEE之EL表达式小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="EL表达式1. 概念：Expression Language 表达式语言  2. 作用：替换和简化jsp页面中java代码的编写  3. 语法：${表达式}    4. 注意：    *jsp中为默认支持el表达式的。如果要忽略el表达式       1.设置jsp中page指令中：isELIgnored=&amp;quot;true&amp;quot;  忽略当前页面中所有的el表达式       &amp;lt;%@">
+<meta name="keywords" content="javaEE_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE之EL表达式小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="EL表达式1. 概念：Expression Language 表达式语言  2. 作用：替换和简化jsp页面中java代码的编写  3. 语法：${表达式}    4. 注意：    *jsp中为默认支持el表达式的。如果要忽略el表达式       1.设置jsp中page指令中：isELIgnored=&amp;quot;true&amp;quot;  忽略当前页面中所有的el表达式       &amp;lt;%@">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-22T01:28:15.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaEE之EL表达式小结">
+<meta name="twitter:description" content="EL表达式1. 概念：Expression Language 表达式语言  2. 作用：替换和简化jsp页面中java代码的编写  3. 语法：${表达式}    4. 注意：    *jsp中为默认支持el表达式的。如果要忽略el表达式       1.设置jsp中page指令中：isELIgnored=&amp;quot;true&amp;quot;  忽略当前页面中所有的el表达式       &amp;lt;%@">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaEE之EL表达式小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/19/JavaEE之EL表达式小结/" class="article-date">
+  <time datetime="2019-07-19T01:27:14.000Z" itemprop="datePublished">2019-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaEE之EL表达式小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="EL表达式"><a href="#EL表达式" class="headerlink" title="EL表达式"></a>EL表达式</h2><pre><code>1. 概念：Expression Language 表达式语言
+
+2. 作用：替换和简化jsp页面中java代码的编写
+
+3. 语法：${表达式}  
+
+4. 注意：
+   *jsp中为默认支持el表达式的。如果要忽略el表达式
+      1.设置jsp中page指令中：isELIgnored=&quot;true&quot;  忽略当前页面中所有的el表达式
+      &lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; isELIgnored=&quot;true&quot; %&gt; 
+      2.、${表达式} 忽略当前此el表达式
+                 \${3&gt;4}
+
+5. 使用：
+    1. 运算：
+        *运算符：
+           1.算数运算符：+ - * /(div) %(mod)
+           2.比较运算符: &gt; &lt; &gt;= &lt;= !=
+           3.逻辑运算符: &amp;&amp;(and) ||(or) !(not)
+           4.空运算符  : empty
+                *功能：用于判断字符串、集合、数组对象是否为null，长度是否为0
+                *${empty list}：判断字符串、集合、数组对象是否为null，长度是否为0
+                *${not empty str}:表示判断字符串、集合、数组对象是否不为null，且长度大于0
+    2. 获取值
+         1. el表达式只能从域对象中获取值
+         2. 语法：
+              1. ${域名称.键名}：从指定域中获取指定键的值
+                   *域名称：
+                     1.pageScope  --&gt;  pageContext
+                     2.requestScope  --&gt;  request
+                     3.sessionScope  --&gt;  session
+                     4.applicationScope  --&gt;  application (ServletContext)
+                    *举例:在request域中存储了name=张三
+                          ${requestScope.name}
+
+               2. ${键名}：表示依次从最小的域中查找是否有该键对应的值，直到找到为止。
+                       ${name}：先从pageContext中查找，若无则前往request中查找。依次进行
+
+               3. 获取对象、List集合、Map集合的值
+                   1. 对象：${域名称.键名.属性名}
+                     *本质上会去调用对象的getter方法
+
+                   2. List集合：${域名。键名[索引]}
+                          *如果该索引位置为对象，则先表示出对象，若需要单独的属性名则单独表示
+                                  对 象            属性
+                           ${requestScope.list[2].name }
+
+                   3. Map集合：
+                          *${域名称.键名.key名称}
+                          *${域名称.键名[&quot;key名称&quot;]} 
+                          *如果该索引位置为对象，则先表示出对象，若需要单独的属性名则单独表示
+                                  对 象             属性
+                           ${requestScope.map.user.name}
+
+ 3. 隐式对象：
+      *el表达式中有11个隐式对象
+      *pageContext：
+         *获取jsp其他8个内置对象
+             *${pageContext.request.contextPath}:动态获取虚拟目录
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/" data-id="cjydpos1q0000qctnhn6krbmh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/18/JavaEE之MVC概念小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaEE之MVC概念小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 10px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 20px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/19/JavaEE之EL表达式小结/">JavaEE之EL表达式小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/18/JavaEE之MVC概念小结/">JavaEE之MVC概念小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/18/JavaEE之JSP补充学习小结/">JavaEE之JSP补充学习小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/18/JavaEE之Session小结/">JavaEE之Session小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/18/JavaEE之JSP入门学习小结/">JavaEE之JSP入门学习小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
