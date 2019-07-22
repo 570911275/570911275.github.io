@@ -62,10 +62,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-集合之Map下三种map类型区别" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-IO之基本概念" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/09/集合之Map下三种map类型区别/" class="article-date">
-  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
+    <a href="/2019/07/10/IO之基本概念/" class="article-date">
+  <time datetime="2019-07-10T09:22:20.000Z" itemprop="datePublished">2019-07-10</time>
 </a>
     
   </div>
@@ -76,7 +76,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之Map下三种map类型区别/">java_集合_Map下三种map类型区别小结</a>
+      <a class="article-title" href="/2019/07/10/IO之基本概念/">java_IO_基本概念小结</a>
     </h1>
   
 
@@ -84,20 +84,110 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Map下三种map类型区别"><a href="#Map下三种map类型区别" class="headerlink" title="Map下三种map类型区别"></a>Map下三种map类型区别</h2><h3 id="1-HashMap"><a href="#1-HashMap" class="headerlink" title="1.HashMap"></a>1.HashMap</h3><p>HashMap采用<strong>哈希算法</strong>实现，是Map接口最常用的实现类。<br><br>底层采用了哈希表存储数据，我们要求<strong>键不能重复</strong>，如果发生重复，<strong>新的键值对会替换旧的键值对</strong>。<br> HashMap在<strong>查找、删除、修改</strong>方面都有非常<strong>高的效率</strong>。</p>
-<h3 id="2-TreeMap"><a href="#2-TreeMap" class="headerlink" title="2.TreeMap"></a>2.TreeMap</h3><p>TreeMap是<strong>红黑二叉树</strong>的典型实现<br><br>TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashMap实现了同样的接口Map。<br><br>因此，用法对于调用者来说没有区别。<strong>HashMap效率高于TreeMap</strong>;在<strong>需要排序的Map时才选用TreeMap</strong>。</p>
-<h3 id="3-HashTable"><a href="#3-HashTable" class="headerlink" title="3.HashTable"></a>3.HashTable</h3><p><strong>HashTable类和HashMap用法几乎一样</strong>，底层实现几乎一样，只不过<strong>HashTable</strong>的方法添加了<strong>synchronized关键字</strong>确保<strong>线程</strong>同步检查，效率较低。<br><br>HashMap与HashTable的区别</p>
-<ol>
-<li>HashMap: <strong>线程不安全，效率高</strong>。<strong>允许key或value为null</strong>。<br><ol start="2">
-<li>HashTable: <strong>线程安全，效率低*</strong>。<strong>不允许key或value为null</strong>。</li>
-</ol>
+        <h2 id="IO之基本概念"><a href="#IO之基本概念" class="headerlink" title="IO之基本概念"></a>IO之基本概念</h2><h3 id="1-基本定义"><a href="#1-基本定义" class="headerlink" title="1.基本定义"></a>1.基本定义</h3><p><strong>数据的获取</strong>往往需要跟<strong>外部系统</strong>进行通信，外部系统可能是<strong>文件、数据库、其他程序、网络、IO设备</strong>等等。<br><br>外部系统比较复杂多变，那么我们有必要通过某种手段进行<strong>抽象、屏蔽外部的差异</strong>，从而实现更加便捷的编程。<br></p>
+<h3 id="2-输入的定义"><a href="#2-输入的定义" class="headerlink" title="2.输入的定义"></a>2.输入的定义</h3><p>输入(Input)指的是：可以让程序从外部系统获得数据(<strong>核心含义是“读”，读取外部数据</strong>)。常见的应用：</p>
+<p>1.<strong>读取硬盘上的文件内容</strong>到<strong>程序</strong>。例如：播放器打开一个视频文件、word打开一个doc文件。<br></p>
+<p>2.<strong>读取网络上某个位置内容</strong>到<strong>程序</strong>。例如：浏览器中输入网址后，打开该网址对应的网页内容;下载网络上某个网址的文件。<br></p>
+<p>3.<strong>读取数据库系统的数据</strong>到<strong>程序</strong>。<br></p>
+<p>4.<strong>读取某些硬件系统数据</strong>到<strong>程序</strong>。例如：车载电脑读取雷达扫描信息到程序;温控系统等。<br></p>
+<h3 id="3-输出的定义"><a href="#3-输出的定义" class="headerlink" title="3.输出的定义"></a>3.输出的定义</h3><p>输出(Output)指的是：程序输出数据给外部系统从而可以操作外部系统(<strong>核心含义是“写”，将数据写出到外部系统</strong>)。常见的应用有：</p>
+<p>1.将<strong>数</strong>据写到<strong>硬盘</strong>中。例如：我们编辑完一个word文档后，将内容写到硬盘上进行保存。</p>
+<p>2.将<strong>数据</strong>写到<strong>数据库系统</strong>中。例如：我们注册一个网站会员，实际就是后台程序向数据库中写入一条记录。</p>
+<p>3.将<strong>数</strong>写到<strong>某些硬件系统</strong>中。例如：导弹系统导航程序将新的路径输出到飞控子系统，飞控子系统根据数据修正飞行路径。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjydtbd0x0001u0tnswe34yu7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-集合之Map的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之Map的常用方法与特点/" class="article-date">
+  <time datetime="2019-07-09T08:07:53.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/集合之Map的常用方法与特点/">java_集合_Map的常用方法与特点小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Map的常用方法与特点"><a href="#Map的常用方法与特点" class="headerlink" title="Map的常用方法与特点"></a>Map的常用方法与特点</h2><h3 id="1-Map的特点"><a href="#1-Map的特点" class="headerlink" title="1. Map的特点"></a>1. Map的特点</h3><p>Map就是用来存储“<strong>键(key)-值(value) 对</strong>”的。<br> Map类中存储的“<strong>键值对</strong>”通过键来标识，所以“键对象”不能重复。</p>
+<h3 id="2-常用方法"><a href="#2-常用方法" class="headerlink" title="2.常用方法"></a>2.常用方法</h3><p><strong>Object put(Object key,Object value)<br><br>存放键值对<br><br>Object get(Object key)<br><br>通过键对象查找得到值对象<br><br>Object remove(Object key)<br><br>删除键对象对应的键值对<br><br>boolean containsKey(Object key)<br><br>Map容器中是否包含键对象对应的键值对<br><br>boolean containsValue(Object Value)<br><br>Map容器中是否包含值对象对应的键值对<br><br>int size()<br><br>包含键值对的数量<br><br>boolean isEmpty()<br><br>Map是否为空<br><br>void putAll(Map t)<br><br>将t的所有键值对存放到本map对象<br><br>void clear()<br><br>清空本map对象所有键值对</strong><br></p>
+<h3 id="3-Map中的常用方法"><a href="#3-Map中的常用方法" class="headerlink" title="3.Map中的常用方法"></a>3.Map中的常用方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class MapTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Map&lt;Integer,String&gt; m1 = new HashMap&lt;Integer,String&gt;();</span><br><span class="line">        Map&lt;Integer,String&gt; m2 = new HashMap&lt;Integer, String&gt;();</span><br><span class="line">        m1.put(1,&quot;one&quot;);</span><br><span class="line">        m1.put(2,&quot;two&quot;);</span><br><span class="line">        m1.put(3,&quot;three&quot;);</span><br><span class="line">        m2.put(1,&quot;一&quot;);</span><br><span class="line">        m2.put(2,&quot;二&quot;);</span><br><span class="line">        System.out.println(m1.size());</span><br><span class="line">        System.out.println(m1.containsKey(1));</span><br><span class="line">        System.out.println(m2.containsValue(&quot;two&quot;));</span><br><span class="line">        m1.put(3,&quot;third&quot;);</span><br><span class="line">        Map&lt;Integer,String&gt; m3 = new HashMap&lt;Integer, String&gt;();</span><br><span class="line">        m3.putAll(m1);</span><br><span class="line">        m3.putAll(m2);</span><br><span class="line">        System.out.println(&quot;m1&quot;+m1);</span><br><span class="line">        System.out.println(&quot;m2&quot;+m2);</span><br><span class="line">        System.out.println(&quot;m3&quot;+m3);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">3</span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">m1&#123;1=one, 2=two, 3=third&#125;</span><br><span class="line">m2&#123;1=一, 2=二&#125;</span><br><span class="line">m3&#123;1=一, 2=二, 3=third&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjydtbd8r0023u0tnftcc46cw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-集合之List下的三种list类型的区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之List下的三种list类型的区别/" class="article-date">
+  <time datetime="2019-07-09T07:25:53.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/集合之List下的三种list类型的区别/">java_集合_List下的三种list类型的区别小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="List下的三种list类型的区别"><a href="#List下的三种list类型的区别" class="headerlink" title="List下的三种list类型的区别"></a>List下的三种list类型的区别</h2><h3 id="1-ArrayList"><a href="#1-ArrayList" class="headerlink" title="1.ArrayList"></a>1.ArrayList</h3><p>ArrayList底层是用<strong>数组</strong>实现的存储。<br> 特点：<strong>查询效率高，增删效率低，线程不安全</strong>。我们一般使用它<br><br>ArrayList底层使用<strong>Object数组</strong>来存储元素数据。所有的方法，都围绕这个核心的Object数组来开展。<br><br><strong>数组</strong>长度是<strong>有</strong>限的，而<strong>ArrayLis</strong>t是可以存放<strong>任意数量</strong>的对象，长度不受限制<br><br>本质上就是通过<strong>定义新的更大的数组</strong>，将<strong>旧数组中的内容拷贝到新数组</strong>，来实现扩容。<br> ArrayList的Object数组初始化长度为10，如果我们存储满了这个数组，需要存储第11个对象，就会定义新的长度更大的数组，并将原数组内容和新的元素一起加入到新数组中<br></p>
+<h3 id="2-LinkedList"><a href="#2-LinkedList" class="headerlink" title="2.LinkedList"></a>2.LinkedList</h3><p>LinkedList底层用<strong>双向链表</strong>实现的存储。<br><br>特点：<strong>查询效率低，增删效率高，线程不安全</strong>。<br><br>双向链表也叫<strong>双链表</strong>，是链表的一种，它的<strong>每个数据节点</strong>中都<strong>有两个指针</strong>，分别指向<strong>前一个节</strong>点和<strong>后一个节点</strong>。所以，从双向链表中的任意一个节点开始，都可以很方便地找到所有节点。<br><br>每个节点都应该有<strong>3部分内容</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  class  Node &#123;</span><br><span class="line">        Node  previous;     //前一个节点</span><br><span class="line">        Object  element;    //本节点保存的数据</span><br><span class="line">        Node  next;         //后一个节点</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-Vector"><a href="#3-Vector" class="headerlink" title="3.Vector"></a>3.Vector</h3><p>Vector底层是用<strong>数组</strong>实现的List，相关的方法都加了<strong>同步检查</strong>，因此“<strong>线程安全,效率低</strong>”。</p>
+<h3 id="4-选用标准"><a href="#4-选用标准" class="headerlink" title="4.选用标准"></a>4.选用标准</h3><ol>
+<li><p>需要<strong>线程安全</strong>时，用<strong>Vector</strong>。</p>
+</li>
+<li><p><strong>不存在线程安全</strong>问题时，并且<strong>查找较</strong>多用<strong>ArrayList</strong>(一般使用它)。</p>
+</li>
+<li><p><strong>不存在线程安全</strong>问题时，<strong>增加或删除元素较</strong>多用<strong>LinkedList</strong>。</p>
 </li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjydprut60023c0tnn8hu6rh1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjydtbd8b001xu0tnsopi00eo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -140,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjydprusr001zc0tnwrnpcdzn" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjydtbd8e001zu0tnvbd9wmfv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -181,7 +271,54 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjydprutp0027c0tnflc76rsr" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjydtbd8u0025u0tn8j2riw8t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-集合之Map下三种map类型区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之Map下三种map类型区别/" class="article-date">
+  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/集合之Map下三种map类型区别/">java_集合_Map下三种map类型区别小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Map下三种map类型区别"><a href="#Map下三种map类型区别" class="headerlink" title="Map下三种map类型区别"></a>Map下三种map类型区别</h2><h3 id="1-HashMap"><a href="#1-HashMap" class="headerlink" title="1.HashMap"></a>1.HashMap</h3><p>HashMap采用<strong>哈希算法</strong>实现，是Map接口最常用的实现类。<br><br>底层采用了哈希表存储数据，我们要求<strong>键不能重复</strong>，如果发生重复，<strong>新的键值对会替换旧的键值对</strong>。<br> HashMap在<strong>查找、删除、修改</strong>方面都有非常<strong>高的效率</strong>。</p>
+<h3 id="2-TreeMap"><a href="#2-TreeMap" class="headerlink" title="2.TreeMap"></a>2.TreeMap</h3><p>TreeMap是<strong>红黑二叉树</strong>的典型实现<br><br>TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashMap实现了同样的接口Map。<br><br>因此，用法对于调用者来说没有区别。<strong>HashMap效率高于TreeMap</strong>;在<strong>需要排序的Map时才选用TreeMap</strong>。</p>
+<h3 id="3-HashTable"><a href="#3-HashTable" class="headerlink" title="3.HashTable"></a>3.HashTable</h3><p><strong>HashTable类和HashMap用法几乎一样</strong>，底层实现几乎一样，只不过<strong>HashTable</strong>的方法添加了<strong>synchronized关键字</strong>确保<strong>线程</strong>同步检查，效率较低。<br><br>HashMap与HashTable的区别</p>
+<ol>
+<li>HashMap: <strong>线程不安全，效率高</strong>。<strong>允许key或value为null</strong>。<br><ol start="2">
+<li>HashTable: <strong>线程安全，效率低*</strong>。<strong>不允许key或value为null</strong>。</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjydtbd8y0027u0tns01qrcq4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -220,7 +357,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjydprush001xc0tni0vj53zy" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjydtbd8l0021u0tn7uya4ro5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -258,7 +395,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjydprumc0018c0tn9ey4phv1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjydtbd4q001au0tnq9n2dudc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -296,7 +433,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/03/java-图形用户接口之中小结/" data-id="cjydprulx0016c0tnksw0p68e" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/03/java-图形用户接口之中小结/" data-id="cjydtbd4m0018u0tnlytyyxw2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -334,177 +471,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/02/java-图形用户接口之上小结/" data-id="cjydprulj0014c0tn3l10mmqf" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-异常处理小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/01/java-异常处理小结/" class="article-date">
-  <time datetime="2019-06-01T15:02:12.000Z" itemprop="datePublished">2019-06-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/01/java-异常处理小结/">java_异常处理小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-创建一个MIDI音乐播放器"><a href="#1-创建一个MIDI音乐播放器" class="headerlink" title="1.创建一个MIDI音乐播放器"></a>1.创建一个MIDI音乐播放器</h2><p>1.<strong>JavaSound</strong>包括<strong>MIDI</strong>和<strong>取样(sampled)</strong>。此处只讨论<strong>MIDI</strong>(Musical Instrument Digital Interface),也是<strong>不同电子发声装置共同的标准协议</strong>。<br><br><br>2.<strong>MIDI</strong>本身<strong>不带有声音</strong>，它是带有MIDI播放功能装置的<strong>指令</strong>。<strong>MIDI数据</strong>表示<strong>执行的动作</strong>(播放C调，以及音量的大小与长度等)，但是<strong>没有实际的声音</strong>。<br><br><br>3.Sequencer对象:会将<strong>所有的MIDI数据</strong>送到正确的<strong>装置</strong>上，由<strong>装置</strong>来产生<strong>音乐</strong>。(Sequencer扮演着<strong>搬运工</strong>的角色)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//Sequencer这个类位于&quot;javax.sound.midi&quot;这个包里面</span><br><span class="line">//获取Sequencer对象</span><br><span class="line"></span><br><span class="line">import javax.sound.midi.*;</span><br><span class="line">//调用包含Sequencer这个对象的包</span><br><span class="line"></span><br><span class="line">public class MusicTest1&#123;</span><br><span class="line">    </span><br><span class="line">    public void play()&#123;</span><br><span class="line">        Sequencer sequencer = MidiSystem.getSequencer();</span><br><span class="line">        //创建对象——将MIDI信息组合成乐曲</span><br><span class="line">        Systrm.out.println(&quot;We got a sequencer&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        MusicTest1 mt = new MusicTest1();</span><br><span class="line">        mt.play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//此代码将无法通过编译</span><br><span class="line">//调用存在风险的方法(&quot;getSequencer()&quot;)编译器将报错</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="2-有风险方法的确认与处理"><a href="#2-有风险方法的确认与处理" class="headerlink" title="2.有风险方法的确认与处理"></a>2.有风险方法的确认与处理</h2><p>1.有风险方法的确认<br><br>&nbsp;&nbsp;&nbsp;&nbsp;在API文件中查找该方法，查看该方法声明处是否有throws语句。若存在则为有风险方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//API中关于getSequencer()的声明</span><br><span class="line"></span><br><span class="line">public static sequencer getSequencer()</span><br><span class="line">                           throws MidiUnavailableException</span><br><span class="line">                           //此处说明getSequencer()可能会抛出MidiUnavailableException异常</span><br><span class="line">    Obtains the default sequencer.</span><br><span class="line">    </span><br><span class="line">    Returns:</span><br><span class="line">         the default sequencer</span><br><span class="line">    Throws:</span><br><span class="line">         MidiUnavailableException-if the sequencer is not available due to resource restrictions</span><br><span class="line">        //此处解释何时会遇到异常，在此情况下是因为资源受限，比如sequencer已经被占用了</span><br></pre></td></tr></table></figure></p>
-<p>2.有风险方法的处理<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>try/catch块</strong>——处理一<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将<strong>有风险的方法</strong>包含在<strong>try/catch块</strong>中，编译器会知道用户了解所调用方法具有风险，并且已经准备好处理了它<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import javax.sound.midi.*;</span><br><span class="line"></span><br><span class="line">public class MusicTest1&#123;</span><br><span class="line">    </span><br><span class="line">    public void play()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            Sequencer sequencer = MidiSystem.getSequencer();</span><br><span class="line">            Systrm.out.println(&quot;Successfully got a sequencer&quot;);</span><br><span class="line">        &#125;//将有风险的方法放入try块中</span><br><span class="line">        catch(MidiUnavailableException ex)&#123;</span><br><span class="line">            System.out.println(&quot;Bummer&quot;);</span><br><span class="line">        &#125;//catch块摆放异常状况的处理程序</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        MusicTest1 mt = new MusicTest1();</span><br><span class="line">        mt.play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>catch</strong>内的异常<strong>参数</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>异常</strong>是一种<strong>Exception类型的对象</strong>,因为它是<strong>对象</strong>所以用户catch住的也是对象。在<strong>多态</strong>中,<strong>Exception类型的对象</strong>可以是<strong>任何它的子类</strong>的<strong>实例</strong>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    //正常的执行</span><br><span class="line">&#125;catch(Exception ex)&#123;</span><br><span class="line">    //此时catch的参数是Exception类型的ex引用变量</span><br><span class="line">    //就如同方法的参数声明一样</span><br><span class="line">    //尝试恢复(不同的异常有不同的恢复操作)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;c.<strong>throws</strong>抛出异常<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>方法</strong>可以<strong>抓住</strong>其他方法所<strong>抛出的异常</strong>。<strong>异常</strong>总是会<strong>丢回给调用方</strong>。会<strong>抛出异常的方法</strong>必须<strong>声明</strong>它有可能会这么做。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1.有风险的方法</span><br><span class="line">public void takeRisk() throws BadException&#123;</span><br><span class="line">//此处声明它会抛出BadException</span><br><span class="line">    if(abandonAllHope)&#123;</span><br><span class="line">        throw new BadException();</span><br><span class="line">        //创建出Exception对象并抛出</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">2.调用该方法的程序</span><br><span class="line">public void crossFingers()&#123;</span><br><span class="line">    try&#123;</span><br><span class="line">        anObject.takeRisk();</span><br><span class="line">    &#125;catch(BadException ex)&#123;</span><br><span class="line">        System.out.println(&quot;Aaargh!&quot;);</span><br><span class="line">        ex.printStackTrace();</span><br><span class="line">        //如果无法从异常中恢复</span><br><span class="line">        //至少要使用printStackTrace()来列出有用信息</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;d.<strong>声明(duckingi闪避掉)</strong>——处理二<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了try/catch块的处理方法，还可以将<strong>此方法duck掉以让调用此方法的程序来catch该异常</strong>。(只需表示会<strong>在throw此异常</strong>即可)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;方法<strong>抛出异常</strong>时，<strong>方法</strong>会从<strong>栈</strong>上立刻<strong>被取出</strong>，而<strong>异常</strong>会<strong>再度丢给栈</strong>上的<strong>方法</strong>，如果<strong>调用方</strong>是个<strong>ducker</strong>，则此<strong>ducker</strong>也会被<strong>从栈上取出</strong>，<strong>异常</strong>再度<strong>抛给此时栈</strong>上的<strong>方法</strong>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void foo() throws ReallyBadException&#123;</span><br><span class="line">//并没有try/catch块来处理有风险的方法，因此该方法本身就是有风险的。</span><br><span class="line">    //调用有风险的方法</span><br><span class="line">    laundry.foLaundry();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;e.一直ducking<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ducking只是在踢皮球，并<strong>没有解决处理</strong>实际问题。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当<strong>main()也duck掉异常</strong>，java虚拟机将<strong>死机</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class Washer&#123;</span><br><span class="line">    Laundry laundry = new Laundry();</span><br><span class="line">    </span><br><span class="line">    public void foo() throws ClsthingExcetion&#123;</span><br><span class="line">        laundry.doLaundry();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args) throw ClothingException&#123;</span><br><span class="line">        Washer a = new Washer();</span><br><span class="line">        a.foo();</span><br><span class="line">        //此时应使用try/catch块将其包起来</span><br><span class="line">    &#125;</span><br><span class="line">    //main()都duck掉，此时java虚拟机将死机</span><br><span class="line">&#125;</span><br><span class="line">//在foo()以及main()中两者的躲避异常，因此没有人来处理。</span><br><span class="line">//但是有duck掉，所以可以通过编译</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="3-受检查与不受检查的异常"><a href="#3-受检查与不受检查的异常" class="headerlink" title="3.受检查与不受检查的异常"></a>3.受检查与不受检查的异常</h2><p>1.编译器会核对每件事，除了<strong>RuntimeException</strong>之外，编译器需保证以下2点<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.如果用户有<strong>抛出异常</strong>，则<strong>一定</strong>要<strong>使用throw来声明</strong>这件事。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.如果用户<strong>调用会抛出异常的方法</strong>，则用户必须<strong>确认异常的可能性</strong>。1.讲<strong>调用</strong>包在<strong>try/catch</strong>块中。2.<strong>ducking</strong>掉该<strong>异常</strong><br><br>2.<strong>RuntimeException</strong>被称为<strong>不检查异常</strong>，大部分的的RuntimeException都是因为<strong>程序逻辑的问题</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.任何<strong>继承过RuntimeException的类</strong>都<strong>不会受到编译器</strong>关于是否声明它会抛出RuntimeException的<strong>检查</strong></p>
-<hr>
-
-<h2 id="4-finally部分"><a href="#4-finally部分" class="headerlink" title="4.finally部分"></a>4.finally部分</h2><p>1.finally块是用来存放不管有没有异常的要执行的程序<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>finally块</strong>可以将所有<strong>重要的清理程序</strong>代码<strong>集中</strong>在一起，而不需要复制多份<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.如果<strong>try块失败</strong>了，抛出异常，流程会<strong>转移到catch块</strong>。当<strong>catch块完成</strong>时，会<strong>执行finally块</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;如果<strong>try块成功</strong>了，流程会<strong>跳过catch块</strong>并移动到finally块，<strong>执行finally块</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;如果try/catch块中有<strong>return指令</strong>，finally还是会执行，<strong>流程会跳到finally块</strong>，执行完finally块后<strong>再回到return指令</strong>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    turnOvenOn();</span><br><span class="line">    x.bake();</span><br><span class="line">&#125;catch(BakingException ex)&#123;</span><br><span class="line">    ex.printSackTrace();</span><br><span class="line">&#125;finally&#123;</span><br><span class="line">    turnOvenOff();</span><br><span class="line">    //finally必须被执行</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="5-多重异常与多态的异常"><a href="#5-多重异常与多态的异常" class="headerlink" title="5.多重异常与多态的异常"></a>5.多重异常与多态的异常</h2><p>1.<strong>多重异常</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.方法可以抛出<strong>多个异常</strong>，但该方法的声明必须要有含有<strong>全部的检查异常</strong>(若<strong>两个或两个以上的异常</strong>有<strong>共同的父类</strong>时，则可以<strong>只声明该父类</strong>)。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.编译器会检查用户是否处理<strong>所有可能的异常</strong>。将<strong>个别的catch块</strong>逐个放在try块下执行。(某些情况下catch的出现顺序具有影响)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//声明所有可能的异常类型</span><br><span class="line">public class Laundry&#123;</span><br><span class="line">    public void doLaundry() throws PantsException, LingerieException&#123;</span><br><span class="line">        //有两个抛出异常的程序代码</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//两个catch跟在try块下</span><br><span class="line">public class Foo&#123;</span><br><span class="line">    public void go()&#123;</span><br><span class="line">        Laundry laundry = new Laundry();</span><br><span class="line">        </span><br><span class="line">        try&#123;</span><br><span class="line">            laundry.doLaundry();</span><br><span class="line">        &#125;catch(PantsException pex)&#123;</span><br><span class="line">            //抛出的是PantsException，则跳到此catch块</span><br><span class="line">            //恢复程序</span><br><span class="line">        &#125;catch(LingerieException lex)&#123;</span><br><span class="line">            //抛出的是LingerieException，则跳到此catch块</span><br><span class="line">            //恢复程序</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2.<strong>多态的异常</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>异常</strong>是<strong>对象</strong>，除了可以被抛出之外，并没有什么特别的。正如所有对象一样，<strong>异常也可以以多态的形式来引用</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.这样可以<strong>不必</strong>明确的声明<strong>每个可能抛出的异常</strong>，可以<strong>只声明父类</strong>即可。对于catch块来说，也可以不用对没个可能的异常来作处理，只要有一个或者少数几个catch就可以处理所有异常。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">//以异常的父型来声明会抛出的异常</span><br><span class="line">public void doLaundry() throws ClothingException&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//以所抛出的异常父型来catch异常</span><br><span class="line">try&#123;</span><br><span class="line">    laundry.doLaundry();</span><br><span class="line">&#125;catch(ClothingException cex)&#123;</span><br><span class="line">    //可以catch任何ClothingException的子类</span><br><span class="line">    //解决方法</span><br><span class="line">&#125;</span><br><span class="line">try&#123;</span><br><span class="line">    laundry.doLaundry();</span><br><span class="line">&#125;catch(ShirtException sex)&#123;</span><br><span class="line">    //只能catch到ShirtException及其子类</span><br><span class="line">    //解决方法</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//可以用super来处理所有异常，并不代表这就应该这么做</span><br><span class="line">//假如将异常处理程序写成只有一个catch块以父型的Exception来捕获，可以抓到任何可能被抛出的异常(此时会无法分清是哪里出错)</span><br><span class="line">try&#123;</span><br><span class="line">    laundry.doLaundry();</span><br><span class="line">&#125;catch(Exception ex)&#123;</span><br><span class="line">    //解决方法</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//为每个需要单独处理的异常编写不同的catch块</span><br><span class="line">try&#123;</span><br><span class="line">    laundry.foLaundry();</span><br><span class="line">&#125;catch(TeeShirtException tex)&#123;</span><br><span class="line">    //恢复此问题</span><br><span class="line">    //该问题需特殊处理</span><br><span class="line">&#125;catch(LingerieException lex)&#123;</span><br><span class="line">    //恢复此问题</span><br><span class="line">    //此问题需特殊处理(同TeeShirtException不同)</span><br><span class="line">&#125;catch(ClothingException cex)&#123;</span><br><span class="line">    //恢复此问题</span><br><span class="line">    //同样的处理方法皆集中于此</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="6-catch块的顺序"><a href="#6-catch块的顺序" class="headerlink" title="6.catch块的顺序"></a>6.catch块的顺序</h2><p>1.在继承树上<strong>层次越高</strong>，则它的<strong>范围就越广</strong>，<strong>从上往下</strong>沿着继承层次走，异常类的就会越来越有特定的取向，其<strong>catch的范围就越来越小</strong>。<br><br><br>2.当有<strong>多个catch块</strong>时，要从<strong>小范围排到大范围</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//范围只有TeeShirtException</span><br><span class="line">catch(TeeShirtException tex)</span><br><span class="line"></span><br><span class="line">//范围只有ShirtException</span><br><span class="line">catch(ShirtException sex)</span><br><span class="line"></span><br><span class="line">//上述两者在继承层次上为同一层次，所以可以调换位置</span><br><span class="line"></span><br><span class="line">//范围最大，包含所有ClothingException</span><br><span class="line">catch(ClothingException ces)</span><br></pre></td></tr></table></figure></p>
-<p>3.<strong>大范围的catch不可以</strong>放在<strong>小范围</strong>的上面<br>&nbsp;&nbsp;&nbsp;&nbsp;a.java虚拟机之后<strong>从头开始往下</strong>找第一个符合范围的异常处理块。如果<strong>第一个catch</strong>就是<strong>最大范围</strong>的，则编译器将知道，其余的都没有用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    laundry.doLaundry();</span><br><span class="line">&#125;catch(ClothingException ces)&#123;</span><br><span class="line">    //恢复此问题</span><br><span class="line">&#125;catch(ShirtException sex)&#123;</span><br><span class="line">    //恢复此问题</span><br><span class="line">&#125;catch(TeeShirtException tex)&#123;</span><br><span class="line">    //恢复此问题</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="7-创建一个MIDI音乐播放器之续"><a href="#7-创建一个MIDI音乐播放器之续" class="headerlink" title="7.创建一个MIDI音乐播放器之续"></a>7.创建一个MIDI音乐播放器之续</h2><p>1.JavaSound的工作原理<br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>4项</strong>必备的<strong>条件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1.发声的装置</span><br><span class="line">Sequencer(如同CD播放机)</span><br><span class="line">    |</span><br><span class="line">    |(plays)</span><br><span class="line">    V</span><br><span class="line">2.要演奏的乐曲</span><br><span class="line">Sequence(如同单曲CD)</span><br><span class="line">    |</span><br><span class="line">    |(has a)</span><br><span class="line">    V</span><br><span class="line">3.带有乐曲的信息记录</span><br><span class="line">Track(如同是单曲CD上唯一歌曲的信息)</span><br><span class="line">    |</span><br><span class="line">    |(holds)</span><br><span class="line">    V</span><br><span class="line">4.乐曲的音符等信息</span><br><span class="line">MidiEvent(如同是乐谱上某一个音符记号)</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>5个步骤</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1.取得Sequenccer并将它打开</span><br><span class="line">Sequencer player =MidiSystem.getSequencer();</span><br><span class="line">player.open();</span><br><span class="line"></span><br><span class="line">2.创建新的Sequence</span><br><span class="line">Sequence seq = new Sequence(timing,4);</span><br><span class="line"></span><br><span class="line">3.从Sequence中创建新的Track</span><br><span class="line">Track t = seq.createTrack();</span><br><span class="line"></span><br><span class="line">4.填入MidiEvent并让Sequencer播放</span><br><span class="line">t.add(myMidiEvent1);</span><br><span class="line">player.setSequence(seq);</span><br><span class="line"></span><br><span class="line">5.按下Play键</span><br><span class="line">player.start();</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;c.制作<strong>MidiEvent</strong>(乐谱信息)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.创建Message</span><br><span class="line">ShortMessage a = new ShortMessage();</span><br><span class="line"></span><br><span class="line">2.置入指令</span><br><span class="line">a.setMessage(144,1,44,100);</span><br><span class="line">//这代表发出44音符</span><br><span class="line"></span><br><span class="line">3.用Message创建MidiEvent</span><br><span class="line">MidiEvent noteOn = new MidiEvent(a,1);</span><br><span class="line">//在第一拍启动a这个Message</span><br><span class="line"></span><br><span class="line">4.将MidiEvent加入Track中</span><br><span class="line">track.add(noteOn);</span><br><span class="line">//Track中带有全部的MidiEvent对象，Sequencer会根据实际实际组织它们，然后Sequencer会根据此顺序来播放</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;d.第一个<strong>声音播放程序</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import javax.sound.midi.*;</span><br><span class="line">//引入包</span><br><span class="line"></span><br><span class="line">public class MiniMiniMusicApp&#123;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        MiniMiniMusicApp mini = new MiniMusicApp();</span><br><span class="line">        mini.play();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void play()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            Sequencer player = MidiSystem.getSequencer();</span><br><span class="line">            //创建Sequencer对象</span><br><span class="line">            player.open();</span><br><span class="line">            //将Sequencer打开</span><br><span class="line">            </span><br><span class="line">            Sequence seq = new Sequence(Sequence.PPQ,4);</span><br><span class="line">            //暂时无需理会参数意义</span><br><span class="line">            </span><br><span class="line">            Track track = seq.createTrack();</span><br><span class="line">            //创建Track</span><br><span class="line">            </span><br><span class="line">            ShortMessage a = new ShortMessage();</span><br><span class="line">            a.setMessage(144,1,44,100);</span><br><span class="line">            MidiEvent noteOn = new MidiEvent(a,1);</span><br><span class="line">            teack.add(noteOn);</span><br><span class="line">            //对Track加入MidiEvent，此为开始的MidiEvent</span><br><span class="line">            </span><br><span class="line">            ShortMessage b = new ShortMessage();</span><br><span class="line">            a.setMessage(128,1,44,100);</span><br><span class="line">            MidiEvent noteOn = new MidiEvent(b,16);</span><br><span class="line">            teack.add(noteOff);</span><br><span class="line">            //对Track加入MidiEvent，此为结束的MidiEvent</span><br><span class="line">            </span><br><span class="line">            player.setSequence(seq);</span><br><span class="line">            //将Sequence送到Sequencer</span><br><span class="line">            </span><br><span class="line">            player.start();</span><br><span class="line">            //开始播放</span><br><span class="line">        &#125;catch(Exception ex)&#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2.<strong>信息的格式</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">第一个参数是信息类型，剩下的3个要看信息类型来定</span><br><span class="line">a.setMessage(144,1,44,100);</span><br><span class="line">//从左往右分别标号1-4</span><br><span class="line">1.信息类型：144代表打开；128代表关闭</span><br><span class="line"></span><br><span class="line">2.频道：每个频道代表不同的演奏则。例如1号频道是吉他，2号频道是Bass</span><br><span class="line"></span><br><span class="line">3.要发出的音符：0~127代表不同的音高</span><br><span class="line"></span><br><span class="line">4.音道：用多大的音道按下;0几乎听不到，100差不多</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/01/java-异常处理小结/" data-id="cjydpruqw001mc0tnmo1u7ke7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-数字与静态之下小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/31/java-数字与静态之下小结/" class="article-date">
-  <time datetime="2019-05-31T14:52:33.000Z" itemprop="datePublished">2019-05-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/31/java-数字与静态之下小结/">java_数字与静态之下小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-静态方法"><a href="#1-静态方法" class="headerlink" title="1.静态方法"></a>1.静态方法</h2><p>4.静态<strong>final</strong>常数<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>静态</strong>的<strong>final变量</strong>是<strong>常数</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//被标记为final的变量代表它一旦<strong>被初始化之后就不会改动了</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//命名惯例:<strong>全部都是大写字母以下划线分隔</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static final double PI = 3.1415923</span><br><span class="line">关键词:</span><br><span class="line">public: 可供各方读取</span><br><span class="line">static: 静态,不需要Math的实例</span><br><span class="line">final : 不变值,因为圆周率是不变的</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;b.静态<strong>final</strong>变量的<strong>初始化</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1.声明的时候</span><br><span class="line">public class Foo&#123;</span><br><span class="line">    public static final int FOO_X = 25;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">2.在静态初始化程序中</span><br><span class="line">public class Bar&#123;</span><br><span class="line">    public static final double BAR_SIGN;</span><br><span class="line">    </span><br><span class="line">    static&#123;</span><br><span class="line">        BAR_SIGN = (double) Math.random();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;c.final的<strong>方法与类</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//final的<strong>方法</strong>代表<strong>不能覆盖掉该方法</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//final的<strong>类</strong>代表<strong>不能继承该类(即创建他的子类)</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.final的方法</span><br><span class="line">class Poof&#123;</span><br><span class="line">    final void calcWhuffie()&#123;</span><br><span class="line">        //该方法无法被覆盖</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">2.final的类</span><br><span class="line">final class MyMostPerfectClass&#123;</span><br><span class="line">    //不能被继承</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="3-包装类型的方法-autoboxing"><a href="#3-包装类型的方法-autoboxing" class="headerlink" title="3.包装类型的方法(autoboxing)"></a>3.包装类型的方法(autoboxing)<br></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>primitive主数据类型</strong>的<strong>包装</strong>用的类<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意<strong>包装的类的名字不是</strong>完全和<strong>primitive主数据类型</strong>的名称<strong>相同</strong>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Boolean 布尔        Character 字符</span><br><span class="line">Byte    字节        Short     短整形</span><br><span class="line">Integer 整形        Long      长整形</span><br><span class="line">Float   单精度浮点  Double    双精度浮点</span><br><span class="line"></span><br><span class="line">包装值</span><br><span class="line">int i = 288;</span><br><span class="line">Integer iWrap = new Integer(i);</span><br><span class="line"></span><br><span class="line">解开包装</span><br><span class="line">int unWrapped - iWrap.intValue();</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;b.包装的<strong>作用</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>autoboxing</strong>功能能够<strong>自动</strong>地将<strong>primitive</strong>主数据类型<strong>转换成包装过的对象</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void doNumsNewWay()&#123;</span><br><span class="line">    ArrayList&lt;Integer&gt; listOfNumbers = new ArrayList&lt;Integer&gt;();</span><br><span class="line">    //创建Integer类型的ArrayList</span><br><span class="line">    listOfNumbers.add(3);</span><br><span class="line">    //直接加3</span><br><span class="line">    //虽然ArrayList没有add(int)这样的方法,但是编译器会自动帮用户包装</span><br><span class="line">    int num = listOfNumbers.get(0);</span><br><span class="line">    //编译器会自动接口Integer对象的包装,因此可以直接赋值给&quot;num&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;c.包装的<strong>运用</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">1.方法的参数</span><br><span class="line">//发给参数是某种包装类型,则可以传入相对应的primitive主数据类型。</span><br><span class="line">void takeNumber(Integer i)&#123;</span><br><span class="line">    //Integer对象与int数据类型皆可以作为参数传入</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">2.返回值</span><br><span class="line">//如果method声明返回某种primitive主数据类型</span><br><span class="line">//也可以返回兼容的primitive主数据类型或者该primitive主数据类型的包装类型</span><br><span class="line">int fiveNumber()&#123;</span><br><span class="line">    ...</span><br><span class="line">    return x;</span><br><span class="line">    //Integer对象和int数据类型皆可以作为返回值返回</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">3.boolean表达式</span><br><span class="line">//任何预期boolean值的位置都可以用求出boolean的表达式来代替</span><br><span class="line">//例如Boolean包装类型的引用或者&quot;4&gt;2&quot;</span><br><span class="line">if(bool)&#123;</span><br><span class="line">    System.out.println(&quot;true&quot;);</span><br><span class="line">    //boolean对象与boolean数据皆可以传入</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">4.数值运算</span><br><span class="line">//可以在使用primitive主数据类型作为运算子的操作中用包装类型类替换</span><br><span class="line">//这意味着可以对Integer的对象作递增运算</span><br><span class="line">Integer i = new Integer(42);</span><br><span class="line">i++;</span><br><span class="line">或者</span><br><span class="line">Integer j = new Integer(25);</span><br><span class="line">Integer k = j+3;</span><br><span class="line"></span><br><span class="line">5.赋值</span><br><span class="line">//可以将包装类型或primitive主数据类型赋给声明给相对应的包装或primitive主数据类型</span><br><span class="line">Double d = x;</span><br><span class="line">//Integer对象和int数据皆可作为&quot;x&quot;赋值给&quot;d&quot;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;4.包装的静态方法<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.将<strong>String</strong>转换成<strong>primitive</strong>主数据类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String s = &quot;2&quot;;</span><br><span class="line">int    x = Integer.parseInt(s);</span><br><span class="line">double d = Double.parseDouble(&quot;40.24&quot;);</span><br><span class="line">//boolean不一样，并没有BooleanparseBpplean()</span><br><span class="line">boolean b = new Boolean(&quot;true&quot;).booleanValue();</span><br><span class="line">//Boolean的构造函数可以取用String来创建对象</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.将<strong>primitive</strong>主数据类型转换成<strong>String</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.将数字接上现有的String</span><br><span class="line">double b = 42.5;</span><br><span class="line">String doubleString = &quot; &quot;+d;</span><br><span class="line">2.使用静态方法</span><br><span class="line">double b = 42.5;</span><br><span class="line">String doubleString = Doouble.toString(d);</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="2-格式化"><a href="#2-格式化" class="headerlink" title="2.格式化"></a>2.格式化</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;1.<strong>格式化</strong>的说明<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式化说明最多会有<strong>5个部分</strong>(<strong>不包括”%”符号</strong>)，下面”<strong>[]</strong>“中的内容都是<strong>可选项目</strong>，因此<strong>只有%与type是必要</strong>的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%[argument number] [flags] [width] [.precision] type</span><br><span class="line">argument number:如果格式化的参数超过一个以上，可以在此处指定是哪一个</span><br><span class="line">flags:特定类型的特定选项，例如数字要加逗号或正负号</span><br><span class="line">width:最小的字符数，(这不是总数)输出可以超过此宽度，若不足则主动补0</span><br><span class="line">.precision:精确度</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;2.<strong>日期</strong>的格式<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数值与日期时间格式化的区别在于<strong>日期格式的类型是用”t”开头</strong>的<strong>两个字符</strong>表示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">完整的日期与时间:%tc</span><br><span class="line">String.format(&quot;%tc&quot;,new Date());</span><br><span class="line"></span><br><span class="line">只有时间:%tr</span><br><span class="line">String.format(&quot;%tr&quot;,new Date());</span><br><span class="line"></span><br><span class="line">周、月、日:%tA %tB %td</span><br><span class="line">Date today = new Date();</span><br><span class="line">String.format(&quot;tA,%tB %td&quot;,today,today,today);</span><br><span class="line">//此处的&quot;,&quot;为直接输出的</span><br><span class="line">//输出为 Sunday, November 28</span><br><span class="line">//此种输入需要将Date对象传入3次</span><br><span class="line"></span><br><span class="line">同上但是使用&quot;&lt;&quot;，此时无需重复传参</span><br><span class="line">Date today = new Date();</span><br><span class="line">String.format(&quot;tA,%&lt;tB %&lt;td&quot;,today);</span><br><span class="line">//&quot;&lt;&quot;这个符号是告知程序重复利用之前用过的参数</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;3.操作日期<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在2中使用<strong>java.util.Date</strong>来<strong>查询日期</strong>，现在使用<strong>java.util.Calendar</strong>来<strong>操作日期</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为<strong>Calendar</strong>是一个<strong>抽象的类</strong>，使用只能用到他的<strong>具体子类</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">取得继承过Calendar的对象:</span><br><span class="line">1.Calendar cal = new Calendar();</span><br><span class="line">//无法通过编译</span><br><span class="line"></span><br><span class="line">2.Calendar cal = Calendar.getInstance();</span><br><span class="line">//通过调用静态方法</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运用<strong>Calendar对象</strong>的几个概念<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>字段会保存状态</strong>——Calendar对象使用许多<strong>字段</strong>来表示<strong>日期和时间</strong>。(用户可以读取和设定他的year或month字段)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>日期和时间可以运算</strong>——Calendar的方法可以使得用户对<strong>不同的字段</strong>做<strong>加法或减法的运算</strong>。(用户可以对month字段加一个月或者对year字段减去3年)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.<strong>日期和时间可以用millisecond来表示</strong>——Calendar可以<strong>将日期</strong>转换成<strong>微秒</strong>的表示法，或将<strong>微秒</strong>转换成<strong>日期</strong>。(用户可以<strong>执行精确的相对时间计算</strong>)<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Calendar c = Calendar.getInstance();</span><br><span class="line"></span><br><span class="line">c.set(2004,1,7,15,40);</span><br><span class="line">//蛇精睡觉为2004年1月7日15:40</span><br><span class="line"></span><br><span class="line">long day1 = c.getTimeInMillis();</span><br><span class="line">//讲时间转换成用millisecond微秒来表示</span><br><span class="line"></span><br><span class="line">day1 += 1000*60*60;</span><br><span class="line">//将时间将上一个小时</span><br><span class="line"></span><br><span class="line">c.setTimeInMillis(day1);</span><br><span class="line">//将微秒转换成日期</span><br><span class="line"></span><br><span class="line">System.out.println(&quot;new hour&quot; + c.get(c.HOUR_OF_DAY));</span><br><span class="line">//打印出时间</span><br><span class="line"></span><br><span class="line">c.add(c.DATE, 35);</span><br><span class="line">//加上35天，所以此时的月份变为了2月</span><br><span class="line"></span><br><span class="line">c.roll(c.DATE, 35);</span><br><span class="line">//滚动35天，此时只有日期改变，月份不改变</span><br><span class="line"></span><br><span class="line">c.set(c.DATE, 1);</span><br><span class="line">//直接设定DATE的值</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/31/java-数字与静态之下小结/" data-id="cjydprumr001ac0tnj33zzeyv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-数字与静态之上小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/30/java-数字与静态之上小结/" class="article-date">
-  <time datetime="2019-05-30T14:45:41.000Z" itemprop="datePublished">2019-05-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/30/java-数字与静态之上小结/">java_数字与静态之上小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-Math的方法"><a href="#1-Math的方法" class="headerlink" title="1.Math的方法"></a>1.Math的方法</h2><p>1.Math这个类中<strong>所有的方法</strong>都不需要实例变量值。因为这些方法都是<strong>静态</strong>的,所有<strong>无需Math的实例</strong>。只会用到他的<strong>类</strong>本身。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int x = Math.round(42.2);</span><br><span class="line">int y = Math.min(56,12);</span><br></pre></td></tr></table></figure></p>
-<p>2.Math的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Math.random()</span><br><span class="line">//返回介于0.0~1.0之间的双精度浮点数</span><br><span class="line">double r1 = Math.random();</span><br><span class="line">int r2 = (int) (Math.random() * 5);</span><br><span class="line"></span><br><span class="line">Math.abs()</span><br><span class="line">//返回双精度浮点类型参数的绝对值。</span><br><span class="line">//这个方法有覆盖的版本,传入整数会返回整数,传入双精度浮点数会返回双精度浮点数。</span><br><span class="line">int x = Math.abs(-24); //返回24</span><br><span class="line">double d = Math.abs(240.25); //返回240.25</span><br><span class="line"></span><br><span class="line">Math.min()</span><br><span class="line">//返回两个精度中较小的那一个</span><br><span class="line">//这个有int,long,float或double的覆盖版本</span><br><span class="line">int x = Math.min(24,240); //返回24</span><br><span class="line">double y = Math.min(982.25,654.32); //返回982.25</span><br><span class="line"></span><br><span class="line">Math.max()</span><br><span class="line">//返回两个精度中较大的一个</span><br><span class="line">//同Math.min()一致</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="2-静态方法"><a href="#2-静态方法" class="headerlink" title="2.静态方法"></a>2.静态方法</h2><p>1.非静态方法与静态方法的差别<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.”<strong>static</strong>“这个关键词可以标记出<strong>不需类实例</strong>的方法。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.一个静态方法代表说<strong>一种不依靠实例变量</strong>也就<strong>不需要对象</strong>的行为。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//静态方法中<strong>绝对没有对象</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;c.区别:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;静态方法:<strong>不依靠实例变量</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;非静态方法:<strong>实例变量</strong>的值会<strong>影响到方法</strong>的行为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">非静态方法:</span><br><span class="line">public class Song&#123;</span><br><span class="line">    String title;</span><br><span class="line">    //实例变量将影响方法的行为</span><br><span class="line">    public Song(String t)&#123;</span><br><span class="line">        title = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void play()&#123;</span><br><span class="line">        SoundPlayer player = new SoundPlayer();</span><br><span class="line">        player.playSound(title);</span><br><span class="line">        //&quot;title&quot;的值会决定&quot;play()&quot;的行为</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">静态方法:</span><br><span class="line">public static int min(int a,int b)&#123;</span><br><span class="line">    //返回a与b之间较小的值</span><br><span class="line">    //没有实例变量</span><br><span class="line">    //没有对象</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2.静态方法的调用<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.以<strong>类的名称</strong>调用<strong>静态的方法</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Math.min(86,88);</code><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//虽然可以用引用变量的名称调用静态方法但是<strong>不建议</strong>使用。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.以<strong>引用变量的名称</strong>调用<strong>非静态的方法</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Song t2 = new Song();</span><br><span class="line">t2.play();</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;c.静态方法<strong>不能调用</strong>非静态的变量:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>静态方法</strong>是在<strong>无关特定特定类</strong>的实例情况下执行的。甚至<strong>不会有该类的实例</strong>出现。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为<strong>静态方法是通过类的名称</strong>调用的,所以静态方法<strong>无法引用</strong>到该类的<strong>任何实例变量</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所以静态方法<strong>无法识别</strong>可以使用哪一个实例变量。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Duck&#123;</span><br><span class="line">    private int size;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        System.out.println(&quot;Size of duck is &quot; + size);</span><br><span class="line">        //此刻静态方法&quot;main()&quot;无法得知堆上是否有Duck</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setSize(int s)&#123;</span><br><span class="line">        size = s;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getSize()&#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;d.静态方法<strong>不能调用</strong>非静态方法<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;非静态方法同上是<strong>以实例变量的状态</strong>来影响该<strong>方法</strong>的行为。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同上方c同理<strong>静态方法无法识别</strong>是哪一个实例变量。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//即便非静态方法中<strong>无使用到实例变量</strong>也<strong>无法</strong>通过编译。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//因为<strong>无法确保</strong>之后是否会将非静态方法<strong>改为需要</strong>实例变量的。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//亦或者是无法保证不发生<strong>子类去覆盖</strong>这个方法成有用到实例变量的版本。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Duck&#123;</span><br><span class="line">    private int size;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        System.out.println(&quot;Size of duck is &quot; + getSize());</span><br><span class="line">        //同c一样此刻静态方法&quot;main()&quot;无法识别需要的是哪一个实例变量</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setSize(int s)&#123;</span><br><span class="line">        size = s;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getSize()&#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>3.静态变量<br><br>静态变量对<strong>所有的实例</strong>来说都相同。<br><br>静态变量是<strong>共享的</strong>。<br><br><strong>同一个类</strong>所有的实例变量<strong>共享一份静态变量</strong>。<br><br>实例变量:每个<strong>实例</strong>一个。<br><br>静态变量:每个<strong>类</strong>一个。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">在构造函数中增加静态变量</span><br><span class="line">class Duck&#123;</span><br><span class="line">    int duckCount = 0;</span><br><span class="line">    public Duck()&#123;</span><br><span class="line">        duckCount++;</span><br><span class="line">        //这无法在创建Duck对象的时候执行递增</span><br><span class="line">        //因为duckCount是一个实例变量</span><br><span class="line">        //所以每个Duck在初始化的时候duckCount的值都是0</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck&#123;</span><br><span class="line">    private int size; </span><br><span class="line">    private static int duckCount = 0;</span><br><span class="line">    //静态变量&quot;duckCount&quot;只有在类第一次载入的时候被初始化</span><br><span class="line">    </span><br><span class="line">    public Duck()&#123;</span><br><span class="line">        duckCount++;</span><br><span class="line">        //每当构造函数执行的时候</span><br><span class="line">        //这个值就会递增</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setSize(int s)&#123;</span><br><span class="line">        size = s;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getSize()&#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>静态变量会在该类的<strong>任何对象</strong>创建之前就完成初始化。<br>静态变量会在该类<strong>任何静态方法</strong>执行之前就初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Player&#123;</span><br><span class="line">    static int palyerCount = 0;</span><br><span class="line">    private String name;</span><br><span class="line">    public Player(String n)&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        playerCount++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public calss PlayerTestDrive&#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        System.out.println(Player.playerCount);</span><br><span class="line">        Player one = new Player(&quot;Tiger Woods&quot;);</span><br><span class="line">        Systrm.out.println(Player.playerCount);</span><br><span class="line">        //静态变量通过类的名称来存取</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出为:</span><br><span class="line">0    //实例创建之前</span><br><span class="line">1    //对象创建之后</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/30/java-数字与静态之上小结/" data-id="cjydprun0001cc0tn11pjacbe" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/02/java-图形用户接口之上小结/" data-id="cjydtbd4a0014u0tnkewiupah" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -566,23 +533,23 @@
       <ul>
         
           <li>
+            <a href="/2019/07/22/新文档/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/19/JavaEE之JDBC小结/">JavaEE之JDBC小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/19/JavaEE之三层架构小结/">JavaEE之三层架构小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/19/JavaEE之JSTL表达式小结/">JavaEE之JSTL表达式小结</a>
           </li>
         
           <li>
             <a href="/2019/07/19/JavaEE之EL表达式小结/">JavaEE之EL表达式小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/18/JavaEE之MVC概念小结/">JavaEE之MVC概念小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/18/JavaEE之JSP补充学习小结/">JavaEE之JSP补充学习小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/18/JavaEE之Session小结/">JavaEE之Session小结</a>
           </li>
         
       </ul>
