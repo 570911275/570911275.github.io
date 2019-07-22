@@ -5,20 +5,20 @@
   
 
   
-  <title>java_集合_Map下三种map类型区别小结 | Hexo</title>
+  <title>JavaEE之JSTL表达式小结 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Map下三种map类型区别1.HashMapHashMap采用哈希算法实现，是Map接口最常用的实现类。底层采用了哈希表存储数据，我们要求键不能重复，如果发生重复，新的键值对会替换旧的键值对。 HashMap在查找、删除、修改方面都有非常高的效率。 2.TreeMapTreeMap是红黑二叉树的典型实现TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashM">
-<meta name="keywords" content="java_基础">
+  <meta name="description" content="JSTL1. 概念：JavaServer Pages Tag Library JSP标准标签库      *是由Apache组织提供的开源的免费的jsp标签  2. 作用：用于简化和替换jsp页面上的java代码  3. 步骤：      1.导入jstl相关的jar包      2.引入标签库：taglib指令： &amp;lt;%@ taglib %&amp;gt;      3.使用标签  4. 常用的js">
+<meta name="keywords" content="javaEE_基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java_集合_Map下三种map类型区别小结">
-<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/index.html">
+<meta property="og:title" content="JavaEE之JSTL表达式小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Map下三种map类型区别1.HashMapHashMap采用哈希算法实现，是Map接口最常用的实现类。底层采用了哈希表存储数据，我们要求键不能重复，如果发生重复，新的键值对会替换旧的键值对。 HashMap在查找、删除、修改方面都有非常高的效率。 2.TreeMapTreeMap是红黑二叉树的典型实现TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashM">
+<meta property="og:description" content="JSTL1. 概念：JavaServer Pages Tag Library JSP标准标签库      *是由Apache组织提供的开源的免费的jsp标签  2. 作用：用于简化和替换jsp页面上的java代码  3. 步骤：      1.导入jstl相关的jar包      2.引入标签库：taglib指令： &amp;lt;%@ taglib %&amp;gt;      3.使用标签  4. 常用的js">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-14T08:24:56.640Z">
+<meta property="og:updated_time" content="2019-07-22T03:08:14.982Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java_集合_Map下三种map类型区别小结">
-<meta name="twitter:description" content="Map下三种map类型区别1.HashMapHashMap采用哈希算法实现，是Map接口最常用的实现类。底层采用了哈希表存储数据，我们要求键不能重复，如果发生重复，新的键值对会替换旧的键值对。 HashMap在查找、删除、修改方面都有非常高的效率。 2.TreeMapTreeMap是红黑二叉树的典型实现TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashM">
+<meta name="twitter:title" content="JavaEE之JSTL表达式小结">
+<meta name="twitter:description" content="JSTL1. 概念：JavaServer Pages Tag Library JSP标准标签库      *是由Apache组织提供的开源的免费的jsp标签  2. 作用：用于简化和替换jsp页面上的java代码  3. 步骤：      1.导入jstl相关的jar包      2.引入标签库：taglib指令： &amp;lt;%@ taglib %&amp;gt;      3.使用标签  4. 常用的js">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-集合之Map下三种map类型区别" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JavaEE之JSTL表达式小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/09/集合之Map下三种map类型区别/" class="article-date">
-  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
+    <a href="/2019/07/19/JavaEE之JSTL表达式小结/" class="article-date">
+  <time datetime="2019-07-19T03:07:44.000Z" itemprop="datePublished">2019-07-19</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java_集合_Map下三种map类型区别小结
+      JavaEE之JSTL表达式小结
     </h1>
   
 
@@ -87,23 +87,62 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Map下三种map类型区别"><a href="#Map下三种map类型区别" class="headerlink" title="Map下三种map类型区别"></a>Map下三种map类型区别</h2><h3 id="1-HashMap"><a href="#1-HashMap" class="headerlink" title="1.HashMap"></a>1.HashMap</h3><p>HashMap采用<strong>哈希算法</strong>实现，是Map接口最常用的实现类。<br><br>底层采用了哈希表存储数据，我们要求<strong>键不能重复</strong>，如果发生重复，<strong>新的键值对会替换旧的键值对</strong>。<br> HashMap在<strong>查找、删除、修改</strong>方面都有非常<strong>高的效率</strong>。</p>
-<h3 id="2-TreeMap"><a href="#2-TreeMap" class="headerlink" title="2.TreeMap"></a>2.TreeMap</h3><p>TreeMap是<strong>红黑二叉树</strong>的典型实现<br><br>TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashMap实现了同样的接口Map。<br><br>因此，用法对于调用者来说没有区别。<strong>HashMap效率高于TreeMap</strong>;在<strong>需要排序的Map时才选用TreeMap</strong>。</p>
-<h3 id="3-HashTable"><a href="#3-HashTable" class="headerlink" title="3.HashTable"></a>3.HashTable</h3><p><strong>HashTable类和HashMap用法几乎一样</strong>，底层实现几乎一样，只不过<strong>HashTable</strong>的方法添加了<strong>synchronized关键字</strong>确保<strong>线程</strong>同步检查，效率较低。<br><br>HashMap与HashTable的区别</p>
-<ol>
-<li>HashMap: <strong>线程不安全，效率高</strong>。<strong>允许key或value为null</strong>。<br><ol start="2">
-<li>HashTable: <strong>线程安全，效率低*</strong>。<strong>不允许key或value为null</strong>。</li>
-</ol>
-</li>
-</ol>
+        <h2 id="JSTL"><a href="#JSTL" class="headerlink" title="JSTL"></a>JSTL</h2><pre><code>1. 概念：JavaServer Pages Tag Library JSP标准标签库
+     *是由Apache组织提供的开源的免费的jsp标签
 
+2. 作用：用于简化和替换jsp页面上的java代码
+
+3. 步骤：
+     1.导入jstl相关的jar包
+     2.引入标签库：taglib指令： &lt;%@ taglib %&gt;
+     3.使用标签
+
+4. 常用的jstl标签
+    1.if       :相当于java代码的if语句
+         1.属性：
+            *test 必须属性，接受boolea表达式
+                *如果表达式为true，则显示if标签体内容。如果为false，则不需要显示标签体内容
+
+                *一般情况下，test属性会结合el表达式一起使用
+
+         2.注意：
+            *c:if标签无else情况，想要else情况，则可以再定义一个c:if标签
+    2.choose   :相当于java代码的switch语句
+         *完成数组编号对应星期几案例
+             1.域中存储一个数字
+             2.使用choose标签取出数字           相当于switch声明
+             3.使用when标签做数字判断           相当于case
+             4.otherwise标签做其他情况的声明    相当于default
+    3.foreach  :相当于java代码的for语句
+         1.完成重复的操作
+         for(int i=0;i&lt;10;i++){
+         }
+         *属性：
+            begin：开始值
+            end：结束值
+            var：临时变量
+            step：步长（临时变量每次增长多少）
+            varStatus:循环状态对象
+                 index:容器中元素的索引，从0开始
+                 count：循环次数从1开始
+         2.遍历容器
+         List&lt;User&gt; list = new ArrayList&lt;User&gt;();
+         foreach(User user:list){
+         }
+         *属性：
+             items：容器对象
+             var：容器中元素的临时变量
+             varStatus:循环状态对象
+                 index:容器中元素的索引，从0开始
+                 count：循环次数从1开始
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjydprut60023c0tnn8hu6rh1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/" data-id="cjydt8rbk002cc0tndgcv8zwc" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
 
     </footer>
   </div>
@@ -111,19 +150,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/07/09/集合之List下的三种list类型的区别/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          java_集合_List下的三种list类型的区别小结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/07/09/集合之List的常用方法与特点/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/19/JavaEE之EL表达式小结/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">java_集合_List的常用方法与特点小结</div>
+      <div class="article-nav-title">JavaEE之EL表达式小结</div>
     </a>
   
 </nav>

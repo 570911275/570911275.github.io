@@ -62,6 +62,92 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之JSTL表达式小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/19/JavaEE之JSTL表达式小结/" class="article-date">
+  <time datetime="2019-07-19T03:07:44.000Z" itemprop="datePublished">2019-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/19/JavaEE之JSTL表达式小结/">JavaEE之JSTL表达式小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JSTL"><a href="#JSTL" class="headerlink" title="JSTL"></a>JSTL</h2><pre><code>1. 概念：JavaServer Pages Tag Library JSP标准标签库
+     *是由Apache组织提供的开源的免费的jsp标签
+
+2. 作用：用于简化和替换jsp页面上的java代码
+
+3. 步骤：
+     1.导入jstl相关的jar包
+     2.引入标签库：taglib指令： &lt;%@ taglib %&gt;
+     3.使用标签
+
+4. 常用的jstl标签
+    1.if       :相当于java代码的if语句
+         1.属性：
+            *test 必须属性，接受boolea表达式
+                *如果表达式为true，则显示if标签体内容。如果为false，则不需要显示标签体内容
+
+                *一般情况下，test属性会结合el表达式一起使用
+
+         2.注意：
+            *c:if标签无else情况，想要else情况，则可以再定义一个c:if标签
+    2.choose   :相当于java代码的switch语句
+         *完成数组编号对应星期几案例
+             1.域中存储一个数字
+             2.使用choose标签取出数字           相当于switch声明
+             3.使用when标签做数字判断           相当于case
+             4.otherwise标签做其他情况的声明    相当于default
+    3.foreach  :相当于java代码的for语句
+         1.完成重复的操作
+         for(int i=0;i&lt;10;i++){
+         }
+         *属性：
+            begin：开始值
+            end：结束值
+            var：临时变量
+            step：步长（临时变量每次增长多少）
+            varStatus:循环状态对象
+                 index:容器中元素的索引，从0开始
+                 count：循环次数从1开始
+         2.遍历容器
+         List&lt;User&gt; list = new ArrayList&lt;User&gt;();
+         foreach(User user:list){
+         }
+         *属性：
+             items：容器对象
+             var：容器中元素的临时变量
+             varStatus:循环状态对象
+                 index:容器中元素的索引，从0开始
+                 count：循环次数从1开始
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/" data-id="cjydt8rbk002cc0tndgcv8zwc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之EL表达式小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/19/JavaEE之EL表达式小结/" class="article-date">
@@ -147,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/" data-id="cjydpos1q0000qctnhn6krbmh" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/" data-id="cjydpruhk000fc0tnpnahmw84" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -225,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之MVC概念小结/" data-id="cjyd0zhkm000mg8tntlc445e7" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之MVC概念小结/" data-id="cjydprui1000ic0tneils3hgi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -306,7 +392,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP补充学习小结/" data-id="cjyd0zhjz000eg8tn1nyihb79" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP补充学习小结/" data-id="cjydpruis000mc0tnag46rwin" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -406,7 +492,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Session小结/" data-id="cjyd0zhn6001zg8tnytqgvojd" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Session小结/" data-id="cjydprupy001ic0tnwgrq3pl8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -468,7 +554,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP入门学习小结/" data-id="cjyd0zhkh000kg8tn8z3bd7e9" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP入门学习小结/" data-id="cjydpruic000jc0tn21da23a9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -559,7 +645,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjyd0zhjq000bg8tnpzosagp1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjydprugf0008c0tn3hrre9nt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -607,7 +693,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之会话技术概念小结/" data-id="cjyd0zhl2000wg8tnpu96sntu" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之会话技术概念小结/" data-id="cjydprukh000yc0tnryd84ghs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -690,7 +776,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjyd0zhkt000qg8tnm6v1yjaz" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之ServletContext小结/" data-id="cjydprujj000rc0tnz8rl10ch" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -820,89 +906,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Response小结/" data-id="cjyd0zhkq000og8tngp6ofj2u" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之Http协议下小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/17/JavaEE之Http协议下小结/" class="article-date">
-  <time datetime="2019-07-17T09:14:16.000Z" itemprop="datePublished">2019-07-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/17/JavaEE之Http协议下小结/">JavaEE之Http协议下小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><pre><code>1.请求消息：客户端发送给服务器端的数据
-    *数据格式：
-       1.请求行
-       2.请求头
-       3.请求空行
-       4.请求体
-2.响应消息：服务器端发送给客户端的数据
-     *数据格式：
-        1.响应行：
-             1.组成：协议、版本  响应状态码 状态码描述
-             2.响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态
-                 1.状态码都是3位数字
-                 *分类：
-                    1.1xx:服务器接受客户端消息，但没有接受完成，等待一段时间后，发送1xx多状态码
-                    2.2xx:成功。代表：200
-                    3.3xx:重定向。代表：302（重定向），304（访问缓冲）
-                    4.4xx:客户端错误。代表：404（请求路劲没有对应的资源）405（请求方式没有对应的doxxx方法）
-                    5.5xx:服务器端错误。代表：500（服务器内部出现异常）
-
-        2.响应头：
-            1.格式：头名称：值
-            2.常见的响应头：
-                1.Content-Type：服务器告诉客户端本次响应体数据格式以及编码格式
-                2.Content-disposition：服务器告诉客户端以什么格式打开响应体数据
-                     *值：
-                       *in-line:默认值，在当前页面打开
-                       *attachment；filename=xx：以附件形式打开响应体。文件下载中使用较多
-        3.响应空行：
-        4.响应体：传输的数据
-
-     *响应字符串格式
-        HTTP/1.1 200 OK
-        Date: Sat, 20 Jul 2019 08:33:11 GMT
-        Content-Type: image/png
-        Transfer-Encoding: chunked
-        Connection: keep-alive
-        Expires: Sun, 01 Jul 2029 06:36:09 GMT
-        Server: nginx
-        Last-Modified: Wed, 17 Apr 2019 08:33:53 GMT
-        ETag: W/&quot;5cb6e4f1-7da&quot;
-        Cache-Control: max-age=315360000
-        Content-Encoding: gzip
-        Age: 1
-        X-Via: 1.1 PSzjjxdx10tk79:7 (Cdn Cache Server V2.0), 1.1 zhj168:14 (Cdn Cache Server V2.0)
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjyd0zhka000hg8tnieirn0po" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Response小结/" data-id="cjydprujp000tc0tngn90esus" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -918,7 +922,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -964,6 +968,10 @@
       <ul>
         
           <li>
+            <a href="/2019/07/19/JavaEE之JSTL表达式小结/">JavaEE之JSTL表达式小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/19/JavaEE之EL表达式小结/">JavaEE之EL表达式小结</a>
           </li>
         
@@ -977,10 +985,6 @@
         
           <li>
             <a href="/2019/07/18/JavaEE之Session小结/">JavaEE之Session小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/18/JavaEE之JSP入门学习小结/">JavaEE之JSP入门学习小结</a>
           </li>
         
       </ul>
