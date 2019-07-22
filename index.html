@@ -62,109 +62,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-新文档" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/22/新文档/" class="article-date">
-  <time datetime="2019-07-22T06:39:41.507Z" itemprop="datePublished">2019-07-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><h4 id="1-概念：Java-DataBase-Connectivity-Java数据库连接，Java语言操作数据库"><a href="#1-概念：Java-DataBase-Connectivity-Java数据库连接，Java语言操作数据库" class="headerlink" title="1.概念：Java DataBase Connectivity Java数据库连接，Java语言操作数据库"></a>1.概念：Java DataBase Connectivity Java数据库连接，Java语言操作数据库</h4><pre><code>*JDBC本质：官方（sun公司）定义的一套操作所有关系型数据库的规则，即接口。各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类
-</code></pre><h4 id="2-快速入门："><a href="#2-快速入门：" class="headerlink" title="2.快速入门："></a>2.快速入门：</h4><pre><code>*步骤：
-   1.导入驱动jar包    mysql-connector-java-8.0.16.jar
-        1.复制mysql-connector-java-8.0.16.jar到项目的lib目录下
-        2.右键--&gt;选择Add As Library 
-   2.注册驱动
-   3.获取数据库连接对象 Connection
-   4.定义SQL
-   5.获取执行SQL语句的对象 Statement
-   6.执行SQL，接受返回结果
-   7.处理结果
-   8.释放资源
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//1.导入驱动jar包</span><br><span class="line"> 1.复制mysql-connector-java-8.0.16.jar到项目的lib目录下</span><br><span class="line"> 2.右键--&gt;选择Add As Library </span><br><span class="line">//2.注册驱动</span><br><span class="line">Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">//3.获取数据库连接对象</span><br><span class="line">Connection conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;serverTimezone=UTC&quot;,&quot;root&quot;,&quot;a570911275&quot;);</span><br><span class="line">//4.定义SQL语句</span><br><span class="line">String sql = &quot;update user set age = 17 where id = 1&quot;;</span><br><span class="line">//5.获取执行SQL的对象 Statement</span><br><span class="line">Statement stmt = conn.createStatement();</span><br><span class="line">//6.执行SQL</span><br><span class="line">int count = stmt.executeUpdate(sql);</span><br><span class="line">//7.处理结果</span><br><span class="line">System.out.println(count);</span><br><span class="line">//8.释放资源</span><br><span class="line">stmt.close();</span><br><span class="line">conn.close();</span><br></pre></td></tr></table></figure>
-<h4 id="3-详解各个对象"><a href="#3-详解各个对象" class="headerlink" title="3. 详解各个对象"></a>3. 详解各个对象</h4><pre><code>1. DriverManager: 驱动管理对象
-     *功能：
-        1. 注册驱动：告诉程序该使用哪一个数据库驱动jar
-           static void registerDriver(Driver driver):注册与给定的驱动程序 DriverManager。
-           写代码使用：Class。forName(&quot;com.mysql.jdbc.Driver&quot;);
-            通过查看源码发现：在com.mysql.jdbc.Driver类中存在静态代码块
-            static{
-                try{
-                    java.sql.DriverManager.registerDriver(new Driver()); 
-                } catch(SQKException E){
-                    throw new RuntimeException(&quot;Can&apos;t register driver!&quot;);
-                }
-            }
-          注意：mysql5之后的驱动jar包可以省略注册驱动的步骤
-        2. 获取数据库连接：
-             *方法：static Connection getConnection(String url,String user,String password)
-             *参数：
-                 *url：指定连接的路径
-                    *语法：jdbc:mysql://localhost:3306(ip地址【端口号】)/test(数据库名称)?useSSL=false&amp;serverTimezone=UTC
-                 *user：用户名
-                 *password：密码
-
-2. Cconnection: 数据库连接对象
-     1. 功能：
-          1. 获取执行SQL的对象
-                *Statement createStatement()
-                *PreparedStatement prepareStatement(String sql)
-          2. 管理事务：
-                *开启事务：setAutoCommit(boolean autoCommit):调用该方法设置参数为false，则为开启事务
-                *提交事务：commit（）
-                *回滚事务: rollback()
-
-3. Statement: 执行SQL的对象
-     1. 执行SQL
-       1. boolean execute(String sql):可以执行任意的SQL 了解即可
-       2. int executeUpdate(String sql):执行DML（增删改【insert、update、delete】）、DDL（建删表、库【create，alter,drop】）语句。 注：DDL语句不常使用，一般执行DML语句。 掌握
-            *返回值：影响的行数（int），可以通过这个影响的行数判断DML语句是否执行成功，返回值&gt;0的则执行成功，反之则失败
-       3. ResultSet executeQuery(String sql):执行DQL（查询【select】）语句
-            *返回值：结果集对象
-     2. 练习：
-       1. user表 添加一条记录
-       2. user表 修改一条记录
-       3. user表 删除一条记录
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">     Connection conn = null;</span><br><span class="line">     Statement stmt = null;//提升stmt和conn的作用域，使得可以在finally中释放stmt和conn的资源</span><br><span class="line">     //1.注册驱动</span><br><span class="line">     try &#123;</span><br><span class="line">         Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">         //2.定义SQL</span><br><span class="line">         String sql = &quot;insert into user values(null,&apos;黄二丫&apos;,&apos;a570911275123&apos;,15)&quot;;</span><br><span class="line">         //3.获取Connection对象</span><br><span class="line">         conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;serverTimezone=UTC&quot;,&quot;root&quot;,&quot;a570911275&quot;);</span><br><span class="line">         //4.获取执行SQL的对象</span><br><span class="line">         stmt = conn.createStatement();</span><br><span class="line">         //5.执行SQL</span><br><span class="line">         int count = stmt.executeUpdate(sql);//影响的行数</span><br><span class="line">         //6.处理结果</span><br><span class="line">         System.out.println(count);</span><br><span class="line">         if(count&gt;0)&#123;</span><br><span class="line">             System.out.println(&quot;添加成功&quot;);</span><br><span class="line">         &#125;else&#123;</span><br><span class="line">             System.out.println(&quot;添加失败&quot;);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125; catch (SQLException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125;finally &#123;</span><br><span class="line">         //7.释放资源</span><br><span class="line">         try &#123;</span><br><span class="line">             if(stmt!=null)&#123;</span><br><span class="line">             stmt.close();</span><br><span class="line">             &#125;</span><br><span class="line">         &#125; catch (SQLException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         try &#123;</span><br><span class="line">             if(conn!=null)&#123;</span><br><span class="line">                 conn.close();</span><br><span class="line">             &#125;</span><br><span class="line">         &#125; catch (SQLException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<pre><code>4. ResultSet: 结果集对象
-      *boolean next():游标向下移动一行，判断当前行是否是最后一行末尾，如果是则返回false，如果不是则返回true
-      *getXxx():获取数据
-         *Xxx:代表数据类型 如：int getInt（）；String getString（）；
-         * 参数：
-            *1.int：代表列的编号。从1开始  如：getString（1）
-            *2.String：代表列的名称。如：getString（&quot;name&quot;）
-      *注意：
-         使用步骤：
-           1.游标向下一行
-           2.判断是否有数据
-           3.获取数据
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">循环判断游标是否是最后一行末尾</span><br><span class="line">            while(rs.next())&#123;</span><br><span class="line">                //获取数据</span><br><span class="line">                int id = rs.getInt(1);</span><br><span class="line">                String name = rs.getString(2);</span><br><span class="line">                String password = rs.getString(&quot;password&quot;);</span><br><span class="line">                int age = rs.getInt(&quot;age&quot;);</span><br><span class="line">                </span><br><span class="line">                System.out.println(id+&quot;---&quot;+name+&quot;---&quot;+password+&quot;---&quot;+age);</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
-<pre><code>    *练习：
-      *定义一个方法，查询user表的数据将其封装成对象，然后装载集合，返回
-           1.定义一个User类
-           2.定义方法 public List&lt;User&gt; findAll(){}
-           3.实现方法 select * from emp;
-           4.
-5. PrepareStatement: 执行SQL的对象，比Statement更为强大，继承于Statement
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/新文档/" data-id="cjye0sp2g002gu0tnmdkj3amj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-JavaEE之JDBC小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/19/JavaEE之JDBC小结/" class="article-date">
@@ -257,7 +154,32 @@
            2.判断是否有数据
            3.获取数据
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">循环判断游标是否是最后一行末尾</span><br><span class="line">            while(rs.next())&#123;</span><br><span class="line">                //获取数据</span><br><span class="line">                int id = rs.getInt(1);</span><br><span class="line">                String name = rs.getString(2);</span><br><span class="line">                String password = rs.getString(&quot;password&quot;);</span><br><span class="line">                int age = rs.getInt(&quot;age&quot;);</span><br><span class="line">                </span><br><span class="line">                System.out.println(id+&quot;---&quot;+name+&quot;---&quot;+password+&quot;---&quot;+age);</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
-<pre><code>5. PrepareStatement: 执行SQL的对象，比Statement更为强大，继承于Statement
+<p>###5. PrepareStatement: 执行SQL的对象，比Statement更为强大，继承于Statement</p>
+<pre><code>1. SQL注入问题：在拼接SQL时，有一些SQL的特殊关键字参与字符串的拼接。会造成安全性问题
+     1. 输入用户：随便；输入密码：a&apos; or &apos;a&apos; = &apos;a
+     2. sql:select * from user where username = &apos;fhdshdf&apos; and password = &apos;a&apos; or &apos;a&apos;=&apos;a&apos;
+
+2. 解决SQL注入问题：使用PreparedStatement对象来解决
+3. 预编译的SQL：参数使用？作为占位符
+4. 步骤：
+     1.导入驱动jar包    mysql-connector-java-8.0.16.jar
+          1.复制mysql-connector-java-8.0.16.jar到项目的lib目录下
+          2.右键--&gt;选择Add As Library 
+     2.注册驱动
+     3.获取数据库连接对象 Connection
+     4.定义SQL
+          *注意：SQL的参数使用？作为占位符。如：select * from user where username = ? and password = ?
+     5.获取执行SQL语句的对象 PrepareStatement   Connection.prepareStatement(String sql)
+     6.给？赋值：
+          *方法： setXxx(参数1（参数的位置），参数2（参数的值）)
+             *参数的位置编号从1开始
+     7.执行SQL，接受返回结果，不需要传递SQL语句
+     8.处理结果
+     9.释放资源
+
+5. 注意：后期都会使用PreparedStatement来完成增删改查的所有操作
+     1. 可以防止SQL注入
+     2. 效率更高
 </code></pre><h4 id="练习："><a href="#练习：" class="headerlink" title="练习："></a>练习：</h4><pre><code>*定义一个方法，查询user表的数据将其封装成对象，然后装载集合，返回
      1.定义一个User类
      2.定义方法 public List&lt;User&gt; findAll(){}
@@ -429,11 +351,20 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
 }
 </code></pre><p>}</p>
 <p><code>`</code></p>
+<h2 id="练习登录界面"><a href="#练习登录界面" class="headerlink" title="练习登录界面"></a>练习登录界面</h2><pre><code>*需求：
+   1. 通过键盘录入用户名和密码
+   2. 判断用户是否登录成功
+          *select * from user where username = &quot;&quot; and password = &quot;&quot;;
+          *如果这个SQL有查询结果，则成功，反之，则失败
 
+*步骤：
+   1. 创建数据库表 user
+   2. 创建一个类，完成登录逻辑
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjye5h8eu0000u8tnotylmvvy" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjye5ibn00027lwtniy214nfy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -476,7 +407,7 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之三层架构小结/" data-id="cjydugljp002eu0tn3jpcfgjq" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之三层架构小结/" data-id="cjye5ibjl0010lwtn21dxe78h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -562,7 +493,7 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/" data-id="cjydtbd2o000iu0tnfc8qgd1p" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/" data-id="cjye5ibiq000mlwtn0f1rpy9w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -659,7 +590,7 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/" data-id="cjydtbd20000au0tn4rvcgd4u" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/" data-id="cjye5ibhu0008lwtnihcs1lcq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -737,7 +668,7 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之MVC概念小结/" data-id="cjydtbd3a000ou0tn7a5ivql2" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之MVC概念小结/" data-id="cjye5ibiy000rlwtng5zjsjus" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -818,7 +749,7 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP补充学习小结/" data-id="cjydtbd2u000ju0tn8rtefdsq" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP补充学习小结/" data-id="cjye5ibii000jlwtnwo4rponc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -918,7 +849,7 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Session小结/" data-id="cjydtbd6f001fu0tnfkyrnts3" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Session小结/" data-id="cjye5ibn50028lwtnep14b6cv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -980,7 +911,7 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP入门学习小结/" data-id="cjydtbd2d000fu0tno4n3mn2o" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP入门学习小结/" data-id="cjye5ibie000hlwtnzw3ddyzd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1071,7 +1002,55 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjydtbd1w0008u0tntuu29gbd" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjye5ibhi0004lwtnhp9eht9a" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之会话技术概念小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/18/JavaEE之会话技术概念小结/" class="article-date">
+  <time datetime="2019-07-18T05:41:56.000Z" itemprop="datePublished">2019-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/18/JavaEE之会话技术概念小结/">JavaEE之会话技术概念小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="会话技术："><a href="#会话技术：" class="headerlink" title="会话技术："></a>会话技术：</h2><pre><code>1. 会话：一次会话中包含多次请求和响应。
+   *一次会话：浏览器第一次给服务器资源发送请求，会话建立，直到有一方断开为止。
+
+2. 功能：在一次会话的范围内的多次请求间，共享数据
+
+3. 方式：
+     1.客户端会话技术:Cookie
+          *将数据存在客户端
+     2.服务器端会话技术：Session
+          *将数据存在服务器端
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之会话技术概念小结/" data-id="cjye5ibju0014lwtnj4fq6bl6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1133,10 +1112,6 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
       <ul>
         
           <li>
-            <a href="/2019/07/22/新文档/">(no title)</a>
-          </li>
-        
-          <li>
             <a href="/2019/07/19/JavaEE之JDBC小结/">JavaEE之JDBC小结</a>
           </li>
         
@@ -1150,6 +1125,10 @@ public static void close(ResultSet rs,Statement stmt, Connection conn){
         
           <li>
             <a href="/2019/07/19/JavaEE之EL表达式小结/">JavaEE之EL表达式小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/18/JavaEE之MVC概念小结/">JavaEE之MVC概念小结</a>
           </li>
         
       </ul>
