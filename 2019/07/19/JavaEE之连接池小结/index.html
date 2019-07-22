@@ -5,20 +5,20 @@
   
 
   
-  <title>JavaEE之Cookie小结 | Hexo</title>
+  <title>JavaEE之连接池小结 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Cookie1.概念：客户端会话技术，将数据保存到客户端  2.快速入门：     *使用步骤：        1.创建Cookie对象，绑定数据             *new Cookie(String name,String value)        2.发送Cookie对象             *response,addCookie(Cookie cookie)        3.">
+  <meta name="description" content="数据库连接池1. 概念：其实就是一个容器（集合），存放数据库连接的容器。         当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。  2. 优点：      1. 节约资源      2. 用户访问高效  3. 实现：      1. 标准接口：DataSource javax.sql包下的">
 <meta name="keywords" content="javaEE_基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaEE之Cookie小结">
-<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/index.html">
+<meta property="og:title" content="JavaEE之连接池小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Cookie1.概念：客户端会话技术，将数据保存到客户端  2.快速入门：     *使用步骤：        1.创建Cookie对象，绑定数据             *new Cookie(String name,String value)        2.发送Cookie对象             *response,addCookie(Cookie cookie)        3.">
+<meta property="og:description" content="数据库连接池1. 概念：其实就是一个容器（集合），存放数据库连接的容器。         当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。  2. 优点：      1. 节约资源      2. 用户访问高效  3. 实现：      1. 标准接口：DataSource javax.sql包下的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-21T07:22:25.120Z">
+<meta property="og:updated_time" content="2019-07-22T13:00:18.275Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaEE之Cookie小结">
-<meta name="twitter:description" content="Cookie1.概念：客户端会话技术，将数据保存到客户端  2.快速入门：     *使用步骤：        1.创建Cookie对象，绑定数据             *new Cookie(String name,String value)        2.发送Cookie对象             *response,addCookie(Cookie cookie)        3.">
+<meta name="twitter:title" content="JavaEE之连接池小结">
+<meta name="twitter:description" content="数据库连接池1. 概念：其实就是一个容器（集合），存放数据库连接的容器。         当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。  2. 优点：      1. 节约资源      2. 用户访问高效  3. 实现：      1. 标准接口：DataSource javax.sql包下的">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-JavaEE之Cookie小结" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JavaEE之连接池小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/18/JavaEE之Cookie小结/" class="article-date">
-  <time datetime="2019-07-18T07:22:03.000Z" itemprop="datePublished">2019-07-18</time>
+    <a href="/2019/07/19/JavaEE之连接池小结/" class="article-date">
+  <time datetime="2019-07-19T13:00:41.000Z" itemprop="datePublished">2019-07-19</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      JavaEE之Cookie小结
+      JavaEE之连接池小结
     </h1>
   
 
@@ -87,64 +87,56 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><pre><code>1.概念：客户端会话技术，将数据保存到客户端
+        <h2 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h2><pre><code>1. 概念：其实就是一个容器（集合），存放数据库连接的容器。
+        当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。
 
-2.快速入门：
-    *使用步骤：
-       1.创建Cookie对象，绑定数据
-            *new Cookie(String name,String value)
-       2.发送Cookie对象
-            *response,addCookie(Cookie cookie)
-       3.获取Cookie，拿到数据
-            *Cookie[] request.getCookies()\
+2. 优点：
+     1. 节约资源
+     2. 用户访问高效
 
-3.实现原理：
-    *基于响应头set-cookie和请求头cookie实现
+3. 实现：
+     1. 标准接口：DataSource javax.sql包下的
+          1. 方法：
+              *获取连接：getConnection（） 
+              *归还连接：如果连接对象Connection是从连接池中获取的，那么调用Connection.close（）方法，则不会再关闭连接了，而是归还连接。
 
-4.Cookie的细节：
-     1.一次可不可以发送多个Cookie？
-         *可以
-         *可以创建多个Cookie对象，使用response调用多次addCookie方法发送Cookie即可。
+     2. 一般我们不去实现它，由数据库厂商来实现
+          1. C3P0：数据库连接池技术（比较老）
+          2. Druid：数据库连接池实现技术，由阿里巴巴提供的，高效（比较新）
 
-     2.Cookie在浏览器中保存多长时间？
-         1.默认情况下：当浏览器关闭后，Cookie数据被销毁
-         2.持久化存储：
-                *setMaxAge(int seconds)
-                   1.正数：将Cookie数据写到硬盘的文件中。持久化存储。cookie存活时间
-                   2.负数：默认值
-                   3.零：删除Cookie信息
 
-     3.Cookie能不能存中文？
-          *在Tomcat8 之前 cookie中不能直接存储中文数据。
-                 *需要将中文数据转码 ----一般采用URL编码(%)
-          *在Tomcat8 之后 cookie支持中文数据。
+ 4. C3P0：数据库连接池技术 （由于版本配置环境的问题，无法上手训练）
+     1. 导入jar包【两个】  c3p0-0.9.5.2.jar   mchange-commons-java-0.2.12.jar
+         *不要忘记导入数据库驱动jar包
+         *留意配置环境，避免无法运行
+     2. 定义配置文件：
+            *名称：c3p0.properties 或者 c3p0-config.xml(常用)
+            *路径：直接将文件放在src目录下即可。
+     3. 创建核心对象————&gt;数据库连接池对象 ComboPooledDateSource
+     4. 获取连接：getConnection
 
-     4.Cookie共享问题？
-         1.*假设在一个Tomcat服务器中，部署了多个web项目，那么在这些web项目中cookie能不能共享？
-              *默认情况下cookie不能共享
+ 5. Druid：数据库连接池技术，阿里巴巴提供
+     1. 步骤：
+             1. 导入jar包     druid-1.0.9.jar
+             2. 定义配置文件：
+                   *特点：是properties形式的
+                   *可以叫任意名称，可以放在任意目录下
+             3. 加载配置文件。Properties
+             4. 获取数据库连接池对象：通过一个工厂类来获取   DruidDataSourceFactory
+             5. 获取连接：getConnection
 
-              *setPath（String path）:设置cookie的获取范围。默认情况下，设置当前的虚拟目录
-              *如果要共享，则可以将path设置为“/” ；setPath（/）此情况下，可使得不同项目之间相互共享 
-
-         2.不同的Tomcat服务器间cookie共享问题？
-               *调用setDomain(String path//字符串的一个域名)：如果设置一级域名相同，那么多个服务器之间可以共享
-                    *setDomain（“.baidu.com）；
-                        那么tieba.baidu.com和news.baidu.com之间可以共享
-
- 5. Cookie的特点和作用：
-      1. cookie存储数据在客户端浏览器
-              *存储在客户端的数据，相较不安全，易被串改获取
-
-      2. 浏览器对于单个cookie的大小有限制（4k）以及对同一个域名下的总Cookie数量有所限制(一般在20个以内) 
-
-      *作用：
-          1.cookie一般用于存储少量的不太敏感的数据
-          2.在不登录的情况下，完成服务器对客户端的身份识别
+      2. 定义工具类：
+           1. 定义一个类 JDBCUtils
+           2. 提供静态代码块加载配置文件，初始化连接池对象
+           3. 提供方法
+                1.获取连接方法：通过数据库连接池获取连接
+                2.释放资源
+                3.获取连接池的方法
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjye89ij600058otnzyoebpiq" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjyeeee8b002m8otnmvhm69q1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -155,19 +147,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/07/18/JavaEE之JSP入门学习小结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          JavaEE之JSP入门学习小结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/07/18/JavaEE之会话技术概念小结/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/19/JavaEE之JDBC事务小结/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">JavaEE之会话技术概念小结</div>
+      <div class="article-nav-title">JavaEE之JDBC事务小结</div>
     </a>
   
 </nav>
