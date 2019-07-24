@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Spring JDBC* Spring框架对JDBC的简单封装。提供了一个JDBCTemplate对象简化JDBC的开发  * 步骤：     1. 导入jar包      2. 创建JDBCTemplate对象。依赖于数据源DataSource          *jdbcTemplate template = new JdbcTemplate(ds);      3. 调用JdbcTempla">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-22T13:59:35.580Z">
+<meta property="og:updated_time" content="2019-07-23T13:07:49.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE之JDBCTemplate小结">
 <meta name="twitter:description" content="Spring JDBC* Spring框架对JDBC的简单封装。提供了一个JDBCTemplate对象简化JDBC的开发  * 步骤：     1. 导入jar包      2. 创建JDBCTemplate对象。依赖于数据源DataSource          *jdbcTemplate template = new JdbcTemplate(ds);      3. 调用JdbcTempla">
@@ -108,17 +108,28 @@
          *queryForObject：查询结果，将结果封装成对象
                *一般用于聚合函数的查询
 
-    4. Junit单元测试，可以让方法独立执行
+    4. 练习
+        *需求：
+           1. 修改1号数据的 password 为 789
+           2. 添加一条记录
+           3. 删除刚才添加的记录
+           4. 查询id为1记录，将其封装为Map集合
+           5. 查询所有记录，将其封装为List
+           6. 查询所有记录，将其封装为Test对象的list集合
+           7. 查询总记录数
+
+    5. Junit单元测试，可以让方法独立执行
          *添加注解@Test
          *方法为public void 
 
-    5. 小技巧：
+    6. 小技巧：
          *iter为加强版for循环的快捷键
-</code></pre>
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">JDBCTemplate基本使用</span><br><span class="line"></span><br><span class="line">public class JDBCTemplateDemo1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //1.导入jar包</span><br><span class="line">        //2.创建JDBCTemplate对象</span><br><span class="line">        DataSource ds = JDBCUtils.getDataSource();</span><br><span class="line">        JdbcTemplate template = new JdbcTemplate(ds);</span><br><span class="line">        //3.调用方法</span><br><span class="line">        String sql = &quot;update test set password = 456 where username=?&quot;;</span><br><span class="line">        int count =  template.update(sql,&quot;张三&quot;);</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">练习代码</span><br><span class="line"></span><br><span class="line">package JDBCtemplate;</span><br><span class="line"></span><br><span class="line">import org.junit.Test;</span><br><span class="line">import org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line">import org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line">import utils.JDBCUtils;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">public class JDBCTemplateDemo2 &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 修改1号数据的 password 为 789</span><br><span class="line">     */</span><br><span class="line">    @Test</span><br><span class="line">    public void test1()&#123;</span><br><span class="line">        //1.获取JDBCTemplate对象</span><br><span class="line">        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        //2.定义SQL语句</span><br><span class="line">        String sql = &quot;update test set password = 789 where id = ?&quot;;</span><br><span class="line">        //3.执行SQL语句</span><br><span class="line">        int count = template.update(sql,1);</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加一条记录</span><br><span class="line">     */</span><br><span class="line">    @Test</span><br><span class="line">    public void test2()&#123;</span><br><span class="line">        //1.获取JDBCTemplate对象</span><br><span class="line">        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        //2.定义SQL语句</span><br><span class="line">        String sql = &quot;insert into test values(?,?,?)&quot;;</span><br><span class="line">        //3.执行SQL语句</span><br><span class="line">        int count = template.update(sql,null,&quot;黄七&quot;,852);</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     *  删除刚才添加的记录</span><br><span class="line">     */</span><br><span class="line">    @Test</span><br><span class="line">    public void test3()&#123;</span><br><span class="line">        //1.获取JDBCTemplate对象</span><br><span class="line">        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        //2.定义SQL语句</span><br><span class="line">        String sql = &quot;delete from test where username=?&quot;;</span><br><span class="line">        //3.执行SQL语句</span><br><span class="line">        int count = template.update(sql,&quot;黄七&quot;);</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 查询id为1记录，将其封装为Map集合</span><br><span class="line">     */</span><br><span class="line">    @Test</span><br><span class="line">    public void test4()&#123;</span><br><span class="line">        //1.获取JDBCTemplate对象</span><br><span class="line">        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        //2.定义SQL语句</span><br><span class="line">        String sql = &quot;select * from test where id=?&quot;;</span><br><span class="line">        //3.执行SQL语句</span><br><span class="line">        Map&lt;String, Object&gt; map = template.queryForMap(sql,1);</span><br><span class="line">        System.out.println(map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 查询所有记录，将其封装为List</span><br><span class="line">     */</span><br><span class="line">    @Test</span><br><span class="line">    public void test5()&#123;</span><br><span class="line">        //1.获取JDBCTemplate对象</span><br><span class="line">        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        //2.定义SQL语句</span><br><span class="line">        String sql = &quot;select * from test &quot;;</span><br><span class="line">        //3.执行SQL语句</span><br><span class="line">        List&lt;Map&lt;String, Object&gt;&gt; list = template.queryForList(sql);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 查询所有记录，将其封装为Test对象的list集合</span><br><span class="line">     */</span><br><span class="line">    @Test</span><br><span class="line">    public void test6()&#123;</span><br><span class="line">        //1.获取JDBCTemplate对象</span><br><span class="line">        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        //2.定义SQL语句</span><br><span class="line">        String sql = &quot;select * from test &quot;;</span><br><span class="line">        //3.执行SQL语句</span><br><span class="line">        List&lt;Test&gt; list = template.query(sql, new BeanPropertyRowMapper&lt;Test&gt;(Test.class));</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjyfjwm0v000jrwtna62n8cyd" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjyfmf3se000m3gtn20jthxjx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -170,7 +181,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/javaEE-基础/" style="font-size: 10px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 20px;">java_基础</a>
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
     </div>
   </div>
 
@@ -192,23 +203,23 @@
       <ul>
         
           <li>
-            <a href="/2019/07/20/JavaEE之Filter小结/">JavaEE之Filter小结</a>
+            <a href="/2019/07/23/新文档/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2019/07/20/JavaEE之Listener小结/">JavaEE之Listener小结</a>
+            <a href="/2019/07/21/JavaEE之修改用户练习小结/">JavaEE之修改用户练习小结</a>
           </li>
         
           <li>
-            <a href="/2019/07/20/JavaEE之XML小结/">JavaEE之XML小结</a>
+            <a href="/2019/07/21/JavaEE之删除用户练习小结/">JavaEE之删除用户练习小结</a>
           </li>
         
           <li>
-            <a href="/2019/07/19/JavaEE之JDBCTemplate小结/">JavaEE之JDBCTemplate小结</a>
+            <a href="/2019/07/21/JavaEE之添加用户练习小结/">JavaEE之添加用户练习小结</a>
           </li>
         
           <li>
-            <a href="/2019/07/19/JavaEE之连接池小结/">JavaEE之连接池小结</a>
+            <a href="/2019/07/21/JavaEE之登录练习2小结/">JavaEE之登录练习2小结</a>
           </li>
         
       </ul>

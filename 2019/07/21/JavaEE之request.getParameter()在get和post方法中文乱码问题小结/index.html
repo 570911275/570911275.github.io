@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaEE之request.getParameter()在get和post方法中文乱码问题小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="乱码原因：Http请求传输时将url以ISO-8859-1编码，服务器收到字节流后默认会以ISO-8859-1编码来解码成字符流（造成中文乱码） post请求： 假设提交请求的jsp页面是UTF-8编码 &amp;lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&amp;gt; 解决方法1">
+<meta name="keywords" content="javaEE_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE之request.getParameter()在get和post方法中文乱码问题小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="乱码原因：Http请求传输时将url以ISO-8859-1编码，服务器收到字节流后默认会以ISO-8859-1编码来解码成字符流（造成中文乱码） post请求： 假设提交请求的jsp页面是UTF-8编码 &amp;lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&amp;gt; 解决方法1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-24T03:39:22.426Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaEE之request.getParameter()在get和post方法中文乱码问题小结">
+<meta name="twitter:description" content="乱码原因：Http请求传输时将url以ISO-8859-1编码，服务器收到字节流后默认会以ISO-8859-1编码来解码成字符流（造成中文乱码） post请求： 假设提交请求的jsp页面是UTF-8编码 &amp;lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&amp;gt; 解决方法1">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaEE之request.getParameter()在get和post方法中文乱码问题小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" class="article-date">
+  <time datetime="2019-07-21T03:39:48.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaEE之request.getParameter()在get和post方法中文乱码问题小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>乱码原因：Http请求传输时将url以ISO-8859-1编码，服务器收到字节流后默认会以ISO-8859-1编码来解码成字符流（造成中文乱码）</p>
+<p>post请求：</p>
+<p>假设提交请求的jsp页面是UTF-8编码</p>
+<p>&lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&gt;</p>
+<p>解决方法1：在服务端获取参数前，先设置解码方式。<br>原文：<a href="https://blog.csdn.net/u013476542/article/details/52845547" target="_blank" rel="noopener">https://blog.csdn.net/u013476542/article/details/52845547</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//设置解码方式，对于简体中文，使用UTF-8解码</span><br><span class="line">request.setCharacterEncoding(&quot;UTF-8&quot;);</span><br><span class="line">request.getParameter(&quot;参数名&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>解决方法2：Tomcat默认编码ISO8859-1，设置成其他的编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;   </span><br><span class="line">    connectionTimeout=&quot;20000&quot;   </span><br><span class="line">    redirectPort=&quot;8444&quot;   </span><br><span class="line">    useBodyEncodingForURI=&quot;true&quot; URIEncoding=&quot;UTF-8&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>重点在 userBodyEncodingForURI 和 URIEncoding 这两个属性</p>
+<p>下面来解释一下这两个属性的意义</p>
+<p>useBodyEncodingForURI参数表示是否用request.setCharacterEncoding参数对URL提交的数据和表单中GET方式提交的数据进行重新编码，在默认情况下，该参数为false。</p>
+<p>URIEncoding参数指定对所有GET方式请求进行统一的重新编码（解码）的编码。</p>
+<p>URIEncoding和useBodyEncodingForURI区别是，</p>
+<p>URIEncoding是对所有GET方式的请求的数据进行统一的重新编码，</p>
+<p>而useBodyEncodingForURI则是根据响应该请求的页面的request.setCharacterEncoding参数对数据进行的重新编码，不同的页面可以有不同的重新编码的编码</p>
+<p>解决方法3：通过字符串和字节流转换时使用正确的编码获取中文参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String str = new String(request.getParameter(&quot;参数名&quot;).getBytes(&quot;iso-8859-1&quot;), &quot;utf-8&quot;);</span><br></pre></td></tr></table></figure>
+<p>get请求：</p>
+<p>对于get请求，上面针对于post的请求的三种解决方法，只有第三种可以用，第一种和第二种并没有效果，这和tomcat的内部机制有关。<br>对于get请求，还有一个很笨拙的方法，不推荐使用，贴出来，以供了解：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/获取请求里包含的查询字符串</span><br><span class="line">String rawQueryStr = request.getQueryString();</span><br><span class="line">out.println(&quot;原始查询字符串为：&quot; + rawQueryStr + &quot;&lt;hr/&gt;&quot;);</span><br><span class="line">//使用URLDecoder解码字符串</span><br><span class="line">String queryStr = java.net.URLDecoder.decode(</span><br><span class="line">	rawQueryStr , &quot;gbk&quot;);</span><br><span class="line">out.println(&quot;解码后的查询字符串为：&quot; + queryStr + &quot;&lt;hr/&gt;&quot;);</span><br><span class="line">//以&amp;符号分解查询字符串</span><br><span class="line">String[] paramPairs = queryStr.split(&quot;&amp;&quot;);</span><br><span class="line">for(String paramPair : paramPairs)</span><br><span class="line">&#123;</span><br><span class="line">	out.println(&quot;每个请求参数名、值对为：&quot; + paramPair + &quot;&lt;br/&gt;&quot;);</span><br><span class="line">	//以=来分解请求参数名和值</span><br><span class="line">	String[] nameValue = paramPair.split(&quot;=&quot;);</span><br><span class="line">	out.println(nameValue[0] + &quot;参数的值是：&quot; + </span><br><span class="line">		nameValue[1]+ &quot;&lt;hr/&gt;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;/pre&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color:rgb(56,56,56); font-family:&quot;Trebuchet MS&quot;,Helvetica,&quot;Microsoft YaHei&quot;,Georgia,sans-serif; font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">乱码原因：Http请求传输时将url以ISO-8859-1编码，服务器收到字节流后默认会以ISO-8859-1编码来解码成字符流（造成中文乱码）</span><br><span class="line">&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">post请求：&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">假设提交请求的jsp页面是UTF-8编码&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;    pageEncoding=&quot;UTF-8&quot;%&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">解决方法1：在服务端获取参数前，先设置解码方式。&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;pre name=&quot;code&quot; class=&quot;java&quot; style=&quot;color: rgb(56, 56, 56); font-size: 13px; line-height: 23px;&quot;&gt;</span><br><span class="line">//设置解码方式，对于简体中文，使用UTF-8解码</span><br><span class="line">request.setCharacterEncoding(&quot;UTF-8&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getParameter(&quot;参数名&quot;);</span><br></pre></td></tr></table></figure>
+<p>该文档来自<a href="https://blog.csdn.net/huawuque004/article/details/83178248" target="_blank" rel="noopener">https://blog.csdn.net/huawuque004/article/details/83178248</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjyh759lo0001kotnqeu2j1zd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/21/JavaEE之BeanUtils工具类小结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaEE之BeanUtils工具类小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/21/JavaEE之登录练习小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaEE之登录练习小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/23/新文档/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/JavaEE之修改用户练习小结/">JavaEE之修改用户练习小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/JavaEE之删除用户练习小结/">JavaEE之删除用户练习小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/JavaEE之添加用户练习小结/">JavaEE之添加用户练习小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/JavaEE之登录练习2小结/">JavaEE之登录练习2小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -62,6 +62,562 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-新文档" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/23/新文档/" class="article-date">
+  <time datetime="2019-07-23T11:16:14.579Z" itemprop="datePublished">2019-07-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="综合练习"><a href="#综合练习" class="headerlink" title="综合练习"></a>综合练习</h2><pre><code>1. 简单功能
+    1. 列表查询
+    2. 登录
+    3. 添加
+    4. 删除
+    5. 修改
+2. 复杂功能
+    1. 删除选中
+    2. 分页查询
+    3. 条件查询
+    4. 复杂条件查询，带有分页效果
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjyh759nb000ekotnq9byvx9a" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之修改用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之修改用户练习小结/" class="article-date">
+  <time datetime="2019-07-21T10:14:43.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之修改用户练习小结/">JavaEE之修改用户练习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="修改用户练习"><a href="#修改用户练习" class="headerlink" title="修改用户练习"></a>修改用户练习</h3><ul>
+<li><p>思路：</p>
+<ol>
+<li>点击修改按钮（携带该用户的id）</li>
+<li>获取用户本身数据</li>
+<li>数据回显</li>
+<li>用户修改</li>
+<li>修改数据</li>
+<li>跳转回原界面</li>
+</ol>
+</li>
+<li><p>文件跳转：</p>
+<ol>
+<li>jsp获取用户选择修改用户id</li>
+<li>跳转至查找Servlet层，执行业务逻辑（找到该用户原先信息，进行回显）</li>
+<li>在Servlet中，将使用到Service</li>
+<li>在Service中，将使用到Dao</li>
+<li>最后执行完Dao后，再次执行修改Servlet</li>
+<li>获取用户输入新的数据</li>
+<li>剩余同上</li>
+</ol>
+</li>
+</ul>
+<h4 id="Servlet-回显Servlet"><a href="#Servlet-回显Servlet" class="headerlink" title="Servlet___回显Servlet"></a>Servlet___回显Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/findUserServlet&quot;)</span><br><span class="line">public class findUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.获取数据</span><br><span class="line">        String id = request.getParameter(&quot;id&quot;);</span><br><span class="line">        //2.调用Service方法</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        User user = service.findUserById(id);</span><br><span class="line">        //3.存储数据</span><br><span class="line">        request.setAttribute(&quot;findUser&quot;,user);</span><br><span class="line">        //4.转发到update.jsp</span><br><span class="line">        request.getRequestDispatcher(&quot;/update2.jsp&quot;).forward(request,response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Servlet-修改Servlet"><a href="#Servlet-修改Servlet" class="headerlink" title="Servlet___修改Servlet"></a>Servlet___修改Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/updateUserServlet&quot;)</span><br><span class="line">public class updateUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //设置编码</span><br><span class="line">        request.getRequestDispatcher(&quot;utf-8&quot;);</span><br><span class="line">        //获取数据</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //封装对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //调用Service语句更改信息</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.updateUser(user);</span><br><span class="line">        //跳转回UserListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">    public User findUserById(String id);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 更改数据</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">    public User findUserById(String id)&#123;</span><br><span class="line">        return dao.findUserById(Integer.parseInt(id));</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 更改用户</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user)&#123;</span><br><span class="line">        dao.updateUser(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">    public User findUserById(int id);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 更改用户</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">     public User findUserById(int id)&#123;</span><br><span class="line">         String sql = &quot;select * from user where id = ?&quot;;</span><br><span class="line">         User user = template.queryForObject(sql, new BeanPropertyRowMapper&lt;User&gt;(User.class), id);</span><br><span class="line">         return user;</span><br><span class="line">     &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 更改用户</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user)&#123;</span><br><span class="line">        String sql = &quot;update user set name=? ,gender=? ,age=? ,address=? ,qq=? ,email=? where id=?&quot;;</span><br><span class="line">        template.update(sql,user.getName(),user.getGender(),</span><br><span class="line">                user.getAge(),user.getAddress(),user.getQq(),</span><br><span class="line">                user.getEmail(),user.getId());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之修改用户练习小结/" data-id="cjyh759lx0003kotng7pxhc46" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之删除用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之删除用户练习小结/" class="article-date">
+  <time datetime="2019-07-21T08:24:43.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之删除用户练习小结/">JavaEE之删除用户练习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="删除用户练习"><a href="#删除用户练习" class="headerlink" title="删除用户练习"></a>删除用户练习</h3><ul>
+<li><p>思路：</p>
+<ol>
+<li>点击删除按钮（携带该用户的id）</li>
+<li>跳转确认画面，让客户确认是否删除</li>
+<li>确认删除后</li>
+<li>删除数据</li>
+<li>跳转回原界面</li>
+</ol>
+</li>
+<li><p>文件跳转：</p>
+<ol>
+<li>jsp获取用户选择删除用户id</li>
+<li>跳转至Servlet层，执行业务逻辑</li>
+<li>在Servlet中，将使用到Service</li>
+<li>在Service中，将使用到Dao</li>
+</ol>
+</li>
+</ul>
+<h4 id="Servleet"><a href="#Servleet" class="headerlink" title="Servleet"></a>Servleet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/delUserServlet&quot;)</span><br><span class="line">public class delUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.获取id</span><br><span class="line">        String id = request.getParameter(&quot;id&quot;);</span><br><span class="line">        //2.调用Service</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.delUser(id);</span><br><span class="line">        //3.跳转回/UserListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">    public void delUser(String id);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">     public void delUser(String id)&#123;</span><br><span class="line">         dao.delUser(Integer.parseInt(id));</span><br><span class="line">     &#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">    public void delUser(int id);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     * @param id</span><br><span class="line">     */</span><br><span class="line">    public void delUser(int id)&#123;</span><br><span class="line">        //定义SQL</span><br><span class="line">        String sql = &quot;delete from user where id = ?&quot;;</span><br><span class="line">        //执行SQL</span><br><span class="line">        template.update(sql,id);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之删除用户练习小结/" data-id="cjyh759m10005kotnhbxs0gcs" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之添加用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之添加用户练习小结/" class="article-date">
+  <time datetime="2019-07-21T08:24:43.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之添加用户练习小结/">JavaEE之添加用户练习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="添加用户练习"><a href="#添加用户练习" class="headerlink" title="添加用户练习"></a>添加用户练习</h3><ul>
+<li><p>思路：</p>
+<ol>
+<li>点击添加按钮</li>
+<li>获取新用户数据</li>
+<li>添加数据</li>
+<li>跳转回原界面</li>
+</ol>
+</li>
+<li><p>文件跳转：</p>
+<ol>
+<li>jsp获取用户输入新用户信息</li>
+<li>跳转至Servlet层，执行业务逻辑</li>
+<li>在Servlet中，将使用到Service</li>
+<li>在Service中，将使用到Dao</li>
+</ol>
+</li>
+</ul>
+<h4 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line">import org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/addUserServlet&quot;)</span><br><span class="line">public class addUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.设置编码</span><br><span class="line">        request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">        //2.获取数据</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //3.封装User对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //4.调用Service方法添加数据</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.addUser(user);</span><br><span class="line">        //5.跳转到userListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     */</span><br><span class="line">    public void  addUser(User user);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     * @param user</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void addUser(User user) &#123;</span><br><span class="line">       dao.addUser(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     */</span><br><span class="line">    public void addUser(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     * @param user</span><br><span class="line">     */</span><br><span class="line">    public void addUser(User user)&#123;</span><br><span class="line">        //1.定义SQL</span><br><span class="line">        String sql = &quot;insert into user values(null,?,?,?,?,?,?,null,null)&quot;;</span><br><span class="line">        //2.执行SQL</span><br><span class="line">        template.update(sql,user.getName(),user.getGender(),user.getAge(),</span><br><span class="line">                            user.getAddress(),user.getQq(),user.getEmail());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之添加用户练习小结/" data-id="cjyh759m60007kotnsu2pfm7m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之登录练习2小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之登录练习2小结/" class="article-date">
+  <time datetime="2019-07-21T07:34:16.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之登录练习2小结/">JavaEE之登录练习2小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="登录练习2"><a href="#登录练习2" class="headerlink" title="登录练习2"></a>登录练习2</h3><ul>
+<li><p>思路：<br> 可看登录练习1中有详解。只讲文件跳转路线</p>
+</li>
+<li><p>文件跳转</p>
+<ol>
+<li>jsp获取用户输入账号与密码</li>
+<li>跳转至Servlet层，执行业务逻辑</li>
+<li>在Servlet中，将使用到Service</li>
+<li>在Service中，将使用到Dao</li>
+</ol>
+</li>
+</ul>
+<h4 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/loginServlet&quot;)</span><br><span class="line">public class LoginServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.设置编码</span><br><span class="line">        request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line"></span><br><span class="line">        //2.1获取验证码</span><br><span class="line">        String verifycode = request.getParameter(&quot;verifycode&quot;);</span><br><span class="line">        //2.2对比验证码</span><br><span class="line">        String checkcode_server = (String) request.getSession().getAttribute(&quot;CHECKCODE_SERVER&quot;);</span><br><span class="line">        request.getSession().removeAttribute(&quot;CHECKCODE_SERVER&quot;);//确保验证码一次性</span><br><span class="line">        if(!checkcode_server.equalsIgnoreCase(verifycode))&#123;</span><br><span class="line">            //验证码不正确</span><br><span class="line">            //提示信息</span><br><span class="line">            request.setAttribute(&quot;login_msg&quot;,&quot;验证码错误&quot;);</span><br><span class="line">            //跳转登录页面</span><br><span class="line">            request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,response);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //3.获取用户输入</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //4封装user对象</span><br><span class="line">        //4.1创建user对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        //4.2使用BeanUtils封装</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //4.调用service查询</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        User loginUser = service.login(user);</span><br><span class="line">        //5.判断是否成功</span><br><span class="line">        if(loginUser!=null)&#123;</span><br><span class="line">            //登录成功</span><br><span class="line">            //将用户存人session</span><br><span class="line">            request.getSession().setAttribute(&quot;user&quot;,loginUser);</span><br><span class="line">            //跳转页面</span><br><span class="line">            response.sendRedirect(request.getContextPath()+&quot;/index.jsp&quot;);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            //登录失败</span><br><span class="line">            request.setAttribute(&quot;login_msg&quot;,&quot;用户名或密码错误&quot;);</span><br><span class="line">            //跳转登录页面</span><br><span class="line">            request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     *登录方法</span><br><span class="line">     * 判断用户输入的账号与密码是否错误</span><br><span class="line">     */</span><br><span class="line">    public User login(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类 </span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">     * 登录方法</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public User login(User user) &#123;</span><br><span class="line">        return dao.findUserByUsernameandPassword(user.getUsername(),user.getPassword());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 登录方法</span><br><span class="line">     */</span><br><span class="line">    public User findUserByUsernameandPassword(String username,String Password);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 登录方法</span><br><span class="line">     * @param username</span><br><span class="line">     * @param password</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public User findUserByUsernameandPassword(String username, String password) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            String sql = &quot;select * from user where username=? and password=?&quot;;</span><br><span class="line">            User loginUser = template.queryForObject(sql,new BeanPropertyRowMapper&lt;User&gt;(User.class),username,password);</span><br><span class="line">            return loginUser;</span><br><span class="line">        &#125; catch (DataAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjyh759mc0009kotnnzj8t2uj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之列表查询练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之列表查询练习小结/" class="article-date">
+  <time datetime="2019-07-21T06:50:24.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之列表查询练习小结/">JavaEE之列表查询练习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="列表查询"><a href="#列表查询" class="headerlink" title="列表查询"></a>列表查询</h3><pre><code>1. 需求：用户信息的增删改查操作
+2. 设计：
+     1. 技术选型：servlet（控制器）+jsp（视图）+
+         mysql（数据库）+JDBCTemplate（数据库简单封装）+
+         Duird（连接池）+BeanUtils（数据封装）+Tomcat（服务器）
+
+     2. 数据库设计
+     3. 开发：
+          1. 环境搭建
+                1. 创建数据库环境
+                2. 创建项目，导入需要的jar包
+          2. 编码
+
+      4. 测试
+      5. 部署运维
+
+ 3. 步骤：
+      1. index.jsp点击a标签后，跳转到UserListServlet
+      2. UserListServlet进行业务逻辑操作
+      3. 在业务逻辑操作中，需要牵扯到Service层的UserServiceImpl
+      4. 在UserServiceImpl中，需要牵扯到DAO层中的UserDaoImpl
+
+ 4. 个人总结：
+      1. 首先应先对整体思想有一个思路，明白我需要做什么，怎么做。
+      2. 而不是盲目的上来就是搭建dao层，domain层这些乱七八糟的
+      3. servlet层体现了整体思想的构架，
+      4. service层如同一个中转站，它提供了servlet和dao之间的连接
+      5. dao是数据库和文件的一个沟通的桥梁
+      6. domain是最基本的，属于JavaBean。属于上面一切的基石，但是并无难度。
+      7. util层属于辅助dao层连接数据库的存在
+      8. dao和service都需要分为接口层和实现层（Impl）
+</code></pre><h4 id="Servlet层"><a href="#Servlet层" class="headerlink" title="Servlet层"></a>Servlet层</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/UserListServlet&quot;)</span><br><span class="line">public class UserListServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.调用UserService完成查询</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        List&lt;User&gt; users = service.findAll();</span><br><span class="line">        //2.将list存人request域中</span><br><span class="line">        request.setAttribute(&quot;users&quot;,users);</span><br><span class="line">        //3.转发到list.jsp</span><br><span class="line">        request.getRequestDispatcher(&quot;/list.jsp&quot;).forward(request,response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">接口：</span><br><span class="line">/**</span><br><span class="line"> * 用户管理的业务接口</span><br><span class="line"> */</span><br><span class="line">public interface UserService &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 查询所有用户的信息</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public List&lt;User&gt; findAll();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">IMPL实现类：</span><br><span class="line">public class UserServiceImpl implements UserService &#123;</span><br><span class="line">    private UserDaoImpl dao = new UserDaoImpl();</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 查询所有用户信息</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public List&lt;User&gt; findAll()&#123;</span><br><span class="line">        //调用Dao进行查询</span><br><span class="line">        return dao.findAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">接口：</span><br><span class="line">/**</span><br><span class="line"> *用户操作的DAO</span><br><span class="line"> */</span><br><span class="line">public interface UserDao &#123;</span><br><span class="line">    public List&lt;User&gt; findAll();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">实现类：</span><br><span class="line">public class UserDaoImpl implements UserDao &#123;</span><br><span class="line">    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public List&lt;User&gt; findAll() &#123;</span><br><span class="line">        //使用JDBC操作数据库</span><br><span class="line">        //1.定义SQL</span><br><span class="line">        String sql = &quot;select * from user&quot;;</span><br><span class="line">        List&lt;User&gt; users = template.query(sql, new BeanPropertyRowMapper&lt;User&gt;(User.class));</span><br><span class="line">        return users;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="domain"><a href="#domain" class="headerlink" title="domain"></a>domain</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.domain;</span><br><span class="line"></span><br><span class="line">public class User &#123;</span><br><span class="line">    private int id ;</span><br><span class="line">    private String name;</span><br><span class="line">    private String gender;</span><br><span class="line">    private int age;</span><br><span class="line">    private String address;</span><br><span class="line">    private String qq;</span><br><span class="line">    private String email;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;User&#123;&quot; +</span><br><span class="line">                &quot;id=&quot; + id +</span><br><span class="line">                &quot;, name=&apos;&quot; + name + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, gender=&apos;&quot; + gender + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, age=&quot; + age +</span><br><span class="line">                &quot;, address=&apos;&quot; + address + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, qq=&apos;&quot; + qq + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, email=&apos;&quot; + email + &apos;\&apos;&apos; +</span><br><span class="line">                &apos;&#125;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getGender() &#123;</span><br><span class="line">        return gender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setGender(String gender) &#123;</span><br><span class="line">        this.gender = gender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAge(int age) &#123;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getAddress() &#123;</span><br><span class="line">        return address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAddress(String address) &#123;</span><br><span class="line">        this.address = address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getQq() &#123;</span><br><span class="line">        return qq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setQq(String qq) &#123;</span><br><span class="line">        this.qq = qq;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getEmail() &#123;</span><br><span class="line">        return email;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setEmail(String email) &#123;</span><br><span class="line">        this.email = email;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjyh759mi000bkotn3pd4ea5k" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之BeanUtils工具类小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之BeanUtils工具类小结/" class="article-date">
+  <time datetime="2019-07-21T05:05:31.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之BeanUtils工具类小结/">JavaEE之BeanUtils工具类小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>* 用于封装JavaBean的
+    1. JavaBean：标准的Java类
+        1. 要求：
+              1. 类必须被public修饰
+              2. 必须提供空参的构造器
+              3. 成员变量必须使用private修饰
+              4. 提供公共的setter和getter方法
+
+        2. 功能：
+              1. 封装数据
+
+    2. 概念：
+         成员变量：
+         属性：setter和getter截取后的产物
+              例如：getUsername() --&gt; Username --&gt;username
+                               去掉get或set    开头字母变小写
+
+    3. 方法：
+          1. setProperty(设置属性值，并非成员变量)
+          2. getProerty(获取属性值，并非成员变量)
+      (*) 3. populate(Object obj,Map map)：将map集合的键值对信息封装到对呀的JavaBean对象中
+                                           把键当成属性的名称，把值当成属性的值
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">使用此段代码</span><br><span class="line"></span><br><span class="line">        //2.获取所有请求参数</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //3.1创建User对象</span><br><span class="line">        User loginUser = new User();</span><br><span class="line">        //3.2使用BeanUtils封装</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginUser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">代替</span><br><span class="line"></span><br><span class="line">//2.获取请求参数</span><br><span class="line">        String username = request.getParameter(&quot;username&quot;);</span><br><span class="line">        System.out.println(username);</span><br><span class="line">        String password = request.getParameter(&quot;password&quot;);</span><br><span class="line">        System.out.println(password);</span><br><span class="line">        //username = new String(request.getParameter(&quot;username&quot;).getBytes(&quot;iso-8859-1&quot;), &quot;utf-8&quot;);</span><br><span class="line">        System.out.println(username);</span><br><span class="line">        //3.封装user对象</span><br><span class="line">        User loginUser = new User();</span><br><span class="line">        loginUser.setUsername(username);</span><br><span class="line">        loginUser.setPassword(password);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">新代码</span><br></pre></td></tr></table></figure>
+<pre><code>//1.设置编码
+   request.setCharacterEncoding(&quot;utf-8&quot;);
+   //2.获取所有请求参数
+   Map&lt;String, String[]&gt; map = request.getParameterMap();
+   //3.1创建User对象
+   User loginUser = new User();
+   //3.2使用BeanUtils封装
+   try {
+       BeanUtils.populate(loginUser,map);
+   } catch (IllegalAccessException e) {
+       e.printStackTrace();
+   } catch (InvocationTargetException e) {
+       e.printStackTrace();
+   }
+
+   //4.调用UserDao的login方法
+   System.out.println(loginUser);
+   UserDao dao = new UserDao();
+   User user = dao.login(loginUser);
+   //5.判断user
+   if(user == null){
+       //登录失败
+       request.getRequestDispatcher(&quot;/failServlet&quot;).forward(request,response);
+   }else{
+       //登录成功
+       //存储数据
+       request.setAttribute(&quot;user&quot;,user);
+       request.getRequestDispatcher(&quot;/successServlet&quot;).forward(request,response);
+   }
+</code></pre><p><code>`</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjyh759l30000kotnj7w1j0qk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之request.getParameter()在get和post方法中文乱码问题小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" class="article-date">
+  <time datetime="2019-07-21T03:39:48.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/">JavaEE之request.getParameter()在get和post方法中文乱码问题小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>乱码原因：Http请求传输时将url以ISO-8859-1编码，服务器收到字节流后默认会以ISO-8859-1编码来解码成字符流（造成中文乱码）</p>
+<p>post请求：</p>
+<p>假设提交请求的jsp页面是UTF-8编码</p>
+<p>&lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&gt;</p>
+<p>解决方法1：在服务端获取参数前，先设置解码方式。<br>原文：<a href="https://blog.csdn.net/u013476542/article/details/52845547" target="_blank" rel="noopener">https://blog.csdn.net/u013476542/article/details/52845547</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//设置解码方式，对于简体中文，使用UTF-8解码</span><br><span class="line">request.setCharacterEncoding(&quot;UTF-8&quot;);</span><br><span class="line">request.getParameter(&quot;参数名&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>解决方法2：Tomcat默认编码ISO8859-1，设置成其他的编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;   </span><br><span class="line">    connectionTimeout=&quot;20000&quot;   </span><br><span class="line">    redirectPort=&quot;8444&quot;   </span><br><span class="line">    useBodyEncodingForURI=&quot;true&quot; URIEncoding=&quot;UTF-8&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>重点在 userBodyEncodingForURI 和 URIEncoding 这两个属性</p>
+<p>下面来解释一下这两个属性的意义</p>
+<p>useBodyEncodingForURI参数表示是否用request.setCharacterEncoding参数对URL提交的数据和表单中GET方式提交的数据进行重新编码，在默认情况下，该参数为false。</p>
+<p>URIEncoding参数指定对所有GET方式请求进行统一的重新编码（解码）的编码。</p>
+<p>URIEncoding和useBodyEncodingForURI区别是，</p>
+<p>URIEncoding是对所有GET方式的请求的数据进行统一的重新编码，</p>
+<p>而useBodyEncodingForURI则是根据响应该请求的页面的request.setCharacterEncoding参数对数据进行的重新编码，不同的页面可以有不同的重新编码的编码</p>
+<p>解决方法3：通过字符串和字节流转换时使用正确的编码获取中文参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String str = new String(request.getParameter(&quot;参数名&quot;).getBytes(&quot;iso-8859-1&quot;), &quot;utf-8&quot;);</span><br></pre></td></tr></table></figure>
+<p>get请求：</p>
+<p>对于get请求，上面针对于post的请求的三种解决方法，只有第三种可以用，第一种和第二种并没有效果，这和tomcat的内部机制有关。<br>对于get请求，还有一个很笨拙的方法，不推荐使用，贴出来，以供了解：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/获取请求里包含的查询字符串</span><br><span class="line">String rawQueryStr = request.getQueryString();</span><br><span class="line">out.println(&quot;原始查询字符串为：&quot; + rawQueryStr + &quot;&lt;hr/&gt;&quot;);</span><br><span class="line">//使用URLDecoder解码字符串</span><br><span class="line">String queryStr = java.net.URLDecoder.decode(</span><br><span class="line">	rawQueryStr , &quot;gbk&quot;);</span><br><span class="line">out.println(&quot;解码后的查询字符串为：&quot; + queryStr + &quot;&lt;hr/&gt;&quot;);</span><br><span class="line">//以&amp;符号分解查询字符串</span><br><span class="line">String[] paramPairs = queryStr.split(&quot;&amp;&quot;);</span><br><span class="line">for(String paramPair : paramPairs)</span><br><span class="line">&#123;</span><br><span class="line">	out.println(&quot;每个请求参数名、值对为：&quot; + paramPair + &quot;&lt;br/&gt;&quot;);</span><br><span class="line">	//以=来分解请求参数名和值</span><br><span class="line">	String[] nameValue = paramPair.split(&quot;=&quot;);</span><br><span class="line">	out.println(nameValue[0] + &quot;参数的值是：&quot; + </span><br><span class="line">		nameValue[1]+ &quot;&lt;hr/&gt;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;/pre&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color:rgb(56,56,56); font-family:&quot;Trebuchet MS&quot;,Helvetica,&quot;Microsoft YaHei&quot;,Georgia,sans-serif; font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">乱码原因：Http请求传输时将url以ISO-8859-1编码，服务器收到字节流后默认会以ISO-8859-1编码来解码成字符流（造成中文乱码）</span><br><span class="line">&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">post请求：&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">假设提交请求的jsp页面是UTF-8编码&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;    pageEncoding=&quot;UTF-8&quot;%&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">解决方法1：在服务端获取参数前，先设置解码方式。&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;pre name=&quot;code&quot; class=&quot;java&quot; style=&quot;color: rgb(56, 56, 56); font-size: 13px; line-height: 23px;&quot;&gt;</span><br><span class="line">//设置解码方式，对于简体中文，使用UTF-8解码</span><br><span class="line">request.setCharacterEncoding(&quot;UTF-8&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getParameter(&quot;参数名&quot;);</span><br></pre></td></tr></table></figure>
+<p>该文档来自<a href="https://blog.csdn.net/huawuque004/article/details/83178248" target="_blank" rel="noopener">https://blog.csdn.net/huawuque004/article/details/83178248</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjyh759lo0001kotnqeu2j1zd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之登录练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之登录练习小结/" class="article-date">
+  <time datetime="2019-07-21T03:32:01.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之登录练习小结/">JavaEE之登录练习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="登录练习"><a href="#登录练习" class="headerlink" title="登录练习"></a>登录练习</h3><pre><code>* 用户登录案例需求：
+    1. 编写login.html登录页面
+        username&amp;password两个输入框
+    2. 使用Druid数据库连接池技术，操作mysql数据库
+    3. 使用JdbcTemplate技术封装JDBC
+    4. 登录成功跳转到SuccessServlet展示:登录成功
+    5. 登录失败跳转到FailServlet展示：登录失败
+
+* 开发步骤：
+    1. 创建项目，导入HTML页面，配置文件，jar包
+    2. 创建数据库环境
+    3. 创建包domain，去创建类User对应的user表
+    4. 创建包utils，创建工具类，方便操作
+    5. 创建包dao，创建UserDao，提供Login方法
+    6. 创建包Servlet，完成基本的业务逻辑
+    7. login.html中form表单的action路径的写法
+         *虚拟目录+Servlect的资源路径 
+    8. BeanUtils工具类，简化数据封装
+</code></pre><p>#####<br>问题：中文乱码<br>String username = request.getParameter(“username”);<br>使用 request.getParameter(“username”)出现乱码<br>解决方法：<br>String str = new String(request.getParameter(“参数名”).getBytes(“iso-8859-1”), “utf-8”);<br>username = new String(request.getParameter(“username”).getBytes(“iso-8859-1”), “utf-8”);<br>具体详情可参考JavaEE之getParameter（）get和post方法中文乱码小结</p>
+<h3 id="domain类"><a href="#domain类" class="headerlink" title="domain类"></a>domain类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">domain类：</span><br><span class="line"></span><br><span class="line">package cn.itcast.domain;</span><br><span class="line"></span><br><span class="line">public class User &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String username;</span><br><span class="line">    private String password;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;User&#123;&quot; +</span><br><span class="line">                &quot;id=&quot; + id +</span><br><span class="line">                &quot;, username=&apos;&quot; + username + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, password=&apos;&quot; + password + &apos;\&apos;&apos; +</span><br><span class="line">                &apos;&#125;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUsername() &#123;</span><br><span class="line">        return username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUsername(String username) &#123;</span><br><span class="line">        this.username = username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getPassword() &#123;</span><br><span class="line">        return password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPassword(String password) &#123;</span><br><span class="line">        this.password = password;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="druid-properties"><a href="#druid-properties" class="headerlink" title="druid.properties"></a>druid.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">druid.properties连接池配置文件：</span><br><span class="line"></span><br><span class="line">password=a570911275</span><br><span class="line">initialSize=5</span><br><span class="line">maxActive=10</span><br><span class="line">maxWait=3000</span><br><span class="line">timeBetweenEvictionRunsMillis=60000</span><br><span class="line">minEvictableIdleTimeMillis=300000</span><br><span class="line">#validationQuery=SELECT 1</span><br><span class="line">testWhileIdle=true</span><br><span class="line">testOnBorrow=false</span><br><span class="line">testOnReturn=false</span><br><span class="line">poolPreparedStatements=false</span><br><span class="line">maxPoolPreparedStatementPerConnectionSize=200</span><br></pre></td></tr></table></figure>
+<h3 id="JDBCUtils"><a href="#JDBCUtils" class="headerlink" title="JDBCUtils"></a>JDBCUtils</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">JDBCUtils</span><br><span class="line"></span><br><span class="line">package cn.itcast.utils;</span><br><span class="line"></span><br><span class="line">import com.alibaba.druid.pool.DruidDataSourceFactory;</span><br><span class="line"></span><br><span class="line">import javax.sql.DataSource;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.ResultSet;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line">import java.sql.Statement;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">public class JDBCUtils &#123;</span><br><span class="line">    //1.定义成员变量 DataSource</span><br><span class="line">    private static DataSource ds;</span><br><span class="line">    static &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            //1.加载配置文件</span><br><span class="line">            Properties pro = new Properties();</span><br><span class="line">            //使用ClassLoader加载配置文件，获取字节输入流</span><br><span class="line">            InputStream is = JDBCUtils.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;);</span><br><span class="line">            pro.load(is);</span><br><span class="line">            //2.初始化DataSource对象</span><br><span class="line">            ds = DruidDataSourceFactory.createDataSource(pro);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取连接</span><br><span class="line">     */</span><br><span class="line">    public static Connection getConnection() throws SQLException &#123;</span><br><span class="line">        return ds.getConnection();</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 释放资源</span><br><span class="line">     */</span><br><span class="line">    public static void close(Statement stmt, Connection conn)&#123;</span><br><span class="line">        close(null,stmt,conn);</span><br><span class="line">    &#125;</span><br><span class="line">    public static void close(ResultSet rs , Statement stmt, Connection conn)&#123;</span><br><span class="line">        if(rs!=null)&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125; catch (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(stmt!=null)&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125; catch (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(conn!=null)&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125; catch (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 获取连接池</span><br><span class="line">     */</span><br><span class="line">    public static DataSource getDataSource()&#123;</span><br><span class="line">        return ds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">LoginServlet</span><br><span class="line"></span><br><span class="line">package cn.itcast.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.dao.UserDao;</span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.net.URLDecoder;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/LoginServlet&quot;)</span><br><span class="line">public class LoginServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.设置编码</span><br><span class="line">        request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">        //2.获取请求参数</span><br><span class="line">        String username = request.getParameter(&quot;username&quot;);</span><br><span class="line">        System.out.println(username);</span><br><span class="line">        String password = request.getParameter(&quot;password&quot;);</span><br><span class="line">        System.out.println(password);</span><br><span class="line">        username = new String(request.getParameter(&quot;username&quot;).getBytes(&quot;iso-8859-1&quot;), &quot;utf-8&quot;);</span><br><span class="line">        System.out.println(username);</span><br><span class="line">        //3.封装user对象</span><br><span class="line">        User loginUser = new User();</span><br><span class="line">        loginUser.setUsername(username);</span><br><span class="line">        loginUser.setPassword(password);</span><br><span class="line">        //4.调用UserDao的login方法</span><br><span class="line">        System.out.println(loginUser);</span><br><span class="line">        UserDao dao = new UserDao();</span><br><span class="line">        User user = dao.login(loginUser);</span><br><span class="line">        //5.判断user</span><br><span class="line">        if(user == null)&#123;</span><br><span class="line">            //登录失败</span><br><span class="line">            request.getRequestDispatcher(&quot;/failServlet&quot;).forward(request,response);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            //登录成功</span><br><span class="line">            //存储数据</span><br><span class="line">            request.setAttribute(&quot;user&quot;,user);</span><br><span class="line">            request.getRequestDispatcher(&quot;/successServlet&quot;).forward(request,response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">failServlet</span><br><span class="line"></span><br><span class="line">package cn.itcast.servlet;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/failServlet&quot;)</span><br><span class="line">public class failServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.设置编码</span><br><span class="line">        response.setContentType(&quot;text/html;charset=utf-8&quot;);</span><br><span class="line">        //输出</span><br><span class="line">        response.getWriter().write(&quot;登录失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">successServlet</span><br><span class="line"></span><br><span class="line">package cn.itcast.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/successServlet&quot;)</span><br><span class="line">public class successServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //获取数据</span><br><span class="line">        User user = (User) request.getAttribute(&quot;user&quot;);</span><br><span class="line">        //1.设置编码</span><br><span class="line">        response.setContentType(&quot;text/html;charset=utf-8&quot;);</span><br><span class="line">        //输出</span><br><span class="line">        response.getWriter().write(&quot;登录成功&quot;+user.getUsername());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjyh759nh000fkotn334559a1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之Filter小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/20/JavaEE之Filter小结/" class="article-date">
@@ -170,1070 +726,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjyfjwm0a000drwtnrk24m0ow" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之Listener小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/20/JavaEE之Listener小结/" class="article-date">
-  <time datetime="2019-07-20T08:20:11.000Z" itemprop="datePublished">2019-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/JavaEE之Listener小结/">JavaEE之Listener小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Listener-监听器："><a href="#Listener-监听器：" class="headerlink" title="Listener 监听器："></a>Listener 监听器：</h2><pre><code>* 概念：web的三大组件之一。
-    *事件监听机制
-        * 事件：一件事情（点击）
-        * 事件源：事件发生的地方（按钮）
-        * 监听器：一段代码/一个对象
-        * 注册监听：将事件、事件源、监听器绑定在一起。当事件源上发生某个事件后，执行监听器代码
-
-
-* ServletContextListener:监听ServletContext对象的创建和销毁
-      *方法：
-        * void contextDestroyed(ServletContextEvent sce)：ServletContext对象被销毁之前会调用该方法
-
-        * void contestInitialized(ServletContextEvent sce)：ServletContext对象创建后会调用该方法
-
-      *步骤：
-        1. 定义一个类，师兄ServletContextListener接口
-        2. 复写方法
-        3. 配置
-              1. web.xml
-                     &lt;listener&gt;
-                     &lt;listener-class&gt;cn.itcast.web.listener.ContextLoaderListener&lt;/listener-class&gt;
-                     &lt;/listener&gt;
-
-                     * 指定初始化参数&lt;context-param&gt;
-              2. 注解配置
-                     @webListener
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Listener小结/" data-id="cjyfmdp0g002srwtnjkzpa3pl" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之XML小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/20/JavaEE之XML小结/" class="article-date">
-  <time datetime="2019-07-20T05:18:10.000Z" itemprop="datePublished">2019-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/JavaEE之XML小结/">JavaEE之XML小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="XML"><a href="#XML" class="headerlink" title="XML:"></a>XML:</h2><pre><code>1. 概念： Extensible Markup Language 可扩展标记语言
-     *可扩展：标签都是自定义的。&lt;user&gt; &lt;student&gt;
-     *标记语言：标签构成的语言。
-
-2. 功能：
-    *存储数据
-       1. 配置文件使用
-       2. 在网络中传输
-3. XML与HTML的区别：
-    1. XML的标签都是自定义的，HTML的标签都是预定义的。
-    2. XML的语法严格，HTML语法松散
-    3. XML是存储数据的，HTML是展示数据的。
-
-*  w3c：万维网联盟
-
-4. 语法：
-     *基本语法：
-         1. xml文档的后缀名：.xml
-         2. xml第一行必须定义为文档声明
-         3. xml文档中有且仅有一个根标签
-         4. 属性值必须使用引号（单双都可）引起来
-         5. 标签必须正确关闭
-         6. xml标签名称区别大小写
-
-     *快速入门：
-        &lt;?xml version=&apos;1.0&apos; ?&gt;
-        &lt;users&gt;
-            &lt;user id=&apos;1&apos;&gt;
-                &lt;name&gt;zhangsan&lt;/name&gt;
-                &lt;age&gt;23&lt;/age&gt;
-                &lt;gander&gt;male&lt;/gander&gt;
-            &lt;/user&gt;
-
-            &lt;user id=&apos;2&apos;&gt;
-                &lt;name&gt;lisi&lt;/name&gt;
-                &lt;age&gt;24&lt;/age&gt;
-                &lt;gander&gt;famale&lt;/gander&gt;
-            &lt;/user&gt;
-        &lt;/users&gt;
-
-     *组成部分：  
-         1. 文档声明
-               1. 格式： &lt;?xml 属性列表?&gt;（？与&gt;之间不能有空格；?与xml之间不能有空格）
-               2. 属性列表：
-                     * version：版本号
-                     * encoding: 编码方式
-                     * standalone：是否独立
-                           *取值：
-                              *yes:不依赖其他文件
-                              *no：依赖其他文件   
-
-         2. 指令(了解)：结合css
-              *&lt;?xml-stylesheet type=&quot;text/css&quot; herf=&quot;a.css&quot; ?&gt;
-
-         3. 标签:标签名称自定义的
-               *规则：
-                  1. 名称可以包含字母、数字以及其他字符
-                  2. 名称不能以数字或者标点符号开始
-                  3. 名称不能以字母xml或者（XML、XmL等等）开始
-                  4. 名称不能包含空格
-
-         4. 属性：
-              * id属性值唯一
-         5. 文本：
-              * CDATA区：在该区域中的数据会被原样展示
-                  * 格式：&lt;![CDATA[数据]]&gt;
-
-
-
-   * 约束：规定xml文档的书写规则
-       * 作为框架的使用者（程序员）：
-            1. 能够在xml中引入约束文档
-            2. 能够简单的读懂约束文档
-
-
-       * 分类：
-             1. DTD：一种简单的约束技术
-             2. Schema：一种复杂的约束技术
-
-       * DTD:
-           * 引入dtd文档到xml文档中
-                 *内部dtd：将约束规则定义在xml文档中
-                 *外部dtd：将约束规则定义在外部的dtd文件中
-                      *本地：&lt;!DOCTYPE 根标签名 SYSTEM &quot;dtd文件的位置&quot;&gt;
-                      *网络：&lt;!DOCTYPE 根标签名 PUBLIC &quot;dtd文件名字&quot; &quot;dtd文件位置URL&quot;&gt;
-           * 缺陷：标签体中的内容无法进行条件限制 
-
-       * Schema:
-           * 引入：
-               1. 填写xml文档的根元素
-               2. 引入xsi的前缀. xmlns:sxi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-               3. 引入xsd文件命名空间. xsi:schemaLocation=&quot;http://www.itcast.cn/xml student.xsd&quot;
-               4. 为每一个xsd约束声明一个前缀，作为标识 xmlns=&quot;http://www.itcast.cn/xml&quot;
-
-                   &lt;students xmlns:sxi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-                             xsi:schemaLocation=&quot;http://www.itcast.cn/xml student.xsd&quot;
-                             xmlns=&quot;http://www.itcast.cn/xml&quot;&gt; 
-
-  5. 解析：操作xml文档，将文档中的数据读取到内存中
-       *操作xml文档
-           1. 解析（读取）：将文档中的数据读取到内存中
-           2. 写入：将内存中的数据保存到xml文档中。持久化的存储
-
-       *解析xml的方式：
-           1. DOM：将标记语言文档一次性加载进内存，在内存中形成一颗dom树（服务器端）
-                *优点：操作方便，可以对文档进行CRUD（增删改查）的所有操作
-                *缺点：占内存，1M的文件被解析成dom树后将放大1000倍等
-
-           2. SAX：逐行读取，基于事件驱动的（移动端）
-                *优点：不占内存，适合内存较小的设备如手机等
-                *缺点：只能读取，无法进行增删改 
-
-
-        *xml常见的解析器：
-           1. JAXP：sun公司提供的解析器，支持dom和sax两种思想（性能较差，一般不使用）
-           2. DOM4J：一款非常优秀的解析器（性能强大）
-           3. Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。（也可解析XML）
-           4. PULL：Android操作系统内置的解析器，sax方式的
-
-
-        *Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。（也可解析XML）
-            *快速入门：
-                *步骤：
-                   1. 导入jar包
-                   2. 获取Document对象
-                   3. 获取对应的标签Element对象
-                   4. 获取数据
-
-        *对象的使用：
-             1. Jsoup：   工具类，可以解析HTML或XML文档，返回Document对象
-                  * parse：解析HTML或者XML文档，返回Document
-                      * parse(File in,String charseNmae):解析xml或html文件的（使用较多）
-                      * parse(String html):解析xml或者html字符串（使用较少）
-                      * parse(URL url,int timeoutMillis):通过网络路径获取指定的HTML或XML文档对象（类似网络爬虫）
-             2. Document：文档对象。代表内存中的dom树（继承于Element对象）
-                  * 获取Element对象
-                      * getElementById(String id)：根据id属性值获取唯一的element对象（使用较少） 
-                      * getElementsByTag(String tagName)：根据标签名称获取元素名称集合
-                      * getElementsByAttribute(String key)：根据属性名称获取元素对象集合
-                      * getElementsByAttributeValue(String key,String value)：根据对象的属性名和属性值获取对象集合
-             3. Elements：元素Element对象的集合。可以当做ArrayList&lt;Element&gt;使用
-             4. Element： 元素对象
-                   1. 获取子元素对象
-                      * getElementById(String id)：根据id属性值获取唯一的element对象（使用较少） 
-                      * getElementsByTag(String tagName)：根据标签名称获取元素名称集合
-                      * getElementsByAttribute(String key)：根据属性名称获取元素对象集合
-                      * getElementsByAttributeValue(String key,String value)：根据对象的属性名和属性值获取对象集合
-                   2. 获取属性值
-                      * String attr(String key)：根据属性名称获取属性值
-                   3. 获取文本内容
-                      * String text()：获取所有子标签的纯文本内容
-                      * String html()：获取标签体的所有内容（包括子标签的标签和文本内容）
-             5. Node：    节点对象
-                   * 是Document和Element的父类
-
-      *快捷查询方式：
-          1. selector：选择器
-               *使用的方法：Elements select(String(ssQuery)){一般使用Document来使用该语句}
-                  *语法：参考Selector类中定义的语法
-          2. XPath：XPath为XML路径语言，它是一种用来确定XML（标准通用标记语言的子集）
-               *使用Jsoup的Xpath需要额外导入jar包
-               *查询w3cshcool参考手册，使用Xpath的语法完成查询
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">JsoupDemo1类 </span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">        //2.获取Document对象，根据xml文档获取</span><br><span class="line">        //2.1获取student.xml的path</span><br><span class="line">        String path = JsoupDemo1.class.getClassLoader().getResource(&quot;student.xml&quot;).getPath();</span><br><span class="line">        //2.2解析xml文档，加载文档进内存，获取dom树---&gt;Document</span><br><span class="line">        Document document = Jsoup.parse(new File(path),&quot;utf-8&quot;);</span><br><span class="line">        //3.获取元素对象</span><br><span class="line">        Elements elements = document.getElementsByTag(&quot;name&quot;);</span><br><span class="line">        //Elements是一个Element的ArrayList集合</span><br><span class="line">        System.out.println(elements.size());</span><br><span class="line">        //3.1获取第一个name的element对象</span><br><span class="line">        Element element = elements.get(0);</span><br><span class="line">        //3.2获取数据</span><br><span class="line">        String name = element.text();</span><br><span class="line">        System.out.println(name);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">XML文件</span><br><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line"></span><br><span class="line">&lt;students&gt;</span><br><span class="line">	&lt;student number=&quot;itcast_0001&quot;&gt;</span><br><span class="line">		&lt;name&gt;tom&lt;/name&gt;</span><br><span class="line">		&lt;age&gt;18&lt;/age&gt;</span><br><span class="line">		&lt;sex&gt;male&lt;/sex&gt;</span><br><span class="line">	&lt;/student&gt;</span><br><span class="line">	&lt;student number=&quot;itcast_0002&quot;&gt;</span><br><span class="line">		&lt;name&gt;Jack&lt;/name&gt;</span><br><span class="line">		&lt;age&gt;17&lt;/age&gt;</span><br><span class="line">		&lt;sex&gt;female&lt;/sex&gt;</span><br><span class="line">	&lt;/student&gt;</span><br><span class="line">	</span><br><span class="line">&lt;/students&gt;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之XML小结/" data-id="cjyfjwm6n002hrwtn6huebj1g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之JDBCTemplate小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/19/JavaEE之JDBCTemplate小结/" class="article-date">
-  <time datetime="2019-07-19T13:59:20.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/19/JavaEE之JDBCTemplate小结/">JavaEE之JDBCTemplate小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Spring-JDBC"><a href="#Spring-JDBC" class="headerlink" title="Spring JDBC"></a>Spring JDBC</h2><pre><code>* Spring框架对JDBC的简单封装。提供了一个JDBCTemplate对象简化JDBC的开发
-
-* 步骤：
-    1. 导入jar包
-
-    2. 创建JDBCTemplate对象。依赖于数据源DataSource
-         *jdbcTemplate template = new JdbcTemplate(ds);
-
-    3. 调用JdbcTemplate的方法来完成CRUD的操作
-         *update():执行DML语句。增、删、改语句
-         *queryForMap()：查询结果将结果封装成map集合————&gt;将列名作为key，将值作为value，将这条记录封装成一个map集合
-            *此方法查询的结果集长度只能是1
-         *queryForList（）：查询结果将结果封装成list集合————&gt;List(Map&lt;String,Object&gt; stringObjectMap : list)
-            *此方法将每一条记录封装为一个map集合，再将map集合装载到list集合中
-         *query（）：查询结果，将结果封装成JavaBean对象
-            *query的参数：RowMapper
-               *一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装
-               *new BeanPropertyRowMapper&lt;类型&gt;（类型.class） 
-         *queryForObject：查询结果，将结果封装成对象
-               *一般用于聚合函数的查询
-
-    4. Junit单元测试，可以让方法独立执行
-         *添加注解@Test
-         *方法为public void 
-
-    5. 小技巧：
-         *iter为加强版for循环的快捷键
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjyfjwm0v000jrwtna62n8cyd" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之连接池小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/19/JavaEE之连接池小结/" class="article-date">
-  <time datetime="2019-07-19T13:00:41.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/19/JavaEE之连接池小结/">JavaEE之连接池小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h2><pre><code>1. 概念：其实就是一个容器（集合），存放数据库连接的容器。
-        当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。
-
-2. 优点：
-     1. 节约资源
-     2. 用户访问高效
-
-3. 实现：
-     1. 标准接口：DataSource javax.sql包下的
-          1. 方法：
-              *获取连接：getConnection（） 
-              *归还连接：如果连接对象Connection是从连接池中获取的，那么调用Connection.close（）方法，则不会再关闭连接了，而是归还连接。
-
-     2. 一般我们不去实现它，由数据库厂商来实现
-          1. C3P0：数据库连接池技术（比较老）
-          2. Druid：数据库连接池实现技术，由阿里巴巴提供的，高效（比较新）
-
-
- 4. C3P0：数据库连接池技术 （由于版本配置环境的问题，无法上手训练）
-     1. 导入jar包【两个】  c3p0-0.9.5.2.jar   mchange-commons-java-0.2.12.jar
-         *不要忘记导入数据库驱动jar包
-         *留意配置环境，避免无法运行
-     2. 定义配置文件：
-            *名称：c3p0.properties 或者 c3p0-config.xml(常用)
-            *路径：直接将文件放在src目录下即可。
-     3. 创建核心对象————&gt;数据库连接池对象 ComboPooledDateSource
-     4. 获取连接：getConnection
-
- 5. Druid：数据库连接池技术，阿里巴巴提供
-     1. 步骤：
-             1. 导入jar包     druid-1.0.9.jar
-             2. 定义配置文件：
-                   *特点：是properties形式的
-                   *可以叫任意名称，可以放在任意目录下
-             3. 加载配置文件。Properties
-             4. 获取数据库连接池对象：通过一个工厂类来获取   DruidDataSourceFactory
-             5. 获取连接：getConnection
-
-      2. 定义工具类：
-           1. 定义一个类 JDBCUtils
-           2. 提供静态代码块加载配置文件，初始化连接池对象
-           3. 提供方法
-                1.获取连接方法：通过数据库连接池获取连接
-                2.释放资源
-                3.获取连接池的方法
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjyfjwm3y001lrwtntqlgd3oi" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之JDBC事务小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/19/JavaEE之JDBC事务小结/" class="article-date">
-  <time datetime="2019-07-19T10:38:57.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/19/JavaEE之JDBC事务小结/">JavaEE之JDBC事务小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JDBC控制事务："><a href="#JDBC控制事务：" class="headerlink" title="JDBC控制事务："></a>JDBC控制事务：</h2><pre><code>1. 事务：一个包含多个步骤的业务操作。如果这个业务操作被事务管理，则这多个步骤要么同时成功，要么同时失败。
-
-2. 操作：
-    1. 开启事务
-    2. 提交事务
-    3. 回滚事务
-
-3. 使用Connection对象来管理事务
-    *开启事务：setAutoCommit(boolean autoCommit)
-         *在执行SQL语句之前开启事务
-    *提交事务：commit（）
-         *在所有SQL语句都执行提交后提交事务
-    *回滚事务：rollback（）
-         *在catch中回滚事务，此时catch的异常捕获范围要增大
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC事务小结/" data-id="cjyfjwm12000mrwtnpm2i4xn5" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之JDBC小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/19/JavaEE之JDBC小结/" class="article-date">
-  <time datetime="2019-07-19T08:49:02.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/19/JavaEE之JDBC小结/">JavaEE之JDBC小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><h4 id="1-概念：Java-DataBase-Connectivity-Java数据库连接，Java语言操作数据库"><a href="#1-概念：Java-DataBase-Connectivity-Java数据库连接，Java语言操作数据库" class="headerlink" title="1.概念：Java DataBase Connectivity Java数据库连接，Java语言操作数据库"></a>1.概念：Java DataBase Connectivity Java数据库连接，Java语言操作数据库</h4><pre><code>*JDBC本质：官方（sun公司）定义的一套操作所有关系型数据库的规则，即接口。各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类
-</code></pre><h4 id="2-快速入门："><a href="#2-快速入门：" class="headerlink" title="2.快速入门："></a>2.快速入门：</h4><pre><code>*步骤：
-   1.导入驱动jar包    mysql-connector-java-8.0.16.jar
-        1.复制mysql-connector-java-8.0.16.jar到项目的lib目录下
-        2.右键--&gt;选择Add As Library 
-   2.注册驱动
-   3.获取数据库连接对象 Connection
-   4.定义SQL
-   5.获取执行SQL语句的对象 Statement
-   6.执行SQL，接受返回结果
-   7.处理结果
-   8.释放资源
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//1.导入驱动jar包</span><br><span class="line"> 1.复制mysql-connector-java-8.0.16.jar到项目的lib目录下</span><br><span class="line"> 2.右键--&gt;选择Add As Library </span><br><span class="line">//2.注册驱动</span><br><span class="line">Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">//3.获取数据库连接对象</span><br><span class="line">Connection conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;serverTimezone=UTC&quot;,&quot;root&quot;,&quot;a570911275&quot;);</span><br><span class="line">//4.定义SQL语句</span><br><span class="line">String sql = &quot;update user set age = 17 where id = 1&quot;;</span><br><span class="line">//5.获取执行SQL的对象 Statement</span><br><span class="line">Statement stmt = conn.createStatement();</span><br><span class="line">//6.执行SQL</span><br><span class="line">int count = stmt.executeUpdate(sql);</span><br><span class="line">//7.处理结果</span><br><span class="line">System.out.println(count);</span><br><span class="line">//8.释放资源</span><br><span class="line">stmt.close();</span><br><span class="line">conn.close();</span><br></pre></td></tr></table></figure>
-<h4 id="3-详解各个对象"><a href="#3-详解各个对象" class="headerlink" title="3. 详解各个对象"></a>3. 详解各个对象</h4><pre><code>1. DriverManager: 驱动管理对象
-     *功能：
-        1. 注册驱动：告诉程序该使用哪一个数据库驱动jar
-           static void registerDriver(Driver driver):注册与给定的驱动程序 DriverManager。
-           写代码使用：Class。forName(&quot;com.mysql.jdbc.Driver&quot;);
-            通过查看源码发现：在com.mysql.jdbc.Driver类中存在静态代码块
-            static{
-                try{
-                    java.sql.DriverManager.registerDriver(new Driver()); 
-                } catch(SQKException E){
-                    throw new RuntimeException(&quot;Can&apos;t register driver!&quot;);
-                }
-            }
-          注意：mysql5之后的驱动jar包可以省略注册驱动的步骤
-        2. 获取数据库连接：
-             *方法：static Connection getConnection(String url,String user,String password)
-             *参数：
-                 *url：指定连接的路径
-                    *语法：jdbc:mysql://localhost:3306(ip地址【端口号】)/test(数据库名称)?useSSL=false&amp;serverTimezone=UTC
-                 *user：用户名
-                 *password：密码
-
-2. Cconnection: 数据库连接对象
-     1. 功能：
-          1. 获取执行SQL的对象
-                *Statement createStatement()
-                *PreparedStatement prepareStatement(String sql)
-          2. 管理事务：
-                *开启事务：setAutoCommit(boolean autoCommit):调用该方法设置参数为false，则为开启事务
-                *提交事务：commit（）
-                *回滚事务: rollback()
-
-3. Statement: 执行SQL的对象
-     1. 执行SQL
-       1. boolean execute(String sql):可以执行任意的SQL 了解即可
-       2. int executeUpdate(String sql):执行DML（增删改【insert、update、delete】）、DDL（建删表、库【create，alter,drop】）语句。 注：DDL语句不常使用，一般执行DML语句。 掌握
-            *返回值：影响的行数（int），可以通过这个影响的行数判断DML语句是否执行成功，返回值&gt;0的则执行成功，反之则失败
-       3. ResultSet executeQuery(String sql):执行DQL（查询【select】）语句
-            *返回值：结果集对象
-     2. 练习：
-       1. user表 添加一条记录
-       2. user表 修改一条记录
-       3. user表 删除一条记录
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">     Connection conn = null;</span><br><span class="line">     Statement stmt = null;//提升stmt和conn的作用域，使得可以在finally中释放stmt和conn的资源</span><br><span class="line">     //1.注册驱动</span><br><span class="line">     try &#123;</span><br><span class="line">         Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">         //2.定义SQL</span><br><span class="line">         String sql = &quot;insert into user values(null,&apos;黄二丫&apos;,&apos;a570911275123&apos;,15)&quot;;</span><br><span class="line">         //3.获取Connection对象</span><br><span class="line">         conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;serverTimezone=UTC&quot;,&quot;root&quot;,&quot;a570911275&quot;);</span><br><span class="line">         //4.获取执行SQL的对象</span><br><span class="line">         stmt = conn.createStatement();</span><br><span class="line">         //5.执行SQL</span><br><span class="line">         int count = stmt.executeUpdate(sql);//影响的行数</span><br><span class="line">         //6.处理结果</span><br><span class="line">         System.out.println(count);</span><br><span class="line">         if(count&gt;0)&#123;</span><br><span class="line">             System.out.println(&quot;添加成功&quot;);</span><br><span class="line">         &#125;else&#123;</span><br><span class="line">             System.out.println(&quot;添加失败&quot;);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125; catch (SQLException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125;finally &#123;</span><br><span class="line">         //7.释放资源</span><br><span class="line">         try &#123;</span><br><span class="line">             if(stmt!=null)&#123;</span><br><span class="line">             stmt.close();</span><br><span class="line">             &#125;</span><br><span class="line">         &#125; catch (SQLException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         try &#123;</span><br><span class="line">             if(conn!=null)&#123;</span><br><span class="line">                 conn.close();</span><br><span class="line">             &#125;</span><br><span class="line">         &#125; catch (SQLException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<pre><code>4. ResultSet: 结果集对象
-      *boolean next():游标向下移动一行，判断当前行是否是最后一行末尾，如果是则返回false，如果不是则返回true
-      *getXxx():获取数据
-         *Xxx:代表数据类型 如：int getInt（）；String getString（）；
-         * 参数：
-            *1.int：代表列的编号。从1开始  如：getString（1）
-            *2.String：代表列的名称。如：getString（&quot;name&quot;）
-      *注意：
-         使用步骤：
-           1.游标向下一行
-           2.判断是否有数据
-           3.获取数据
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">循环判断游标是否是最后一行末尾</span><br><span class="line">            while(rs.next())&#123;</span><br><span class="line">                //获取数据</span><br><span class="line">                int id = rs.getInt(1);</span><br><span class="line">                String name = rs.getString(2);</span><br><span class="line">                String password = rs.getString(&quot;password&quot;);</span><br><span class="line">                int age = rs.getInt(&quot;age&quot;);</span><br><span class="line">                </span><br><span class="line">                System.out.println(id+&quot;---&quot;+name+&quot;---&quot;+password+&quot;---&quot;+age);</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
-<p>###5. PrepareStatement: 执行SQL的对象，比Statement更为强大，继承于Statement</p>
-<pre><code>1. SQL注入问题：在拼接SQL时，有一些SQL的特殊关键字参与字符串的拼接。会造成安全性问题
-     1. 输入用户：随便；输入密码：a&apos; or &apos;a&apos; = &apos;a
-     2. sql:select * from user where username = &apos;fhdshdf&apos; and password = &apos;a&apos; or &apos;a&apos;=&apos;a&apos;
-
-2. 解决SQL注入问题：使用PreparedStatement对象来解决
-3. 预编译的SQL：参数使用？作为占位符
-4. 步骤：
-     1.导入驱动jar包    mysql-connector-java-8.0.16.jar
-          1.复制mysql-connector-java-8.0.16.jar到项目的lib目录下
-          2.右键--&gt;选择Add As Library 
-     2.注册驱动
-     3.获取数据库连接对象 Connection
-     4.定义SQL
-          *注意：SQL的参数使用？作为占位符。如：select * from user where username = ? and password = ?
-     5.获取执行SQL语句的对象 PrepareStatement   Connection.prepareStatement(String sql)
-     6.给？赋值：
-          *方法： setXxx(参数1（参数的位置），参数2（参数的值）)
-             *参数的位置编号从1开始
-     7.执行SQL，接受返回结果，不需要传递SQL语句
-     8.处理结果
-     9.释放资源
-
-5. 注意：后期都会使用PreparedStatement来完成增删改查的所有操作
-     1. 可以防止SQL注入
-     2. 效率更高
-</code></pre><h4 id="练习："><a href="#练习：" class="headerlink" title="练习："></a>练习：</h4><pre><code>*定义一个方法，查询user表的数据将其封装成对象，然后装载集合，返回
-     1.定义一个User类
-     2.定义方法 public List&lt;User&gt; findAll(){}
-     3.实现方法 select * from emp;
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">User类</span><br><span class="line"></span><br><span class="line">package cn.itcast.domain;</span><br><span class="line"></span><br><span class="line">public class User &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String username;</span><br><span class="line">    private String password;</span><br><span class="line">    private int age;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;User&#123;&quot; +</span><br><span class="line">                &quot;id=&quot; + id +</span><br><span class="line">                &quot;, username=&apos;&quot; + username + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, password=&apos;&quot; + password + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, age=&quot; + age +</span><br><span class="line">                &apos;&#125;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUsername() &#123;</span><br><span class="line">        return username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUsername(String username) &#123;</span><br><span class="line">        this.username = username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getPassword() &#123;</span><br><span class="line">        return password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPassword(String password) &#123;</span><br><span class="line">        this.password = password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAge(int age) &#123;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">```</span><br></pre></td></tr></table></figure>
-<p>JDBCText</p>
-<p>package cn.itcast.jdbc;</p>
-<p>import cn.itcast.domain.User;</p>
-<p>import java.sql.*;<br>import java.util.ArrayList;<br>import java.util.List;</p>
-<p>/**</p>
-<ul>
-<li>定义一个方法，查询user表的数据将其封装成对象，然后装载集合，返回<br>*/<br>public class JDBCText {<br> public static void main(String[] args) {<pre><code>List&lt;User&gt; list = new JDBCText().findAll();
-System.out.println(list);
-System.out.println(list.size());
-</code></pre> }<br> /**<ul>
-<li>查询所有User对象<br>*/<br>public List<user> findAll(){<br> Connection conn = null;<br> Statement stmt = null;<br> ResultSet rs = null;<br> List<user> list = null;<br> //1.注册驱动<br> try {<pre><code>Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-//2.获取连接
-conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;serverTimezone=UTC&quot;,&quot;root&quot;,&quot;a570911275&quot;);
-//3.定义SQL语句
-String sql = &quot;select * from user&quot;;
-//4.获取执行SQL的对象
-stmt = conn.createStatement();
-//5.执行SQL
-rs = stmt.executeQuery(sql);
-//6.遍历结果集，封装对象，装载集合
-User user = null;
-list = new ArrayList&lt;&gt;();
-while(rs.next()){
-    //获取数据
-    int id =rs.getInt(&quot;id&quot;);
-    String username = rs.getString(&quot;username&quot;);
-    String password = rs.getString(&quot;password&quot;);
-    int age = rs.getInt(&quot;age&quot;);
-    //创建user对象
-    user = new User();
-    user.setId(id);
-    user.setUsername(username);
-    user.setPassword(password);
-    user.setAge(age);
-    //装载集合
-    list.add(user);
-}
-</code></pre> } catch (ClassNotFoundException e) {<pre><code>e.printStackTrace();
-</code></pre> } catch (SQLException e) {<pre><code>e.printStackTrace();
-</code></pre> }finally {<pre><code>if(rs!=null){
-    try {
-        rs.close();
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-}
-if(stmt!=null){
-    try {
-        stmt.close();
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-}
-if(conn!=null){
-    try {
-        conn.close();
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-}
-</code></pre> }<br> return list;<br>}<br>}<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">          </span><br><span class="line"></span><br><span class="line">## 抽取JDBC工具类：JDBCUtils</span><br><span class="line">      *目的：简化书写</span><br><span class="line">      *分析：</span><br><span class="line">         1.注册驱动也抽取(单独放)</span><br><span class="line">         2.抽取一个方法获取连接对象</span><br><span class="line">             *需求：不想传递参数（麻烦），还得保证工具类的通用性</span><br><span class="line">             *解决：配置文件</span><br><span class="line">                jdbc.properties</span><br><span class="line">                    url=</span><br><span class="line">                    user=</span><br><span class="line">                    password=</span><br><span class="line">                    driver=</span><br><span class="line">         3.释放资源的抽取</span><br></pre></td></tr></table></figure>
-</user></user></li>
-</ul>
-</li>
-</ul>
-<p>package cn.itcast.util;</p>
-<p>import java.io.FileReader;<br>import java.io.IOException;<br>import java.net.URL;<br>import java.sql.*;<br>import java.util.Properties;</p>
-<p>/**</p>
-<ul>
-<li><p>JDBC工具类<br>*/<br>public class JDBCUtils {<br> private static String url;<br> private static String user;<br> private static String password;<br> private static String driver;<br> /**</p>
-<ul>
-<li><p>文件的读取，只需要读取一次即可拿到这些值。使用静态代码块<br>*/<br>static{<br> //读取资源文件，获取值。</p>
-<p> try {</p>
-<pre><code> //1. 创建Properties集合类。
- Properties pro = new Properties();
-
- //获取src路径下的文件的方式---&gt;ClassLoader 类加载器
- ClassLoader classLoader = JDBCUtils.class.getClassLoader();
- URL res  = classLoader.getResource(&quot;jdbc.properties&quot;);
- String path = res.getPath();
-// System.out.println(path);///D:/IdeaProjects/itcast/out/production/day04_jdbc/jdbc.properties
- //2. 加载文件
-// pro.load(new FileReader(&quot;D:\\IdeaProjects\\itcast\\day04_jdbc\\src\\jdbc.properties&quot;));
- pro.load(new FileReader(path));
-
- //3. 获取数据，赋值
- url = pro.getProperty(&quot;url&quot;);
- user = pro.getProperty(&quot;user&quot;);
- password = pro.getProperty(&quot;password&quot;);
- driver = pro.getProperty(&quot;driver&quot;);
- //4. 注册驱动
- Class.forName(driver);
-</code></pre><p> } catch (IOException e) {</p>
-<pre><code>e.printStackTrace();
-</code></pre><p> } catch (ClassNotFoundException e) {</p>
-<pre><code>e.printStackTrace();
-</code></pre><p> }<br>}</p>
-</li>
-</ul>
-</li>
-</ul>
-<pre><code>/**
- * 获取连接
- * @return 连接对象
- */
-public static Connection getConnection() throws SQLException {
-
-    return DriverManager.getConnection(url, user, password);
-}
-
-/**
- * 释放资源
- * @param stmt
- * @param conn
- */
-public static void close(Statement stmt,Connection conn){
-    if( stmt != null){
-        try {
-            stmt.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    if( conn != null){
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
-
-
-/**
- * 释放资源
- * @param stmt
- * @param conn
- */
-public static void close(ResultSet rs,Statement stmt, Connection conn){
-    if( rs != null){
-        try {
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    if( stmt != null){
-        try {
-            stmt.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    if( conn != null){
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre><p>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 练习登录界面</span><br><span class="line">      *需求：</span><br><span class="line">         1. 通过键盘录入用户名和密码</span><br><span class="line">         2. 判断用户是否登录成功</span><br><span class="line">                *select * from user where username = &quot;&quot; and password = &quot;&quot;;</span><br><span class="line">                *如果这个SQL有查询结果，则成功，反之，则失败</span><br><span class="line">        </span><br><span class="line">      *步骤：</span><br><span class="line">         1. 创建数据库表 user</span><br><span class="line">         2. 创建一个类，完成登录逻辑</span><br></pre></td></tr></table></figure>
-<p>package cn.itcast.jdbc;</p>
-<p>import cn.itcast.Utils.JDBCUtils;</p>
-<p>import java.sql.*;<br>import java.util.Scanner;</p>
-<p>/**</p>
-<ul>
-<li><ol>
-<li>通过键盘录入用户名和密码</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>判断用户是否登录成功<br>*/<br>public class JDBCExe {<br>public static void main(String[] args) {<br>//1.键盘录入，接受用户名和密码<br>Scanner sc = new Scanner(System.in);<br>System.out.println(“请输入用户名”);<br>String username = sc.nextLine();<br>System.out.println(“请输入密码”);<br>String password = sc.nextLine();<br>//2.调用方法<br>boolean flag = new JDBCExe().login2(username, password);<br>//3.判断结果，输出不同结果<br>if (flag) {<br>//登录成功<br>System.out.println(“登录成功”);<br>} else {<br>System.out.println(“用户名或密码错误”);<br>}<br>}</li>
-</ol>
-<p>/**</p>
-<ul>
-<li>登录方法<br><em>/<br>public boolean login(String username,String password){<br>/</em>Connection conn = null;<br>Statement stmt = null;<br>ResultSet rs =  null;<em>/<br>if(username == null || password == null){<br>return false;<br>}<br>//连接数据库判断是否登录成功<br>Connection conn = null;<br>Statement stmt = null;<br>ResultSet rs =  null;<br>//连接数据库，判断是否登录成功<br>try {<br>//1.获取连接<br>conn = JDBCUtils.getConnection();<br>//2.定义SQL<br>String sql = “select </em> from user where username = ‘“+username+”‘and password = ‘“+password+”‘“;<br>  System.out.println(sql);<br>//3.获取执行SQL的对象<br>stmt = conn.createStatement();<br>//4.执行查询<br>rs = stmt.executeQuery(sql);<br>//5.判断<br>  return  rs.next();</li>
-</ul>
-<p>} catch (SQLException e) {</p>
-<pre><code>e.printStackTrace();
-</code></pre><p>}finally {</p>
-<pre><code>JDBCUtils.close(rs,stmt,conn);
-</code></pre><p>}<br>return false;</p>
-</li>
-</ul>
-<p>}</p>
-<pre><code>/**
- * 登录方法,使用PreparedStatement
- */
-public boolean login2(String username,String password){
-    /*Connection conn = null;
-    Statement stmt = null;
-    ResultSet rs =  null;*/
-    if(username == null || password == null){
-        return false;
-    }
-    //连接数据库判断是否登录成功
-    Connection conn = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs =  null;
-    //连接数据库，判断是否登录成功
-    try {
-        //1.获取连接
-        conn = JDBCUtils.getConnection();
-        //2.定义SQL
-        String sql = &quot;select * from user where username = ? and password = ?&quot;;
-
-        System.out.println(sql);
-        //3.1获取执行SQL的对象
-        pstmt = conn.prepareStatement(sql);
-        //3.2给问号赋值
-        pstmt.setString(1,username);
-        pstmt.setString(2,password);
-        //4.执行查询,不需要传参数
-        rs = pstmt.executeQuery();
-        //5.判断
-        return  rs.next();
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }finally {
-
-        JDBCUtils.close(rs,pstmt,conn);
-    }
-    return false;
-
-}
-</code></pre><p>}</p>
-<p><code>`</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjyfjwm6r002irwtn67wzuf4k" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之三层架构小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/19/JavaEE之三层架构小结/" class="article-date">
-  <time datetime="2019-07-19T03:42:24.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/19/JavaEE之三层架构小结/">JavaEE之三层架构小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="三层架构：软件设计架构"><a href="#三层架构：软件设计架构" class="headerlink" title="三层架构：软件设计架构"></a>三层架构：软件设计架构</h2><pre><code>1.界面层（表示层）：用户看的界面。用户可以通过界面上的组件和服务器进行交互
-
-2.业务逻辑层：处理业务逻辑的。
-
-3.数据访问层：操作数据存储文件。
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之三层架构小结/" data-id="cjyfjwm2n0018rwtngcbxolhz" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之JSTL表达式小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/19/JavaEE之JSTL表达式小结/" class="article-date">
-  <time datetime="2019-07-19T03:07:44.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/19/JavaEE之JSTL表达式小结/">JavaEE之JSTL表达式小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JSTL"><a href="#JSTL" class="headerlink" title="JSTL"></a>JSTL</h2><pre><code>1. 概念：JavaServer Pages Tag Library JSP标准标签库
-     *是由Apache组织提供的开源的免费的jsp标签
-
-2. 作用：用于简化和替换jsp页面上的java代码
-
-3. 步骤：
-     1.导入jstl相关的jar包
-     2.引入标签库：taglib指令： &lt;%@ taglib %&gt;
-     3.使用标签
-
-4. 常用的jstl标签
-    1.if       :相当于java代码的if语句
-         1.属性：
-            *test 必须属性，接受boolea表达式
-                *如果表达式为true，则显示if标签体内容。如果为false，则不需要显示标签体内容
-
-                *一般情况下，test属性会结合el表达式一起使用
-
-         2.注意：
-            *c:if标签无else情况，想要else情况，则可以再定义一个c:if标签
-    2.choose   :相当于java代码的switch语句
-         *完成数组编号对应星期几案例
-             1.域中存储一个数字
-             2.使用choose标签取出数字           相当于switch声明
-             3.使用when标签做数字判断           相当于case
-             4.otherwise标签做其他情况的声明    相当于default
-    3.foreach  :相当于java代码的for语句
-         1.完成重复的操作
-         for(int i=0;i&lt;10;i++){
-         }
-         *属性：
-            begin：开始值
-            end：结束值
-            var：临时变量
-            step：步长（临时变量每次增长多少）
-            varStatus:循环状态对象
-                 index:容器中元素的索引，从0开始
-                 count：循环次数从1开始
-         2.遍历容器
-         List&lt;User&gt; list = new ArrayList&lt;User&gt;();
-         foreach(User user:list){
-         }
-         *属性：
-             items：容器对象
-             var：容器中元素的临时变量
-             varStatus:循环状态对象
-                 index:容器中元素的索引，从0开始
-                 count：循环次数从1开始
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/" data-id="cjyfjwm1n000trwtnnsxzf8mm" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之EL表达式小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/19/JavaEE之EL表达式小结/" class="article-date">
-  <time datetime="2019-07-19T01:27:14.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/19/JavaEE之EL表达式小结/">JavaEE之EL表达式小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="EL表达式"><a href="#EL表达式" class="headerlink" title="EL表达式"></a>EL表达式</h2><pre><code>1. 概念：Expression Language 表达式语言
-
-2. 作用：替换和简化jsp页面中java代码的编写
-
-3. 语法：${表达式}  
-
-4. 注意：
-   *jsp中为默认支持el表达式的。如果要忽略el表达式
-      1.设置jsp中page指令中：isELIgnored=&quot;true&quot;  忽略当前页面中所有的el表达式
-      &lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; isELIgnored=&quot;true&quot; %&gt; 
-      2.、${表达式} 忽略当前此el表达式
-                 \${3&gt;4}
-
-5. 使用：
-    1. 运算：
-        *运算符：
-           1.算数运算符：+ - * /(div) %(mod)
-           2.比较运算符: &gt; &lt; &gt;= &lt;= !=
-           3.逻辑运算符: &amp;&amp;(and) ||(or) !(not)
-           4.空运算符  : empty
-                *功能：用于判断字符串、集合、数组对象是否为null，长度是否为0
-                *${empty list}：判断字符串、集合、数组对象是否为null，长度是否为0
-                *${not empty str}:表示判断字符串、集合、数组对象是否不为null，且长度大于0
-    2. 获取值
-         1. el表达式只能从域对象中获取值
-         2. 语法：
-              1. ${域名称.键名}：从指定域中获取指定键的值
-                   *域名称：
-                     1.pageScope  --&gt;  pageContext
-                     2.requestScope  --&gt;  request
-                     3.sessionScope  --&gt;  session
-                     4.applicationScope  --&gt;  application (ServletContext)
-                    *举例:在request域中存储了name=张三
-                          ${requestScope.name}
-
-               2. ${键名}：表示依次从最小的域中查找是否有该键对应的值，直到找到为止。
-                       ${name}：先从pageContext中查找，若无则前往request中查找。依次进行
-
-               3. 获取对象、List集合、Map集合的值
-                   1. 对象：${域名称.键名.属性名}
-                     *本质上会去调用对象的getter方法
-
-                   2. List集合：${域名。键名[索引]}
-                          *如果该索引位置为对象，则先表示出对象，若需要单独的属性名则单独表示
-                                  对 象            属性
-                           ${requestScope.list[2].name }
-
-                   3. Map集合：
-                          *${域名称.键名.key名称}
-                          *${域名称.键名[&quot;key名称&quot;]} 
-                          *如果该索引位置为对象，则先表示出对象，若需要单独的属性名则单独表示
-                                  对 象             属性
-                           ${requestScope.map.user.name}
-
- 3. 隐式对象：
-      *el表达式中有11个隐式对象
-      *pageContext：
-         *获取jsp其他8个内置对象
-             *${pageContext.request.contextPath}:动态获取虚拟目录
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/" data-id="cjyfjwm0f000frwtnw1ojz2od" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjyfmf3rn000a3gtn0z96l0jl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1249,7 +742,7 @@ public boolean login2(String username,String password){
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -1273,7 +766,7 @@ public boolean login2(String username,String password){
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/javaEE-基础/" style="font-size: 10px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 20px;">java_基础</a>
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
     </div>
   </div>
 
@@ -1295,23 +788,23 @@ public boolean login2(String username,String password){
       <ul>
         
           <li>
-            <a href="/2019/07/20/JavaEE之Filter小结/">JavaEE之Filter小结</a>
+            <a href="/2019/07/23/新文档/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2019/07/20/JavaEE之Listener小结/">JavaEE之Listener小结</a>
+            <a href="/2019/07/21/JavaEE之修改用户练习小结/">JavaEE之修改用户练习小结</a>
           </li>
         
           <li>
-            <a href="/2019/07/20/JavaEE之XML小结/">JavaEE之XML小结</a>
+            <a href="/2019/07/21/JavaEE之删除用户练习小结/">JavaEE之删除用户练习小结</a>
           </li>
         
           <li>
-            <a href="/2019/07/19/JavaEE之JDBCTemplate小结/">JavaEE之JDBCTemplate小结</a>
+            <a href="/2019/07/21/JavaEE之添加用户练习小结/">JavaEE之添加用户练习小结</a>
           </li>
         
           <li>
-            <a href="/2019/07/19/JavaEE之连接池小结/">JavaEE之连接池小结</a>
+            <a href="/2019/07/21/JavaEE之登录练习2小结/">JavaEE之登录练习2小结</a>
           </li>
         
       </ul>
