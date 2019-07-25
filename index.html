@@ -89,9 +89,139 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjyh759nb000ekotnq9byvx9a" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjyh770mi002gz8tnf4thggpu" class="article-share-link">Share</a>
       
       
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之Maven小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/22/JavaEE之Maven小结/" class="article-date">
+  <time datetime="2019-07-22T06:35:24.000Z" itemprop="datePublished">2019-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/22/JavaEE之Maven小结/">JavaEE之Maven小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><pre><code>1. 概念：
+     Maven是一个项目管理工具，它包含了一个项目对象模型（POM：project Object Model）,一组标准集合，一个项目生命周期，一个依赖管理系统，和用来运行定义在生命周期阶段中插件目标的逻辑
+
+2. 功能：
+     1. 依赖管理：maven工程对jar包的管理过程。
+     2. 一键构建：只需要一个命令，完成构建的整个过程
+            *构建：清理--&gt;编译--&gt;测试--&gt;报告--&gt;打包--&gt;部署
+     1. 帮助我们引用各种各样的jar包，无需我们手动引入工程目录。
+     2. 进行代码编译，使得计算机可以读懂我们的代码
+     3. 进行单元测验，进行bug的搜查，一个个的运行来检验代码质量
+     4. 整合资源、配置文件。定型打包。如果是web项目，还可以发布到服务器
+
+3. 优势：
+     1. 节约内存；比起传统的工程项目，在jar包方面进行了大的优化，使得内存大大减少 
+            * 传统：jar包在项目中
+            * Maven：jar包不在项目中，jar包在jar包仓库
+                 * jar包的坐标---&gt;使得项目可以在jar包仓库中找到对应的jar包
+
+4. 安装要点
+     1. 配置 MAVEN_HOME
+     2. 将 %MAVEN_HOME%/bin 加入环境变量 path
+     3. 添加%SystemRoot\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;进系统变量
+
+5. Maven中仓库的种类以及彼此的关系
+     1. 仓库的种类：
+            * 本地仓库
+            * 远程仓库【私服】
+            * 中央仓库
+     2. 彼此关系：
+            * 情况1：无远程仓库时：打开一个Maven工程，首先前往本地仓库寻找jar包。若无此jar包。
+                                 则前往中央仓库进行下载。倘若无法联网，将无法连接中央仓库，系统报错。
+
+            * 情况2：有远程仓库时：打开一个Maven工程，首先前往本地仓库寻找jar包。若无此jar包。
+                                 则前往远程仓库进行下载（此时要求，位于远程仓库所在的局域网之下）。
+                                 倘若远程仓库无此jar包，则前往中央仓库下载。
+
+            * 注：远程仓库内的jar包，部分来源于中央仓库，部分来源于内部人员上传
+
+
+6. Maven项目标准目录结构：
+       *  核心代码部分：src/main/java
+       *  配置文件部分：src/main/resource
+       *  测试代码部分：src/test/java
+       *  测试配置文件：src/test/resources
+       *  页面资源：js,css,图片等：src/main/webapp
+
+7. Maven常用命令
+       1. mvn clean：清理项目生产的临时文件,一般是模块下的target目录
+       2. mvn package：项目打包工具,会在模块下的target目录生成jar或war等文件
+       3. mvn test: 测试命令,或执行src/test/java/下junit的测试用例
+       4. mvn install:模块安装命令 将打包的的jar/war文件复制到你的本地仓库中,供其他模块使用 -Dmaven.test.skip=true 跳过测试(同时会跳过test compile)
+       5. mvn deploy:发布命令 将打包的文件发布到远程参考,提供其他人员进行下载依赖 ,一般是发布到公司的私服，这里我没配置私服，所以就不演示了
+
+8. Maven生命周期：
+       1. 构建过程：  清除     编译     测试     打包     安装     发布
+                    clean   compile    test   package  install  deploy
+
+       2. 清除：清理生命周期
+       3. 编译——&gt;发布：默认生命周期（使用较多）：当执行后续命令时，前面的命令会跟随执行一般
+       4. 站点生命周期：使用较少
+
+9. Maven概念模型图：
+      1. 依赖管理：项目对jar包的管理过程
+           1. 项目对象模型：
+                * 项目自身信息
+                * 项目运行所依赖的jar包信息————&gt;独立出来，称为依赖管理模型（全为jar包的坐标）
+                * 项目运性环境信息，比如：jdk，Tomcat信息
+
+           2. 依赖管理模型：
+              1. jar包的坐标
+                    * 公司组织的名称
+                    * 项目名
+                    * 版本号
+              2. 三个仓库
+
+      2.  一键构建：
+           1. 三个生命周期
+           2. 默认生命周期：
+                compile-&gt; test-&gt; package-&gt; install-&gt; deploy
+               *每一个构建项目的命令都对应了maven底层的一个插件
+
+10. 导入的包的依赖范围：
+      依赖范围     对于编译classpath有效     对于测试classpath有效      对于运行时classpath有效      例子
+      compile(默认)      Y                           Y                       Y                 spring-core
+
+      test               -                           Y                       -                 Junit    
+
+      provided           Y                           Y                       -                 servlet-api
+
+      runtime            -                           Y                       Y                 JDBC驱动
+
+      system             Y                           Y                       -          本地的，Maven仓库之外的类库
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之Maven小结/" data-id="cjyigcxii000090tn3d2cp34r" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
     </footer>
   </div>
   
@@ -152,7 +282,65 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之修改用户练习小结/" data-id="cjyh759lx0003kotng7pxhc46" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之修改用户练习小结/" data-id="cjyh770kn001kz8tnvxx4df1p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之添加用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之添加用户练习小结/" class="article-date">
+  <time datetime="2019-07-21T08:24:43.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之添加用户练习小结/">JavaEE之添加用户练习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="添加用户练习"><a href="#添加用户练习" class="headerlink" title="添加用户练习"></a>添加用户练习</h3><ul>
+<li><p>思路：</p>
+<ol>
+<li>点击添加按钮</li>
+<li>获取新用户数据</li>
+<li>添加数据</li>
+<li>跳转回原界面</li>
+</ol>
+</li>
+<li><p>文件跳转：</p>
+<ol>
+<li>jsp获取用户输入新用户信息</li>
+<li>跳转至Servlet层，执行业务逻辑</li>
+<li>在Servlet中，将使用到Service</li>
+<li>在Service中，将使用到Dao</li>
+</ol>
+</li>
+</ul>
+<h4 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line">import org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/addUserServlet&quot;)</span><br><span class="line">public class addUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.设置编码</span><br><span class="line">        request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">        //2.获取数据</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //3.封装User对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //4.调用Service方法添加数据</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.addUser(user);</span><br><span class="line">        //5.跳转到userListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     */</span><br><span class="line">    public void  addUser(User user);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     * @param user</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void addUser(User user) &#123;</span><br><span class="line">       dao.addUser(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     */</span><br><span class="line">    public void addUser(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     * @param user</span><br><span class="line">     */</span><br><span class="line">    public void addUser(User user)&#123;</span><br><span class="line">        //1.定义SQL</span><br><span class="line">        String sql = &quot;insert into user values(null,?,?,?,?,?,?,null,null)&quot;;</span><br><span class="line">        //2.执行SQL</span><br><span class="line">        template.update(sql,user.getName(),user.getGender(),user.getAge(),</span><br><span class="line">                            user.getAddress(),user.getQq(),user.getEmail());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之添加用户练习小结/" data-id="cjyh770ky001qz8tnzimd7915" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -211,65 +399,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之删除用户练习小结/" data-id="cjyh759m10005kotnhbxs0gcs" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之添加用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/21/JavaEE之添加用户练习小结/" class="article-date">
-  <time datetime="2019-07-21T08:24:43.000Z" itemprop="datePublished">2019-07-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/21/JavaEE之添加用户练习小结/">JavaEE之添加用户练习小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="添加用户练习"><a href="#添加用户练习" class="headerlink" title="添加用户练习"></a>添加用户练习</h3><ul>
-<li><p>思路：</p>
-<ol>
-<li>点击添加按钮</li>
-<li>获取新用户数据</li>
-<li>添加数据</li>
-<li>跳转回原界面</li>
-</ol>
-</li>
-<li><p>文件跳转：</p>
-<ol>
-<li>jsp获取用户输入新用户信息</li>
-<li>跳转至Servlet层，执行业务逻辑</li>
-<li>在Servlet中，将使用到Service</li>
-<li>在Service中，将使用到Dao</li>
-</ol>
-</li>
-</ul>
-<h4 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line">import org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/addUserServlet&quot;)</span><br><span class="line">public class addUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.设置编码</span><br><span class="line">        request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">        //2.获取数据</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //3.封装User对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //4.调用Service方法添加数据</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.addUser(user);</span><br><span class="line">        //5.跳转到userListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     */</span><br><span class="line">    public void  addUser(User user);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     * @param user</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void addUser(User user) &#123;</span><br><span class="line">       dao.addUser(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     */</span><br><span class="line">    public void addUser(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     * @param user</span><br><span class="line">     */</span><br><span class="line">    public void addUser(User user)&#123;</span><br><span class="line">        //1.定义SQL</span><br><span class="line">        String sql = &quot;insert into user values(null,?,?,?,?,?,?,null,null)&quot;;</span><br><span class="line">        //2.执行SQL</span><br><span class="line">        template.update(sql,user.getName(),user.getGender(),user.getAge(),</span><br><span class="line">                            user.getAddress(),user.getQq(),user.getEmail());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之添加用户练习小结/" data-id="cjyh759m60007kotnsu2pfm7m" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之删除用户练习小结/" data-id="cjyh770ku001oz8tnwj5gkget" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -321,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjyh759mc0009kotnnzj8t2uj" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjyh770l1001sz8tnvjqcjeug" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -393,7 +523,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjyh759mi000bkotn3pd4ea5k" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjyh770kr001mz8tnewz0i3sk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -486,7 +616,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjyh759l30000kotnj7w1j0qk" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjyh770g70004z8tnpi6djs70" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -544,7 +674,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjyh759lo0001kotnqeu2j1zd" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjyh770k8001ez8tn5hwybk9z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -606,127 +736,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjyh759nh000fkotn334559a1" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之Filter小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/20/JavaEE之Filter小结/" class="article-date">
-  <time datetime="2019-07-20T08:20:11.000Z" itemprop="datePublished">2019-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/JavaEE之Filter小结/">JavaEE之Filter小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>##<br>Filter：过滤器</p>
-<pre><code>1. 概念：
- * 生活中的过滤器：净水器、空气净化器、土匪
- * web中的过滤器：当访问服务器的资源时，过滤器可以将请求拦截下来，完成一些特殊的功能。
- * 过滤器的作用：
-       *一般用于完成通用的操作。如：登录验证、统一编码处理、敏感字符过滤。。。
-
-2. 快速入门：
-     1. 步骤：
-          1. 定义一个类，实现接口Filter
-          2. 复写方法
-          3. 配置拦截路径
-                1. web.xml
-                2. 注解配置
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">过滤器快速入门代码操作：</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 过滤器快速入门</span><br><span class="line"> */</span><br><span class="line">@WebFilter(&quot;/*&quot;)//访问所有资源之前，都会执行该过滤器</span><br><span class="line">public class FilterDemo01 implements Filter &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException &#123;</span><br><span class="line">        System.out.println(&quot;FilterDemo01被执行了&quot;);</span><br><span class="line">        //考虑是否放行</span><br><span class="line">        //放行</span><br><span class="line">        filterChain.doFilter(servletRequest,servletResponse);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<pre><code>3. 过滤器细节：
-    1. web.xml配置
-        &lt;filter&gt;
-            &lt;filter-name&gt;demo1&lt;/filter-name&gt;
-            &lt;filter-class&gt;cn.itcast.web.filter.FilterDemo01&lt;/filter-class&gt;
-        &lt;/filter&gt;
-        &lt;filter-mapping&gt;
-            &lt;filter-name&gt;demo1&lt;/filter-name&gt;
-            &lt;--!拦截路径--&gt;
-            &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-        &lt;/filter-mapping&gt;
-
-    2. 过滤器执行流程
-          1. 执行过滤器
-          2. 执行放行后的资源
-          3. 回来执行过滤器放行代码下边的代码
-
-    3. 过滤器生命周期方法
-          1. init：在服务器启动后，会创建Filter对象，然后调用init方法。只执行一次。用于加载资源
-          2. doFilter：每一次请求被拦截资源时，会执行。执行多次
-          3. destroy：在服务器关闭后，Filter对象被销毁。如果服务器是正常关闭，则会执行destroy方法。只执行一次，用于释放资源
-
-    4. 过滤器配置详解
-          1. 拦截路径配置：
-               1. 具体资源路径: eg：  /index.jsp   只有访问index.jsp资源时过滤器才会被执行
-               2. 拦截目录:     eg:  /user/*       访问/user下的所有资源时，过滤器都会被执行
-               3. 后缀名拦截：   eg:  *.jsp         访问所有后缀名为jsp资源时，过滤器都会被执行
-               4. 拦截所有资源： eg:  /*            访问所有资源时，过滤器都会被执行
-          2. 拦截方式配置：
-               1. 注解配置：
-                   * 设置dispatcherTypes属性
-                        1. REQUEST : 默认值。 浏览器直接请求资源
-                        2. FORWARD : 转发访问资源
-                        3. INCLUDE : 包含访问资源（了解）
-                        4. ERROR   : 错误跳转资源（了解）
-                        5. ASYNC   : 异步访问资源（了解）
-
-                2. XML配置：
-                        *设置&lt;dispatcher&gt;&lt;/dispatcher&gt;标签即可
-
-    5. 过滤器链（配置多个过滤器）
-          *执行顺序：如果有两个过滤器：过滤器1和过滤器2
-              1. 过滤器1
-              2. 过滤器2
-              3. 资源执行
-              4. 过滤器2
-              5. 过滤器1
-
-          *过滤器先后顺序问题
-              1. 注解配置：按照类名的字符串比较规则比较，值小的先执行
-                    *如：AFilter 和 BFilter，A&lt;B ,所以AFilter先执行
-              2. web.xml：&lt;filter-mapping&gt;谁定义在上边，谁先执行
-</code></pre><p>   *增强对象的功能：<br>       1.设计模式：一些通用的解决固定问题的方式</p>
-<pre><code>1. 装饰模式
-2. 代理模式
-      *概念：
-         1. 真实对象：被代理的对象
-         2. 代理对象：
-         3. 代理模式：代理对象代理真实对象，达到增强真实对象的功能的目的
-      *实现方式：
-         1. 动态代理：有一个类文件描述代理模式
-         2. 静态代理：没有类文件，在内存中形成代理类
-              *实现步骤：
-                  1. 代理对象和真实对象实现相同的接口
-                  2. 代理对象 = Proxy.newInstance()；
-                  3. 使用代理对象调用方法。
-                  4. 增强方法
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjyfmf3rn000a3gtn0z96l0jl" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjyh770no002zz8tn6rdjbml4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -792,11 +802,11 @@
           </li>
         
           <li>
-            <a href="/2019/07/21/JavaEE之修改用户练习小结/">JavaEE之修改用户练习小结</a>
+            <a href="/2019/07/22/JavaEE之Maven小结/">JavaEE之Maven小结</a>
           </li>
         
           <li>
-            <a href="/2019/07/21/JavaEE之删除用户练习小结/">JavaEE之删除用户练习小结</a>
+            <a href="/2019/07/21/JavaEE之修改用户练习小结/">JavaEE之修改用户练习小结</a>
           </li>
         
           <li>
@@ -804,7 +814,7 @@
           </li>
         
           <li>
-            <a href="/2019/07/21/JavaEE之登录练习2小结/">JavaEE之登录练习2小结</a>
+            <a href="/2019/07/21/JavaEE之删除用户练习小结/">JavaEE之删除用户练习小结</a>
           </li>
         
       </ul>

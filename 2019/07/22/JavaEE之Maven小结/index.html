@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaEE之Maven小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Maven1. 概念：      Maven是一个项目管理工具，它包含了一个项目对象模型（POM：project Object Model）,一组标准集合，一个项目生命周期，一个依赖管理系统，和用来运行定义在生命周期阶段中插件目标的逻辑  2. 功能：      1. 依赖管理：maven工程对jar包的管理过程。      2. 一键构建：只需要一个命令，完成构建的整个过程">
+<meta name="keywords" content="javaEE_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE之Maven小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之Maven小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Maven1. 概念：      Maven是一个项目管理工具，它包含了一个项目对象模型（POM：project Object Model）,一组标准集合，一个项目生命周期，一个依赖管理系统，和用来运行定义在生命周期阶段中插件目标的逻辑  2. 功能：      1. 依赖管理：maven工程对jar包的管理过程。      2. 一键构建：只需要一个命令，完成构建的整个过程">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-25T09:06:05.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaEE之Maven小结">
+<meta name="twitter:description" content="Maven1. 概念：      Maven是一个项目管理工具，它包含了一个项目对象模型（POM：project Object Model）,一组标准集合，一个项目生命周期，一个依赖管理系统，和用来运行定义在生命周期阶段中插件目标的逻辑  2. 功能：      1. 依赖管理：maven工程对jar包的管理过程。      2. 一键构建：只需要一个命令，完成构建的整个过程">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaEE之Maven小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/22/JavaEE之Maven小结/" class="article-date">
+  <time datetime="2019-07-22T06:35:24.000Z" itemprop="datePublished">2019-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaEE之Maven小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><pre><code>1. 概念：
+     Maven是一个项目管理工具，它包含了一个项目对象模型（POM：project Object Model）,一组标准集合，一个项目生命周期，一个依赖管理系统，和用来运行定义在生命周期阶段中插件目标的逻辑
+
+2. 功能：
+     1. 依赖管理：maven工程对jar包的管理过程。
+     2. 一键构建：只需要一个命令，完成构建的整个过程
+            *构建：清理--&gt;编译--&gt;测试--&gt;报告--&gt;打包--&gt;部署
+     1. 帮助我们引用各种各样的jar包，无需我们手动引入工程目录。
+     2. 进行代码编译，使得计算机可以读懂我们的代码
+     3. 进行单元测验，进行bug的搜查，一个个的运行来检验代码质量
+     4. 整合资源、配置文件。定型打包。如果是web项目，还可以发布到服务器
+
+3. 优势：
+     1. 节约内存；比起传统的工程项目，在jar包方面进行了大的优化，使得内存大大减少 
+            * 传统：jar包在项目中
+            * Maven：jar包不在项目中，jar包在jar包仓库
+                 * jar包的坐标---&gt;使得项目可以在jar包仓库中找到对应的jar包
+
+4. 安装要点
+     1. 配置 MAVEN_HOME
+     2. 将 %MAVEN_HOME%/bin 加入环境变量 path
+     3. 添加%SystemRoot\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;进系统变量
+
+5. Maven中仓库的种类以及彼此的关系
+     1. 仓库的种类：
+            * 本地仓库
+            * 远程仓库【私服】
+            * 中央仓库
+     2. 彼此关系：
+            * 情况1：无远程仓库时：打开一个Maven工程，首先前往本地仓库寻找jar包。若无此jar包。
+                                 则前往中央仓库进行下载。倘若无法联网，将无法连接中央仓库，系统报错。
+
+            * 情况2：有远程仓库时：打开一个Maven工程，首先前往本地仓库寻找jar包。若无此jar包。
+                                 则前往远程仓库进行下载（此时要求，位于远程仓库所在的局域网之下）。
+                                 倘若远程仓库无此jar包，则前往中央仓库下载。
+
+            * 注：远程仓库内的jar包，部分来源于中央仓库，部分来源于内部人员上传
+
+
+6. Maven项目标准目录结构：
+       *  核心代码部分：src/main/java
+       *  配置文件部分：src/main/resource
+       *  测试代码部分：src/test/java
+       *  测试配置文件：src/test/resources
+       *  页面资源：js,css,图片等：src/main/webapp
+
+7. Maven常用命令
+       1. mvn clean：清理项目生产的临时文件,一般是模块下的target目录
+       2. mvn package：项目打包工具,会在模块下的target目录生成jar或war等文件
+       3. mvn test: 测试命令,或执行src/test/java/下junit的测试用例
+       4. mvn install:模块安装命令 将打包的的jar/war文件复制到你的本地仓库中,供其他模块使用 -Dmaven.test.skip=true 跳过测试(同时会跳过test compile)
+       5. mvn deploy:发布命令 将打包的文件发布到远程参考,提供其他人员进行下载依赖 ,一般是发布到公司的私服，这里我没配置私服，所以就不演示了
+
+8. Maven生命周期：
+       1. 构建过程：  清除     编译     测试     打包     安装     发布
+                    clean   compile    test   package  install  deploy
+
+       2. 清除：清理生命周期
+       3. 编译——&gt;发布：默认生命周期（使用较多）：当执行后续命令时，前面的命令会跟随执行一般
+       4. 站点生命周期：使用较少
+
+9. Maven概念模型图：
+      1. 依赖管理：项目对jar包的管理过程
+           1. 项目对象模型：
+                * 项目自身信息
+                * 项目运行所依赖的jar包信息————&gt;独立出来，称为依赖管理模型（全为jar包的坐标）
+                * 项目运性环境信息，比如：jdk，Tomcat信息
+
+           2. 依赖管理模型：
+              1. jar包的坐标
+                    * 公司组织的名称
+                    * 项目名
+                    * 版本号
+              2. 三个仓库
+
+      2.  一键构建：
+           1. 三个生命周期
+           2. 默认生命周期：
+                compile-&gt; test-&gt; package-&gt; install-&gt; deploy
+               *每一个构建项目的命令都对应了maven底层的一个插件
+
+10. 导入的包的依赖范围：
+      依赖范围     对于编译classpath有效     对于测试classpath有效      对于运行时classpath有效      例子
+      compile(默认)      Y                           Y                       Y                 spring-core
+
+      test               -                           Y                       -                 Junit    
+
+      provided           Y                           Y                       -                 servlet-api
+
+      runtime            -                           Y                       Y                 JDBC驱动
+
+      system             Y                           Y                       -          本地的，Maven仓库之外的类库
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之Maven小结/" data-id="cjyigcxii000090tn3d2cp34r" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/23/新文档/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/21/JavaEE之修改用户练习小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaEE之修改用户练习小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/23/新文档/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/JavaEE之Maven小结/">JavaEE之Maven小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/JavaEE之修改用户练习小结/">JavaEE之修改用户练习小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/JavaEE之添加用户练习小结/">JavaEE之添加用户练习小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/JavaEE之删除用户练习小结/">JavaEE之删除用户练习小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
