@@ -62,15 +62,25 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-新文档80" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-JavaEE之MyBatis基础知识之下小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/27/新文档80/" class="article-date">
-  <time datetime="2019-07-27T09:42:36.305Z" itemprop="datePublished">2019-07-27</time>
+    <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/" class="article-date">
+  <time datetime="2019-07-24T09:58:56.000Z" itemprop="datePublished">2019-07-24</time>
 </a>
     
   </div>
   <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
+    </h1>
+  
+
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -133,14 +143,35 @@
 
 
 
-2. 动态SQL
-</code></pre>
+3. 动态SQL
+   3.1 概念：
+       * mybatis核心对SQL语句进行灵活操作，通过表达式进行判断，对SQL进行灵活拼接、组装
+   3.2 练习需求：
+       * 用户信息综合查询列表和用户信息列表总数这两个statement的定义使用动态SQL 
+            * 对查询条件进行判断，如果输入参数不为空，才进行查询条件的拼接
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">原sql:</span><br><span class="line"></span><br><span class="line">&lt;!--    &lt;select id=&quot;findUserList&quot; parameterType=&quot;cn.itcast.po.UserQueryVo&quot;--&gt;</span><br><span class="line">&lt;!--                              resultType=&quot;cn.itcast.po.UserCustom&quot;&gt;--&gt;</span><br><span class="line">&lt;!--        select * from user where user.sex= #&#123;userCustom.sex&#125; and user.username like &apos;%$&#123;userCustom.username&#125;%&apos;--&gt;</span><br><span class="line">&lt;!--    &lt;/select&gt;--&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">动态SQL：</span><br><span class="line"></span><br><span class="line">    &lt;select id=&quot;findUserCount&quot; parameterType=&quot;cn.itcast.po.UserQueryVo&quot;</span><br><span class="line">                               resultType=&quot;int&quot;&gt;</span><br><span class="line">         select count(*) from user</span><br><span class="line">        &lt;where&gt;</span><br><span class="line">            &lt;if test=&quot;userCustom!=null&quot;&gt;</span><br><span class="line">                &lt;if test=&quot;userCustom.sex!=null and userCustom.sex!=&apos;&apos;&quot;&gt;</span><br><span class="line">                    user.sex= #&#123;userCustom.sex&#125;</span><br><span class="line">                &lt;/if&gt;</span><br><span class="line">                &lt;if test=&quot;userCustom.username!=null and userCustom.username!=&apos;&apos;&quot;&gt;</span><br><span class="line">                    and user.username like &apos;%$&#123;userCustom.username&#125;%&apos;</span><br><span class="line">                &lt;/if&gt;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">        &lt;/where&gt;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>3.3 SQL片段：
+    * 练习需求：
+         * 将上边实现的SQL判断代码块抽取出来，组成一个SQL片段。其他的statement中就可以引用SQL片段。
+         * 方便程序员开发
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">sql片段</span><br><span class="line">    &lt;!--定义SQL片段--&gt;</span><br><span class="line">    &lt;!--id：SQL片段的唯一标识</span><br><span class="line">        使用include标签引用SQL片段的id,如果refid指定的id不在本map文件中，需要在前边加namespace</span><br><span class="line">        经验：是基于单表来定义SQL片段你，这样的话SQL片段的可重用性才高</span><br><span class="line">              在SQL片段中不要包括where--&gt;</span><br><span class="line">    &lt;sql id=&quot;query_user_where&quot;&gt;</span><br><span class="line">        &lt;if test=&quot;userCustom!=null&quot;&gt;</span><br><span class="line">            &lt;if test=&quot;userCustom.sex!=null and userCustom.sex!=&apos;&apos;&quot;&gt;</span><br><span class="line">                user.sex= #&#123;userCustom.sex&#125;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;userCustom.username!=null and userCustom.username!=&apos;&apos;&quot;&gt;</span><br><span class="line">                and user.username like &apos;%$&#123;userCustom.username&#125;%&apos;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">        &lt;/if&gt;</span><br><span class="line">    &lt;/sql&gt;</span><br><span class="line"></span><br><span class="line">引用</span><br><span class="line">           &lt;where&gt;</span><br><span class="line">                  &lt;include refid=&quot;query_user_where&quot;&gt;&lt;/include&gt;</span><br><span class="line">                  &lt;!--使用include标签引用SQL片段的id,如果refid指定的id不在本map文件中，需要在前边加namespace--&gt;</span><br><span class="line">                  &lt;!--在这里还要引用其他的SQL片段--&gt;</span><br><span class="line">           &lt;/where&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>3.4 foreach：
+  1. 向SQL传递数组或list，mybatis使用foreach解析
+  2. 练习需求
+     * 在用户查询列表和查询总数的statement中增加多个id输入查询
+     * SQL语句：
+         * SELECT * FROM USER WHERE id=1 OR id=10 OR id=16
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">UserMapper.xnl</span><br><span class="line"></span><br><span class="line">    &lt;sql id=&quot;query_user_where&quot;&gt;</span><br><span class="line">        &lt;if test=&quot;userCustom!=null&quot;&gt;</span><br><span class="line">            &lt;if test=&quot;userCustom.sex!=null and userCustom.sex!=&apos;&apos;&quot;&gt;</span><br><span class="line">                user.sex= #&#123;userCustom.sex&#125;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;userCustom.username!=null and userCustom.username!=&apos;&apos;&quot;&gt;</span><br><span class="line">                and user.username like &apos;%$&#123;userCustom.username&#125;%&apos;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;ids!=null&quot;&gt;</span><br><span class="line">                &lt;!--使用foreach遍历IDS</span><br><span class="line">                    collection：指定输入对象中集合属性</span><br><span class="line">                    item：每个遍历生成对象名</span><br><span class="line">                    open：开始遍历时拼接的字符串</span><br><span class="line">                    close：结束遍历时拼接的字符串</span><br><span class="line">                    separator：遍历两个对象中需要拼接的字符串--&gt;</span><br><span class="line">                &lt;!--使用实现下边的SQL拼接</span><br><span class="line">                    AND (id=1 OR id=10 OR id=16)--&gt;</span><br><span class="line">                &lt;foreach collection=&quot;ids&quot; item=&quot;user_id&quot; open=&quot;AND(&quot; close=&quot;)&quot; separator=&quot;OR&quot;&gt;</span><br><span class="line">                  &lt;!--每次遍历需要拼接的字符串--&gt;</span><br><span class="line">                  id = #&#123;user_id&#125;</span><br><span class="line">                &lt;/foreach&gt;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/if&gt;</span><br><span class="line">    &lt;/sql&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">测试类</span><br><span class="line"></span><br><span class="line">        //传入多个id</span><br><span class="line">        List&lt;Integer&gt; ids = new ArrayList&lt;Integer&gt;();</span><br><span class="line">        ids.add(1);</span><br><span class="line">        ids.add(10);</span><br><span class="line">        ids.add(16);</span><br><span class="line">        userQueryVo.setIds(ids);</span><br><span class="line">        userQueryVo.setUserCustom(userCustom);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UserMapper</span><br><span class="line"></span><br><span class="line">    //传入多个id</span><br><span class="line">    private List&lt;Integer&gt; ids;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/27/新文档80/" data-id="cjymkc0n80003u0tnuhmhtitz" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之下小结/" data-id="cjymo4qrf003nqctnf1nea6c8" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
     </footer>
   </div>
   
@@ -265,7 +296,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjymkc0nz0005u0tnt1ggit30" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjymnz4et0033qctng2uiikgy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -467,7 +498,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之上小结/" data-id="cjymkc0o20006u0tneqe07k76" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之上小结/" data-id="cjymnz4g6003jqctn0h0mh1gs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -506,7 +537,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjyigeqi0002k44tnvnipsafw" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjymnz4dq002iqctn3ubewpao" class="article-share-link">Share</a>
       
       
     </footer>
@@ -563,7 +594,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/新文档2/" data-id="cjymkc0n10001u0tnnw4rbchy" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/新文档2/" data-id="cjymnz4dt002kqctnd32go0ra" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -630,7 +661,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之框架的介绍小结/" data-id="cjymkc0mj0000u0tn7dfavfs0" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之框架的介绍小结/" data-id="cjymnz4cm001qqctn6twoydl9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -760,7 +791,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之Maven小结/" data-id="cjyigeqfb001444tne57lu9hp" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之Maven小结/" data-id="cjymnz4bo0012qctnrriw9ynx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -825,7 +856,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之修改用户练习小结/" data-id="cjyigeqg8001k44tnfhcte8o7" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之修改用户练习小结/" data-id="cjymnz4c8001gqctnp17ddql7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -883,7 +914,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之添加用户练习小结/" data-id="cjyigeqgh001q44tnu0bffaww" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之添加用户练习小结/" data-id="cjymnz4cd001kqctn6iym5lnp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -942,7 +973,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之删除用户练习小结/" data-id="cjyigeqge001o44tnppoe7acw" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之删除用户练习小结/" data-id="cjymnz4cj001oqctn75hn4yp3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1004,7 +1035,7 @@ sqlSession.close();
       <ul>
         
           <li>
-            <a href="/2019/07/27/新文档80/">(no title)</a>
+            <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
           </li>
         
           <li>
