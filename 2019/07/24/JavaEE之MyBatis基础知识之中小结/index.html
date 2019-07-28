@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaEE之MyBatis基础知识之中小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MyBatis1. 基础知识（重点，内容多）     对原生态jdbc程序（单独使用jdbc开发）问题总结√     mybatis框架原理（掌握）√     mybatis入门程序:√          用户的增删改查√     mybatis开发两种方法：          原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）          mybaits的mapper接口（">
+<meta name="keywords" content="javaEE_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE之MyBatis基础知识之中小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MyBatis1. 基础知识（重点，内容多）     对原生态jdbc程序（单独使用jdbc开发）问题总结√     mybatis框架原理（掌握）√     mybatis入门程序:√          用户的增删改查√     mybatis开发两种方法：          原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）          mybaits的mapper接口（">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-27T12:36:34.958Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaEE之MyBatis基础知识之中小结">
+<meta name="twitter:description" content="MyBatis1. 基础知识（重点，内容多）     对原生态jdbc程序（单独使用jdbc开发）问题总结√     mybatis框架原理（掌握）√     mybatis入门程序:√          用户的增删改查√     mybatis开发两种方法：          原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）          mybaits的mapper接口（">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaEE之MyBatis基础知识之中小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/24/JavaEE之MyBatis基础知识之中小结/" class="article-date">
+  <time datetime="2019-07-24T08:38:36.000Z" itemprop="datePublished">2019-07-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaEE之MyBatis基础知识之中小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><pre><code>1. 基础知识（重点，内容多）
+    对原生态jdbc程序（单独使用jdbc开发）问题总结√
+    mybatis框架原理（掌握）√
+    mybatis入门程序:√
+         用户的增删改查√
+    mybatis开发两种方法：
+         原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）
+         mybaits的mapper接口（相当于dao接口）代理开发方法（掌握）
+    mybatis配置文件SqlMapConfig.xml
+    mybatis核心：
+         mybatis输入映射（掌握）
+         mybatis输出映射（掌握）
+    mybatis的动态SQL（掌握）
+
+ 2. 高级知识
+    订单商品数据模型分析
+    高级结果集映射（一对一，一对多，多对多）
+    mybatis延迟加载
+    mybatis查询缓冲（一级缓冲、二级缓冲）
+    mybaits和spring进行整合（掌握）
+    mybatis逆向工程
+</code></pre><h3 id="一、基础知识"><a href="#一、基础知识" class="headerlink" title="一、基础知识"></a>一、基础知识</h3><pre><code>1. mybatis和hibernate本质区别和应用场景
+  1.1：hibernate：是一个标准的ORM框架（对象关系映射）。入门门槛较高的，不需要程序写SQL，SQL语句自动生成了。对SQL语句进行优化、修改比较困难的。
+       应用场景：适用于需求变化不多的中小型项目，比如：后台管理系统：erp、orm、oa...
+  1.2：mybatis：专注的是SQL本身，需要程序员自己编写SQL语句，SQL修改、优化比较方便。mybatis是一个不完全的orm框架，虽然程序员自己写SQL，mybatis也可以实现映射（输入映射、输出映射）
+       应用场景：使用于需求变化较多的项目，比如互联网项目
+2. SqlSession的作用范围
+  2.1：SqlSessionFactoryBuilder：
+         * 通过SqlSessionFactoryBuilder创建会话工厂SqlSessionFactoury
+         * 将SqlSessionFactoryBuilder当成一个工具类使用即可，不需要使用单例管理SqlSessionFactoryBuilder
+         * 在创建SqlSessionFactory时候，只需要new一此SqlSessionFactoryBuilder即可
+
+  2.2：SqlSessionFactory：
+         * 通过SqlSessionFactory创建SqlSessio
+         * 使用单例模式guanliSqlSessionFactory（工厂一旦创建，使用一个实例）
+         * 将来mybatis和spring整合后，使用单例模式管理SqlSessionFactory
+
+  2.3：SqlSession：
+         * SqlSession是一个面向用户（程序员）的接口
+         * SqlSession中提供了很多操作数据库的方法：如：selectOne(返回单个对象)、selectList(返回单个或多个对象)
+         * SqlSession是线程不安全的，在SqlSession实现类中除了有接口中的方法(操作数据库的方法)，还有数据域属性
+         * SqlSession最佳应用场合在方法体内，定义成局部变量使用，这样可以避免内部变量被读写的同时又被修改。
+
+3. 原始Dao开发方法（程序员需要写dao接口和dao实现类
+  3.1：思路：
+         * 程序员需要写dao接口和dao实现类
+         * 需要向dao实现类中注入SqlSessionFacctory，在方法体内通过SqlSessionFactory创建SqlSession
+
+  3.2：dao接口：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public interface UserDao &#123;</span><br><span class="line">    //1.根据id查询用户信息，得到一条记录结果</span><br><span class="line">    public User findUserById(int id) throws Exception;</span><br><span class="line">    //2.添加用户</span><br><span class="line">    public void insertUser(User user) throws Exception;</span><br><span class="line">    //3.删除用户</span><br><span class="line">    public void deleteUser(int id) throws Exception;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>3.3：dao实现类：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">//需要向dao实现类中注入SqlSessionFacctory，</span><br><span class="line">// 在方法体内通过SqlSessionFactory创建SqlSession</span><br><span class="line">public class UserDaoImpl implements UserDao &#123;</span><br><span class="line">    private SqlSessionFactory sqlSessionFactory;</span><br><span class="line">    //通过构造函数注入SqlSessionFacctory</span><br><span class="line">    public UserDaoImpl(SqlSessionFactory sqlSessionFactory) throws IOException &#123;</span><br><span class="line">        SqlSession sqlSession = null;</span><br><span class="line">        //mybatis配置文件</span><br><span class="line">        String resource = &quot;SqlMapConfig.xml&quot;;</span><br><span class="line">        //得到配置文件流</span><br><span class="line">        InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">        //创建会话工厂,传入mybatis的配置文件信息</span><br><span class="line">        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">        this.sqlSessionFactory = sqlSessionFactory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public User findUserById(int id) throws Exception &#123;</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        User user = sqlSession.selectOne(&quot;test.findUserById&quot;,1);</span><br><span class="line">        sqlSession.close();</span><br><span class="line">        return user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void insertUser(User user) throws Exception &#123;</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        sqlSession.insert(&quot;test.insertUser&quot;,user);</span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void deleteUser(int id) throws Exception &#123;</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        sqlSession.delete(&quot;test.deleteUser&quot;,id);</span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 原始dao开发问题
+  4.1：dao接口实现类方法中存在大量模版方法，摄像能否将这些代码提取出来，大大减轻程序员的工作量
+
+  4.2：调用sqlsession方法时将statement的id硬编码了
+
+  4.3：调用sqlsession方法时传入的变量，由于sqlsession方法使用泛型，即使变量类型传入错误，在编译阶段也不报错，不利于程序员开发
+
+5. mapper代理开发方法
+  5.1：思路：
+       * 程序员需要编写mapper.xml映射文件（如同前者原始的dao开发的user.xml不过多了开发规范）
+       * 程序员编写mapper接口(相当于dao接口)需要遵循一些开发规范，mabatis就可以自动生成mapper接口实现类代理对象。
+
+  5.2：开发规范：
+       * 在mapper.xml中namespace等于mapper接口地址
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;mapper namespace=&quot;cn.itcast.mapper.UserMapper&quot;&gt;</span><br><span class="line">``` </span><br><span class="line">            * mapper.java接口中的方法名和mapper.xml中的statement的id一致</span><br><span class="line">            * </span><br><span class="line">            * mapper.java接口中的方法输入参数类型和mapper.xml中的parameterType指定的类型一致</span><br><span class="line">            * </span><br><span class="line">            * mapper.java接口中的方法返回值类型和mapper.xml中的statement的resultType指定的类型一致</span><br></pre></td></tr></table></figure>
+<p>public User findUserById(int id) throws Exception;</p>
+<p><select id="findUserById" parametertype="int" resulttype="cn.itcast.po.User"><br>//1.方法名为findUserById<br>//1.statement的id为findUserById<br>mapper.java接口中的方法名和mapper.xml中的statement的id两者相等</select></p>
+<p>//2.输入参数类型为int<br>//2.paramenterType指定的类型为int<br>mapper.java接口中的方法输入参数类型和mapper.xml中的parameterType指定的类型两者相等</p>
+<p>//3.返回值类型为User<br>//3.resultType指定的类型为cn.itcast.po.User<br>mapper.java接口中的方法返回值类型和mapper.xml中的statement的resultType指定的类型两者相等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 以上的开发规范主要是对下面的代码进行统一生成：</span><br></pre></td></tr></table></figure></p>
+<p>sqlSession.insert(“test.updateUser”, user);<br>sqlSession.delete(“deleteUser”,40);<br>sqlSession.update(“test.updateUser”, user);<br>List<user> list = sqlSession.selectList(“test.findUserByName”, “小明”);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5.3：代码实现</span><br></pre></td></tr></table></figure></user></p>
+<p>SqlMapConfig.xml：<br>添加语句<br>    <mappers><br>        <mapper resource="User.xml"><br>      <strong><mapper resource="UserMapper.xml"></mapper></strong><br>    </mapper></mappers></p>
+<p>userMapper.xml：<br>与User.xml相比，改动地点为：<br>在mapper.xml中namespace等于mapper接口地址</p>
+<mapper namespace="cn.itcast.mapper.UserMapper">
+
+<p>UserMapper.java<br>相当于dao中的接口层<br>public interface UserMapper {<br>        //1.根据id查询用户信息，得到一条记录结果<br>        public User findUserById(int id) throws Exception;<br>        //2.添加用户<br>        public void insertUser(User user) throws Exception;<br>        //3.删除用户<br>        public void deleteUser(int id) throws Exception;<br>}</p>
+<p>测试类：<br>public class userMapperTest {<br>    @Test<br>    public void findUserById() throws Exception {<br>        //mybatis配置文件<br>        String resource = “SqlMapConfig.xml”;<br>        //得到配置文件流<br>        InputStream inputStream = Resources.getResourceAsStream(resource);<br>        //创建会话工厂,传入mybatis的配置文件信息<br>        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);<br>        SqlSession sqlSession = sqlSessionFactory.openSession();<br>        //创建UserMapper对象，mybatis自动生成mapper代理对象<br>        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);<br>        //调用userMapper的方法<br>        User user = userMapper.findUserById(1);<br>        System.out.println(user);<br>    }</p>
+<p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">    5.4：总结</span><br><span class="line">  	 1. selectOne和selectList：</span><br><span class="line">      动态代理对象调用sqlSession.selectOne()和sqlSession.selectList()是根据mapper接口方法的返回值决定，如果返回list则调用selectList方法，如果返回单个对象则调用selectOne方法。</span><br><span class="line"></span><br><span class="line">   2. namespace：</span><br><span class="line">      mybatis官方推荐使用mapper代理方法开发mapper接口，程序员不用编写mapper接口实现类，使用mapper代理方法时，输入参数可以使用pojo包装对象或map对象，保证dao的通用性。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   6. mybatis配置文件SqlMapConfig.xml</span><br><span class="line">       SqlMapConfig.xml中配置的内容和顺序如下：</span><br><span class="line">*properties（属性）</span><br><span class="line">*settings（全局配置参数）</span><br><span class="line">*typeAliases（类型别名）</span><br><span class="line">*typeHandlers（类型处理器）</span><br><span class="line">*objectFactory（对象工厂）</span><br><span class="line">*plugins（插件）</span><br><span class="line">*environments（环境集合属性对象）</span><br><span class="line">*environment（环境子属性对象）</span><br><span class="line">*transactionManager（事务管理）</span><br><span class="line">*dataSource（数据源）</span><br><span class="line">*mappers（映射器）</span><br><span class="line"></span><br><span class="line">     6.1 properties（属性）：</span><br><span class="line">          * 注意： MyBatis 将按照下面的顺序来加载属性：</span><br><span class="line">	 在 properties 元素体内定义的属性首先被读取。 </span><br><span class="line">	 然后会读取properties 元素中resource或 url 加载的属性，它会覆盖已读取的同名属性。 </span><br><span class="line">	 最后读取parameterType传递的属性，它会覆盖已读取的同名属性。</span><br><span class="line"></span><br><span class="line">          * 因此，通过parameterType传递的属性具有最高优先级，</span><br><span class="line">              resource或 url 加载的属性次之，</span><br><span class="line">              最低优先级的是 properties 元素体内定义的属性。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     6.2 settings（全局配置参数）：</span><br><span class="line">          * mybatis框架在运行时可以调整一些运行参数</span><br><span class="line">            比如：开启二级缓存，开启延迟加载。。</span><br><span class="line">          * 全局参数将会影响mybatis的运行行为</span><br><span class="line">          * 详情参考E:\BaiduNetdiskDownload\Mybatis资料\mybatis资料\mybatis\day01\res\mybatis学习资料\mybatis-settings.xlsx</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     6.3 typeAliases（类型别名）(*):</span><br><span class="line">          * mybatis默认的别名</span><br></pre></td></tr></table></figure>
+<p>别名    映射的类型<br>_byte     byte<br>_long     long<br>_short     short<br>_int     int<br>_integer     int<br>_double     double<br>_float     float<br>_boolean     boolean<br>string     String<br>byte     Byte<br>long     Long<br>short     Short<br>int     Integer<br>integer     Integer<br>double     Double<br>float     Float<br>boolean     Boolean<br>date     Date<br>decimal     BigDecimal<br>bigdecimal     BigDecimal<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* 自定义别名</span><br><span class="line">   1. 针对单个别名定义</span><br><span class="line">      type：类型的路径</span><br><span class="line">      alias:别名--&gt;</span><br></pre></td></tr></table></figure></p>
+<p><typealias type="cn.itcast.po.User" alias="user"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2. 批量别名定义(常用)</span><br><span class="line">   指定包名，mybatis自动扫描包中的po类</span><br><span class="line">   自动定义别名，别名就是类名（首字母大写或小写都可以）</span><br></pre></td></tr></table></figure></typealias></p>
+<p><package name="cn.itcast.po"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">        6.4 typeHandlers（类型处理器）:</span><br><span class="line">类型处理器用于java类型和jdbc类型映射，如下：</span><br></pre></td></tr></table></figure></package></p>
+<p><select id="findUserById" parametertype="int" resulttype="user"><br>        select * from user where id = #{id}<br></select><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mybatis自带的类型处理器基本上满足日常需求，不需要单独定义。</span><br><span class="line"></span><br><span class="line">mybatis支持类型处理器：</span><br></pre></td></tr></table></figure></p>
+<p>类型处理器                    Java类型                         JDBC类型<br>BooleanTypeHandler             Boolean，boolean         任何兼容的布尔值<br>ByteTypeHandler             Byte，byte                 任何兼容的数字或字节类型<br>ShortTypeHandler             Short，short             任何兼容的数字或短整型<br>IntegerTypeHandler             Integer，int             任何兼容的数字和整型<br>LongTypeHandler             Long，long                 任何兼容的数字或长整型<br>FloatTypeHandler             Float，float             任何兼容的数字或单精度浮点型<br>DoubleTypeHandler             Double，double             任何兼容的数字或双精度浮点型<br>BigDecimalTypeHandler         BigDecimal                 任何兼容的数字或十进制小数类型<br>StringTypeHandler             String                     CHAR和VARCHAR类型<br>ClobTypeHandler             String                     CLOB和LONGVARCHAR类型<br>NStringTypeHandler             String                     NVARCHAR和NCHAR类型<br>NClobTypeHandler             String                     NCLOB类型<br>ByteArrayTypeHandler         byte[]                     任何兼容的字节流类型<br>BlobTypeHandler             byte[]                     BLOB和LONGVARBINARY类型<br>DateTypeHandler             Date（java.util）        TIMESTAMP类型<br>DateOnlyTypeHandler         Date（java.util）        DATE类型<br>TimeOnlyTypeHandler         Date（java.util）        TIME类型<br>SqlTimestampTypeHandler     Timestamp（java.sql）    TIMESTAMP类型<br>SqlDateTypeHandler             Date（java.sql）            DATE类型<br>SqlTimeTypeHandler             Time（java.sql）            TIME类型<br>ObjectTypeHandler             任意                        其他或未指定类型<br>EnumTypeHandler             Enumeration类型            VARCHAR-任何兼容的字符串类型，作为代码存储（而不是索引）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">6.5 mappers（映射器）自动代理</span><br><span class="line">    1.单个加载mapper</span><br><span class="line">     通过mapper接口加载映射文件</span><br><span class="line">     需要将mapper接口类名和mapper.xml映射文件名称保持一致</span><br><span class="line">     且在一个目录中</span><br><span class="line">     上边规范的前提是：使用的是mapper代理的方法</span><br></pre></td></tr></table></figure></p>
+<p><mapper class="cn.itcast.mapper.UserMapper"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2.批量加载mapper</span><br><span class="line">  指定mapper接口的报名，mybatis自动扫描包下边所有mapper接口进行加载</span><br><span class="line">  需要将mapper接口类名和mapper.xml映射文件名称保持一致</span><br><span class="line">  且在一个目录中</span><br><span class="line">  上边规范的前提是：使用的是mapper代理的方法</span><br></pre></td></tr></table></figure></mapper></p>
+<p><package name="cn.itcast.mapper"><br><code>`</code><br>        6.6 mappers（映射器）自动代理的常用语句<br>6.6.1    <mapper resource=" "><br>使用相对于类路径的资源<br>如：<mapper resource="sqlmap/User.xml"></mapper></mapper></package></p>
+<p>6.6.2    <mapper url=" "><br>使用完全限定路径<br>如：<mapper url="file:///D:\workspace_spingmvc\mybatis_01\config\sqlmap\User.xml"></mapper></mapper></p>
+<p>6.6.3    <mapper class=" "><br>使用mapper接口类路径<br>如：<mapper class="cn.itcast.mybatis.mapper.UserMapper"></mapper></mapper></p>
+<p>注意：此种方法要求mapper接口名称和mapper映射文件名称相同，且放在同一个目录中。</p>
+<p>6.6.4    <package name><br>注册指定包下的所有mapper接口<br>如：<package name="cn.itcast.mybatis.mapper"><br>注意：此种方法要求mapper接口名称和mapper映射文件名称相同，且放在同一个目录中。</package></package></p>
+</mapper>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjymkc0nz0005u0tnt1ggit30" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/27/新文档80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/24/JavaEE之MyBatis基础知识之上小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaEE之MyBatis基础知识之上小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/27/新文档80/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/24/JavaEE之MyBatis基础知识之中小结/">JavaEE之MyBatis基础知识之中小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/24/JavaEE之MyBatis基础知识之上小结/">JavaEE之MyBatis基础知识之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/23/新文档/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/新文档2/">JavaEE之MyBatis小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

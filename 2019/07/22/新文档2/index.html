@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaEE之MyBatis小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MyBatis1. MyBatis简介：开源免费框架，原名叫iBatis，2010年在Googlecode，2013年迁移到github。  2. MyBatis概念：       1. mybatis是对jdbc的封装       2. 将SQL语句放在映射文件中（xml）       3. 自动将输入参数映射到SQL语句的动态参数上       4. 自动将SQL语句执行的结果映射成java对">
+<meta name="keywords" content="javaEE_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE之MyBatis小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/22/新文档2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MyBatis1. MyBatis简介：开源免费框架，原名叫iBatis，2010年在Googlecode，2013年迁移到github。  2. MyBatis概念：       1. mybatis是对jdbc的封装       2. 将SQL语句放在映射文件中（xml）       3. 自动将输入参数映射到SQL语句的动态参数上       4. 自动将SQL语句执行的结果映射成java对">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-26T03:48:13.077Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaEE之MyBatis小结">
+<meta name="twitter:description" content="MyBatis1. MyBatis简介：开源免费框架，原名叫iBatis，2010年在Googlecode，2013年迁移到github。  2. MyBatis概念：       1. mybatis是对jdbc的封装       2. 将SQL语句放在映射文件中（xml）       3. 自动将输入参数映射到SQL语句的动态参数上       4. 自动将SQL语句执行的结果映射成java对">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-新文档2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/22/新文档2/" class="article-date">
+  <time datetime="2019-07-22T11:42:57.000Z" itemprop="datePublished">2019-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaEE之MyBatis小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><pre><code>1. MyBatis简介：开源免费框架，原名叫iBatis，2010年在Googlecode，2013年迁移到github。
+
+2. MyBatis概念：
+      1. mybatis是对jdbc的封装
+      2. 将SQL语句放在映射文件中（xml）
+      3. 自动将输入参数映射到SQL语句的动态参数上
+      4. 自动将SQL语句执行的结果映射成java对象
+
+3. 步骤
+      1. 创建mybatis，java项目，maven
+
+      2. 导入jar包
+           * log4j
+           * mybatis
+           * mysql-connnec-java
+
+      3. 加入配置文件
+         （1）db.properties
+          (2) log4j.properties
+          (3) mybatis.xml
+          (4)
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/新文档2/" data-id="cjymkc0n10001u0tnnw4rbchy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/23/新文档/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/22/JavaEE之框架的介绍小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaEE之框架的介绍小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/27/新文档80/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/24/JavaEE之MyBatis基础知识之中小结/">JavaEE之MyBatis基础知识之中小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/24/JavaEE之MyBatis基础知识之上小结/">JavaEE之MyBatis基础知识之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/23/新文档/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/新文档2/">JavaEE之MyBatis小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
