@@ -62,6 +62,192 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之Servlit小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/16/JavaEE之Servlit小结/" class="article-date">
+  <time datetime="2019-07-16T03:13:38.000Z" itemprop="datePublished">2019-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/16/JavaEE之Servlit小结/">JavaEE之Servlit小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Servlet-server-applet"><a href="#Servlet-server-applet" class="headerlink" title="Servlet: server applet"></a>Servlet: server applet</h2><pre><code>* 一、概念：运行在服务器端的小程序
+    * Servlet就是一个接口，定义了Java类被浏览器访问到(tomcat)识别的规则。
+    * 将来我们自定义一个类，实现Servlet接口，复写方法
+
+
+* 二、快速入门：
+    1. 创建JavaEE项目
+    2. 定义一个类，实现Servlet接口
+    public class ServletDemo01 implements Servlet 
+    3. 实现接口中的抽象方法
+    4. 配置Serlet:在web.xml中配置
+        &lt;!--配置Servlet--&gt;
+        &lt;servlet&gt;
+           &lt;servlet-name&gt;demo01&lt;/servlet-name&gt;
+           &lt;servlet-class&gt;cn.itcast.web.servlet.ServletDemo01&lt;/servlet-class&gt;
+        &lt;/servlet&gt;
+        &lt;servlet-mapping&gt;
+           &lt;servlet-name&gt;demo01&lt;/servlet-name&gt;
+           &lt;url-pattern&gt;/demo01&lt;/url-pattern&gt;
+        &lt;/servlet-mapping&gt;
+
+
+ * 三、执行原理：
+     1.当服务器接受到客户端浏览器的请求后，会解析请求URL路径，获取访问的Servlet的资源路径
+     2.查找web.xml文件，是否有对应的&lt;url-pattern&gt;标签体内容。
+     3.如果有，则在找到对应的&lt;servlet-class&gt;全类名
+     4.Tomcat会将字节码文件加载进内存，并且创建其对象
+     5.调用其方法
+
+
+ * 四、Servlet中的生命周期：
+     1. 被创建：执行init方法，只执行一次
+         *Servlet什么时候被创建？
+            *默认情况下，第一次被访问时，Servlet被创建
+            *可以配置执行Servlet的创建时机。
+               *在&lt;servlet&gt;标签下配置
+                 1.第一次被访问时，创建
+                     *&lt;load-on-startup&gt;的值为负数
+                 2.在服务器启动时，创建
+                     *&lt;load-on-startup&gt;的值为0或者正整数
+         *Servlet的init方法，只执行一次，说明一个Servlet在内存中只存在一个对象，说明Servlet是单例的
+            *多个用户同时访问时，可能存在线程安全问题
+            *解决：尽量不要在Servlet中定义成员变量，即使定义了成员变量，也不要对其修改值(当有的线程在读取时，有的线程进行了修改，则会发生线程错误)；
+
+     2. 提供服务：执行service方法，执行多次
+         *每次访问Servlet时，Service方法都会被调用一次
+     3. 被销毁：执行destroy方法，只执行一次
+         *Servlet被销毁时执行。服务器关闭时，Servlet被销毁
+         *只有服务器正常关闭时，才会执行destroy方法 
+         *destroy方法在Servlet被销毁之前执行，一般用来释放资源
+
+
+  * 五、Servlet3.0：
+      *好处：
+           *支持注解配置，可以不需要web.xml了
+      *步骤：
+         1. 创建JavaEE项目，选择Servlet的版本3.0以上，可以不创建web.xml
+         2. 定义一个类，实现Servlet接口
+         3. 复写方法
+         4. 在类上使用@webServlet注解，进行配置
+             *@WebServlet(&quot;Demo01//资源路径&quot;)
+
+
+   * 六、Servlet的体系结构
+      Servlet -- 接口
+          |
+      GenericServlet -- 抽象类
+          |
+      HttpServlet -- 抽象类
+
+      *GenericServlet:将Servlet接口中其他的方法做了默认空实现，只将service（）方法作为抽象
+         *将来定义Servlet类时，可以继承GenericServlet，实现service()方法即可  
+
+      *HttpServlet:对http协议的一种封装，简化操作
+         1.定义类继承HTTPServlet
+         2.复写doGet/doPost方法
+</code></pre><h2 id="IDEA和Tomcat的配置"><a href="#IDEA和Tomcat的配置" class="headerlink" title="IDEA和Tomcat的配置"></a>IDEA和Tomcat的配置</h2><pre><code>1.IDEA会为每一个Tomcat部署的项目单独建立一份配置文件
+   *查看控制台的log：Using CATALINA_BASE:  &quot;C:\Users\fqy\.IntellijIdea2018.1\system.tomcat\_itcast&quot;
+2.工作空间项目 和 Tomcat部署的web项目
+   *Tomcat真正访问的是“Tomcat部署的web项目”，“Tomcat部署的web项目”对应着“工作空间项目”的web目录下的所有资源   
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjyntotpu001aswtniqwfgsvi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-IO之四大抽象类" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/10/IO之四大抽象类/" class="article-date">
+  <time datetime="2019-07-10T11:18:43.000Z" itemprop="datePublished">2019-07-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/10/IO之四大抽象类/">java_IO_四大抽象类小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="IO之四大抽象类"><a href="#IO之四大抽象类" class="headerlink" title="IO之四大抽象类"></a>IO之四大抽象类</h2><p>·InputStream</p>
+<pre><code>此抽象类是表示字节输入流的所有类的父类。InputSteam是一个抽象类，它不可以实例化。 数据的读取需要由它的子类来实现。根据节点的不同，它派生了不同的节点流子类 。
+
+继承自InputSteam的流都是用于向程序中输入数据，且数据的单位为字节(8 bit)。
+
+常用方法：
+
+int read()：读取一个字节的数据，并将字节的值作为int类型返回(0-255之间的一个值)。如果未读出字节则返回-1(返回值为-1表示读取结束)。
+
+void close()：关闭输入流对象，释放相关系统资源。
+</code></pre><p>· OutputStream</p>
+<pre><code>此抽象类是表示字节输出流的所有类的父类。输出流接收输出字节并将这些字节发送到某个目的地。
+
+常用方法：
+
+void write(int n)：向目的地中写入一个字节。
+
+void close()：关闭输出流对象，释放相关系统资源。
+</code></pre><p>· Reader</p>
+<pre><code>Reader用于读取的字符流抽象类，数据单位为字符。
+
+int read(): 读取一个字符的数据，并将字符的值作为int类型返回(0-65535之间的一个值，即Unicode值)。如果未读出字符则返回-1(返回值为-1表示读取结束)。
+
+void close() ： 关闭流对象，释放相关系统资源。
+</code></pre><p>· Writer</p>
+<pre><code>Writer用于写入的字符流抽象类，数据单位为字符。
+
+void write(int n)： 向输出流中写入一个字符。
+
+void close() ： 关闭输出流对象，释放相关系统资源。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjyntotnd0001swtnv4siyz0f" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-IO之流的体系与概念" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/10/IO之流的体系与概念/" class="article-date">
@@ -113,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjymp77360004zwtni8zve963" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjyntotnr0005swtnamikkrej" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -155,7 +341,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjymp772v0001zwtnl6sfdwjf" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjyntotn00000swtnf4r2rx33" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -203,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjymp77330003zwtnu1xerx6a" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjyntotnl0003swtntga76rug" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -243,7 +429,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjymp77980037zwtn2tsog80o" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjyntotsa002yswtn5bxcwmqa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -292,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjymp77900031zwtnhuyomqto" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjyntots2002sswtnim35rvcb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -339,48 +525,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjymp77950035zwtnd7yv10ks" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-集合之Set接口的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/09/集合之Set接口的常用方法与特点/" class="article-date">
-  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之Set接口的常用方法与特点/">java_集合_Set接口的常用方法与特点小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Set接口的常用方法与特点"><a href="#Set接口的常用方法与特点" class="headerlink" title="Set接口的常用方法与特点"></a>Set接口的常用方法与特点</h2><h3 id="1-Set的特点"><a href="#1-Set的特点" class="headerlink" title="1.Set的特点"></a>1.Set的特点</h3><p>Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。</p>
-<h3 id="2-Set的常用方法"><a href="#2-Set的常用方法" class="headerlink" title="2.Set的常用方法"></a>2.Set的常用方法</h3><p>Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。</p>
-<h3 id="3-Set的常用方法的使用"><a href="#3-Set的常用方法的使用" class="headerlink" title="3.Set的常用方法的使用"></a>3.Set的常用方法的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Set&lt;String&gt; s = new HashSet&lt;String&gt;();</span><br><span class="line">        s.add(&quot;hello&quot;);</span><br><span class="line">        s.add(&quot;world&quot;);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(&quot;hello&quot;); //相同的元素不会被加入</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[world, hello]</span><br><span class="line">[world, hello]</span><br><span class="line">[null, world, hello]</span><br><span class="line">[null, world, hello]</span><br></pre></td></tr></table></figure>
-<h3 id="TreeSet和Comparable接口的使用"><a href="#TreeSet和Comparable接口的使用" class="headerlink" title="TreeSet和Comparable接口的使用"></a>TreeSet和Comparable接口的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        User u1 = new User(1001, &quot;高淇&quot;, 18);</span><br><span class="line">        User u2 = new User(2001, &quot;高希希&quot;, 5);</span><br><span class="line">        Set&lt;User&gt; set = new TreeSet&lt;User&gt;();</span><br><span class="line">        set.add(u1);</span><br><span class="line">        set.add(u2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">class User implements Comparable&lt;User&gt; &#123;</span><br><span class="line">    int id;</span><br><span class="line">    String uname;</span><br><span class="line">    int age;</span><br><span class="line"> </span><br><span class="line">    public User(int id, String uname, int age) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">        this.uname = uname;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 返回0 表示 this == obj 返回正数表示 this &gt; obj 返回负数表示 this &lt; obj</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(User o) &#123;</span><br><span class="line">        if (this.id &gt; o.id) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125; else if (this.id &lt; o.id) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjymp779a0039zwtntxw90yd3" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjyntots4002uswtncnlqmowe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -423,7 +568,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjymp77920033zwtn9gnvm2d5" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjyntots7002wswtnny04ezgy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -435,10 +580,10 @@
 
 
   
-    <article id="post-集合之Collection接口" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-集合之Set接口的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/09/集合之Collection接口/" class="article-date">
-  <time datetime="2019-07-09T06:26:41.000Z" itemprop="datePublished">2019-07-09</time>
+    <a href="/2019/07/09/集合之Set接口的常用方法与特点/" class="article-date">
+  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
 </a>
     
   </div>
@@ -449,7 +594,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之Collection接口/">java_集合_Collection小结</a>
+      <a class="article-title" href="/2019/07/09/集合之Set接口的常用方法与特点/">java_集合_Set接口的常用方法与特点小结</a>
     </h1>
   
 
@@ -457,50 +602,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Collection接口中定义的方法"><a href="#Collection接口中定义的方法" class="headerlink" title="Collection接口中定义的方法"></a>Collection接口中定义的方法</h2><p><strong>boolean add(Object element)<br><br>添加元素到容器中<br><br>boolean remove(Object element)<br><br>从容器中移除元素<br><br>boolean contains(Object element)<br><br>容器中是否包含该元素<br><br>int size()<br><br>容器的元素数量<br><br>boolean isEmpty()<br><br>容器是否为空<br><br>void clear()<br><br>清空容器中的所有元素<br><br>Iterator iterator()<br><br>获得迭代器，遍历容器中的所有元素<br><br>boolean addAll(Collection c)<br><br>将C容器中的所有元素添加到容器<br><br>boolean containAll(Collection c)<br><br>本容器是有包含C容器中的所有元素<br><br>boolean removeAll(Collection c)<br><br>移除本容器中所有C容器中的元素<br><br>boolean retainAll(Collection c)<br><br>取本容器和C容器中都包含的元素，移除非交集元素<br><br>Object[] to Array()<br><br>转化成Object数组</strong><br></p>
-
+        <h2 id="Set接口的常用方法与特点"><a href="#Set接口的常用方法与特点" class="headerlink" title="Set接口的常用方法与特点"></a>Set接口的常用方法与特点</h2><h3 id="1-Set的特点"><a href="#1-Set的特点" class="headerlink" title="1.Set的特点"></a>1.Set的特点</h3><p>Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。</p>
+<h3 id="2-Set的常用方法"><a href="#2-Set的常用方法" class="headerlink" title="2.Set的常用方法"></a>2.Set的常用方法</h3><p>Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。</p>
+<h3 id="3-Set的常用方法的使用"><a href="#3-Set的常用方法的使用" class="headerlink" title="3.Set的常用方法的使用"></a>3.Set的常用方法的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Set&lt;String&gt; s = new HashSet&lt;String&gt;();</span><br><span class="line">        s.add(&quot;hello&quot;);</span><br><span class="line">        s.add(&quot;world&quot;);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(&quot;hello&quot;); //相同的元素不会被加入</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[world, hello]</span><br><span class="line">[world, hello]</span><br><span class="line">[null, world, hello]</span><br><span class="line">[null, world, hello]</span><br></pre></td></tr></table></figure>
+<h3 id="TreeSet和Comparable接口的使用"><a href="#TreeSet和Comparable接口的使用" class="headerlink" title="TreeSet和Comparable接口的使用"></a>TreeSet和Comparable接口的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        User u1 = new User(1001, &quot;高淇&quot;, 18);</span><br><span class="line">        User u2 = new User(2001, &quot;高希希&quot;, 5);</span><br><span class="line">        Set&lt;User&gt; set = new TreeSet&lt;User&gt;();</span><br><span class="line">        set.add(u1);</span><br><span class="line">        set.add(u2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">class User implements Comparable&lt;User&gt; &#123;</span><br><span class="line">    int id;</span><br><span class="line">    String uname;</span><br><span class="line">    int age;</span><br><span class="line"> </span><br><span class="line">    public User(int id, String uname, int age) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">        this.uname = uname;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 返回0 表示 this == obj 返回正数表示 this &gt; obj 返回负数表示 this &lt; obj</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(User o) &#123;</span><br><span class="line">        if (this.id &gt; o.id) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125; else if (this.id &lt; o.id) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjymp778v002yzwtnu506o6dj" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-图形用户接口之下小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/04/java-图形用户接口之下小结/" class="article-date">
-  <time datetime="2019-06-04T07:36:28.000Z" itemprop="datePublished">2019-06-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/04/java-图形用户接口之下小结/">java_图形用户接口之下小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjymp7783002ezwtn1z6y4q4y" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjyntotsd0030swtnh6i1nj8u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -562,7 +671,15 @@
       <ul>
         
           <li>
-            <a href="/2019/07/28/新文档80/">(no title)</a>
+            <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/">JavaEE之Spring快速入门之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
           </li>
         
           <li>
@@ -571,14 +688,6 @@
         
           <li>
             <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/JavaEE之MyBatis基础知识之中小结/">JavaEE之MyBatis基础知识之中小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/JavaEE之MyBatis基础知识之上小结/">JavaEE之MyBatis基础知识之上小结</a>
           </li>
         
       </ul>

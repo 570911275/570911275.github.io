@@ -62,15 +62,241 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-新文档80" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-JavaEE之Spring快速入门之上小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/28/新文档80/" class="article-date">
-  <time datetime="2019-07-28T08:25:08.893Z" itemprop="datePublished">2019-07-28</time>
+    <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/" class="article-date">
+  <time datetime="2019-07-26T01:57:41.000Z" itemprop="datePublished">2019-07-26</time>
 </a>
     
   </div>
   <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/26/JavaEE之Spring快速入门之上小结/">JavaEE之Spring快速入门之上小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h3 id="第一章————入门"><a href="#第一章————入门" class="headerlink" title="第一章————入门"></a>第一章————入门</h3><pre><code>1. 概念：
+   * Spring是一个非常活跃的开源框架
+   * 由Rod Johnson开发
+   * 帮助分离项目组件之间的依赖关系
+   * 它的主要目的是简化企业开发
+
+2. 核心概念：
+   1. IOC
+       * Inversion of Control
+       * 控制反转
+       * 对象创建以及对象之间的依赖关系的维护交给Spring
+   2. DI
+       * Dependency Injection
+       * 依赖注入
+       * 对象和对象之间的依赖关系的创建
+   3. AOP
+       * Aspect Oriented Programming
+       * 面向切面编程
+
+3. log4j日志
+       * 导入依赖
+       * *导入配置文件
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">配置文件：</span><br><span class="line"></span><br><span class="line">log4j.rootCategory=INFO, stdout</span><br><span class="line"></span><br><span class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern=%d&#123;ABSOLUTE&#125; %5p %t %c&#123;2&#125;:%L - %m%n</span><br><span class="line"></span><br><span class="line">log4j.category.org.springframework.beans.factory=DEBUG</span><br><span class="line"></span><br><span class="line">导入依赖</span><br><span class="line"></span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;log4j&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;log4j&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.2.17&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 入门程序的应用
+     1. 注解方式的使用
+          1. @Component
+              * 此注解的作用为通知spring容器，
+              * 我们应用程序的对象——此例子中为MessageService
+              * 未来将通过Spring容器进行创建；无需人工new创建
+          2. @ComponentScan
+              * 基于注解的方式来初始化Spring容器
+              * 主键扫描注解
+              * 即扫描一切有注解Component的类
+          3. @Autowired
+              * 表示调用MessagePrinter类时，将会自动调用此方法
+              * 即自动关联起MessagePrinter和MessageService的关系
+     2. xml文件配置方式的使用
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">   bean元素：描述当前的对象需要由spring容器管理</span><br><span class="line">   id属性：标识对象，未来在应用程序中可以根据id获取对象</span><br><span class="line">   class：被管理对象的类全名</span><br><span class="line"> --&gt;</span><br><span class="line">&lt;bean id=&quot;service&quot; class=&quot;hello.MessageService&quot;&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean id=&quot;printer&quot; class=&quot;hello.MessagePrinter&quot;&gt;</span><br><span class="line">    &lt;!--name属性的值：与MessagePrinter中的service属性对应</span><br><span class="line">        ref：表示name属性指向的对象；在此例中，此对象为id=service的bean对象--&gt;</span><br><span class="line">    &lt;property name=&quot;service&quot; ref=&quot;service&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="第二章————自动装配"><a href="#第二章————自动装配" class="headerlink" title="第二章————自动装配"></a>第二章————自动装配</h3><pre><code>1. bean对象的装配：
+    1. 依赖注入的概念：
+       * 通过Spring来管理对象和对象之间的依赖关系
+    2. java中的对象称为bean对象
+       * 把在java中创建bean对象和为这个对象注入依赖的过程称为装配bean或bean的装配
+
+2. 装配bean的三种方式
+     * 隐式的bean发现机制和自动装配
+     * 在java中进行显示的配置
+     * 在xml中进行显示的配置
+
+3. 自动装配中的注解：
+    1. 组件扫描：
+         * @Component：表示这个类需要在应用程序中被创建
+         * @ComponentScan：自动发现应用程序中创建的类
+    2. 自动装配：
+         * @Autowired：自动满足bean之间的依赖
+    3. 定义配置类：
+         * @Configuration：表示当前类是一个配置类
+         * 作用：
+             * 将ComponentScan注解与main主函数进行解耦
+             * 使得在不存在main主函数时，可以在其他环境(web、安卓、iOS)下进行组件扫描
+
+4. Junit4单元测试
+     1. 引入依赖
+           1. Maven：Junit、Spring-test
+           2. @RunWith(SpringJUnit4ClassRunner.class)
+              * 此注解为自动生成Spring的上下文环境
+     2. 加载配置类
+           1. @ContextConfiguration(classes=Appconfig.class)
+              * 读取配置文件
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">////此注解为自动生成Spring的上下文环境</span><br><span class="line">@ContextConfiguration(classes=Appconfig.class)</span><br><span class="line">////读取配置文件</span><br><span class="line">public class AppTest &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private CDPlayer player;</span><br><span class="line">    @Test</span><br><span class="line">    public void testPlay()&#123;</span><br><span class="line">        player.play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>5. AutoWriter的应用场景
+     1. 构造函数（*）
+          * 自动将构造函数中的参数装配到当前类的bean对象中
+          * *多个依赖的情况
+          * 效率最高
+     2. 用在成员变量上
+          * 最便捷
+     3. 用在setter方法上
+     4. 用在任意方法上
+     5. required属性
+       *  应用场景：
+          * @Autowired(required = false)[默认为true]
+          * 表示注入的对象是可选的
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">1. 构造方法</span><br><span class="line">    @Autowired</span><br><span class="line">    public CDPlayer(CompactDisc cd, Power power) &#123;</span><br><span class="line">        this.cd = cd;</span><br><span class="line">        this.power = power;</span><br><span class="line">        System.out.println(&quot;CDPlayer的多参数构造函数&quot;);</span><br><span class="line"></span><br><span class="line">2. 成员变量</span><br><span class="line">    //@Autowired</span><br><span class="line">    private CompactDisc cd;</span><br><span class="line">    //@Autowired</span><br><span class="line">    private Power power;</span><br><span class="line"></span><br><span class="line">3. setter方法</span><br><span class="line">    @Autowired</span><br><span class="line">    public void setCd(CompactDisc cd) &#123;</span><br><span class="line">        this.cd = cd;</span><br><span class="line">        System.out.println(&quot;CD&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Autowired</span><br><span class="line">    public void setPower(Power power) &#123;</span><br><span class="line">        this.power = power;</span><br><span class="line">        System.out.println(&quot;POWER&quot;);</span><br><span class="line"></span><br><span class="line">4. 任意方法</span><br><span class="line">    @Autowired</span><br><span class="line">    public void prepare(CompactDisc cd ,Power power)&#123;</span><br><span class="line">        this.cd = cd;</span><br><span class="line">        this.power = power;</span><br><span class="line">        System.out.println(&quot;prepare&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre><code>6. 使用接口
+    1. 应用场景：
+         * @Autowired(required = false)
+         * 表示注入的对象是可选的
+    2. 自动装配的歧义性
+         * 当接口下有多个实现类且都使用了@Component注解
+         * 所以当他们被扫描的时候能在Spring应用上下文里面的bean
+         * 这时进行自动装配，将会发生歧义性
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class UserServiceFestival implements UserService &#123;...&#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">public class UserServiceNormal implements UserService &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>3. 自动装配的歧义性的解决方案
+     1. 设置首选Bean(primary)
+         * 在声明类的时候使用@Primary
+         * 只能定义一个@Primary
+         * 缺点：如果我们不止一个primary那么编译器将报错。则首选就没有办法解决歧义性
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@Primary</span><br><span class="line">public class UserServiceNormal implements UserService &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>2. 使用限定符(Qualifier)
+    * 在声明的时候和装配的时候分别使用@Qualifier
+    * 通过在实现类标识注解Qualifier，可使得调用接口时，让Spring确认是需要是需要传输该接口下的哪一个Bean对象
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">实现类：</span><br><span class="line">@Component</span><br><span class="line">@Qualifier(&quot;festival&quot;)</span><br><span class="line">public class UserServiceFestival implements UserService &#123;...&#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">@Qualifier(&quot;normal&quot;)</span><br><span class="line">public class UserServiceNormal implements UserService &#123;...&#125;</span><br><span class="line"></span><br><span class="line">调用接口：</span><br><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@ContextConfiguration(classes = AppConfig.class)</span><br><span class="line">public class UserServiceTest &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    @Qualifier(&quot;festival&quot;)</span><br><span class="line">    private UserService userService;</span><br><span class="line">    @Test</span><br><span class="line">    public void testAdd()&#123;</span><br><span class="line">        userService.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>3. 使用类ID
+     * 在声明的的时候指定bean的id（默认的id是首写字母小写的类名）
+     * 在装配的时候使用@Qualifier
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">无默认时：</span><br><span class="line"></span><br><span class="line">实现类：</span><br><span class="line">@Component(&quot;festival&quot;)</span><br><span class="line">public class UserServiceFestival implements UserService &#123;...&#125;</span><br><span class="line">调用接口：</span><br><span class="line">public class UserServiceTest &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    @Qualifier(&quot;festival&quot;)</span><br><span class="line">    private UserService userService;</span><br><span class="line">    @Test</span><br><span class="line">    public void testAdd()&#123;</span><br><span class="line">        userService.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">默认时：</span><br><span class="line"></span><br><span class="line">实现类：</span><br><span class="line">@Component</span><br><span class="line">public class UserServiceFestival implements UserService &#123;...&#125;</span><br><span class="line">调用接口：</span><br><span class="line">public class UserServiceTest &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    @Qualifier(&quot;userServiceFestival&quot;)</span><br><span class="line">    private UserService userService;</span><br><span class="line">    @Test</span><br><span class="line">    public void testAdd()&#123;</span><br><span class="line">        userService.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 使用Java标准的解决方案(Resource)
+     * 此方法并非Spring中的标准
+     * 使用此方法可替代下边两个注解
+         * @Autowired
+         * @Qualifier
+     * 用法同类ID
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/*    @Autowired</span><br><span class="line"> @Qualifier(&quot;festival&quot;)*/</span><br><span class="line"> @Resource(name=&quot;userServiceFestival&quot;)</span><br><span class="line"> private UserService userService;</span><br></pre></td></tr></table></figure>
+<pre><code>7. 处理分层结构
+    1. web程序的基本架构：
+        浏览器——&gt;web层(controller)——&gt;业务层(service)——&gt;数据访问层(dao)——Data
+           * 其中业务层(service)、数据访问层(dao)皆细分为接口与实现类
+    2. 新的注解(Repository、service、controller)
+        * Repository——dao层
+        * service——service层
+        * controller——web层
+        * 这三个注解可替换掉@Component，更加明确的标注了此类是什么层次的类
+
+
+8. 设置组件扫描的基础包
+     1. 默认情况下@ComponentScan只可扫描其所在的包以及其子包下的类
+
+     2. 解决方案：
+         1. @ComponentScan(&quot;包名&quot;)
+            * @ComponentScan(&quot;com.qfedu.demo&quot;)
+              * 指定扫描的包名
+         2. @ComponentScan(basePackages = {&quot;包名&quot;,&quot;包名&quot;,&quot;包名&quot;}) 
+            * @ComponentScan(basePackages = {&quot;com.qfedu.demo.web&quot;,&quot;com.qfedu.demo.service&quot;,&quot;com.qfedu.demo.dao&quot;}) 
+              * 可指定多个扫描的包名
+         3. @ComponentScan(basePackagesClasses = {类名,类名,类名})
+            * @ComponentScan(basePackagesClasses = {UserController.class,UserService.class,UserDao.class})
+              * 可指定多个扫描的类名
+
+     3. 通过xml启用组件扫描
+         1. 配置applicationContext.xml文件(此文件的作用相当于注解@Configuration)
+              * @Configuration的作用：表示该文件为配置文件
+
+         2. 使用标签&lt;context:component-scan&gt;
+              * &lt;context:component-scan base-package=&quot;com.qfedu.demo&quot;/&gt;
+              * 此标签的作用相当于注解@ComponentScan(&quot;com.qfedu.demo&quot;)
+              * 规划了扫描范围
+
+         3. 使用时注解同样要发生变化
+              * @ContextConfiguration(&quot;classpath:applicationContext.xml&quot;)
+              * 代替了@ContextConfiguration(classes = AppConfig.class)
+              * 使得其配置文件从Appconfig.class变化为applicationContext。xml配置文件
+
+9. 小结
+   1. 定义配置：
+      * @Configuration
+      * ComponentScan
+
+   2. 定义组件
+      * @Component
+      * @Autowired
+      * @Autowired(required = false)
+
+   3. 自动装配歧义性
+      * @Primary
+      * @Qualifier
+      * @Resource
+
+   4. 分层架构中定义组件
+      * Controller
+      * Service
+
+   5. Spring测试环境
+      * RunWith
+      * ContextConfiguration
+
+   6. 使用xml启用组件扫描
+      * &lt;context:component-scan base-package=&quot;...&quot;&gt;
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/26/JavaEE之Spring快速入门之上小结/" data-id="cjypgztrq0002g4tnq4mop0fp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之MyBatis高级知识之下小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/" class="article-date">
+  <time datetime="2019-07-25T10:52:11.000Z" itemprop="datePublished">2019-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
+    </h1>
+  
+
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -95,13 +321,251 @@
     mybatis查询缓冲（一级缓冲、二级缓冲）
     mybaits和spring进行整合（掌握）
     mybatis逆向工程
+</code></pre><h3 id="一、高级知识"><a href="#一、高级知识" class="headerlink" title="一、高级知识"></a>一、高级知识</h3><h4 id="1-mybatis查询缓存（一级缓存、二级缓存）————mybatis整合ehcache："><a href="#1-mybatis查询缓存（一级缓存、二级缓存）————mybatis整合ehcache：" class="headerlink" title="1. mybatis查询缓存（一级缓存、二级缓存）————mybatis整合ehcache："></a>1. mybatis查询缓存（一级缓存、二级缓存）————mybatis整合ehcache：</h4><pre><code>1. ehcache:
+    * ehcache是一个分布式缓存框架
+
+2. 分布缓存：
+    * 我们系统为了提高系统并发，性能、一般对系统进行分布式部署（集群部署方式）
+    * 不使用分布缓存，缓存的数据在各各服务单独存储，不方便系统 开发。所以要使用分布式缓存对缓存数据进行集中管理。
+    * 对缓存数据进行集中管理（redis集群）使用分布式缓存框架
+       * 如：redis、memcached、ehcache。。。
+    * mybatis无法实现分布式缓存，因此需要和其它分布式缓存框架进行整合。
+
+3. 整合方法：
+    1. 引入缓存的依赖包
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.ehcache&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;ehcache&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.8.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.caches&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-ehcache&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.1.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>2. 引入缓存配置文件
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;ehcache xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:noNamespaceSchemaLocation=&quot;http://ehcache.org/ehcache.xsd&quot;&gt;</span><br><span class="line">    &lt;diskStore path=&quot;D:\ehcache&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 默认缓存配置 --&gt;</span><br><span class="line">    &lt;defaultCache</span><br><span class="line">            maxElementsInMemory=&quot;10000&quot;</span><br><span class="line">            eternal=&quot;false&quot;</span><br><span class="line">            timeToIdleSeconds=&quot;120&quot;</span><br><span class="line">            timeToLiveSeconds=&quot;120&quot;</span><br><span class="line">            overflowToDisk=&quot;true&quot;</span><br><span class="line">    /&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/ehcache&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>3. 引入xsd的url
+   * 打开settings-&gt;languages&amp;frameworks-&gt;schemas and dtds ,添加地址 http://ehcache.org/ehcache.xsd
+
+4. 开启ehcache缓存
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">修改mapper.xml文件，在cache中指定EhcacheCache。</span><br><span class="line">&lt;cache type=&quot;org.mybatis.caches.ehcache.EhcacheCache&quot;/&gt;</span><br><span class="line"></span><br><span class="line">根据需求调整缓存参数：</span><br><span class="line">&lt;cache type=&quot;org.mybatis.caches.ehcache.EhcacheCache&quot; &gt; </span><br><span class="line">        &lt;property name=&quot;timeToIdleSeconds&quot; value=&quot;3600&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;timeToLiveSeconds&quot; value=&quot;3600&quot;/&gt;</span><br><span class="line">        &lt;!-- 同ehcache参数maxElementsInMemory --&gt;</span><br><span class="line">		&lt;property name=&quot;maxEntriesLocalHeap&quot; value=&quot;1000&quot;/&gt;</span><br><span class="line">		&lt;!-- 同ehcache参数maxElementsOnDisk --&gt;</span><br><span class="line">        &lt;property name=&quot;maxEntriesLocalDisk&quot; value=&quot;10000000&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;memoryStoreEvictionPolicy&quot; value=&quot;LRU&quot;/&gt;</span><br><span class="line">    &lt;/cache&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-mybaits和spring进行整合（掌握）"><a href="#2-mybaits和spring进行整合（掌握）" class="headerlink" title="2. mybaits和spring进行整合（掌握）"></a>2. mybaits和spring进行整合（掌握）</h4><pre><code>1. 整合思路：
+    1. 需要spring通过单例方式管理SqlSessionFactory
+    2. spring和mybatis整合生成代理对象，使用SqlSessionFactory创建SqlSession。（Spring和mybatis整合自动完成）
+    3. 持久层的mapper都需要由spring进行管理
+
+2. 整合环境
+    1. 导入jar包
+        * mybatis
+        * spring
+        * mybatis_spring整合包
+        * 此处为了方便，直接导入mybatis、spring、springMVC的整合
+
+3. sqlSessionFactory
+     1. 在applicationContext.xml配置sqlSessionFactory和数据源
+     2. sqlSessionFactory在mybatis和spring的整合包下
+</code></pre><pre><code>&lt;!-- 加载db.properties文件 --&gt;
+&lt;context:property-placeholder location=&quot;classpath:db.properties&quot;/&gt;
+
+   &lt;!-- 配置数据库连接池 --&gt;
+   &lt;bean id=&quot;dataSource&quot; class=&quot;com.alibaba.druid.pool.DruidDataSource&quot;&gt;
+       &lt;property name=&quot;driverClassName&quot; value=&quot;${jdbc.driver}&quot;&gt;&lt;/property&gt;
+       &lt;property name=&quot;url&quot; value=&quot;${jdbc.url}&quot;&gt;&lt;/property&gt;
+       &lt;property name=&quot;username&quot; value=&quot;${jdbc.username}&quot;&gt;&lt;/property&gt;
+       &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot;&gt;&lt;/property&gt;
+   &lt;/bean&gt;
+
+   &lt;!--sqlSessionFactory--&gt;
+   &lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
+       &lt;!--加载mybatis的配置文件--&gt;
+       &lt;property name=&quot;configLocation&quot; value=&quot;SqlMapConfig.xml&quot;/&gt;
+       &lt;!--数据源--&gt;
+       &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+   &lt;/bean&gt;
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/28/新文档80/" data-id="cjymp7esl003nzwtn14hh84vn" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之下小结/" data-id="cjypgztr90000g4tnyps8ag7n" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之MyBatis高级知识之中小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/" class="article-date">
+  <time datetime="2019-07-25T06:06:16.000Z" itemprop="datePublished">2019-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><pre><code>1. 基础知识（重点，内容多）
+    对原生态jdbc程序（单独使用jdbc开发）问题总结
+    mybatis框架原理（掌握）
+    mybatis入门程序
+         用户的增删改查
+    mybatis开发两种方法：
+         原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）
+         mybaits的mapper接口（相当于dao接口）代理开发方法（掌握）
+    mybatis配置文件SqlMapConfig.xml
+    mybatis核心：
+         mybatis输入映射（掌握）
+         mybatis输出映射（掌握）
+    mybatis的动态SQL（掌握）
+
+ 2. 高级知识
+    订单商品数据模型分析
+    高级结果集映射（一对一，一对多，多对多）
+    mybatis延迟加载
+    mybatis查询缓冲（一级缓冲、二级缓冲）
+    mybaits和spring进行整合（掌握）
+    mybatis逆向工程
+</code></pre><h3 id="一、高级知识"><a href="#一、高级知识" class="headerlink" title="一、高级知识"></a>一、高级知识</h3><h4 id="1-mybatis延迟加载："><a href="#1-mybatis延迟加载：" class="headerlink" title="1. mybatis延迟加载："></a>1. mybatis延迟加载：</h4><pre><code>1. 概念：
+    * resultMap可以实现高级映射(使用association、collection实现一对一及一对多映射)，association、collection具备延迟加载功能。
+    * 需求：
+       * 如果查询订单并且关联查询用户信息。如果先查询订单信息即可满足要求，当我们需要查询用户信息时再查询用户信息。把对用户信息的按需去查询就是延迟加载
+    * 延迟加载：先从单表查询，需要时再从关联表去关联查询，大大提高数据库性能，因为查询单表要比关联表查询多张表速度要快
+
+2. 使用association实现延迟加载：
+  * 查询订单并且关联查询用户信息
+     1. mapper.xml
+       * 需要定义两个mapper的方法对呀的statement
+       1. 只查询订单信息
+       SELECT * FROM orders
+       在查询订单的statement中使用association去延迟加载（执行）下边的satatement关联查询用户信息
+       2. 关联查询用户信息
+           *通过上边查询到的订单信息中的user_id去关联查询用户信息
+
+ 2.1 定义延迟加载resultMap
+      **使用association中的select指定延迟加载去执行的statement的id**
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;cn.itcast.po.Orders&quot; id=&quot;OrderUserLazyLoadingResultMap&quot;&gt;</span><br><span class="line">     &lt;!--对订单信息进行映射配置--&gt;</span><br><span class="line">     &lt;id column=&quot;id&quot; property=&quot;id&quot;/&gt;</span><br><span class="line">     &lt;result column=&quot;user_id&quot; property=&quot;userId&quot;/&gt;</span><br><span class="line">     &lt;result column=&quot;createtime&quot; property=&quot;createtime&quot;/&gt;</span><br><span class="line">     &lt;result column=&quot;note&quot; property=&quot;note&quot;/&gt;</span><br><span class="line">     &lt;result column=&quot;number&quot; property=&quot;number&quot;/&gt;</span><br><span class="line">     &lt;!--对用户信息进行延迟加载--&gt;</span><br><span class="line">     &lt;!--select：指定延迟加载需要执行的statement的id（是根据user_id去查询用户信息的statement）</span><br><span class="line">         要使用userMapper.xml中findUserById完成根据用户id(user_id)用户信息的查询</span><br><span class="line">         如果findUserById不在本mapper中，前面需要加namespace</span><br><span class="line">         column：订单的信息中关联用户信息查询的列，是user_id</span><br><span class="line">         关联查询的SQL理解为：</span><br><span class="line">             SELECT orders.*,</span><br><span class="line">            (SELECT username FROM USER WHERE orders.`user_id`=user.`id`)username,</span><br><span class="line">            (SELECT sex FROM USER WHERE orders.`user_id`=user.`id`)sex</span><br><span class="line">             FROM orders--&gt;</span><br><span class="line">     &lt;association property=&quot;user&quot; javaType=&quot;cn.itcast.po.User&quot; select=&quot;cn.itcast.mapper.UserMapper.findUserById&quot; column=&quot;user_id&quot;&gt;</span><br><span class="line"></span><br><span class="line">     &lt;/association&gt;</span><br><span class="line"> &lt;/resultMap&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>2.2 mapper.xml
+  1. 只查询订单信息
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findOrderUserLazyLoading&quot; resultMap=&quot;OrderUserLazyLoadingResultMap&quot;&gt;</span><br><span class="line">    SELECT * FROM orders</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>2. 关联查询用户信息
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;cn.itcast.po.User&quot;&gt;</span><br><span class="line">      SELECT * FROM USER WHERE id=#&#123;id&#125;</span><br><span class="line"> &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>  3. 思路：
+      * 上边先去执行findOrdersUserLazyLoding,当需要去查询用户的时候再去执行findUserById，通过resultMap的定义将延迟加载配置起来
+
+2.3 mapper.java
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//查询订单关联用户信息，用户信息使用延迟加载</span><br><span class="line">public List&lt;Orders&gt; findOrderUserLazyLoading() throws Exception;</span><br></pre></td></tr></table></figure>
+<pre><code>2.4 测试思路：
+    1. 执行上边mapper方法(findOrdersUserLazyLoading)，内部去调用cn.itcast.mapper.OrdersMapperCustom中的findOrdersUserLazyLoading,只查询orders信息（单表）
+    2. 在程序汇总去遍历上一步查询出的List&lt;Orders&gt;，当我们调用Orders中的getUser方法时，开始进行延迟加载
+    3. 延迟加载，去调用UserMapper.xml中的findUserbyId这个方法获取用户信息
+
+2.5 延迟加载配置：
+    * mybatis默认没有开启延迟加载，需要在SqlMapConfig.xml中setting配置
+    *  设置项                      描述                           允许值          默认值
+  lazyLoadingEnabled        全局性设置懒加载。如果设为‘false’， true | false      false
+                            则所有相关联的都会被初始化加载。    
+
+  aggressiveLazyLoading        当设置为‘true’的时候，             true | false      true
+                            懒加载的对象可能被任何懒属性全部加载。
+                            否则，每个属性都按需加载。    
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--全局配置参数，需要时再设置--&gt;</span><br><span class="line">&lt;settings&gt;</span><br><span class="line">    &lt;!--打开延迟加载的开关--&gt;</span><br><span class="line">    &lt;setting name=&quot;lazyLoadingEnabled&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;setting name=&quot;aggressiveLazyLoading&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>2.5 测试类
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public void findOrderUserLazyLoading() throws Exception&#123;</span><br><span class="line">    //mybatis配置文件</span><br><span class="line">    String resource = &quot;SqlMapConfig.xml&quot;;</span><br><span class="line">    //得到配置文件流</span><br><span class="line">    InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">    //创建会话工厂,传入mybatis的配置文件信息</span><br><span class="line">    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">    SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">    //创建OrdersMapperCustom对象，mybatis自动生成OrderMapperCustom代理对象</span><br><span class="line">    OrdersMapperCustom ordersMapperCustom = sqlSession.getMapper(OrdersMapperCustom.class);</span><br><span class="line"></span><br><span class="line">    //查询订单信息（单表）</span><br><span class="line">    List&lt;Orders&gt;  list = ordersMapperCustom.findOrderUserLazyLoading();</span><br><span class="line">    //遍历上边的订单列表</span><br><span class="line">    for (Orders orders : list) &#123;</span><br><span class="line">        //执行getUser()去查询用户信息，这里实现按需加载</span><br><span class="line">         User user = orders.getUser();</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>2.6 延迟加载思考
+   * 不使用mybatis提供的association及collection中的延迟加载功能如何实现延迟加载？
+   * 实现方法：
+       * 定义两个mapper方法：
+          1. 查询订单列表
+          2. 根据用户id查询用户信息
+   * 实现思路：
+       * 先去查询第一个mapper方法，获取订单信息列表
+       * 在程序中（service），按需去调用第二个mapper方法去查询用户信息
+
+2.7 延迟加载总结
+   * 使用延迟加载方法，先去查询简单的SQL（最好单表，也可以关联查询），再去按需要加载关联查询的其他信息 
+</code></pre><h4 id="2-mybatis查询缓存（一级缓存、二级缓存）————一级缓存："><a href="#2-mybatis查询缓存（一级缓存、二级缓存）————一级缓存：" class="headerlink" title="2. mybatis查询缓存（一级缓存、二级缓存）————一级缓存："></a>2. mybatis查询缓存（一级缓存、二级缓存）————一级缓存：</h4><pre><code>1. 一级缓存和二级缓存的定义：
+     1. Mybatis一级缓存的作用域是同一个SqlSession，在同一个sqlSession中两次执行相同的sql语句，第一次执行完毕会将数据库中查询的数据写到缓存（内存），第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率。当一个sqlSession结束后该sqlSession中的一级缓存也就不存在了。Mybatis默认开启一级缓存。
+
+     2. Mybatis二级缓存是多个SqlSession共享的，其作用域是mapper的同一个namespace，不同的sqlSession两次执行相同namespace下的sql语句且向sql中传递参数也相同即最终执行相同的sql语句，第一次执行完毕会将数据库中查询的数据写到缓存（内存），第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率。Mybatis默认没有开启二级缓存需要在setting全局参数中配置开启二级缓存。
+
+2. 一级缓存的流程：
+     1. 第一次发起查询用户id为1的用户信息，先去找缓存中是否有id为1的用户信息，如果没有从数据库查询用户信息得到用户信息，将用户信息存储到一级缓存中
+     2. 如果SqlSession去执行commit操作（执行插入、更新、删除），情况SqlSession中的一级缓存，这样做的目的是让缓存中存储的是最      新的信息，避免脏读。
+     3. 第二次发起查询用户id为1的用户信息，先去找缓存中是否有id为1的用户信息，缓存汇总有，直接从缓存中获取用户信息 
+
+3. 一级缓存的测试：
+     * mybatis默认支持一级缓存，不需要在配置文件中去配置
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">	public void testCache1() throws Exception&#123;</span><br><span class="line">		SqlSession sqlSession = sqlSessionFactory.openSession();//创建代理对象</span><br><span class="line">		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">		</span><br><span class="line">		//下边查询使用一个SqlSession</span><br><span class="line">		//第一次发起请求，查询id为1的用户</span><br><span class="line">		User user1 = userMapper.findUserById(1);</span><br><span class="line">		System.out.println(user1);</span><br><span class="line">		</span><br><span class="line">//		如果sqlSession去执行commit操作（执行插入、更新、删除），清空SqlSession中的一级缓存，这样做的目的为了让缓存中存储的是最新的信息，避免脏读。</span><br><span class="line">		</span><br><span class="line">		//更新user1的信息</span><br><span class="line">		user1.setUsername(&quot;测试用户22&quot;);</span><br><span class="line">		userMapper.updateUser(user1);</span><br><span class="line">		//执行commit操作去清空缓存</span><br><span class="line">		sqlSession.commit();</span><br><span class="line">		</span><br><span class="line">		//第二次发起请求，查询id为1的用户</span><br><span class="line">		User user2 = userMapper.findUserById(1);</span><br><span class="line">		System.out.println(user2);</span><br><span class="line">		</span><br><span class="line">		sqlSession.close();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>3. 一级缓存的实际运用：
+   * 正式开放：是将mybatis和spring进行整合开发，事务控制在service中。
+   * 一个service方法中包括很多mapper方法调用
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">service&#123;</span><br><span class="line">    //开始执行时，开启事务，创建SqlSession对象</span><br><span class="line">    //第一次调用mapper的方法findUserById(1)</span><br><span class="line">  </span><br><span class="line">    //第二次调用mapper的方法findUserById(1)从一级缓存中取数据</span><br><span class="line">    //方法介绍，SqlSession关闭</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>* 如果是执行两次service调用查询相同的用户信息，不走一级缓存，因为session方法结束，sqlSession就关闭，一级缓存就清空  
+* 
+</code></pre><h4 id="1-mybatis查询缓存（一级缓存、二级缓存）————二级缓存："><a href="#1-mybatis查询缓存（一级缓存、二级缓存）————二级缓存：" class="headerlink" title="1. mybatis查询缓存（一级缓存、二级缓存）————二级缓存："></a>1. mybatis查询缓存（一级缓存、二级缓存）————二级缓存：</h4><pre><code>1. 一级缓存和二级缓存的定义：
+     1. Mybatis一级缓存的作用域是同一个SqlSession，在同一个sqlSession中两次执行相同的sql语句，第一次执行完毕会将数据库中查询的数据写到缓存（内存），第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率。当一个sqlSession结束后该sqlSession中的一级缓存也就不存在了。Mybatis默认开启一级缓存。
+
+     2. Mybatis二级缓存是多个SqlSession共享的，其作用域是mapper的同一个namespace，不同的sqlSession两次执行相同namespace下的sql语句且向sql中传递参数也相同即最终执行相同的sql语句，第一次执行完毕会将数据库中查询的数据写到缓存（内存），第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率。Mybatis默认没有开启二级缓存需要在setting全局参数中配置开启二级缓存。
+
+2. 二级缓存的流程：
+     1. 首先开启mybatis的二级缓存
+     2. sqlSession1去查询用户id为1的用户信息，查询到用户信息会将查询数据存储到二级缓存中
+     3. sqlSession2去查询用户id为1的用户信息，去缓存中找是否存在数据，如果存在直接从缓存中取出数据
+     4. 如果sqlSession3去执行相同mapper下的SQL，执行commit提交，清空该mapper下的二级缓存区域的数据
+     5. 二级缓存和一级缓存区别：二级缓存的范围更大，多个sqlSession可以共享mapper的一个二级缓存
+     * UserMapper有一个二级缓存区域(按namespace分)，其他mapper也有自己的二级缓存区域(按namespace分)
+     * 每一个namespace的mapper有一个二级缓存区域。即：两个mapper的namespace如果相同，这两个mapper执行SQL查询到的数据将存在相同的二级缓存区域中
+
+3. 二级缓存的开启
+     * mybatis的二级缓存是mapper范围级别，除了在SqlMapper.xml设置二级缓存的总开关，还要在具体的mapper.xml中开启二级缓存
+        * SqlMapper.xml中设置二级缓存的总开关
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--开启二级缓存--&gt;</span><br><span class="line">&lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>* 在UserMapper.xml中开启二级缓存，UserMapper.xml下的SQL执行完成会存储到它的缓存区域(HashMap)
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--开启本mapper的namespace下的二级缓存--&gt;</span><br><span class="line">&lt;cache/&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 调用pojo类实现序列化接口
+      * 为了将缓存数据取出执行反序列化操作，因为二级缓存数据存储介质多种多样，不一定在内存，可能在硬盘或者远程服务
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Serializable &#123;</span><br></pre></td></tr></table></figure>
+<pre><code>5. 二级缓存的测试方法
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// 二级缓存测试</span><br><span class="line">	@Test</span><br><span class="line">	public void testCache2() throws Exception &#123;</span><br><span class="line">		SqlSession sqlSession1 = sqlSessionFactory.openSession();</span><br><span class="line">		SqlSession sqlSession2 = sqlSessionFactory.openSession();</span><br><span class="line">		SqlSession sqlSession3 = sqlSessionFactory.openSession();</span><br><span class="line">		// 创建代理对象</span><br><span class="line">		UserMapper userMapper1 = sqlSession1.getMapper(UserMapper.class);</span><br><span class="line">		// 第一次发起请求，查询id为1的用户</span><br><span class="line">		User user1 = userMapper1.findUserById(1);</span><br><span class="line">		System.out.println(user1);</span><br><span class="line">		</span><br><span class="line">		//这里执行关闭操作，将sqlsession中的数据写到二级缓存区域</span><br><span class="line">		sqlSession1.close();</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		//使用sqlSession3执行commit()操作</span><br><span class="line">		UserMapper userMapper3 = sqlSession3.getMapper(UserMapper.class);</span><br><span class="line">		User user  = userMapper3.findUserById(1);</span><br><span class="line">		user.setUsername(&quot;张明明&quot;);</span><br><span class="line">		userMapper3.updateUser(user);</span><br><span class="line">		//执行提交，清空UserMapper下边的二级缓存</span><br><span class="line">		sqlSession3.commit();</span><br><span class="line">		sqlSession3.close();</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		UserMapper userMapper2 = sqlSession2.getMapper(UserMapper.class);</span><br><span class="line">		// 第二次发起请求，查询id为1的用户</span><br><span class="line">		User user2 = userMapper2.findUserById(1);</span><br><span class="line">		System.out.println(user2);</span><br><span class="line"></span><br><span class="line">		sqlSession2.close();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>6. 二级缓存的useCache配置
+    1. 在statement中设置useCache=false可以禁用当前select语句的二级缓存，即每次查询都会发出sql去查询，默认情况是true，即该sql使用二级缓存。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findOrderListResultMap&quot; resultMap=&quot;ordersUserMap&quot; useCache=&quot;false&quot;&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>    * 总结：针对每次查询都需要最新的数据sql，要设置成useCache=false，禁用二级缓存。
+
+7. 二级缓存的刷新缓存（就是清空缓存）
+    1. 在mapper的同一个namespace中，如果有其它insert、update、delete操作数据后需要刷新缓存，如果不执行刷新缓存会出现脏读。
+
+    2. 设置statement配置中的flushCache=&quot;true&quot; 属性，默认情况下为true即刷新缓存，如果改成false则不会刷新。使用缓存时如果手动修改数据库表中的查询数据会出现脏读。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如下：</span><br><span class="line">&lt;insert id=&quot;insertUser&quot; parameterType=&quot;cn.itcast.mybatis.po.User&quot; flushCache=&quot;true&quot;&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>   * 总结：一般下执行完commit操作都需要刷新缓存，flushCache=true表示刷新缓存，这样可以避免数据库脏读。
+
+8.    应用场景
+    1. 对于访问多的查询请求且用户对查询结果实时性要求不高，此时可采用mybatis二级缓存技术降低数据库访问量，提高访问速度，业务场景比如：耗时较高的统计分析sql、电话账单查询sql等。
+
+    2. 实现方法如下：通过设置刷新间隔时间，由mybatis每隔一段时间自动清空缓存，根据数据变化频率设置缓存刷新间隔flushInterval，比如设置为30分钟、60分钟、24小时等，根据需求而定。
+
+
+9.    局限性
+    1. mybatis二级缓存对细粒度的数据级别的缓存实现不好，
+    2. 比如如下需求：对商品信息进行缓存，由于商品信息查询访问量大，但是要求用户每次都能查询最新的商品信息，此时如果使用mybatis的二级缓存就无法实现当一个商品变化时只刷新该商品的缓存信息而不刷新其它商品的信息，
+    3. 因为mybaits的二级缓存区域以mapper为单位划分，当一个商品信息变化会将所有商品信息的缓存数据全部清空。解决此类问题需要在业务层根据需求对数据有针对性缓存。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之中小结/" data-id="cjypgztsx0004g4tn20j2j54z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
     </footer>
   </div>
   
@@ -431,7 +895,7 @@ public List&lt;User&gt; findUserAndItemsResultMap() throws Exception;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之上小结/" data-id="cjynsns5q000048tnr3oi7gta" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之上小结/" data-id="cjyntotu5003nswtnq3pnnw28" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -548,7 +1012,7 @@ public List&lt;User&gt; findUserAndItemsResultMap() throws Exception;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之下小结/" data-id="cjymp777b0020zwtnc3n6irxd" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之下小结/" data-id="cjyntotsx0033swtn75iudmzv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -677,7 +1141,7 @@ public List&lt;User&gt; findUserAndItemsResultMap() throws Exception;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjymp777g0022zwtnsh2ujvm5" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjyntott00034swtn46ju2v2c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -879,7 +1343,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之上小结/" data-id="cjymp779r003dzwtnceg86720" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之上小结/" data-id="cjyntotu3003lswtn8mwmdow2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -918,7 +1382,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjymp778s002wzwtn1v07a15k" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjyntotrt002mswtn6tpz34g9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -983,7 +1447,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之框架的介绍小结/" data-id="cjymp775w001mzwtnxmscuyvm" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之框架的介绍小结/" data-id="cjyntotqe001oswtn8u2z6ktu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1042,202 +1506,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/新文档2/" data-id="cjymp778x002zzwtny8sqfqqq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之Maven小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/22/JavaEE之Maven小结/" class="article-date">
-  <time datetime="2019-07-22T06:35:24.000Z" itemprop="datePublished">2019-07-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/22/JavaEE之Maven小结/">JavaEE之Maven小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><pre><code>1. 概念：
-     Maven是一个项目管理工具，它包含了一个项目对象模型（POM：project Object Model）,一组标准集合，一个项目生命周期，一个依赖管理系统，和用来运行定义在生命周期阶段中插件目标的逻辑
-
-2. 功能：
-     1. 依赖管理：maven工程对jar包的管理过程。
-     2. 一键构建：只需要一个命令，完成构建的整个过程
-            *构建：清理--&gt;编译--&gt;测试--&gt;报告--&gt;打包--&gt;部署
-     1. 帮助我们引用各种各样的jar包，无需我们手动引入工程目录。
-     2. 进行代码编译，使得计算机可以读懂我们的代码
-     3. 进行单元测验，进行bug的搜查，一个个的运行来检验代码质量
-     4. 整合资源、配置文件。定型打包。如果是web项目，还可以发布到服务器
-
-3. 优势：
-     1. 节约内存；比起传统的工程项目，在jar包方面进行了大的优化，使得内存大大减少 
-            * 传统：jar包在项目中
-            * Maven：jar包不在项目中，jar包在jar包仓库
-                 * jar包的坐标---&gt;使得项目可以在jar包仓库中找到对应的jar包
-
-4. 安装要点
-     1. 配置 MAVEN_HOME
-     2. 将 %MAVEN_HOME%/bin 加入环境变量 path
-     3. 添加%SystemRoot\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;进系统变量
-
-5. Maven中仓库的种类以及彼此的关系
-     1. 仓库的种类：
-            * 本地仓库
-            * 远程仓库【私服】
-            * 中央仓库
-     2. 彼此关系：
-            * 情况1：无远程仓库时：打开一个Maven工程，首先前往本地仓库寻找jar包。若无此jar包。
-                                 则前往中央仓库进行下载。倘若无法联网，将无法连接中央仓库，系统报错。
-
-            * 情况2：有远程仓库时：打开一个Maven工程，首先前往本地仓库寻找jar包。若无此jar包。
-                                 则前往远程仓库进行下载（此时要求，位于远程仓库所在的局域网之下）。
-                                 倘若远程仓库无此jar包，则前往中央仓库下载。
-
-            * 注：远程仓库内的jar包，部分来源于中央仓库，部分来源于内部人员上传
-
-
-6. Maven项目标准目录结构：
-       *  核心代码部分：src/main/java
-       *  配置文件部分：src/main/resource
-       *  测试代码部分：src/test/java
-       *  测试配置文件：src/test/resources
-       *  页面资源：js,css,图片等：src/main/webapp
-
-7. Maven常用命令
-       1. mvn clean：清理项目生产的临时文件,一般是模块下的target目录
-       2. mvn package：项目打包工具,会在模块下的target目录生成jar或war等文件
-       3. mvn test: 测试命令,或执行src/test/java/下junit的测试用例
-       4. mvn install:模块安装命令 将打包的的jar/war文件复制到你的本地仓库中,供其他模块使用 -Dmaven.test.skip=true 跳过测试(同时会跳过test compile)
-       5. mvn deploy:发布命令 将打包的文件发布到远程参考,提供其他人员进行下载依赖 ,一般是发布到公司的私服，这里我没配置私服，所以就不演示了
-
-8. Maven生命周期：
-       1. 构建过程：  清除     编译     测试     打包     安装     发布
-                    clean   compile    test   package  install  deploy
-
-       2. 清除：清理生命周期
-       3. 编译——&gt;发布：默认生命周期（使用较多）：当执行后续命令时，前面的命令会跟随执行一般
-       4. 站点生命周期：使用较少
-
-9. Maven概念模型图：
-      1. 依赖管理：项目对jar包的管理过程
-           1. 项目对象模型：
-                * 项目自身信息
-                * 项目运行所依赖的jar包信息————&gt;独立出来，称为依赖管理模型（全为jar包的坐标）
-                * 项目运性环境信息，比如：jdk，Tomcat信息
-
-           2. 依赖管理模型：
-              1. jar包的坐标
-                    * 公司组织的名称
-                    * 项目名
-                    * 版本号
-              2. 三个仓库
-
-      2.  一键构建：
-           1. 三个生命周期
-           2. 默认生命周期：
-                compile-&gt; test-&gt; package-&gt; install-&gt; deploy
-               *每一个构建项目的命令都对应了maven底层的一个插件
-
-10. 导入的包的依赖范围：
-      依赖范围     对于编译classpath有效     对于测试classpath有效      对于运行时classpath有效      例子
-      compile(默认)      Y                           Y                       Y                 spring-core
-
-      test               -                           Y                       -                 Junit    
-
-      provided           Y                           Y                       -                 servlet-api
-
-      runtime            -                           Y                       Y                 JDBC驱动
-
-      system             Y                           Y                       -          本地的，Maven仓库之外的类库
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之Maven小结/" data-id="cjymp774w0010zwtnf4y720hl" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之修改用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/21/JavaEE之修改用户练习小结/" class="article-date">
-  <time datetime="2019-07-21T10:14:43.000Z" itemprop="datePublished">2019-07-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/21/JavaEE之修改用户练习小结/">JavaEE之修改用户练习小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="修改用户练习"><a href="#修改用户练习" class="headerlink" title="修改用户练习"></a>修改用户练习</h3><ul>
-<li><p>思路：</p>
-<ol>
-<li>点击修改按钮（携带该用户的id）</li>
-<li>获取用户本身数据</li>
-<li>数据回显</li>
-<li>用户修改</li>
-<li>修改数据</li>
-<li>跳转回原界面</li>
-</ol>
-</li>
-<li><p>文件跳转：</p>
-<ol>
-<li>jsp获取用户选择修改用户id</li>
-<li>跳转至查找Servlet层，执行业务逻辑（找到该用户原先信息，进行回显）</li>
-<li>在Servlet中，将使用到Service</li>
-<li>在Service中，将使用到Dao</li>
-<li>最后执行完Dao后，再次执行修改Servlet</li>
-<li>获取用户输入新的数据</li>
-<li>剩余同上</li>
-</ol>
-</li>
-</ul>
-<h4 id="Servlet-回显Servlet"><a href="#Servlet-回显Servlet" class="headerlink" title="Servlet___回显Servlet"></a>Servlet___回显Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/findUserServlet&quot;)</span><br><span class="line">public class findUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.获取数据</span><br><span class="line">        String id = request.getParameter(&quot;id&quot;);</span><br><span class="line">        //2.调用Service方法</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        User user = service.findUserById(id);</span><br><span class="line">        //3.存储数据</span><br><span class="line">        request.setAttribute(&quot;findUser&quot;,user);</span><br><span class="line">        //4.转发到update.jsp</span><br><span class="line">        request.getRequestDispatcher(&quot;/update2.jsp&quot;).forward(request,response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Servlet-修改Servlet"><a href="#Servlet-修改Servlet" class="headerlink" title="Servlet___修改Servlet"></a>Servlet___修改Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/updateUserServlet&quot;)</span><br><span class="line">public class updateUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //设置编码</span><br><span class="line">        request.getRequestDispatcher(&quot;utf-8&quot;);</span><br><span class="line">        //获取数据</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //封装对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //调用Service语句更改信息</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.updateUser(user);</span><br><span class="line">        //跳转回UserListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">    public User findUserById(String id);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 更改数据</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">    public User findUserById(String id)&#123;</span><br><span class="line">        return dao.findUserById(Integer.parseInt(id));</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 更改用户</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user)&#123;</span><br><span class="line">        dao.updateUser(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">    public User findUserById(int id);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 更改用户</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">     public User findUserById(int id)&#123;</span><br><span class="line">         String sql = &quot;select * from user where id = ?&quot;;</span><br><span class="line">         User user = template.queryForObject(sql, new BeanPropertyRowMapper&lt;User&gt;(User.class), id);</span><br><span class="line">         return user;</span><br><span class="line">     &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 更改用户</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user)&#123;</span><br><span class="line">        String sql = &quot;update user set name=? ,gender=? ,age=? ,address=? ,qq=? ,email=? where id=?&quot;;</span><br><span class="line">        template.update(sql,user.getName(),user.getGender(),</span><br><span class="line">                user.getAge(),user.getAddress(),user.getQq(),</span><br><span class="line">                user.getEmail(),user.getId());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之修改用户练习小结/" data-id="cjymp775q001izwtnwij9d4ad" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/新文档2/" data-id="cjyntotrq002kswtnzf3h965e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1299,7 +1568,15 @@ sqlSession.close();
       <ul>
         
           <li>
-            <a href="/2019/07/28/新文档80/">(no title)</a>
+            <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/">JavaEE之Spring快速入门之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
           </li>
         
           <li>
@@ -1308,14 +1585,6 @@ sqlSession.close();
         
           <li>
             <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/JavaEE之MyBatis基础知识之中小结/">JavaEE之MyBatis基础知识之中小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/JavaEE之MyBatis基础知识之上小结/">JavaEE之MyBatis基础知识之上小结</a>
           </li>
         
       </ul>

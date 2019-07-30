@@ -62,6 +62,125 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-java-继承与多态小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/26/java-继承与多态小结/" class="article-date">
+  <time datetime="2019-05-26T11:00:07.000Z" itemprop="datePublished">2019-05-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/26/java-继承与多态小结/">java_继承与多态小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-继承的设计"><a href="#1-继承的设计" class="headerlink" title="1.继承的设计"></a>1.继承的设计</h2><p>1.找出Class中<strong>共有的部分</strong><br><br>2.提取出<strong>共有部分</strong>,并设计代表共同状态与行为的新的类<br><br>3.将原先的类以称为<strong>继承</strong>的关系连接到新的类上<br><br>//此时原先的类称为”<strong>子类</strong>“，新的类称为”<strong>父类</strong>“。<br><br>//子类会<strong>自动</strong>获得父类的<strong>功能</strong><br><br>4.决定子类是否需要让<strong>某些行为</strong>(也就是<strong>方法的实现</strong>)有特定的<strong>不同的</strong>运作方式<br><br>5.当子类与父类同一方法有所改变时，可进行<strong>覆盖</strong>。<strong>覆盖</strong>:由子类<strong>重新定义</strong>继承下来的方法以<strong>改变或延伸此方法的行为</strong>。<br><br>//此时<strong>调用对象引用的方法</strong>时,会调用到该对象类型<strong>最接近</strong>的方法<br><br>//(也就是先看本人有没有该方法，没有则找父亲有没有，再没有寻找他爷爷，逐级升高)</p>
+<hr>
+
+<h2 id="2-继承的运行方式"><a href="#2-继承的运行方式" class="headerlink" title="2.继承的运行方式"></a>2.继承的运行方式</h2><p>1.类的成员:实例变和方法<br><br>2.继承的关系意味着子类继承了父类的<strong>方法</strong><br><br>&nbsp;&nbsp;&nbsp;a.子类可以加入自己的<strong>实例变量和方法</strong>也可以覆盖掉来自父类的方法。<br><br>&nbsp;&nbsp;&nbsp;b.实例变量无法被覆盖的原因为:不需要。它们并没有定义特殊的行为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">父类:</span><br><span class="line">public class Doctor&#123;</span><br><span class="line">    boolean worksAtHospital;</span><br><span class="line">    void treatPatient()&#123;</span><br><span class="line">        //检查</span><br><span class="line">    &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">子类一:</span><br><span class="line">public class FamilyDoctor extends Doctor&#123;</span><br><span class="line">    boolean makesHouseCalls;</span><br><span class="line">    void giveAdvice();</span><br><span class="line">    //增加新的方法</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">子类二:</span><br><span class="line">public class Surgeon extends Doctor&#123;</span><br><span class="line">    void treatPaient() &#123;</span><br><span class="line">        //手术</span><br><span class="line">    &#125;;</span><br><span class="line">    //覆盖父类方法</span><br><span class="line">    </span><br><span class="line">    void makeIncision() &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="3-继承设计的判断"><a href="#3-继承设计的判断" class="headerlink" title="3.继承设计的判断"></a>3.继承设计的判断</h2><p>1.IS-A:通过IS-A来判断某物是否一个继承另一物<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">三角形是一个多边形    T</span><br><span class="line">黄丫丫是一个人类      T</span><br><span class="line">苹果是香蕉            F</span><br><span class="line">水是水杯              F</span><br></pre></td></tr></table></figure></p>
+<p>2.如果类X是继承类Y的,且类Y是继承类Z的,则X可以通过IS-A Z的测试。<br><br>//即继承具有传递性<br>3.<strong>继承概念下的IS-A是一个单向的概念</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;三角形是一个多边形这个是符合的<br><br>&nbsp;&nbsp;&nbsp;&nbsp;多边形是一个三角形这个是不符合的<br></p>
+<hr>
+
+<h2 id="4-继承的权限限制"><a href="#4-继承的权限限制" class="headerlink" title="4.继承的权限限制"></a>4.继承的权限限制</h2><p>父类可以通过存取权限觉得子类是否能够继承某些特定的成员<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以下4种权限:</span><br><span class="line">最限制  ————————&gt;  最公开</span><br><span class="line">private default protected public</span><br></pre></td></tr></table></figure></p>
+<p>其中<strong>public</strong> 类型的成员会被继承<br><br><strong>private</strong> 类型的成员不会被继承<br></p>
+<hr>
+
+<h2 id="5-继承的意义"><a href="#5-继承的意义" class="headerlink" title="5.继承的意义"></a>5.继承的意义</h2><p>1.避免了<strong>重复的程序代码</strong><br><br>2.定义了<strong>共同的协议</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;//共同协议:在父类中定义方法是,他们会被子类继承。这是在什么说所有继承的类都可以<br>执行这些方法，这里面也包括了<strong>方法的参数和返回类型</strong>。<br></p>
+<hr>
+
+<h2 id="6-多态与一般对象的区别"><a href="#6-多态与一般对象的区别" class="headerlink" title="6.多态与一般对象的区别"></a>6.多态与一般对象的区别</h2><p>1.一般的声明引用和创建对象的方法<br><br><code>Dog myDog = new Dog();</code><br><br>其中<strong>引用类型和对象类型必须相符</strong>,例子中两者都是Dog<br><br>2.多态下的声明引用和创建对象的方法<br><br><code>Animal myDog = new Dog();</code><br><br>其中<strong>多态下引用类型和对象类型可以不相符</strong>,例子中引用类型为Animal,对象类型为Dog。<br></p>
+<hr>
+
+<h2 id="7-多态的运用范围"><a href="#7-多态的运用范围" class="headerlink" title="7.多态的运用范围"></a>7.多态的运用范围</h2><p>1.运用多态时,引用类型可以是<strong>实际对象类的父类</strong>(即继承树上方的类可以引用下方的子类)<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Animal[] animals = new Animal[2];</span><br><span class="line"></span><br><span class="line">animals [0] = new Dog();</span><br><span class="line">animals [1] = new Cat();</span><br><span class="line">//可以用animal 引用任何Animal的子类对象</span><br><span class="line"></span><br><span class="line">for(int i=0; i&lt;animals.length; i++)&#123;</span><br><span class="line">    animals[i].eat();</span><br><span class="line">    //当i为0是会调用Dog的eat();</span><br><span class="line">    //当i为1是会调用Cat的eat();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.<strong>返回类型</strong>和<strong>参数</strong>也可以多态<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Vet&#123;</span><br><span class="line">    public void giveShot(Animal a)&#123;</span><br><span class="line">    //参数可以是任何一种Animal下面的子类的类型对象</span><br><span class="line">        a.makeNoise();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class PetOwner&#123;</span><br><span class="line">    public void start()&#123;</span><br><span class="line">        Vet v = new Vet();</span><br><span class="line">        Dog d = new Dog();</span><br><span class="line">        Hippo h = new Hippo();</span><br><span class="line">        v.giveShot(d);</span><br><span class="line">        //执行Dog的makeNoise方法</span><br><span class="line">        v.giveShot(h);</span><br><span class="line">        //执行Hippo的makeNoise方法</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="8-覆盖的规则与方法的重载"><a href="#8-覆盖的规则与方法的重载" class="headerlink" title="8.覆盖的规则与方法的重载"></a>8.覆盖的规则与方法的重载</h2><p>1.覆盖的规则<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>参数</strong>必须<strong>一样</strong>，且<strong>返回类型必须兼容</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;父类中的方法使用了哪种参数,覆盖此方法的子类也一定要<strong>使用相同的参数</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而无论父类中的方法声明的返回类型是什么,子类必须声明返回<strong>一样的类型</strong>或者<strong>该类型的子类</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>不能降低</strong>方法的<strong>存取权限</strong>(即权限必须相同,或者更加公开)<br><br><br><br>2.方法的重载<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.重载与多态毫无关系。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重载可以有<strong>同一方法</strong>的<strong>多个不同参数版本</strong>以方便调用。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重载只是刚好有<strong>相同名字的方法</strong>,它与多态和继承没有关系。<strong>重载的方法和覆盖的方法不一样</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.重载的返回类型可以不同<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以任意的<strong>改变</strong>重载方法的<strong>返回类型</strong>,只要所有的<strong>覆盖</strong>使用<strong>不同的参数</strong>即可。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;c.重载不能只改变返回类型<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果<strong>只有返回类型不同</strong>,<strong>参数是一样的</strong>。这样是无法通过编译的。重载的条件是<strong>使用不同的参数</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;d.重载可以<strong>更改存取权限</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/26/java-继承与多态小结/" data-id="cjyntotri002gswtn8fhcff0b" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-java-认识java的API之使用java函数库小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/25/java-认识java的API之使用java函数库小结/" class="article-date">
+  <time datetime="2019-05-25T14:39:01.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/25/java-认识java的API之使用java函数库小结/">java_认识java的API之使用java函数库小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-游戏bug修复方法"><a href="#1-游戏bug修复方法" class="headerlink" title="1.游戏bug修复方法"></a>1.游戏bug修复方法</h2><p>1.使用<strong>第二个数组</strong><br><br>&nbsp;&nbsp;&nbsp;每当玩家猜中某一格子时,就把相对的那一个设定为<strong>true</strong>,之后每次猜中都要在<strong>第二个数组</strong>中检查该格子之前是否已经猜中。<br>2.只改动<strong>原来的数组</strong><br><br>&nbsp;&nbsp;&nbsp;通过只改动原来的数组，任何被猜中的格子改为<strong>-1</strong>;这样则只需要维护一个数组。<br></p>
+<hr>
+
+<h2 id="2-ArrayList——数组不够用时"><a href="#2-ArrayList——数组不够用时" class="headerlink" title="2.ArrayList——数组不够用时"></a>2.ArrayList——数组不够用时</h2><p>1.ArrayList的用法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">add(Object elem)</span><br><span class="line">//向list中加入对象参数</span><br><span class="line"></span><br><span class="line">remove(int index)</span><br><span class="line">//在索引参数中移除对象</span><br><span class="line"></span><br><span class="line">remove(Object elem)</span><br><span class="line">//移除该对象</span><br><span class="line"></span><br><span class="line">contains(Object elem)</span><br><span class="line">//如果和对象参数匹配返回&quot;true&quot;</span><br><span class="line"></span><br><span class="line">isEmpty()</span><br><span class="line">//如果list中没有元素返回&quot;true&quot;</span><br><span class="line"></span><br><span class="line">indexOf(Object elem)</span><br><span class="line">//返回对象参数的索引或-1</span><br><span class="line"></span><br><span class="line">size()</span><br><span class="line">//返回list中元素的一个数</span><br><span class="line"></span><br><span class="line">get(int index)</span><br><span class="line">//返回当前索引参数的对象</span><br></pre></td></tr></table></figure></p>
+<p>2.ArrayList与一般数组的对比<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.一般数组在创建时必须确认大小<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于ArrayList来说，只需要创建出此类型的对象就可以了。会<strong>动态的在加入和删除元素时调整大小</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.一般数组在存放对象时必须指定位置<br><code>如: myList[1]=b;</code><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于ArrayList可以用<strong>add(Int, Object)</strong>或者<strong>add(Object)</strong>来进行<strong>自行管理大小</strong><br><code>myList.add(b);</code><br><br>&nbsp;&nbsp;&nbsp;&nbsp;c.一般数组使用特殊的语法<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于ArrayList来说，ArrayList是个<strong>普通对象</strong>,所以不会有特殊的语法<br><code>myList[1]; 其中&quot;[ ]&quot;方括号为只使用在数组上面的特殊语法</code><br><br>&nbsp;&nbsp;&nbsp;&nbsp;d.在java5.0中的ArrayList是参数化的<br><code>ArrayList&lt;String&gt; 其中&lt;String&gt;是类型参数。这代表String的集合。如同ArrayList&lt;Dog&gt;代表Dog的集合</code><br></p>
+<hr>
+
+<h2 id="3-使用ArrayList改编游戏"><a href="#3-使用ArrayList改编游戏" class="headerlink" title="3.使用ArrayList改编游戏"></a>3.使用ArrayList改编游戏</h2><p>1.改编内容<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>DotCom</strong>类<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;增加名称变量，用来保存DotCom的名字。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>DotComBust</strong>类(the game)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建出3个DotCom<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;指定DotCom的名称<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将DotCom放在方阵上<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>每次猜测都检查3个DotCom</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>击沉3个DotCom后才可以结束游戏</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;脱离main()<br></p>
+<p><strong>2.代码区</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>DotCom</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">public class DotCom&#123;</span><br><span class="line">    private ArrayList&lt;String&gt; locationCells;</span><br><span class="line">    private String name;</span><br><span class="line">    </span><br><span class="line">    public void setLocationCells(ArrayList&lt;String&gt; loc)&#123;</span><br><span class="line">        locationCells = loc;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setName(String n)&#123;</span><br><span class="line">        name = n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public String checkYourself(String userInput)&#123;</span><br><span class="line">    String result = &quot;miss&quot;;</span><br><span class="line">    int index = locationCells.indexOf(userInput);</span><br><span class="line">    if (index &gt;= 0)&#123;</span><br><span class="line">        locationCells.remove(index);</span><br><span class="line">        </span><br><span class="line">        if(locationCells.isEmpty())&#123;</span><br><span class="line">            result = &quot;kill&quot;;</span><br><span class="line">            System.out.println(&quot;Ouch! You sunk &quot;+ name +&quot; : (&quot; ) ;&#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            result = &quot;hit&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>DotComBust</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line">public class DotComBust&#123;</span><br><span class="line">    private GameHelper helper = new GameHelper();</span><br><span class="line">    private ArrayList&lt;DotCom&gt; dotComsList = new ArrayList&lt;DotCom&gt;();</span><br><span class="line">    private int numOfGuesses = 0;</span><br><span class="line">    </span><br><span class="line">    private void setUpGame()&#123;</span><br><span class="line">        Dotcom one = new DotCom();</span><br><span class="line">        one.setName(&quot;pets.com&quot;);</span><br><span class="line">        Dotcom two = new DotCom();</span><br><span class="line">        two.setName(&quot;eYoys.com&quot;);</span><br><span class="line">        Dotcom three = new DotCom();</span><br><span class="line">        three.setName(&quot;Go2.com&quot;);</span><br><span class="line">        //创建3个DotCom对象并赋值名称</span><br><span class="line">        dotComList.add(one);</span><br><span class="line">        dotComList.add(two);</span><br><span class="line">        dotComList.add(three);</span><br><span class="line">        //将其名称置入ArrayList中</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    System.out.println(&quot;Your goal is to sink three dot coms&quot;);</span><br><span class="line">    System.out.println(&quot;Petx.com,eToys.com,Go2.com&quot;);</span><br><span class="line">    System.out.println(&quot;Try to sink them all in the fewest number of guesses&quot;);</span><br><span class="line">    //此处做出简短的提示，告知玩家网站名称，并且输入位置进行击中网站</span><br><span class="line">    </span><br><span class="line">    for(DotCom dotComToSet : DotComsList)&#123;</span><br><span class="line">    //该for循环在&quot;java_编写程序之超强力方法小结&quot;中曾记录。</span><br><span class="line">    //对list中所有的DotCom重复赋值给dotComToSet中。</span><br><span class="line">        ArrayList&lt;string&gt; newLocation = helper.placeDotCom(3);</span><br><span class="line">        //要求DotCom的位置</span><br><span class="line">        </span><br><span class="line">        dotComToSet.setLocationCells(newLocation);</span><br><span class="line">        //调用set方法来指派刚刚取得的位置</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void startPlaying()&#123;</span><br><span class="line">        while(!dotComsList.isEmpty())&#123;</span><br><span class="line">        //判断DotCom的list是否为空，若为空则表示全部击沉</span><br><span class="line">            String userGuess = helper.getUserInput(&quot;Enter a guess&quot;);</span><br><span class="line">            //获取玩家输入值</span><br><span class="line">            checkUserGuess(userGuess);</span><br><span class="line">            //调用checkUserGuess方法，检查是否命中</span><br><span class="line">        &#125;</span><br><span class="line">        finishGame();</span><br><span class="line">        //调用finishGame方法，此时已经结束游戏，列出玩家最后成绩</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void checkUserGuess(String userGuess)&#123;</span><br><span class="line">        numOfGuesses++;</span><br><span class="line">        //递增玩家猜测次数的计数</span><br><span class="line">        </span><br><span class="line">        String result = &quot;miss&quot;;</span><br><span class="line">        //先设定命中状态为未命中</span><br><span class="line">        </span><br><span class="line">        for(DotCom dotComToTest : dotComsList)&#123;</span><br><span class="line">        //此处对list中所有的DotCom重复</span><br><span class="line">            result = dotComTest.checkYourself(userGuess);</span><br><span class="line">            //检查是否击沉或者击中</span><br><span class="line">            if(result.equals(&quot;hit&quot;))&#123;</span><br><span class="line">                break;</span><br><span class="line">                //在击中后跳出循环</span><br><span class="line">            &#125;</span><br><span class="line">            if(result.equals(&quot;kill&quot;))&#123;</span><br><span class="line">                dotComsList.remove(dotComToTest);</span><br><span class="line">                break;</span><br><span class="line">                //在击沉后跳出循环</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.oyut.println(result);</span><br><span class="line">        //列出结果</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void finishGame()&#123;</span><br><span class="line">        System.out.println(&quot;All Dot Coms are dead! Your stock is now worthless.&quot;);</span><br><span class="line">        if(numOfGuesses &lt;= 18)&#123;</span><br><span class="line">            System.out.println(&quot;It only took you &quot;+ numOfGuesses +&quot; guesses.&quot;);</span><br><span class="line">            Ststem.out.println(&quot;You got out before your options sank.&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            System.out.println(&quot;Took you long enough.&quot;+ numOfGuesses +&quot; giesses.&quot;);</span><br><span class="line">            System.out.println(&quot;Fish are dancing with hyour options&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        DotComBust game = new DotComBust();</span><br><span class="line">        game.setUpGame();</span><br><span class="line">        game.startPlaying();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;c.<strong>GameHelper</strong><br><br>//该代码块不好理解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">import java.io.;</span><br><span class="line">import java.util.;</span><br><span class="line"></span><br><span class="line">public class GameHelper&#123;</span><br><span class="line">    private static final String alphabet = &quot;abcdefg&quot;;</span><br><span class="line">    private int gridLength = 7;</span><br><span class="line">    private int gridSize   = 49;</span><br><span class="line">    private int [] grid    = new int[gridSize];</span><br><span class="line">    private int comCount = 0;</span><br><span class="line">    </span><br><span class="line">    public String getUserInput(String prompet)&#123;</span><br><span class="line">        String inputLine = null;</span><br><span class="line">        System.out.print(prompt + &quot; &quot;);</span><br><span class="line">        try&#123;</span><br><span class="line">            BufferedReader is = new BufferedReader(</span><br><span class="line">            new InputStreamReader(System.in);</span><br><span class="line">            InputLine = is.readLine();</span><br><span class="line">            if(inputLine.length() == 0) return null;)</span><br><span class="line">        &#125;</span><br><span class="line">        catch(IOException e)&#123;</span><br><span class="line">            System.out.println(&quot;IOException:&quot; + e);</span><br><span class="line">        &#125;</span><br><span class="line">        return inputLine.toLowerCase();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    publish ArrayList&lt;String&gt; placeDotCom(int comSize)&#123;</span><br><span class="line">        ArrayList&lt;Strubg&gt; alphaCells = new ArrayList&lt;String&gt;();</span><br><span class="line">        String [] alphacoords = new String [comSize];</span><br><span class="line">        String temp = null;</span><br><span class="line">        int [] coords = new int[comSize];</span><br><span class="line">        int attempts = 0;</span><br><span class="line">        boolean success = flase;</span><br><span class="line">        int location = 0;</span><br><span class="line">        </span><br><span class="line">        comCount++;</span><br><span class="line">        int incr = 1;</span><br><span class="line">        if((comCount %2) == 1)&#123;</span><br><span class="line">            incr = gridLength;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while(!syccess &amp; attempts++ &lt; 200)&#123;</span><br><span class="line">            location = (int) (Math.random() * gridSize);</span><br><span class="line">            int x = 0;</span><br><span class="line">            success = true;</span><br><span class="line">            while(success &amp;&amp; x &lt;comSize)&#123;</span><br><span class="line">                if(grid[location] == 0)&#123;</span><br><span class="line">                    coords[x++] = location;</span><br><span class="line">                    location += incr;</span><br><span class="line">                    if(location &gt;= gridSize)&#123;</span><br><span class="line">                        success = flase;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if(x&gt;0 &amp;&amp; (location % gridLength == 0))&#123;</span><br><span class="line">                        success = false;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                else &#123;</span><br><span class="line">                    syccess = flase;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        int x      = 0;</span><br><span class="line">        int row    = 0;</span><br><span class="line">        int column = 0;</span><br><span class="line">        </span><br><span class="line">        while(x &lt; comSize)&#123;</span><br><span class="line">            grid[coords[x]] == 1;</span><br><span class="line">            row = (int) (coords[x] / gridLength);</span><br><span class="line">            column = coords[x] % gridLength;</span><br><span class="line">            temp = String.valueOf(alphabet.charAt(column));</span><br><span class="line">            </span><br><span class="line">            alphaCells.add(temp.concat(Integer.toString(row)));</span><br><span class="line">            x++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return alphaCells;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="4-API的包"><a href="#4-API的包" class="headerlink" title="4.API的包"></a>4.API的包</h2><p>1.在java的API中，类是被包装在包里的。<br><br>2.<strong>使用API中的类，必须知道它被放在哪一个包里面。</strong><br><br>3.必须指明类的完整名称——两种方法指定<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>IMPORT</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;放一个import述句在源文件的最前面<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">public class Myclass&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>TYPE</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在程序代码中打出全名<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">声明的时候</span><br><span class="line">java.util.ArrayList&lt;Dog&gt; list = new java.util.ArrayList&lt;Dog&gt;;</span><br><span class="line"></span><br><span class="line">用在参数的时候</span><br><span class="line">publish void go(java.util.ArrayList&lt;Dog&gt; list)&#123;&#125;;</span><br><span class="line"></span><br><span class="line">作为返回类型的时候</span><br><span class="line">java.util.ArrayList&lt;Dog&gt; foo() &#123;...&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+
+<h2 id="5-查询API的方法"><a href="#5-查询API的方法" class="headerlink" title="5.查询API的方法"></a>5.查询API的方法</h2><p>1.查阅参考书<br>2.查阅<strong>HTML APL</strong>文档<br>&nbsp;&nbsp;&nbsp;&nbsp;登录java.sun.com进行查找</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/25/java-认识java的API之使用java函数库小结/" data-id="cjyntottk003hswtnba7zxgof" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java-编写程序之超强力方法小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/24/java-编写程序之超强力方法小结/" class="article-date">
@@ -100,7 +219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/24/java-编写程序之超强力方法小结/" data-id="cjymp778j002qzwtn1l6xbagk" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/24/java-编写程序之超强力方法小结/" data-id="cjyntotrn002iswtn7af9tc2l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -151,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjymp778b002kzwtn8zd0as2g" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/23/java-方法操作实例变量小结/" data-id="cjyntotra002aswtn7mnl027k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -192,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/Java-primitive主数据类型和引用小结/" data-id="cjymp77380005zwtn300erh3b" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/Java-primitive主数据类型和引用小结/" data-id="cjyntotno0004swtnj8ir9b2a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -244,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/PHP的orm搭建/" data-id="cjymp779u003fzwtn4vqkkwv1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/22/PHP的orm搭建/" data-id="cjyntottb003cswtnch6vjepv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -288,7 +407,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjymp777u002azwtnbp19vwih" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/21/PHP-MySQL-Nginx/" data-id="cjyntotqp001wswtnrp7mm1ib" class="article-share-link">Share</a>
       
       
     </footer>
@@ -333,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjymp777y002czwtnuxbpuvr3" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/17/hello-world/" data-id="cjyntotqt001yswtndkqcfkxj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -393,7 +512,15 @@
       <ul>
         
           <li>
-            <a href="/2019/07/28/新文档80/">(no title)</a>
+            <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/">JavaEE之Spring快速入门之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
           </li>
         
           <li>
@@ -402,14 +529,6 @@
         
           <li>
             <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/JavaEE之MyBatis基础知识之中小结/">JavaEE之MyBatis基础知识之中小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/JavaEE之MyBatis基础知识之上小结/">JavaEE之MyBatis基础知识之上小结</a>
           </li>
         
       </ul>

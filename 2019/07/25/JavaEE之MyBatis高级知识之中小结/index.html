@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaEE之MyBatis高级知识之中小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MyBatis1. 基础知识（重点，内容多）     对原生态jdbc程序（单独使用jdbc开发）问题总结     mybatis框架原理（掌握）     mybatis入门程序          用户的增删改查     mybatis开发两种方法：          原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）          mybaits的mapper接口（相当于da">
+<meta name="keywords" content="javaEE_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE之MyBatis高级知识之中小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之中小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MyBatis1. 基础知识（重点，内容多）     对原生态jdbc程序（单独使用jdbc开发）问题总结     mybatis框架原理（掌握）     mybatis入门程序          用户的增删改查     mybatis开发两种方法：          原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）          mybaits的mapper接口（相当于da">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-29T08:13:52.453Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaEE之MyBatis高级知识之中小结">
+<meta name="twitter:description" content="MyBatis1. 基础知识（重点，内容多）     对原生态jdbc程序（单独使用jdbc开发）问题总结     mybatis框架原理（掌握）     mybatis入门程序          用户的增删改查     mybatis开发两种方法：          原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）          mybaits的mapper接口（相当于da">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaEE之MyBatis高级知识之中小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/" class="article-date">
+  <time datetime="2019-07-25T06:06:16.000Z" itemprop="datePublished">2019-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaEE之MyBatis高级知识之中小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><pre><code>1. 基础知识（重点，内容多）
+    对原生态jdbc程序（单独使用jdbc开发）问题总结
+    mybatis框架原理（掌握）
+    mybatis入门程序
+         用户的增删改查
+    mybatis开发两种方法：
+         原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）
+         mybaits的mapper接口（相当于dao接口）代理开发方法（掌握）
+    mybatis配置文件SqlMapConfig.xml
+    mybatis核心：
+         mybatis输入映射（掌握）
+         mybatis输出映射（掌握）
+    mybatis的动态SQL（掌握）
+
+ 2. 高级知识
+    订单商品数据模型分析
+    高级结果集映射（一对一，一对多，多对多）
+    mybatis延迟加载
+    mybatis查询缓冲（一级缓冲、二级缓冲）
+    mybaits和spring进行整合（掌握）
+    mybatis逆向工程
+</code></pre><h3 id="一、高级知识"><a href="#一、高级知识" class="headerlink" title="一、高级知识"></a>一、高级知识</h3><h4 id="1-mybatis延迟加载："><a href="#1-mybatis延迟加载：" class="headerlink" title="1. mybatis延迟加载："></a>1. mybatis延迟加载：</h4><pre><code>1. 概念：
+    * resultMap可以实现高级映射(使用association、collection实现一对一及一对多映射)，association、collection具备延迟加载功能。
+    * 需求：
+       * 如果查询订单并且关联查询用户信息。如果先查询订单信息即可满足要求，当我们需要查询用户信息时再查询用户信息。把对用户信息的按需去查询就是延迟加载
+    * 延迟加载：先从单表查询，需要时再从关联表去关联查询，大大提高数据库性能，因为查询单表要比关联表查询多张表速度要快
+
+2. 使用association实现延迟加载：
+  * 查询订单并且关联查询用户信息
+     1. mapper.xml
+       * 需要定义两个mapper的方法对呀的statement
+       1. 只查询订单信息
+       SELECT * FROM orders
+       在查询订单的statement中使用association去延迟加载（执行）下边的satatement关联查询用户信息
+       2. 关联查询用户信息
+           *通过上边查询到的订单信息中的user_id去关联查询用户信息
+
+ 2.1 定义延迟加载resultMap
+      **使用association中的select指定延迟加载去执行的statement的id**
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;cn.itcast.po.Orders&quot; id=&quot;OrderUserLazyLoadingResultMap&quot;&gt;</span><br><span class="line">     &lt;!--对订单信息进行映射配置--&gt;</span><br><span class="line">     &lt;id column=&quot;id&quot; property=&quot;id&quot;/&gt;</span><br><span class="line">     &lt;result column=&quot;user_id&quot; property=&quot;userId&quot;/&gt;</span><br><span class="line">     &lt;result column=&quot;createtime&quot; property=&quot;createtime&quot;/&gt;</span><br><span class="line">     &lt;result column=&quot;note&quot; property=&quot;note&quot;/&gt;</span><br><span class="line">     &lt;result column=&quot;number&quot; property=&quot;number&quot;/&gt;</span><br><span class="line">     &lt;!--对用户信息进行延迟加载--&gt;</span><br><span class="line">     &lt;!--select：指定延迟加载需要执行的statement的id（是根据user_id去查询用户信息的statement）</span><br><span class="line">         要使用userMapper.xml中findUserById完成根据用户id(user_id)用户信息的查询</span><br><span class="line">         如果findUserById不在本mapper中，前面需要加namespace</span><br><span class="line">         column：订单的信息中关联用户信息查询的列，是user_id</span><br><span class="line">         关联查询的SQL理解为：</span><br><span class="line">             SELECT orders.*,</span><br><span class="line">            (SELECT username FROM USER WHERE orders.`user_id`=user.`id`)username,</span><br><span class="line">            (SELECT sex FROM USER WHERE orders.`user_id`=user.`id`)sex</span><br><span class="line">             FROM orders--&gt;</span><br><span class="line">     &lt;association property=&quot;user&quot; javaType=&quot;cn.itcast.po.User&quot; select=&quot;cn.itcast.mapper.UserMapper.findUserById&quot; column=&quot;user_id&quot;&gt;</span><br><span class="line"></span><br><span class="line">     &lt;/association&gt;</span><br><span class="line"> &lt;/resultMap&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>2.2 mapper.xml
+  1. 只查询订单信息
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findOrderUserLazyLoading&quot; resultMap=&quot;OrderUserLazyLoadingResultMap&quot;&gt;</span><br><span class="line">    SELECT * FROM orders</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>2. 关联查询用户信息
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findUserById&quot; parameterType=&quot;int&quot; resultType=&quot;cn.itcast.po.User&quot;&gt;</span><br><span class="line">      SELECT * FROM USER WHERE id=#&#123;id&#125;</span><br><span class="line"> &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>  3. 思路：
+      * 上边先去执行findOrdersUserLazyLoding,当需要去查询用户的时候再去执行findUserById，通过resultMap的定义将延迟加载配置起来
+
+2.3 mapper.java
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//查询订单关联用户信息，用户信息使用延迟加载</span><br><span class="line">public List&lt;Orders&gt; findOrderUserLazyLoading() throws Exception;</span><br></pre></td></tr></table></figure>
+<pre><code>2.4 测试思路：
+    1. 执行上边mapper方法(findOrdersUserLazyLoading)，内部去调用cn.itcast.mapper.OrdersMapperCustom中的findOrdersUserLazyLoading,只查询orders信息（单表）
+    2. 在程序汇总去遍历上一步查询出的List&lt;Orders&gt;，当我们调用Orders中的getUser方法时，开始进行延迟加载
+    3. 延迟加载，去调用UserMapper.xml中的findUserbyId这个方法获取用户信息
+
+2.5 延迟加载配置：
+    * mybatis默认没有开启延迟加载，需要在SqlMapConfig.xml中setting配置
+    *  设置项                      描述                           允许值          默认值
+  lazyLoadingEnabled        全局性设置懒加载。如果设为‘false’， true | false      false
+                            则所有相关联的都会被初始化加载。    
+
+  aggressiveLazyLoading        当设置为‘true’的时候，             true | false      true
+                            懒加载的对象可能被任何懒属性全部加载。
+                            否则，每个属性都按需加载。    
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--全局配置参数，需要时再设置--&gt;</span><br><span class="line">&lt;settings&gt;</span><br><span class="line">    &lt;!--打开延迟加载的开关--&gt;</span><br><span class="line">    &lt;setting name=&quot;lazyLoadingEnabled&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;setting name=&quot;aggressiveLazyLoading&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>2.5 测试类
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public void findOrderUserLazyLoading() throws Exception&#123;</span><br><span class="line">    //mybatis配置文件</span><br><span class="line">    String resource = &quot;SqlMapConfig.xml&quot;;</span><br><span class="line">    //得到配置文件流</span><br><span class="line">    InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">    //创建会话工厂,传入mybatis的配置文件信息</span><br><span class="line">    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">    SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">    //创建OrdersMapperCustom对象，mybatis自动生成OrderMapperCustom代理对象</span><br><span class="line">    OrdersMapperCustom ordersMapperCustom = sqlSession.getMapper(OrdersMapperCustom.class);</span><br><span class="line"></span><br><span class="line">    //查询订单信息（单表）</span><br><span class="line">    List&lt;Orders&gt;  list = ordersMapperCustom.findOrderUserLazyLoading();</span><br><span class="line">    //遍历上边的订单列表</span><br><span class="line">    for (Orders orders : list) &#123;</span><br><span class="line">        //执行getUser()去查询用户信息，这里实现按需加载</span><br><span class="line">         User user = orders.getUser();</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>2.6 延迟加载思考
+   * 不使用mybatis提供的association及collection中的延迟加载功能如何实现延迟加载？
+   * 实现方法：
+       * 定义两个mapper方法：
+          1. 查询订单列表
+          2. 根据用户id查询用户信息
+   * 实现思路：
+       * 先去查询第一个mapper方法，获取订单信息列表
+       * 在程序中（service），按需去调用第二个mapper方法去查询用户信息
+
+2.7 延迟加载总结
+   * 使用延迟加载方法，先去查询简单的SQL（最好单表，也可以关联查询），再去按需要加载关联查询的其他信息 
+</code></pre><h4 id="2-mybatis查询缓存（一级缓存、二级缓存）————一级缓存："><a href="#2-mybatis查询缓存（一级缓存、二级缓存）————一级缓存：" class="headerlink" title="2. mybatis查询缓存（一级缓存、二级缓存）————一级缓存："></a>2. mybatis查询缓存（一级缓存、二级缓存）————一级缓存：</h4><pre><code>1. 一级缓存和二级缓存的定义：
+     1. Mybatis一级缓存的作用域是同一个SqlSession，在同一个sqlSession中两次执行相同的sql语句，第一次执行完毕会将数据库中查询的数据写到缓存（内存），第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率。当一个sqlSession结束后该sqlSession中的一级缓存也就不存在了。Mybatis默认开启一级缓存。
+
+     2. Mybatis二级缓存是多个SqlSession共享的，其作用域是mapper的同一个namespace，不同的sqlSession两次执行相同namespace下的sql语句且向sql中传递参数也相同即最终执行相同的sql语句，第一次执行完毕会将数据库中查询的数据写到缓存（内存），第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率。Mybatis默认没有开启二级缓存需要在setting全局参数中配置开启二级缓存。
+
+2. 一级缓存的流程：
+     1. 第一次发起查询用户id为1的用户信息，先去找缓存中是否有id为1的用户信息，如果没有从数据库查询用户信息得到用户信息，将用户信息存储到一级缓存中
+     2. 如果SqlSession去执行commit操作（执行插入、更新、删除），情况SqlSession中的一级缓存，这样做的目的是让缓存中存储的是最      新的信息，避免脏读。
+     3. 第二次发起查询用户id为1的用户信息，先去找缓存中是否有id为1的用户信息，缓存汇总有，直接从缓存中获取用户信息 
+
+3. 一级缓存的测试：
+     * mybatis默认支持一级缓存，不需要在配置文件中去配置
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">	public void testCache1() throws Exception&#123;</span><br><span class="line">		SqlSession sqlSession = sqlSessionFactory.openSession();//创建代理对象</span><br><span class="line">		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">		</span><br><span class="line">		//下边查询使用一个SqlSession</span><br><span class="line">		//第一次发起请求，查询id为1的用户</span><br><span class="line">		User user1 = userMapper.findUserById(1);</span><br><span class="line">		System.out.println(user1);</span><br><span class="line">		</span><br><span class="line">//		如果sqlSession去执行commit操作（执行插入、更新、删除），清空SqlSession中的一级缓存，这样做的目的为了让缓存中存储的是最新的信息，避免脏读。</span><br><span class="line">		</span><br><span class="line">		//更新user1的信息</span><br><span class="line">		user1.setUsername(&quot;测试用户22&quot;);</span><br><span class="line">		userMapper.updateUser(user1);</span><br><span class="line">		//执行commit操作去清空缓存</span><br><span class="line">		sqlSession.commit();</span><br><span class="line">		</span><br><span class="line">		//第二次发起请求，查询id为1的用户</span><br><span class="line">		User user2 = userMapper.findUserById(1);</span><br><span class="line">		System.out.println(user2);</span><br><span class="line">		</span><br><span class="line">		sqlSession.close();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>3. 一级缓存的实际运用：
+   * 正式开放：是将mybatis和spring进行整合开发，事务控制在service中。
+   * 一个service方法中包括很多mapper方法调用
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">service&#123;</span><br><span class="line">    //开始执行时，开启事务，创建SqlSession对象</span><br><span class="line">    //第一次调用mapper的方法findUserById(1)</span><br><span class="line">  </span><br><span class="line">    //第二次调用mapper的方法findUserById(1)从一级缓存中取数据</span><br><span class="line">    //方法介绍，SqlSession关闭</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>* 如果是执行两次service调用查询相同的用户信息，不走一级缓存，因为session方法结束，sqlSession就关闭，一级缓存就清空  
+* 
+</code></pre><h4 id="1-mybatis查询缓存（一级缓存、二级缓存）————二级缓存："><a href="#1-mybatis查询缓存（一级缓存、二级缓存）————二级缓存：" class="headerlink" title="1. mybatis查询缓存（一级缓存、二级缓存）————二级缓存："></a>1. mybatis查询缓存（一级缓存、二级缓存）————二级缓存：</h4><pre><code>1. 一级缓存和二级缓存的定义：
+     1. Mybatis一级缓存的作用域是同一个SqlSession，在同一个sqlSession中两次执行相同的sql语句，第一次执行完毕会将数据库中查询的数据写到缓存（内存），第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率。当一个sqlSession结束后该sqlSession中的一级缓存也就不存在了。Mybatis默认开启一级缓存。
+
+     2. Mybatis二级缓存是多个SqlSession共享的，其作用域是mapper的同一个namespace，不同的sqlSession两次执行相同namespace下的sql语句且向sql中传递参数也相同即最终执行相同的sql语句，第一次执行完毕会将数据库中查询的数据写到缓存（内存），第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率。Mybatis默认没有开启二级缓存需要在setting全局参数中配置开启二级缓存。
+
+2. 二级缓存的流程：
+     1. 首先开启mybatis的二级缓存
+     2. sqlSession1去查询用户id为1的用户信息，查询到用户信息会将查询数据存储到二级缓存中
+     3. sqlSession2去查询用户id为1的用户信息，去缓存中找是否存在数据，如果存在直接从缓存中取出数据
+     4. 如果sqlSession3去执行相同mapper下的SQL，执行commit提交，清空该mapper下的二级缓存区域的数据
+     5. 二级缓存和一级缓存区别：二级缓存的范围更大，多个sqlSession可以共享mapper的一个二级缓存
+     * UserMapper有一个二级缓存区域(按namespace分)，其他mapper也有自己的二级缓存区域(按namespace分)
+     * 每一个namespace的mapper有一个二级缓存区域。即：两个mapper的namespace如果相同，这两个mapper执行SQL查询到的数据将存在相同的二级缓存区域中
+
+3. 二级缓存的开启
+     * mybatis的二级缓存是mapper范围级别，除了在SqlMapper.xml设置二级缓存的总开关，还要在具体的mapper.xml中开启二级缓存
+        * SqlMapper.xml中设置二级缓存的总开关
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--开启二级缓存--&gt;</span><br><span class="line">&lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>* 在UserMapper.xml中开启二级缓存，UserMapper.xml下的SQL执行完成会存储到它的缓存区域(HashMap)
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--开启本mapper的namespace下的二级缓存--&gt;</span><br><span class="line">&lt;cache/&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 调用pojo类实现序列化接口
+      * 为了将缓存数据取出执行反序列化操作，因为二级缓存数据存储介质多种多样，不一定在内存，可能在硬盘或者远程服务
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Serializable &#123;</span><br></pre></td></tr></table></figure>
+<pre><code>5. 二级缓存的测试方法
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// 二级缓存测试</span><br><span class="line">	@Test</span><br><span class="line">	public void testCache2() throws Exception &#123;</span><br><span class="line">		SqlSession sqlSession1 = sqlSessionFactory.openSession();</span><br><span class="line">		SqlSession sqlSession2 = sqlSessionFactory.openSession();</span><br><span class="line">		SqlSession sqlSession3 = sqlSessionFactory.openSession();</span><br><span class="line">		// 创建代理对象</span><br><span class="line">		UserMapper userMapper1 = sqlSession1.getMapper(UserMapper.class);</span><br><span class="line">		// 第一次发起请求，查询id为1的用户</span><br><span class="line">		User user1 = userMapper1.findUserById(1);</span><br><span class="line">		System.out.println(user1);</span><br><span class="line">		</span><br><span class="line">		//这里执行关闭操作，将sqlsession中的数据写到二级缓存区域</span><br><span class="line">		sqlSession1.close();</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		//使用sqlSession3执行commit()操作</span><br><span class="line">		UserMapper userMapper3 = sqlSession3.getMapper(UserMapper.class);</span><br><span class="line">		User user  = userMapper3.findUserById(1);</span><br><span class="line">		user.setUsername(&quot;张明明&quot;);</span><br><span class="line">		userMapper3.updateUser(user);</span><br><span class="line">		//执行提交，清空UserMapper下边的二级缓存</span><br><span class="line">		sqlSession3.commit();</span><br><span class="line">		sqlSession3.close();</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		UserMapper userMapper2 = sqlSession2.getMapper(UserMapper.class);</span><br><span class="line">		// 第二次发起请求，查询id为1的用户</span><br><span class="line">		User user2 = userMapper2.findUserById(1);</span><br><span class="line">		System.out.println(user2);</span><br><span class="line"></span><br><span class="line">		sqlSession2.close();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>6. 二级缓存的useCache配置
+    1. 在statement中设置useCache=false可以禁用当前select语句的二级缓存，即每次查询都会发出sql去查询，默认情况是true，即该sql使用二级缓存。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findOrderListResultMap&quot; resultMap=&quot;ordersUserMap&quot; useCache=&quot;false&quot;&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>    * 总结：针对每次查询都需要最新的数据sql，要设置成useCache=false，禁用二级缓存。
+
+7. 二级缓存的刷新缓存（就是清空缓存）
+    1. 在mapper的同一个namespace中，如果有其它insert、update、delete操作数据后需要刷新缓存，如果不执行刷新缓存会出现脏读。
+
+    2. 设置statement配置中的flushCache=&quot;true&quot; 属性，默认情况下为true即刷新缓存，如果改成false则不会刷新。使用缓存时如果手动修改数据库表中的查询数据会出现脏读。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如下：</span><br><span class="line">&lt;insert id=&quot;insertUser&quot; parameterType=&quot;cn.itcast.mybatis.po.User&quot; flushCache=&quot;true&quot;&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>   * 总结：一般下执行完commit操作都需要刷新缓存，flushCache=true表示刷新缓存，这样可以避免数据库脏读。
+
+8.    应用场景
+    1. 对于访问多的查询请求且用户对查询结果实时性要求不高，此时可采用mybatis二级缓存技术降低数据库访问量，提高访问速度，业务场景比如：耗时较高的统计分析sql、电话账单查询sql等。
+
+    2. 实现方法如下：通过设置刷新间隔时间，由mybatis每隔一段时间自动清空缓存，根据数据变化频率设置缓存刷新间隔flushInterval，比如设置为30分钟、60分钟、24小时等，根据需求而定。
+
+
+9.    局限性
+    1. mybatis二级缓存对细粒度的数据级别的缓存实现不好，
+    2. 比如如下需求：对商品信息进行缓存，由于商品信息查询访问量大，但是要求用户每次都能查询最新的商品信息，此时如果使用mybatis的二级缓存就无法实现当一个商品变化时只刷新该商品的缓存信息而不刷新其它商品的信息，
+    3. 因为mybaits的二级缓存区域以mapper为单位划分，当一个商品信息变化会将所有商品信息的缓存数据全部清空。解决此类问题需要在业务层根据需求对数据有针对性缓存。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之中小结/" data-id="cjypgztsx0004g4tn20j2j54z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaEE之MyBatis高级知识之下小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/25/JavaEE之MyBatis高级知识之上小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaEE之MyBatis高级知识之上小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/">JavaEE之Spring快速入门之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之上小结/">JavaEE之MyBatis高级知识之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

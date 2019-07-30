@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaEE之Spring快速入门之上小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Spring第一章————入门1. 概念：    * Spring是一个非常活跃的开源框架    * 由Rod Johnson开发    * 帮助分离项目组件之间的依赖关系    * 它的主要目的是简化企业开发  2. 核心概念：    1. IOC        * Inversion of Control        * 控制反转        * 对象创建以及对象之间的依赖关系的维护交给S">
+<meta name="keywords" content="javaEE_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE之Spring快速入门之上小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/26/JavaEE之Spring快速入门之上小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Spring第一章————入门1. 概念：    * Spring是一个非常活跃的开源框架    * 由Rod Johnson开发    * 帮助分离项目组件之间的依赖关系    * 它的主要目的是简化企业开发  2. 核心概念：    1. IOC        * Inversion of Control        * 控制反转        * 对象创建以及对象之间的依赖关系的维护交给S">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-30T06:57:07.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaEE之Spring快速入门之上小结">
+<meta name="twitter:description" content="Spring第一章————入门1. 概念：    * Spring是一个非常活跃的开源框架    * 由Rod Johnson开发    * 帮助分离项目组件之间的依赖关系    * 它的主要目的是简化企业开发  2. 核心概念：    1. IOC        * Inversion of Control        * 控制反转        * 对象创建以及对象之间的依赖关系的维护交给S">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaEE之Spring快速入门之上小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/" class="article-date">
+  <time datetime="2019-07-26T01:57:41.000Z" itemprop="datePublished">2019-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaEE之Spring快速入门之上小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h3 id="第一章————入门"><a href="#第一章————入门" class="headerlink" title="第一章————入门"></a>第一章————入门</h3><pre><code>1. 概念：
+   * Spring是一个非常活跃的开源框架
+   * 由Rod Johnson开发
+   * 帮助分离项目组件之间的依赖关系
+   * 它的主要目的是简化企业开发
+
+2. 核心概念：
+   1. IOC
+       * Inversion of Control
+       * 控制反转
+       * 对象创建以及对象之间的依赖关系的维护交给Spring
+   2. DI
+       * Dependency Injection
+       * 依赖注入
+       * 对象和对象之间的依赖关系的创建
+   3. AOP
+       * Aspect Oriented Programming
+       * 面向切面编程
+
+3. log4j日志
+       * 导入依赖
+       * *导入配置文件
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">配置文件：</span><br><span class="line"></span><br><span class="line">log4j.rootCategory=INFO, stdout</span><br><span class="line"></span><br><span class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern=%d&#123;ABSOLUTE&#125; %5p %t %c&#123;2&#125;:%L - %m%n</span><br><span class="line"></span><br><span class="line">log4j.category.org.springframework.beans.factory=DEBUG</span><br><span class="line"></span><br><span class="line">导入依赖</span><br><span class="line"></span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;log4j&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;log4j&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.2.17&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 入门程序的应用
+     1. 注解方式的使用
+          1. @Component
+              * 此注解的作用为通知spring容器，
+              * 我们应用程序的对象——此例子中为MessageService
+              * 未来将通过Spring容器进行创建；无需人工new创建
+          2. @ComponentScan
+              * 基于注解的方式来初始化Spring容器
+              * 主键扫描注解
+              * 即扫描一切有注解Component的类
+          3. @Autowired
+              * 表示调用MessagePrinter类时，将会自动调用此方法
+              * 即自动关联起MessagePrinter和MessageService的关系
+     2. xml文件配置方式的使用
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">   bean元素：描述当前的对象需要由spring容器管理</span><br><span class="line">   id属性：标识对象，未来在应用程序中可以根据id获取对象</span><br><span class="line">   class：被管理对象的类全名</span><br><span class="line"> --&gt;</span><br><span class="line">&lt;bean id=&quot;service&quot; class=&quot;hello.MessageService&quot;&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean id=&quot;printer&quot; class=&quot;hello.MessagePrinter&quot;&gt;</span><br><span class="line">    &lt;!--name属性的值：与MessagePrinter中的service属性对应</span><br><span class="line">        ref：表示name属性指向的对象；在此例中，此对象为id=service的bean对象--&gt;</span><br><span class="line">    &lt;property name=&quot;service&quot; ref=&quot;service&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="第二章————自动装配"><a href="#第二章————自动装配" class="headerlink" title="第二章————自动装配"></a>第二章————自动装配</h3><pre><code>1. bean对象的装配：
+    1. 依赖注入的概念：
+       * 通过Spring来管理对象和对象之间的依赖关系
+    2. java中的对象称为bean对象
+       * 把在java中创建bean对象和为这个对象注入依赖的过程称为装配bean或bean的装配
+
+2. 装配bean的三种方式
+     * 隐式的bean发现机制和自动装配
+     * 在java中进行显示的配置
+     * 在xml中进行显示的配置
+
+3. 自动装配中的注解：
+    1. 组件扫描：
+         * @Component：表示这个类需要在应用程序中被创建
+         * @ComponentScan：自动发现应用程序中创建的类
+    2. 自动装配：
+         * @Autowired：自动满足bean之间的依赖
+    3. 定义配置类：
+         * @Configuration：表示当前类是一个配置类
+         * 作用：
+             * 将ComponentScan注解与main主函数进行解耦
+             * 使得在不存在main主函数时，可以在其他环境(web、安卓、iOS)下进行组件扫描
+
+4. Junit4单元测试
+     1. 引入依赖
+           1. Maven：Junit、Spring-test
+           2. @RunWith(SpringJUnit4ClassRunner.class)
+              * 此注解为自动生成Spring的上下文环境
+     2. 加载配置类
+           1. @ContextConfiguration(classes=Appconfig.class)
+              * 读取配置文件
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">////此注解为自动生成Spring的上下文环境</span><br><span class="line">@ContextConfiguration(classes=Appconfig.class)</span><br><span class="line">////读取配置文件</span><br><span class="line">public class AppTest &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private CDPlayer player;</span><br><span class="line">    @Test</span><br><span class="line">    public void testPlay()&#123;</span><br><span class="line">        player.play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>5. AutoWriter的应用场景
+     1. 构造函数（*）
+          * 自动将构造函数中的参数装配到当前类的bean对象中
+          * *多个依赖的情况
+          * 效率最高
+     2. 用在成员变量上
+          * 最便捷
+     3. 用在setter方法上
+     4. 用在任意方法上
+     5. required属性
+       *  应用场景：
+          * @Autowired(required = false)[默认为true]
+          * 表示注入的对象是可选的
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">1. 构造方法</span><br><span class="line">    @Autowired</span><br><span class="line">    public CDPlayer(CompactDisc cd, Power power) &#123;</span><br><span class="line">        this.cd = cd;</span><br><span class="line">        this.power = power;</span><br><span class="line">        System.out.println(&quot;CDPlayer的多参数构造函数&quot;);</span><br><span class="line"></span><br><span class="line">2. 成员变量</span><br><span class="line">    //@Autowired</span><br><span class="line">    private CompactDisc cd;</span><br><span class="line">    //@Autowired</span><br><span class="line">    private Power power;</span><br><span class="line"></span><br><span class="line">3. setter方法</span><br><span class="line">    @Autowired</span><br><span class="line">    public void setCd(CompactDisc cd) &#123;</span><br><span class="line">        this.cd = cd;</span><br><span class="line">        System.out.println(&quot;CD&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Autowired</span><br><span class="line">    public void setPower(Power power) &#123;</span><br><span class="line">        this.power = power;</span><br><span class="line">        System.out.println(&quot;POWER&quot;);</span><br><span class="line"></span><br><span class="line">4. 任意方法</span><br><span class="line">    @Autowired</span><br><span class="line">    public void prepare(CompactDisc cd ,Power power)&#123;</span><br><span class="line">        this.cd = cd;</span><br><span class="line">        this.power = power;</span><br><span class="line">        System.out.println(&quot;prepare&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre><code>6. 使用接口
+    1. 应用场景：
+         * @Autowired(required = false)
+         * 表示注入的对象是可选的
+    2. 自动装配的歧义性
+         * 当接口下有多个实现类且都使用了@Component注解
+         * 所以当他们被扫描的时候能在Spring应用上下文里面的bean
+         * 这时进行自动装配，将会发生歧义性
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class UserServiceFestival implements UserService &#123;...&#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">public class UserServiceNormal implements UserService &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>3. 自动装配的歧义性的解决方案
+     1. 设置首选Bean(primary)
+         * 在声明类的时候使用@Primary
+         * 只能定义一个@Primary
+         * 缺点：如果我们不止一个primary那么编译器将报错。则首选就没有办法解决歧义性
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@Primary</span><br><span class="line">public class UserServiceNormal implements UserService &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>2. 使用限定符(Qualifier)
+    * 在声明的时候和装配的时候分别使用@Qualifier
+    * 通过在实现类标识注解Qualifier，可使得调用接口时，让Spring确认是需要是需要传输该接口下的哪一个Bean对象
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">实现类：</span><br><span class="line">@Component</span><br><span class="line">@Qualifier(&quot;festival&quot;)</span><br><span class="line">public class UserServiceFestival implements UserService &#123;...&#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">@Qualifier(&quot;normal&quot;)</span><br><span class="line">public class UserServiceNormal implements UserService &#123;...&#125;</span><br><span class="line"></span><br><span class="line">调用接口：</span><br><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@ContextConfiguration(classes = AppConfig.class)</span><br><span class="line">public class UserServiceTest &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    @Qualifier(&quot;festival&quot;)</span><br><span class="line">    private UserService userService;</span><br><span class="line">    @Test</span><br><span class="line">    public void testAdd()&#123;</span><br><span class="line">        userService.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>3. 使用类ID
+     * 在声明的的时候指定bean的id（默认的id是首写字母小写的类名）
+     * 在装配的时候使用@Qualifier
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">无默认时：</span><br><span class="line"></span><br><span class="line">实现类：</span><br><span class="line">@Component(&quot;festival&quot;)</span><br><span class="line">public class UserServiceFestival implements UserService &#123;...&#125;</span><br><span class="line">调用接口：</span><br><span class="line">public class UserServiceTest &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    @Qualifier(&quot;festival&quot;)</span><br><span class="line">    private UserService userService;</span><br><span class="line">    @Test</span><br><span class="line">    public void testAdd()&#123;</span><br><span class="line">        userService.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">默认时：</span><br><span class="line"></span><br><span class="line">实现类：</span><br><span class="line">@Component</span><br><span class="line">public class UserServiceFestival implements UserService &#123;...&#125;</span><br><span class="line">调用接口：</span><br><span class="line">public class UserServiceTest &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    @Qualifier(&quot;userServiceFestival&quot;)</span><br><span class="line">    private UserService userService;</span><br><span class="line">    @Test</span><br><span class="line">    public void testAdd()&#123;</span><br><span class="line">        userService.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 使用Java标准的解决方案(Resource)
+     * 此方法并非Spring中的标准
+     * 使用此方法可替代下边两个注解
+         * @Autowired
+         * @Qualifier
+     * 用法同类ID
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/*    @Autowired</span><br><span class="line"> @Qualifier(&quot;festival&quot;)*/</span><br><span class="line"> @Resource(name=&quot;userServiceFestival&quot;)</span><br><span class="line"> private UserService userService;</span><br></pre></td></tr></table></figure>
+<pre><code>7. 处理分层结构
+    1. web程序的基本架构：
+        浏览器——&gt;web层(controller)——&gt;业务层(service)——&gt;数据访问层(dao)——Data
+           * 其中业务层(service)、数据访问层(dao)皆细分为接口与实现类
+    2. 新的注解(Repository、service、controller)
+        * Repository——dao层
+        * service——service层
+        * controller——web层
+        * 这三个注解可替换掉@Component，更加明确的标注了此类是什么层次的类
+
+
+8. 设置组件扫描的基础包
+     1. 默认情况下@ComponentScan只可扫描其所在的包以及其子包下的类
+
+     2. 解决方案：
+         1. @ComponentScan(&quot;包名&quot;)
+            * @ComponentScan(&quot;com.qfedu.demo&quot;)
+              * 指定扫描的包名
+         2. @ComponentScan(basePackages = {&quot;包名&quot;,&quot;包名&quot;,&quot;包名&quot;}) 
+            * @ComponentScan(basePackages = {&quot;com.qfedu.demo.web&quot;,&quot;com.qfedu.demo.service&quot;,&quot;com.qfedu.demo.dao&quot;}) 
+              * 可指定多个扫描的包名
+         3. @ComponentScan(basePackagesClasses = {类名,类名,类名})
+            * @ComponentScan(basePackagesClasses = {UserController.class,UserService.class,UserDao.class})
+              * 可指定多个扫描的类名
+
+     3. 通过xml启用组件扫描
+         1. 配置applicationContext.xml文件(此文件的作用相当于注解@Configuration)
+              * @Configuration的作用：表示该文件为配置文件
+
+         2. 使用标签&lt;context:component-scan&gt;
+              * &lt;context:component-scan base-package=&quot;com.qfedu.demo&quot;/&gt;
+              * 此标签的作用相当于注解@ComponentScan(&quot;com.qfedu.demo&quot;)
+              * 规划了扫描范围
+
+         3. 使用时注解同样要发生变化
+              * @ContextConfiguration(&quot;classpath:applicationContext.xml&quot;)
+              * 代替了@ContextConfiguration(classes = AppConfig.class)
+              * 使得其配置文件从Appconfig.class变化为applicationContext。xml配置文件
+
+9. 小结
+   1. 定义配置：
+      * @Configuration
+      * ComponentScan
+
+   2. 定义组件
+      * @Component
+      * @Autowired
+      * @Autowired(required = false)
+
+   3. 自动装配歧义性
+      * @Primary
+      * @Qualifier
+      * @Resource
+
+   4. 分层架构中定义组件
+      * Controller
+      * Service
+
+   5. Spring测试环境
+      * RunWith
+      * ContextConfiguration
+
+   6. 使用xml启用组件扫描
+      * &lt;context:component-scan base-package=&quot;...&quot;&gt;
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/26/JavaEE之Spring快速入门之上小结/" data-id="cjypgztrq0002g4tnq4mop0fp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaEE之MyBatis高级知识之下小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/">JavaEE之Spring快速入门之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之上小结/">JavaEE之MyBatis高级知识之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

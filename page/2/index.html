@@ -62,10 +62,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-JavaEE之删除用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-JavaEE之Maven小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/21/JavaEE之删除用户练习小结/" class="article-date">
-  <time datetime="2019-07-21T08:24:43.000Z" itemprop="datePublished">2019-07-21</time>
+    <a href="/2019/07/22/JavaEE之Maven小结/" class="article-date">
+  <time datetime="2019-07-22T06:35:24.000Z" itemprop="datePublished">2019-07-22</time>
 </a>
     
   </div>
@@ -76,7 +76,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/21/JavaEE之删除用户练习小结/">JavaEE之删除用户练习小结</a>
+      <a class="article-title" href="/2019/07/22/JavaEE之Maven小结/">JavaEE之Maven小结</a>
     </h1>
   
 
@@ -84,32 +84,168 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="删除用户练习"><a href="#删除用户练习" class="headerlink" title="删除用户练习"></a>删除用户练习</h3><ul>
+        <h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><pre><code>1. 概念：
+     Maven是一个项目管理工具，它包含了一个项目对象模型（POM：project Object Model）,一组标准集合，一个项目生命周期，一个依赖管理系统，和用来运行定义在生命周期阶段中插件目标的逻辑
+
+2. 功能：
+     1. 依赖管理：maven工程对jar包的管理过程。
+     2. 一键构建：只需要一个命令，完成构建的整个过程
+            *构建：清理--&gt;编译--&gt;测试--&gt;报告--&gt;打包--&gt;部署
+     1. 帮助我们引用各种各样的jar包，无需我们手动引入工程目录。
+     2. 进行代码编译，使得计算机可以读懂我们的代码
+     3. 进行单元测验，进行bug的搜查，一个个的运行来检验代码质量
+     4. 整合资源、配置文件。定型打包。如果是web项目，还可以发布到服务器
+
+3. 优势：
+     1. 节约内存；比起传统的工程项目，在jar包方面进行了大的优化，使得内存大大减少 
+            * 传统：jar包在项目中
+            * Maven：jar包不在项目中，jar包在jar包仓库
+                 * jar包的坐标---&gt;使得项目可以在jar包仓库中找到对应的jar包
+
+4. 安装要点
+     1. 配置 MAVEN_HOME
+     2. 将 %MAVEN_HOME%/bin 加入环境变量 path
+     3. 添加%SystemRoot\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;进系统变量
+
+5. Maven中仓库的种类以及彼此的关系
+     1. 仓库的种类：
+            * 本地仓库
+            * 远程仓库【私服】
+            * 中央仓库
+     2. 彼此关系：
+            * 情况1：无远程仓库时：打开一个Maven工程，首先前往本地仓库寻找jar包。若无此jar包。
+                                 则前往中央仓库进行下载。倘若无法联网，将无法连接中央仓库，系统报错。
+
+            * 情况2：有远程仓库时：打开一个Maven工程，首先前往本地仓库寻找jar包。若无此jar包。
+                                 则前往远程仓库进行下载（此时要求，位于远程仓库所在的局域网之下）。
+                                 倘若远程仓库无此jar包，则前往中央仓库下载。
+
+            * 注：远程仓库内的jar包，部分来源于中央仓库，部分来源于内部人员上传
+
+
+6. Maven项目标准目录结构：
+       *  核心代码部分：src/main/java
+       *  配置文件部分：src/main/resource
+       *  测试代码部分：src/test/java
+       *  测试配置文件：src/test/resources
+       *  页面资源：js,css,图片等：src/main/webapp
+
+7. Maven常用命令
+       1. mvn clean：清理项目生产的临时文件,一般是模块下的target目录
+       2. mvn package：项目打包工具,会在模块下的target目录生成jar或war等文件
+       3. mvn test: 测试命令,或执行src/test/java/下junit的测试用例
+       4. mvn install:模块安装命令 将打包的的jar/war文件复制到你的本地仓库中,供其他模块使用 -Dmaven.test.skip=true 跳过测试(同时会跳过test compile)
+       5. mvn deploy:发布命令 将打包的文件发布到远程参考,提供其他人员进行下载依赖 ,一般是发布到公司的私服，这里我没配置私服，所以就不演示了
+
+8. Maven生命周期：
+       1. 构建过程：  清除     编译     测试     打包     安装     发布
+                    clean   compile    test   package  install  deploy
+
+       2. 清除：清理生命周期
+       3. 编译——&gt;发布：默认生命周期（使用较多）：当执行后续命令时，前面的命令会跟随执行一般
+       4. 站点生命周期：使用较少
+
+9. Maven概念模型图：
+      1. 依赖管理：项目对jar包的管理过程
+           1. 项目对象模型：
+                * 项目自身信息
+                * 项目运行所依赖的jar包信息————&gt;独立出来，称为依赖管理模型（全为jar包的坐标）
+                * 项目运性环境信息，比如：jdk，Tomcat信息
+
+           2. 依赖管理模型：
+              1. jar包的坐标
+                    * 公司组织的名称
+                    * 项目名
+                    * 版本号
+              2. 三个仓库
+
+      2.  一键构建：
+           1. 三个生命周期
+           2. 默认生命周期：
+                compile-&gt; test-&gt; package-&gt; install-&gt; deploy
+               *每一个构建项目的命令都对应了maven底层的一个插件
+
+10. 导入的包的依赖范围：
+      依赖范围     对于编译classpath有效     对于测试classpath有效      对于运行时classpath有效      例子
+      compile(默认)      Y                           Y                       Y                 spring-core
+
+      test               -                           Y                       -                 Junit    
+
+      provided           Y                           Y                       -                 servlet-api
+
+      runtime            -                           Y                       Y                 JDBC驱动
+
+      system             Y                           Y                       -          本地的，Maven仓库之外的类库
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之Maven小结/" data-id="cjyntotpj0012swtn8ap5suq6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之修改用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之修改用户练习小结/" class="article-date">
+  <time datetime="2019-07-21T10:14:43.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之修改用户练习小结/">JavaEE之修改用户练习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="修改用户练习"><a href="#修改用户练习" class="headerlink" title="修改用户练习"></a>修改用户练习</h3><ul>
 <li><p>思路：</p>
 <ol>
-<li>点击删除按钮（携带该用户的id）</li>
-<li>跳转确认画面，让客户确认是否删除</li>
-<li>确认删除后</li>
-<li>删除数据</li>
+<li>点击修改按钮（携带该用户的id）</li>
+<li>获取用户本身数据</li>
+<li>数据回显</li>
+<li>用户修改</li>
+<li>修改数据</li>
 <li>跳转回原界面</li>
 </ol>
 </li>
 <li><p>文件跳转：</p>
 <ol>
-<li>jsp获取用户选择删除用户id</li>
-<li>跳转至Servlet层，执行业务逻辑</li>
+<li>jsp获取用户选择修改用户id</li>
+<li>跳转至查找Servlet层，执行业务逻辑（找到该用户原先信息，进行回显）</li>
 <li>在Servlet中，将使用到Service</li>
 <li>在Service中，将使用到Dao</li>
+<li>最后执行完Dao后，再次执行修改Servlet</li>
+<li>获取用户输入新的数据</li>
+<li>剩余同上</li>
 </ol>
 </li>
 </ul>
-<h4 id="Servleet"><a href="#Servleet" class="headerlink" title="Servleet"></a>Servleet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/delUserServlet&quot;)</span><br><span class="line">public class delUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.获取id</span><br><span class="line">        String id = request.getParameter(&quot;id&quot;);</span><br><span class="line">        //2.调用Service</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.delUser(id);</span><br><span class="line">        //3.跳转回/UserListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">    public void delUser(String id);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">     public void delUser(String id)&#123;</span><br><span class="line">         dao.delUser(Integer.parseInt(id));</span><br><span class="line">     &#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">    public void delUser(int id);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     * @param id</span><br><span class="line">     */</span><br><span class="line">    public void delUser(int id)&#123;</span><br><span class="line">        //定义SQL</span><br><span class="line">        String sql = &quot;delete from user where id = ?&quot;;</span><br><span class="line">        //执行SQL</span><br><span class="line">        template.update(sql,id);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Servlet-回显Servlet"><a href="#Servlet-回显Servlet" class="headerlink" title="Servlet___回显Servlet"></a>Servlet___回显Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/findUserServlet&quot;)</span><br><span class="line">public class findUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.获取数据</span><br><span class="line">        String id = request.getParameter(&quot;id&quot;);</span><br><span class="line">        //2.调用Service方法</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        User user = service.findUserById(id);</span><br><span class="line">        //3.存储数据</span><br><span class="line">        request.setAttribute(&quot;findUser&quot;,user);</span><br><span class="line">        //4.转发到update.jsp</span><br><span class="line">        request.getRequestDispatcher(&quot;/update2.jsp&quot;).forward(request,response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Servlet-修改Servlet"><a href="#Servlet-修改Servlet" class="headerlink" title="Servlet___修改Servlet"></a>Servlet___修改Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/updateUserServlet&quot;)</span><br><span class="line">public class updateUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //设置编码</span><br><span class="line">        request.getRequestDispatcher(&quot;utf-8&quot;);</span><br><span class="line">        //获取数据</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //封装对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //调用Service语句更改信息</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.updateUser(user);</span><br><span class="line">        //跳转回UserListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">    public User findUserById(String id);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 更改数据</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">    public User findUserById(String id)&#123;</span><br><span class="line">        return dao.findUserById(Integer.parseInt(id));</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 更改用户</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user)&#123;</span><br><span class="line">        dao.updateUser(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">    public User findUserById(int id);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 更改用户</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 查找用户</span><br><span class="line">     */</span><br><span class="line">     public User findUserById(int id)&#123;</span><br><span class="line">         String sql = &quot;select * from user where id = ?&quot;;</span><br><span class="line">         User user = template.queryForObject(sql, new BeanPropertyRowMapper&lt;User&gt;(User.class), id);</span><br><span class="line">         return user;</span><br><span class="line">     &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 更改用户</span><br><span class="line">     */</span><br><span class="line">    public void updateUser(User user)&#123;</span><br><span class="line">        String sql = &quot;update user set name=? ,gender=? ,age=? ,address=? ,qq=? ,email=? where id=?&quot;;</span><br><span class="line">        template.update(sql,user.getName(),user.getGender(),</span><br><span class="line">                user.getAge(),user.getAddress(),user.getQq(),</span><br><span class="line">                user.getEmail(),user.getId());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之删除用户练习小结/" data-id="cjymp7761001qzwtnn17snq60" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之修改用户练习小结/" data-id="cjyntotq6001iswtnoffq3m4q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -167,7 +303,66 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之添加用户练习小结/" data-id="cjymp775y001ozwtnhz95t244" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之添加用户练习小结/" data-id="cjyntotqj001sswtnhrefz9wd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之删除用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之删除用户练习小结/" class="article-date">
+  <time datetime="2019-07-21T08:24:43.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之删除用户练习小结/">JavaEE之删除用户练习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="删除用户练习"><a href="#删除用户练习" class="headerlink" title="删除用户练习"></a>删除用户练习</h3><ul>
+<li><p>思路：</p>
+<ol>
+<li>点击删除按钮（携带该用户的id）</li>
+<li>跳转确认画面，让客户确认是否删除</li>
+<li>确认删除后</li>
+<li>删除数据</li>
+<li>跳转回原界面</li>
+</ol>
+</li>
+<li><p>文件跳转：</p>
+<ol>
+<li>jsp获取用户选择删除用户id</li>
+<li>跳转至Servlet层，执行业务逻辑</li>
+<li>在Servlet中，将使用到Service</li>
+<li>在Service中，将使用到Dao</li>
+</ol>
+</li>
+</ul>
+<h4 id="Servleet"><a href="#Servleet" class="headerlink" title="Servleet"></a>Servleet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/delUserServlet&quot;)</span><br><span class="line">public class delUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.获取id</span><br><span class="line">        String id = request.getParameter(&quot;id&quot;);</span><br><span class="line">        //2.调用Service</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.delUser(id);</span><br><span class="line">        //3.跳转回/UserListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">    public void delUser(String id);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">     public void delUser(String id)&#123;</span><br><span class="line">         dao.delUser(Integer.parseInt(id));</span><br><span class="line">     &#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">    public void delUser(int id);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     * @param id</span><br><span class="line">     */</span><br><span class="line">    public void delUser(int id)&#123;</span><br><span class="line">        //定义SQL</span><br><span class="line">        String sql = &quot;delete from user where id = ?&quot;;</span><br><span class="line">        //执行SQL</span><br><span class="line">        template.update(sql,id);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之删除用户练习小结/" data-id="cjyntotqb001mswtnysu9ifxr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -219,7 +414,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjymp7764001szwtnn64u3pgz" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjyntotqh001qswtnkn7ydq34" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -291,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjymp775t001kzwtnkxqqbrwj" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjyntotq8001kswtnydgxa9xg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -384,7 +579,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjymp773k000azwtnw3wkezbr" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjyntoto5000dswtn5nazde29" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -442,7 +637,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjymp775h001czwtnlj6v4kml" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjyntotpx001cswtn1dt02axn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -504,7 +699,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjymp777q0028zwtnaxibzcwv" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjyntott8003aswtnjwsio2ws" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -624,272 +819,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjymp773g0008zwtn8burdr49" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之Listener小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/20/JavaEE之Listener小结/" class="article-date">
-  <time datetime="2019-07-20T08:20:11.000Z" itemprop="datePublished">2019-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/JavaEE之Listener小结/">JavaEE之Listener小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Listener-监听器："><a href="#Listener-监听器：" class="headerlink" title="Listener 监听器："></a>Listener 监听器：</h2><pre><code>* 概念：web的三大组件之一。
-    *事件监听机制
-        * 事件：一件事情（点击）
-        * 事件源：事件发生的地方（按钮）
-        * 监听器：一段代码/一个对象
-        * 注册监听：将事件、事件源、监听器绑定在一起。当事件源上发生某个事件后，执行监听器代码
-
-
-* ServletContextListener:监听ServletContext对象的创建和销毁
-      *方法：
-        * void contextDestroyed(ServletContextEvent sce)：ServletContext对象被销毁之前会调用该方法
-
-        * void contestInitialized(ServletContextEvent sce)：ServletContext对象创建后会调用该方法
-
-      *步骤：
-        1. 定义一个类，师兄ServletContextListener接口
-        2. 复写方法
-        3. 配置
-              1. web.xml
-                     &lt;listener&gt;
-                     &lt;listener-class&gt;cn.itcast.web.listener.ContextLoaderListener&lt;/listener-class&gt;
-                     &lt;/listener&gt;
-
-                     * 指定初始化参数&lt;context-param&gt;
-              2. 注解配置
-                     @webListener
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Listener小结/" data-id="cjymp774t000yzwtnvd2p340i" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之XML小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/20/JavaEE之XML小结/" class="article-date">
-  <time datetime="2019-07-20T05:18:10.000Z" itemprop="datePublished">2019-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/JavaEE之XML小结/">JavaEE之XML小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="XML"><a href="#XML" class="headerlink" title="XML:"></a>XML:</h2><pre><code>1. 概念： Extensible Markup Language 可扩展标记语言
-     *可扩展：标签都是自定义的。&lt;user&gt; &lt;student&gt;
-     *标记语言：标签构成的语言。
-
-2. 功能：
-    *存储数据
-       1. 配置文件使用
-       2. 在网络中传输
-3. XML与HTML的区别：
-    1. XML的标签都是自定义的，HTML的标签都是预定义的。
-    2. XML的语法严格，HTML语法松散
-    3. XML是存储数据的，HTML是展示数据的。
-
-*  w3c：万维网联盟
-
-4. 语法：
-     *基本语法：
-         1. xml文档的后缀名：.xml
-         2. xml第一行必须定义为文档声明
-         3. xml文档中有且仅有一个根标签
-         4. 属性值必须使用引号（单双都可）引起来
-         5. 标签必须正确关闭
-         6. xml标签名称区别大小写
-
-     *快速入门：
-        &lt;?xml version=&apos;1.0&apos; ?&gt;
-        &lt;users&gt;
-            &lt;user id=&apos;1&apos;&gt;
-                &lt;name&gt;zhangsan&lt;/name&gt;
-                &lt;age&gt;23&lt;/age&gt;
-                &lt;gander&gt;male&lt;/gander&gt;
-            &lt;/user&gt;
-
-            &lt;user id=&apos;2&apos;&gt;
-                &lt;name&gt;lisi&lt;/name&gt;
-                &lt;age&gt;24&lt;/age&gt;
-                &lt;gander&gt;famale&lt;/gander&gt;
-            &lt;/user&gt;
-        &lt;/users&gt;
-
-     *组成部分：  
-         1. 文档声明
-               1. 格式： &lt;?xml 属性列表?&gt;（？与&gt;之间不能有空格；?与xml之间不能有空格）
-               2. 属性列表：
-                     * version：版本号
-                     * encoding: 编码方式
-                     * standalone：是否独立
-                           *取值：
-                              *yes:不依赖其他文件
-                              *no：依赖其他文件   
-
-         2. 指令(了解)：结合css
-              *&lt;?xml-stylesheet type=&quot;text/css&quot; herf=&quot;a.css&quot; ?&gt;
-
-         3. 标签:标签名称自定义的
-               *规则：
-                  1. 名称可以包含字母、数字以及其他字符
-                  2. 名称不能以数字或者标点符号开始
-                  3. 名称不能以字母xml或者（XML、XmL等等）开始
-                  4. 名称不能包含空格
-
-         4. 属性：
-              * id属性值唯一
-         5. 文本：
-              * CDATA区：在该区域中的数据会被原样展示
-                  * 格式：&lt;![CDATA[数据]]&gt;
-
-
-
-   * 约束：规定xml文档的书写规则
-       * 作为框架的使用者（程序员）：
-            1. 能够在xml中引入约束文档
-            2. 能够简单的读懂约束文档
-
-
-       * 分类：
-             1. DTD：一种简单的约束技术
-             2. Schema：一种复杂的约束技术
-
-       * DTD:
-           * 引入dtd文档到xml文档中
-                 *内部dtd：将约束规则定义在xml文档中
-                 *外部dtd：将约束规则定义在外部的dtd文件中
-                      *本地：&lt;!DOCTYPE 根标签名 SYSTEM &quot;dtd文件的位置&quot;&gt;
-                      *网络：&lt;!DOCTYPE 根标签名 PUBLIC &quot;dtd文件名字&quot; &quot;dtd文件位置URL&quot;&gt;
-           * 缺陷：标签体中的内容无法进行条件限制 
-
-       * Schema:
-           * 引入：
-               1. 填写xml文档的根元素
-               2. 引入xsi的前缀. xmlns:sxi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-               3. 引入xsd文件命名空间. xsi:schemaLocation=&quot;http://www.itcast.cn/xml student.xsd&quot;
-               4. 为每一个xsd约束声明一个前缀，作为标识 xmlns=&quot;http://www.itcast.cn/xml&quot;
-
-                   &lt;students xmlns:sxi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-                             xsi:schemaLocation=&quot;http://www.itcast.cn/xml student.xsd&quot;
-                             xmlns=&quot;http://www.itcast.cn/xml&quot;&gt; 
-
-  5. 解析：操作xml文档，将文档中的数据读取到内存中
-       *操作xml文档
-           1. 解析（读取）：将文档中的数据读取到内存中
-           2. 写入：将内存中的数据保存到xml文档中。持久化的存储
-
-       *解析xml的方式：
-           1. DOM：将标记语言文档一次性加载进内存，在内存中形成一颗dom树（服务器端）
-                *优点：操作方便，可以对文档进行CRUD（增删改查）的所有操作
-                *缺点：占内存，1M的文件被解析成dom树后将放大1000倍等
-
-           2. SAX：逐行读取，基于事件驱动的（移动端）
-                *优点：不占内存，适合内存较小的设备如手机等
-                *缺点：只能读取，无法进行增删改 
-
-
-        *xml常见的解析器：
-           1. JAXP：sun公司提供的解析器，支持dom和sax两种思想（性能较差，一般不使用）
-           2. DOM4J：一款非常优秀的解析器（性能强大）
-           3. Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。（也可解析XML）
-           4. PULL：Android操作系统内置的解析器，sax方式的
-
-
-        *Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。（也可解析XML）
-            *快速入门：
-                *步骤：
-                   1. 导入jar包
-                   2. 获取Document对象
-                   3. 获取对应的标签Element对象
-                   4. 获取数据
-
-        *对象的使用：
-             1. Jsoup：   工具类，可以解析HTML或XML文档，返回Document对象
-                  * parse：解析HTML或者XML文档，返回Document
-                      * parse(File in,String charseNmae):解析xml或html文件的（使用较多）
-                      * parse(String html):解析xml或者html字符串（使用较少）
-                      * parse(URL url,int timeoutMillis):通过网络路径获取指定的HTML或XML文档对象（类似网络爬虫）
-             2. Document：文档对象。代表内存中的dom树（继承于Element对象）
-                  * 获取Element对象
-                      * getElementById(String id)：根据id属性值获取唯一的element对象（使用较少） 
-                      * getElementsByTag(String tagName)：根据标签名称获取元素名称集合
-                      * getElementsByAttribute(String key)：根据属性名称获取元素对象集合
-                      * getElementsByAttributeValue(String key,String value)：根据对象的属性名和属性值获取对象集合
-             3. Elements：元素Element对象的集合。可以当做ArrayList&lt;Element&gt;使用
-             4. Element： 元素对象
-                   1. 获取子元素对象
-                      * getElementById(String id)：根据id属性值获取唯一的element对象（使用较少） 
-                      * getElementsByTag(String tagName)：根据标签名称获取元素名称集合
-                      * getElementsByAttribute(String key)：根据属性名称获取元素对象集合
-                      * getElementsByAttributeValue(String key,String value)：根据对象的属性名和属性值获取对象集合
-                   2. 获取属性值
-                      * String attr(String key)：根据属性名称获取属性值
-                   3. 获取文本内容
-                      * String text()：获取所有子标签的纯文本内容
-                      * String html()：获取标签体的所有内容（包括子标签的标签和文本内容）
-             5. Node：    节点对象
-                   * 是Document和Element的父类
-
-      *快捷查询方式：
-          1. selector：选择器
-               *使用的方法：Elements select(String(ssQuery)){一般使用Document来使用该语句}
-                  *语法：参考Selector类中定义的语法
-          2. XPath：XPath为XML路径语言，它是一种用来确定XML（标准通用标记语言的子集）
-               *使用Jsoup的Xpath需要额外导入jar包
-               *查询w3cshcool参考手册，使用Xpath的语法完成查询
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">JsoupDemo1类 </span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">        //2.获取Document对象，根据xml文档获取</span><br><span class="line">        //2.1获取student.xml的path</span><br><span class="line">        String path = JsoupDemo1.class.getClassLoader().getResource(&quot;student.xml&quot;).getPath();</span><br><span class="line">        //2.2解析xml文档，加载文档进内存，获取dom树---&gt;Document</span><br><span class="line">        Document document = Jsoup.parse(new File(path),&quot;utf-8&quot;);</span><br><span class="line">        //3.获取元素对象</span><br><span class="line">        Elements elements = document.getElementsByTag(&quot;name&quot;);</span><br><span class="line">        //Elements是一个Element的ArrayList集合</span><br><span class="line">        System.out.println(elements.size());</span><br><span class="line">        //3.1获取第一个name的element对象</span><br><span class="line">        Element element = elements.get(0);</span><br><span class="line">        //3.2获取数据</span><br><span class="line">        String name = element.text();</span><br><span class="line">        System.out.println(name);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">XML文件</span><br><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line"></span><br><span class="line">&lt;students&gt;</span><br><span class="line">	&lt;student number=&quot;itcast_0001&quot;&gt;</span><br><span class="line">		&lt;name&gt;tom&lt;/name&gt;</span><br><span class="line">		&lt;age&gt;18&lt;/age&gt;</span><br><span class="line">		&lt;sex&gt;male&lt;/sex&gt;</span><br><span class="line">	&lt;/student&gt;</span><br><span class="line">	&lt;student number=&quot;itcast_0002&quot;&gt;</span><br><span class="line">		&lt;name&gt;Jack&lt;/name&gt;</span><br><span class="line">		&lt;age&gt;17&lt;/age&gt;</span><br><span class="line">		&lt;sex&gt;female&lt;/sex&gt;</span><br><span class="line">	&lt;/student&gt;</span><br><span class="line">	</span><br><span class="line">&lt;/students&gt;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之XML小结/" data-id="cjymp777n0026zwtnwxqwshfx" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjyntotoe000iswtn0f2jczmr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -951,7 +881,15 @@
       <ul>
         
           <li>
-            <a href="/2019/07/28/新文档80/">(no title)</a>
+            <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/">JavaEE之Spring快速入门之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
           </li>
         
           <li>
@@ -960,14 +898,6 @@
         
           <li>
             <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/JavaEE之MyBatis基础知识之中小结/">JavaEE之MyBatis基础知识之中小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/JavaEE之MyBatis基础知识之上小结/">JavaEE之MyBatis基础知识之上小结</a>
           </li>
         
       </ul>
