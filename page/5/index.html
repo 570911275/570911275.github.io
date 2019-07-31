@@ -62,6 +62,225 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之Request小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/17/JavaEE之Request小结/" class="article-date">
+  <time datetime="2019-07-17T06:22:39.000Z" itemprop="datePublished">2019-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/17/JavaEE之Request小结/">JavaEE之Request小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Request"><a href="#Request" class="headerlink" title="Request:"></a>Request:</h2><pre><code>1.request对象和response对象的原理
+    1.request和response对象是由服务器创建的，我们使用它们
+    2.request对象是来获取请求信息，response对象是来设置响应消息
+
+
+2.request的继承体系结构：
+     ServletRequest  --  接口
+            |  继承
+     HTTPServletRequest  --  接口
+            |  实现
+     org.apache.catalina.connector.RequestFacade 类(Tomcat)
+
+
+3.request功能：
+
+   1.获取请求消息数据
+       1.获取请求行数据
+           *GET /day14/demo0\?name=zhangsan HTTP/1.1
+           *方法：
+       //1.获取请求方式：GET
+       String method = request.getMethod();
+   System.out.println(method);
+
+       (*)//2.获取虚拟目录：/day14
+       String ContestPath = request.getContextPath();
+   System.out.println(ContestPath);
+
+       //3.获取Servlet路径：/demo01
+       String ServletPath = request.getServletPath();
+   System.out.println(ServletPath);
+
+       //4.获取get方式请求参数：name=zhangsan
+       String Query = request.getQueryString();
+   System.out.println(Query);
+
+       (*)//5.获取请求URI：/day14、demo01
+       String RequestURI = request.getRequestURI();   // /day14/demo01
+   System.out.println(RequestURI);
+       StringBuffer RequestURL = request.getRequestURL();  //http://localhost/day14/demo01
+
+       //6.获取协议及版本：HTTP/1.1
+       String Protocol = request.getProtocol();
+   System.out.println(Protocol);
+
+       //7.获取客户机的IP地址
+       String Remote = request.getRemoteAddr();
+   System.out.println(Remote);
+
+       2.获取请求头数据
+           *方法：
+               *（*）String getHeader(String name);通过请求头的名称获取头的值
+               *Enumeration&lt;String&gt; getHeaderNames();获取所有的请求名称
+       3.获取请求体数据
+               *请求体：只有POST请求方式，才有请求体，在请求体中封装了POST请求的请求参数
+               *步骤：
+                   1.获取流对象
+                        *BufferedReader getReader();获取字符输入流，只能操作字符数据
+                        *ServletInputStream getInputStream();获取字节数据，可以操作所有类型的数据
+
+                   2.再从流对象中拿数据
+
+   2.其他功能：
+        1.获取请求参数通用方式
+            1.String getParameter(String name):根据参数名称获取参数值   username=zs&amp;password=123
+            2.String[] getParameterValues(String name):根据参数名称获取参数值的数组，多用于复选框  hobby=xx&amp;hobby=game
+            3.EnUmeration&lt;String&gt; getParameterNames():获取所有请求的参数名称
+            4.Map&lt;String,String[]&gt; getParameterMap():获取所有参数的map集合
+
+                 *中文乱码问题：
+                      *get方式：Tomcat8以上已经解决
+                      *post方式：在获取参数钱，设置request的编码request.setCharacterEncoding(&quot;utf-8);
+        2.请求转发：一种在服务器内部的资源跳转方式
+             1.步骤：
+                 1.通过request对象获取请求转发器对象 ：RequestDispatcher getRequestDispatcher(String path)
+                 2.使用RequestDispatcher对象来进行转发：forWord(ServletRequest request，ServletResponse response)
+             2.特点：
+                 1.浏览器地址路径不发生变化
+                 2.只能转发到当前服务器内部资源中
+                 3.转发是一次请求
+        3.共享数据：
+             *域对象：一个有作用范围的对象，可以在范围内共享数据
+             *request域：代表一次请求的范围，一般用于请求转发的多个资源中共享数据
+             *方法：
+                1.void setAttribute(String name,Object obj):存储数据
+                2.Object getAttitude(String name:通过键获取值
+                3.void removeAttribute(String name):通过键移除键值对
+        4.获取ServletContest：
+             *ServletContext getServletContext（）
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjyph19u6001698tnbrzlkbdh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之Http协议小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/16/JavaEE之Http协议小结/" class="article-date">
+  <time datetime="2019-07-16T04:56:47.000Z" itemprop="datePublished">2019-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/16/JavaEE之Http协议小结/">JavaEE之Http协议小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP:"></a>HTTP:</h2><pre><code>* 一、概念：Hyper Text Transfer Protocol 超文本传输协议
+   * 传输协议：定义了。客户端和服务器端通信时，发送数据的格式
+   * 特点：
+      1、基于TCP/IP的高级协议
+      2、默认端口号：80
+      3、基于请求/响应模型的：一次请求对应一次响应
+      4、无状态的：每次请求之间相互独立
+
+    * 历史版本：
+        *1.0：每一次请求响应都会建立新的连接
+        *1.1：复用连接，对缓存的支持比较好
+
+* 二、请求消息数据格式
+        1、请求行
+             请求方式 请求URL 请求协议、版本
+             GET /login.html HTTP/1.1
+
+             *请求方式：
+                *HTTP协议中有7种请求方式，常用的有2种
+                     *GET：
+                        1、请求参数在请求行中，在URL后。
+                        2、请求的URL长度是有限制的
+                        3、不太安全
+                     *POST：
+                        1、请求参数在请求体中
+                        2、请求的URL长度是没有限制的
+                        3、相对安全
+        2、请求头
+             请求头名称：请求头值
+               *常见的请求头：
+                  1.User-Agent：浏览器告诉服务器，我访问你使用的浏览器版本信息
+                     *可以在服务器端获取该头的信息，解决浏览器的兼容性问题
+
+                  2.Referer：http://localhost/login.html
+                     *告诉服务器我从哪里来
+                        *作用:1.仿盗链
+                              2.统计结果
+        3、请求空行
+             空行，用于分隔POST请求的请求头和请求体的
+        4、请求体(正文)
+           *封装POST请求消息的请求参数
+             GET方式无请求体
+             POST方式才有请求体：内容为填写内容
+
+        5、字符串格式：
+             GET http://localhost:8080/Demo03l HTTP/1.1
+             Host: localhost:8080
+             User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+             Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+             Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+             Accept-Encoding: gzip, deflate
+             Connection: keep-alive
+             Cookie: Idea-2520cc41=1f0df48d-7b3a-401a-9a18-058a43909bb8
+             Upgrade-Insecure-Requests: 1
+             Cache-Control: max-age=0
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjyph19t9000i98tn6jtm4o7c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之Servlit小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/16/JavaEE之Servlit小结/" class="article-date">
@@ -168,7 +387,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjyntotpu001aswtniqwfgsvi" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjyph19ua001a98tno6x9yp2z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -236,7 +455,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjyntotnd0001swtnv4siyz0f" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjyph19sa000098tnk0k8qnpl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -299,7 +518,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjyntotnr0005swtnamikkrej" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjyph19sp000498tnqp1czchf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -341,7 +560,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjyntotn00000swtnf4r2rx33" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjyph19si000198tns9xljh5c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -389,7 +608,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjyntotnl0003swtntga76rug" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjyph19so000398tnlyl7svao" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -429,7 +648,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjyntotsa002yswtn5bxcwmqa" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjyph19w3003098tngxi7r563" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -478,54 +697,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjyntots2002sswtnim35rvcb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-集合之Map下三种map类型区别" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/09/集合之Map下三种map类型区别/" class="article-date">
-  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之Map下三种map类型区别/">java_集合_Map下三种map类型区别小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Map下三种map类型区别"><a href="#Map下三种map类型区别" class="headerlink" title="Map下三种map类型区别"></a>Map下三种map类型区别</h2><h3 id="1-HashMap"><a href="#1-HashMap" class="headerlink" title="1.HashMap"></a>1.HashMap</h3><p>HashMap采用<strong>哈希算法</strong>实现，是Map接口最常用的实现类。<br><br>底层采用了哈希表存储数据，我们要求<strong>键不能重复</strong>，如果发生重复，<strong>新的键值对会替换旧的键值对</strong>。<br> HashMap在<strong>查找、删除、修改</strong>方面都有非常<strong>高的效率</strong>。</p>
-<h3 id="2-TreeMap"><a href="#2-TreeMap" class="headerlink" title="2.TreeMap"></a>2.TreeMap</h3><p>TreeMap是<strong>红黑二叉树</strong>的典型实现<br><br>TreeMap的put()/remove()方法大量使用了红黑树的理论TreeMap和HashMap实现了同样的接口Map。<br><br>因此，用法对于调用者来说没有区别。<strong>HashMap效率高于TreeMap</strong>;在<strong>需要排序的Map时才选用TreeMap</strong>。</p>
-<h3 id="3-HashTable"><a href="#3-HashTable" class="headerlink" title="3.HashTable"></a>3.HashTable</h3><p><strong>HashTable类和HashMap用法几乎一样</strong>，底层实现几乎一样，只不过<strong>HashTable</strong>的方法添加了<strong>synchronized关键字</strong>确保<strong>线程</strong>同步检查，效率较低。<br><br>HashMap与HashTable的区别</p>
-<ol>
-<li>HashMap: <strong>线程不安全，效率高</strong>。<strong>允许key或value为null</strong>。<br><ol start="2">
-<li>HashTable: <strong>线程安全，效率低*</strong>。<strong>不允许key或value为null</strong>。</li>
-</ol>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjyntots4002uswtncnlqmowe" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjyph19vx002u98tnctifxblg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -568,48 +740,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjyntots7002wswtnny04ezgy" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-集合之Set接口的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/09/集合之Set接口的常用方法与特点/" class="article-date">
-  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之Set接口的常用方法与特点/">java_集合_Set接口的常用方法与特点小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Set接口的常用方法与特点"><a href="#Set接口的常用方法与特点" class="headerlink" title="Set接口的常用方法与特点"></a>Set接口的常用方法与特点</h2><h3 id="1-Set的特点"><a href="#1-Set的特点" class="headerlink" title="1.Set的特点"></a>1.Set的特点</h3><p>Set容器特点：无序、不可重复。无序指Set中的元素没有索引，我们只能遍历查找;不可重复指不允许加入重复的元素。</p>
-<h3 id="2-Set的常用方法"><a href="#2-Set的常用方法" class="headerlink" title="2.Set的常用方法"></a>2.Set的常用方法</h3><p>Set接口继承自Collection，Set接口中没有新增方法，方法和Collection保持完全一致。</p>
-<h3 id="3-Set的常用方法的使用"><a href="#3-Set的常用方法的使用" class="headerlink" title="3.Set的常用方法的使用"></a>3.Set的常用方法的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Set&lt;String&gt; s = new HashSet&lt;String&gt;();</span><br><span class="line">        s.add(&quot;hello&quot;);</span><br><span class="line">        s.add(&quot;world&quot;);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(&quot;hello&quot;); //相同的元素不会被加入</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        s.add(null);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[world, hello]</span><br><span class="line">[world, hello]</span><br><span class="line">[null, world, hello]</span><br><span class="line">[null, world, hello]</span><br></pre></td></tr></table></figure>
-<h3 id="TreeSet和Comparable接口的使用"><a href="#TreeSet和Comparable接口的使用" class="headerlink" title="TreeSet和Comparable接口的使用"></a>TreeSet和Comparable接口的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        User u1 = new User(1001, &quot;高淇&quot;, 18);</span><br><span class="line">        User u2 = new User(2001, &quot;高希希&quot;, 5);</span><br><span class="line">        Set&lt;User&gt; set = new TreeSet&lt;User&gt;();</span><br><span class="line">        set.add(u1);</span><br><span class="line">        set.add(u2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">class User implements Comparable&lt;User&gt; &#123;</span><br><span class="line">    int id;</span><br><span class="line">    String uname;</span><br><span class="line">    int age;</span><br><span class="line"> </span><br><span class="line">    public User(int id, String uname, int age) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">        this.uname = uname;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 返回0 表示 this == obj 返回正数表示 this &gt; obj 返回负数表示 this &lt; obj</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(User o) &#123;</span><br><span class="line">        if (this.id &gt; o.id) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125; else if (this.id &lt; o.id) &#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjyntotsd0030swtnh6i1nj8u" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjyph19vz002w98tnqloejecp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -671,6 +802,14 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       <ul>
         
           <li>
+            <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/JavaEE之Spring快速入门之中小结/">JavaEE之Spring快速入门之中小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/">JavaEE之Spring快速入门之上小结</a>
           </li>
         
@@ -680,14 +819,6 @@ void close() ： 关闭输出流对象，释放相关系统资源。
         
           <li>
             <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/25/JavaEE之MyBatis高级知识之上小结/">JavaEE之MyBatis高级知识之上小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
           </li>
         
       </ul>

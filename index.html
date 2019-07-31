@@ -62,6 +62,244 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之Spring快速入门之下小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/" class="article-date">
+  <time datetime="2019-07-31T02:38:15.275Z" itemprop="datePublished">2019-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h3 id="第五章————高级装配"><a href="#第五章————高级装配" class="headerlink" title="第五章————高级装配"></a>第五章————高级装配</h3><pre><code>1. Spring中的单例Bean
+    1. 无论我们是否去主动获取bean对象，Spring上下文一加载就会创建bean对象
+    2. 无论获取多少次，拿到的都是同一个对象
+    3. 无论我们是否去主动获取或注入bean对象，Spring上下文一加载就会创建bean对象
+    4. 无论注入多少次，拿到的都是同一个对象
+
+2. bean的作用域
+    1. 单例(sinleton)：
+        * 在整个应用程序中，只创建bean的一个实例
+    2. 原形(prototype)：
+        * 每次注入或通过Spring上下文获取的时候，都会创建一个新的bean实例
+    3. 会话(session)：
+        * 在web应用中，为每个会话创建一个bean实例
+    4. 请求(request)：
+        * 在web应用中，为每个请求创建一个bean实例
+    5. 单例与原形的区别：
+          1. 单例：
+              * scope=&quot;singleton&quot;
+              * 1.无论我们是否去主动获取或注入bean对象，Spring上下文一加载就会创建bean对象
+              * 2.无论注入多少次，拿到的都是同一个对象
+          2. 原形：
+              * scope=&quot;prototype&quot;
+              * 1.Spring上下文加载的时候不会创建bean对象
+              * 2.每次注入，都会拿到不同的bean对象
+
+3. 自动装配中定义bean的作用域
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/31/JavaEE之Spring快速入门之下小结/" data-id="cjyr8i5w10000cwtn70w3cl24" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之Spring快速入门之中小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/26/JavaEE之Spring快速入门之中小结/" class="article-date">
+  <time datetime="2019-07-26T06:03:21.000Z" itemprop="datePublished">2019-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/26/JavaEE之Spring快速入门之中小结/">JavaEE之Spring快速入门之中小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h3 id="第三章————Java装配"><a href="#第三章————Java装配" class="headerlink" title="第三章————Java装配"></a>第三章————Java装配</h3><pre><code>1. 当我们想将第三方库中的组件装配到应用程序中，则没有办法在类上添加@Compenent和@Autowired等注解
+
+2. 解决方案：显示配置
+      * java中进行显示的配置(本章)
+      * xml中进行显示的配置(第四章)
+
+3. JavaConfig
+     * 不同于自动装配的地方：
+         * 无需在实现类标注注解：@Component
+         * 无需在AppConfig出标注注解@ComponentScan
+
+     * @Configuration
+         * 同自动装配一样，同样需要给AppConfig文件标注此注解；
+         * 表示其为配置文件（为JavaConfig的关键）
+
+     * @Bean
+         * 说明spring程序启动时会读取到Configuration注解
+         * 而Configuration注解会将当前的类当成基础配置类
+         * 并且会寻找有没有被标注为Bean的方法，如果有则此方法会在程序启动时自动调用
+         * 由Bean标注的方法为单例的
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">AppConfig：</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class AppConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    //说明spring程序启动时会读取到Configuration注解</span><br><span class="line">    //而Configuration注解会将当前的类当成基础配置类</span><br><span class="line">    //并且会寻找有没有被标注为Bean的方法，如果有则此方法会在程序启动时自动调用</span><br><span class="line">    public UserDao userDaoNormal()&#123;</span><br><span class="line">        System.out.println(&quot;创建UserDao对象&quot;);</span><br><span class="line">        return new UserDaoNormal();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 依赖注入
+     * 构造函数
+        * 在类中定义构造函数(无参)与有参
+        * 有参构造函数将UserDao和UserService关联起来
+        * 自动装配时，需要在类名上标注注解@Component;在变量上标注注解@Autowired
+
+     * Bean方法中使用参数
+        * 由于实际情况中，在调用new被Bean标记的对象的方法时无新的对象产生
+        * 而是之前便存在的。所以可采取不使用new方法
+
+     * setter
+        * 通过使用setter方法，进行依赖注入
+     * 任意方法
+        * 同setter一样，只是改一个方法名
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">1. 自动装配的情况下：</span><br><span class="line">@Service</span><br><span class="line">public class UserServiceNormal implements UserService &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private UserDao userDao;</span><br><span class="line">    public void add() &#123;</span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2.1 带有构造函数的UserServiceNormal类：</span><br><span class="line">public class UserServiceNormal implements UserService &#123;</span><br><span class="line"></span><br><span class="line">    private UserDao userDao;</span><br><span class="line"></span><br><span class="line">    //构造函数注入</span><br><span class="line">    //无参构造函数</span><br><span class="line">    public UserServiceNormal() &#123;</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line">    //有参构造函数</span><br><span class="line">    //将UserDao和UserService关联起来</span><br><span class="line">    public UserServiceNormal(UserDao userDao) &#123;</span><br><span class="line">        this.userDao = userDao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void add() &#123;</span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">2.2 构造函数的情况下：</span><br><span class="line">@Configuration</span><br><span class="line">public class AppConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public UserDao userDaoNormal()&#123;</span><br><span class="line">        System.out.println(&quot;创建UserDao对象&quot;);</span><br><span class="line">        return new UserDaoNormal();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public UserService userServiceNormal()&#123;</span><br><span class="line">        System.out.println(&quot;创建UserService对象&quot;);</span><br><span class="line">        UserDao userDao = userDaoNormal();</span><br><span class="line">        return new UserServiceNormal(userDao);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3. Bean方法中使用参数</span><br><span class="line">    @Bean</span><br><span class="line">    public UserService userServiceNormal(UserDao userDao)&#123;</span><br><span class="line">        System.out.println(&quot;创建UserService对象&quot;);</span><br><span class="line">        return new UserServiceNormal(userDao);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">4.1 set方法</span><br><span class="line">    public void setUserDao(UserDao userDao) &#123;</span><br><span class="line">        this.userDao = userDao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">4.2 setter方法依赖注入</span><br><span class="line">    @Bean</span><br><span class="line">    public UserService userServiceNormal(UserDao userDao)&#123;</span><br><span class="line">        System.out.println(&quot;创建UserService对象&quot;);</span><br><span class="line">        UserServiceNormal userService = new UserServiceNormal();</span><br><span class="line">        userService.setUserDao(userDao);</span><br><span class="line">        return userService;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre><code>5. 装配过程的歧义性
+     1. 当接口下的多个实现类被标注了Bean注解时将发生歧义性
+
+     2. 同自动装配中使用的方法差不多
+           * 首选Bean(@Primary)
+              * 调用被标注了注解为@Primary的方法
+              * 同样只能有一个@Primary
+
+           * 使用限定符
+              * 使用限定符，为每一个Bean标注Qualifier
+              * 在使用时，参数位置处的Qualifier需要标注在括号内；而不是类外。
+
+           * 使用限定符和bean id
+              * 使用Bean id 同限定符的作用一样
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">1. 首选Bean：</span><br><span class="line">    @Bean</span><br><span class="line">    @Primary</span><br><span class="line">    public UserDao userDaoCache()&#123;...&#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public UserService userServiceNormal(UserDao userDao)&#123;...&#125;</span><br><span class="line"></span><br><span class="line">2. 使用限定符</span><br><span class="line">    @Bean</span><br><span class="line">    @Qualifier(&quot;cache&quot;)</span><br><span class="line">    public UserDao userDaoCache()&#123;...&#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @Qualifier(&quot;normal&quot;)</span><br><span class="line">    public UserDao userDaoNormal()&#123;...&#125;</span><br><span class="line"></span><br><span class="line">调用方：</span><br><span class="line">    @Bean</span><br><span class="line">    public UserService userServiceNormal(@Qualifier(&quot;normal&quot;)UserDao userDao)&#123;...&#125;</span><br><span class="line">    @Bean</span><br><span class="line">    public UserService userServiceNormal(@Qualifier(&quot;normal&quot;)UserDao userDao)&#123;</span><br><span class="line">        System.out.println(&quot;创建UserService对象&quot;);</span><br><span class="line">        UserServiceNormal userService = new UserServiceNormal();</span><br><span class="line">        userService.prepare(userDao);</span><br><span class="line">        return userService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">3. 使用限定符和Bean id</span><br><span class="line">    @Bean(&quot;cache&quot;)</span><br><span class="line">    public UserDao userDaoCache()&#123;...&#125; </span><br><span class="line"></span><br><span class="line">    @Bean(&quot;normal&quot;)</span><br><span class="line">    public UserDao userDaoNormal()&#123;...&#125;</span><br><span class="line"></span><br><span class="line">调用方：</span><br><span class="line">    @Bean</span><br><span class="line">    public UserService userServiceNormal(@Qualifier(&quot;normal&quot;)UserDao userDao)&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="第四章————XML装配"><a href="#第四章————XML装配" class="headerlink" title="第四章————XML装配"></a>第四章————XML装配</h3><pre><code>1. 创建Bean对象
+    1. 配置applicationContext.xml文件
+        * 添加&lt;bean class=&quot;com.qfedu.demo.soundsystem.CompactDisc&quot;/&gt;语句
+        * 此语句中的class为bean对象所在的类
+
+    2. 配置文件中存在多个相同Bean对象时，编译器将无法识别是使用哪一个Bean对象
+        * 此时需要为Bean对象赋予id
+        * &lt;bean  id=&quot;compactDisc1&quot; class=&quot;com.qfedu.demo.soundsystem.CompactDisc&quot;/&gt;
+        * &lt;bean  id=&quot;compactDisc2&quot; class=&quot;com.qfedu.demo.soundsystem.CompactDisc&quot;/&gt;
+
+    3. id和name属性
+        1. id属性为唯一的，不可重复
+        2. name的作用是和id一样的
+            * 当有多个name时，可通过空格、分号、逗号进行分割
+            * name=&quot;compactDisc1 compacDisc12&quot;
+        3. name中Bean对象可以有多个别名，id中Bean只能有一个别名
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    &lt;bean id=&quot;compactDisc1&quot; class=&quot;com.qfedu.demo.soundsystem.CompactDisc&quot;/&gt;</span><br><span class="line">    &lt;bean id=&quot;compactDisc2&quot; class=&quot;com.qfedu.demo.soundsystem.CompactDisc&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean name=&quot;compactDisc1 compactDisc12&quot; class=&quot;com.qfedu.demo.soundsystem.CompactDisc&quot;/&gt;</span><br><span class="line">    &lt;bean name=&quot;compactDisc2&quot; class=&quot;com.qfedu.demo.soundsystem.CompactDisc&quot;/&gt;</span><br><span class="line">```             </span><br><span class="line"></span><br><span class="line">           4. 通过构造函数依赖注入</span><br><span class="line">               1. &lt;constructor-arg&gt;元素</span><br><span class="line">                   * 将其他对象作为参数传入此对象中</span><br><span class="line">               2. c-名称空间</span><br><span class="line">                   * 使用C名称空间，声明构造函数的参数；作为了Bean元素的一个属性</span><br><span class="line">                   * c:cd-ref</span><br><span class="line">                        * c: ——&gt;c名称空间的前缀</span><br><span class="line">                        * cd ——&gt;构造函数的参数名称</span><br><span class="line">                        * -ref——&gt;表示我们注入的是另一个Bean对象的引用</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p><constructor-arg></constructor-arg></p>
+ <bean id="CDPlayer1" class="com.qfedu.demo.soundsystem.CDPlayer"><br>     <constructor-arg ref="compactDisc1"><br> </constructor-arg></bean>
+</li>
+<li><p>c名称空间<br> <bean id="cdPlayer2" class="com.qfedu.demo.soundsystem.CDPlayer" c:cd-ref="compactDisc2"></bean></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">5. 简单类型的注入</span><br><span class="line">     1. 通过&lt;constructor-arg&gt;</span><br><span class="line">          * 默认情况下按照顺序逐个赋值传入对象</span><br><span class="line">     2. c-名称空间</span><br><span class="line">          * c:变量名=“值”</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><constructor-arg></constructor-arg></p>
+ <bean id="compactDisc1" class="com.qfedu.demo.soundsystem.CompactDisc"><br>     <constructor-arg index="0" value="I DO"><br>     <constructor-arg index="1" value="陈奕迅"><br> </constructor-arg></constructor-arg></bean><br> <bean id="compactDisc1" class="com.qfedu.demo.soundsystem.CompactDisc"><br>     <constructor-arg name="title" value="I DO"><br>     <constructor-arg name="artist" value="陈奕迅"><br> </constructor-arg></constructor-arg></bean>
+</li>
+<li><p>c-名称空间<br> <bean id="compactDisc2" class="com.qfedu.demo.soundsystem.CompactDisc" c:title="周杰伦的床边故事" c:artist="周杰伦"><br> <bean id="compactDisc3" class="com.qfedu.demo.soundsystem.CompactDisc" c:_0="周杰伦的床边故事" c:_1="周杰伦"></bean></bean></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">6. 注入list与数组类型</span><br><span class="line">     1. 简单数据类型的List</span><br><span class="line">            * 使用value</span><br><span class="line">     2. 对象类型的List </span><br><span class="line">            * 先使用Bean创建对象</span><br><span class="line">            * 再使用ref</span><br><span class="line">     3. 数组：只需将list标签改为array即可</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>简单数据类型</p>
+ <bean id="compactDisc1" class="com.qfedu.demo.soundsystem.CompactDisc"><br>     <constructor-arg name="title" value="I DO"><br>     <constructor-arg name="artist" value="陈奕迅"><br>     <constructor-arg name="tracks"><br>         <list><br>             <value>I DO 1</value><br>             <value>I DO 2</value><br>             <value>I DO 3</value><br>         </list><br>     </constructor-arg><br> </constructor-arg></constructor-arg></bean>
+</li>
+<li><p>对象类型<br>2.1 创建对象<br> <bean id="music1" class="com.qfedu.demo.soundsystem.Music"></bean></p>
+<pre><code>&lt;constructor-arg value=&quot;I Do 1&quot;/&gt;
+&lt;constructor-arg value=&quot;270&quot;/&gt;
+</code></pre><p> <br> <bean id="music2" class="com.qfedu.demo.soundsystem.Music"></bean></p>
+<pre><code>&lt;constructor-arg value=&quot;I Do 2&quot;/&gt;
+&lt;constructor-arg value=&quot;90&quot;/&gt;
+</code></pre><p> <br>2.2 使用ref<br> <bean id="compactDisc1" class="com.qfedu.demo.soundsystem.CompactDisc"></bean></p>
+<pre><code>&lt;constructor-arg  name=&quot;title&quot; value=&quot;I DO&quot;/&gt;
+&lt;constructor-arg  name=&quot;artist&quot; value=&quot;陈奕迅&quot;/&gt;
+&lt;constructor-arg  name=&quot;tracks&quot;&gt;
+    &lt;list&gt;
+        &lt;ref bean=&quot;music1&quot;/&gt;
+        &lt;ref bean=&quot;music2&quot;/&gt;
+    &lt;/list&gt;
+&lt;/constructor-arg&gt;
+</code></pre><p> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">7. 注入set与数组类型</span><br><span class="line">    1. 用法：同list一样；只需将list标签改为set即可</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">    2. 与list的区别：set中不可出现重复的内容；重复的内容将不会再处理 </span><br><span class="line">    </span><br><span class="line">    3. 底层使用的是ListHashSet：使得顺序可以得到保证</span><br><span class="line"></span><br><span class="line">8. 注入map类型</span><br><span class="line">    1. 用法：同list一样；只需改动标签</span><br><span class="line">    </span><br><span class="line">    2. 与list的区别：</span><br><span class="line">         1. 遍历的时候，是遍历key；随后根据key来得到key和value</span><br><span class="line">         2. 在配置文件中的标签要使用&lt;entry &gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>遍历：<br>        for (String key : tracks.keySet()) {<br>            System.out.println(“key: “+key);<br>            Music music = tracks.get(key);<br>            System.out.println(“音乐：”+music.getTitle()+”时长：”+music.getDuration());<br>        }</p>
+<p>配置文件：<br>    <bean id="compactDisc1" class="com.qfedu.demo.soundsystem.CompactDisc"><br>        <constructor-arg name="title" value="I DO"><br>        <constructor-arg name="artist" value="陈奕迅"><br>        <constructor-arg name="tracks"><br>            <map><br>                <entry key="m1" value-ref="music1"><br>                <entry key="m2" value-ref="music2"><br>                <entry key="m3" value-ref="music3"><br>            </entry></entry></entry></map><br>        </constructor-arg><br>    </constructor-arg></constructor-arg></bean><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">9. 属性注入：</span><br><span class="line">   * 即使用set方法进行依赖注入</span><br><span class="line">    1. 在配置文件中进行Bean对象的依赖注入</span><br><span class="line">         1. 使用property标签</span><br><span class="line">         2. 用name表示属性名</span><br><span class="line">         3. 简单数据用value;引用使用ref</span><br><span class="line">         4. 在配置文件中进行Bean对象的依赖注入后</span><br><span class="line">         *  只要标有注解ContextConfiguration即可自动加载出Bean</span><br></pre></td></tr></table></figure></p>
+<p>两个Bean对象的依赖注入：</p>
+<pre><code>&lt;bean id=&quot;music1&quot; class=&quot;com.qfedu.demo.soundsystem.Music&quot;&gt;
+    &lt;property name=&quot;title&quot; value=&quot;告白气球&quot;/&gt;
+    &lt;property name=&quot;duration&quot; value=&quot;215&quot;/&gt;
+&lt;/bean&gt;
+
+&lt;bean id=&quot;music2&quot; class=&quot;com.qfedu.demo.soundsystem.Music&quot;&gt;
+    &lt;property name=&quot;title&quot; value=&quot;爱情废材&quot;/&gt;
+    &lt;property name=&quot;duration&quot; value=&quot;305&quot;/&gt;
+&lt;/bean&gt;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">10. 属性中注入列表和数组：</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;bean id=&quot;CompactDisc1&quot; class=&quot;com.qfedu.demo.soundsystem.CompactDisc&quot;&gt;
+    &lt;property name=&quot;title&quot; value=&quot;周杰伦的床边故事&quot;/&gt;
+    &lt;property name=&quot;artist&quot; value=&quot;周杰伦&quot;/&gt;
+    &lt;property name=&quot;tracks&quot;&gt;
+        &lt;array&gt;
+            &lt;ref bean=&quot;music1&quot;/&gt;
+            &lt;ref bean=&quot;music2&quot;/&gt;
+        &lt;/array&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">11. 属性中注入对象和引用：</span><br><span class="line">      * 需要配置set方法</span><br><span class="line">      * 随后在配置文件中使用set方法进行依赖注入</span><br></pre></td></tr></table></figure>
+<pre><code>public void setCd(CompactDisc cd) {
+    this.cd = cd;
+    System.out.println(&quot;--在&quot;+this.toString()+&quot;中注入cd&quot;);
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">12. p名称空间：</span><br><span class="line">     1. 首先在开头的网站中引入p名称空间</span><br><span class="line">          * xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">     </span><br><span class="line">     2. p名称空间的使用</span><br><span class="line">          * 使用P：属性名=&quot;值&quot;的形式</span><br><span class="line">          * 缺点：无法代替数组、集合等形式</span><br></pre></td></tr></table></figure>
+<p>p名称空间的使用</p>
+<ol>
+<li>简单类型 <bean id="music2" class="com.qfedu.demo.soundsystem.Music" p:title="爱情废柴" p:duration="305"></bean></li>
+<li><p>对象的引用<br> &lt;bean id=”CDPlayer1” class=”com.qfedu.demo.soundsystem.CDPlayer”</p>
+<pre><code>p:cd-ref=&quot;CompactDisc1&quot;/&gt;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">13. util名称空间：</span><br><span class="line">      1. 可以处理p无法处理的数组与集合等形式</span><br><span class="line">     </span><br><span class="line">      2. 与c和p的不同：</span><br><span class="line">           * c和p的使用位置是位于元素属性位置</span><br><span class="line">           * util的使用位置是位于元素前缀位置</span><br><span class="line">          </span><br><span class="line">      3. util名称空间的使用：</span><br><span class="line">           1. 在元素前缀加上&lt;util:list&gt;&lt;/util:list&gt;标签。则在网址处将自动添加3个网址</span><br><span class="line">           2. list：可表示list与数组</span><br><span class="line">              map:表示map</span><br><span class="line">              set:表示set</span><br></pre></td></tr></table></figure>
+<p> &lt;util:list id=”trackList”&gt;</p>
+<pre><code>&lt;ref bean=&quot;music1&quot;/&gt;
+&lt;ref bean=&quot;music2&quot;/&gt;
+</code></pre><p> &lt;/util:list&gt;<br> &lt;bean id=”CompactDisc1” class=”com.qfedu.demo.soundsystem.CompactDisc”</p>
+<pre><code>p:title=&quot;周杰伦的床边故事&quot;
+p:artist=&quot;周杰伦&quot;
+p:tracks-ref=&quot;trackList&quot;&gt;
+</code></pre><p> <br><code>`</code></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/26/JavaEE之Spring快速入门之中小结/" data-id="cjyr8i5xe0001cwtnaduq56h6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之Spring快速入门之上小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/" class="article-date">
@@ -266,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/26/JavaEE之Spring快速入门之上小结/" data-id="cjypgztrq0002g4tnq4mop0fp" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/26/JavaEE之Spring快速入门之上小结/" data-id="cjyph19xb003c98tn6vsu3y5a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -378,7 +616,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之下小结/" data-id="cjypgztr90000g4tnyps8ag7n" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之下小结/" data-id="cjyph19u4001498tno7nk5e54" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -561,7 +799,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之中小结/" data-id="cjypgztsx0004g4tn20j2j54z" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之中小结/" data-id="cjyph19y4003t98tngzllr99y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -895,7 +1133,7 @@ public List&lt;User&gt; findUserAndItemsResultMap() throws Exception;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之上小结/" data-id="cjyntotu5003nswtnq3pnnw28" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之上小结/" data-id="cjyph19y2003r98tnd4fgy8bg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1012,7 +1250,7 @@ public List&lt;User&gt; findUserAndItemsResultMap() throws Exception;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之下小结/" data-id="cjyntotsx0033swtn75iudmzv" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之下小结/" data-id="cjyph19wz003498tnwe8wtm83" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1141,7 +1379,7 @@ public List&lt;User&gt; findUserAndItemsResultMap() throws Exception;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjyntott00034swtn46ju2v2c" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjyph19x4003698tnmgos0p1n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1343,7 +1581,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之上小结/" data-id="cjyntotu3003lswtn8mwmdow2" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之上小结/" data-id="cjyph19y0003p98tnps81g9ku" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1382,135 +1620,9 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjyntotrt002mswtn6tpz34g9" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjyph19vo002m98tn2qxeonxe" class="article-share-link">Share</a>
       
       
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之框架的介绍小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/22/JavaEE之框架的介绍小结/" class="article-date">
-  <time datetime="2019-07-22T11:42:57.000Z" itemprop="datePublished">2019-07-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/22/JavaEE之框架的介绍小结/">JavaEE之框架的介绍小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="框架的介绍-SSM"><a href="#框架的介绍-SSM" class="headerlink" title="框架的介绍(SSM)"></a>框架的介绍(SSM)</h2><ol>
-<li><p>SSM的分类以及作用：</p>
-<ol>
-<li>MyBatis:数据访问层框架</li>
-<li>Spring：IOC、AOP</li>
-<li>SpringMVC：对Servlet封装</li>
-</ol>
-</li>
-<li><p>框架的概念：</p>
-<ol>
-<li><p>框架：软件的半成品，未解决问题制定的一套约束，在提供功能基础上进行扩充。</p>
-</li>
-<li><p>框架中一些不能被封装的代码（变量），需要使用框架者新建一个xml文件，在文件中添加变量内容。</p>
-<ul>
-<li>需要建立特定位置和特定名称的配置文件</li>
-<li>需要使用xml解析技术和反射技术<pre><code>* 如果类固定的类只需要有xml解析
-* 如果类和类中的属性都不固定，需要使用反射
-</code></pre></li>
-</ul>
-</li>
-<li><p>常用概念</p>
-<ol>
-<li>类库：提供的类没有封装一定逻辑<br>  举例：类库就是名言警句，写作文时引入名言警句</li>
-<li>框架：区别与类库，里面有一些约束，<br>  举例：框架就是填空题</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之框架的介绍小结/" data-id="cjyntotqe001oswtn8u2z6ktu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-新文档2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/22/新文档2/" class="article-date">
-  <time datetime="2019-07-22T11:42:57.000Z" itemprop="datePublished">2019-07-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/22/新文档2/">JavaEE之MyBatis小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><pre><code>1. MyBatis简介：开源免费框架，原名叫iBatis，2010年在Googlecode，2013年迁移到github。
-
-2. MyBatis概念：
-      1. mybatis是对jdbc的封装
-      2. 将SQL语句放在映射文件中（xml）
-      3. 自动将输入参数映射到SQL语句的动态参数上
-      4. 自动将SQL语句执行的结果映射成java对象
-
-3. 步骤
-      1. 创建mybatis，java项目，maven
-
-      2. 导入jar包
-           * log4j
-           * mybatis
-           * mysql-connnec-java
-
-      3. 加入配置文件
-         （1）db.properties
-          (2) log4j.properties
-          (3) mybatis.xml
-          (4)
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/新文档2/" data-id="cjyntotrq002kswtnzf3h965e" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
     </footer>
   </div>
   
@@ -1568,6 +1680,14 @@ sqlSession.close();
       <ul>
         
           <li>
+            <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/JavaEE之Spring快速入门之中小结/">JavaEE之Spring快速入门之中小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/">JavaEE之Spring快速入门之上小结</a>
           </li>
         
@@ -1577,14 +1697,6 @@ sqlSession.close();
         
           <li>
             <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/25/JavaEE之MyBatis高级知识之上小结/">JavaEE之MyBatis高级知识之上小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
           </li>
         
       </ul>
