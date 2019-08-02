@@ -62,6 +62,88 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之Http协议下小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/17/JavaEE之Http协议下小结/" class="article-date">
+  <time datetime="2019-07-17T09:14:16.000Z" itemprop="datePublished">2019-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/17/JavaEE之Http协议下小结/">JavaEE之Http协议下小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><pre><code>1.请求消息：客户端发送给服务器端的数据
+    *数据格式：
+       1.请求行
+       2.请求头
+       3.请求空行
+       4.请求体
+2.响应消息：服务器端发送给客户端的数据
+     *数据格式：
+        1.响应行：
+             1.组成：协议、版本  响应状态码 状态码描述
+             2.响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态
+                 1.状态码都是3位数字
+                 *分类：
+                    1.1xx:服务器接受客户端消息，但没有接受完成，等待一段时间后，发送1xx多状态码
+                    2.2xx:成功。代表：200
+                    3.3xx:重定向。代表：302（重定向），304（访问缓冲）
+                    4.4xx:客户端错误。代表：404（请求路劲没有对应的资源）405（请求方式没有对应的doxxx方法）
+                    5.5xx:服务器端错误。代表：500（服务器内部出现异常）
+
+        2.响应头：
+            1.格式：头名称：值
+            2.常见的响应头：
+                1.Content-Type：服务器告诉客户端本次响应体数据格式以及编码格式
+                2.Content-disposition：服务器告诉客户端以什么格式打开响应体数据
+                     *值：
+                       *in-line:默认值，在当前页面打开
+                       *attachment；filename=xx：以附件形式打开响应体。文件下载中使用较多
+        3.响应空行：
+        4.响应体：传输的数据
+
+     *响应字符串格式
+        HTTP/1.1 200 OK
+        Date: Sat, 20 Jul 2019 08:33:11 GMT
+        Content-Type: image/png
+        Transfer-Encoding: chunked
+        Connection: keep-alive
+        Expires: Sun, 01 Jul 2029 06:36:09 GMT
+        Server: nginx
+        Last-Modified: Wed, 17 Apr 2019 08:33:53 GMT
+        ETag: W/&quot;5cb6e4f1-7da&quot;
+        Cache-Control: max-age=315360000
+        Content-Encoding: gzip
+        Age: 1
+        X-Via: 1.1 PSzjjxdx10tk79:7 (Cdn Cache Server V2.0), 1.1 zhj168:14 (Cdn Cache Server V2.0)
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Http协议下小结/" data-id="cjyr8j4tz000fw8tngvad5kup" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之Request小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/17/JavaEE之Request小结/" class="article-date">
@@ -176,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjyph19u6001698tnbrzlkbdh" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/17/JavaEE之Request小结/" data-id="cjyr8j4vd001aw8tn2jgrx35i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -269,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjyph19t9000i98tn6jtm4o7c" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Http协议小结/" data-id="cjyr8j4u6000jw8tn6av5f7qk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -387,7 +469,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjyph19ua001a98tno6x9yp2z" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/16/JavaEE之Servlit小结/" data-id="cjyr8j4vf001cw8tn51mk7jcs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -455,7 +537,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjyph19sa000098tnk0k8qnpl" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之四大抽象类/" data-id="cjyr8j4su0000w8tnp583ngd4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -518,7 +600,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjyph19sp000498tnqp1czchf" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之流的体系与概念/" data-id="cjyr8j4ti0005w8tn4e7qf1e0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -560,7 +642,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjyph19si000198tns9xljh5c" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之数据源与流/" data-id="cjyr8j4tb0003w8tnf71fsbfi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -608,7 +690,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjyph19so000398tnlyl7svao" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/10/IO之基本概念/" data-id="cjyr8j4t50001w8tn80c00f62" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -648,7 +730,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjyph19w3003098tngxi7r563" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjyr8j4yy0038w8tnnyjqpkus" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -697,50 +779,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjyph19vx002u98tnctifxblg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-集合之List的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/09/集合之List的常用方法与特点/" class="article-date">
-  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之List的常用方法与特点/">java_集合_List的常用方法与特点小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="List的常用方法以及特点"><a href="#List的常用方法以及特点" class="headerlink" title="List的常用方法以及特点"></a>List的常用方法以及特点</h2><h3 id="一、List的特点"><a href="#一、List的特点" class="headerlink" title="一、List的特点"></a>一、List的特点</h3><p>1.有序：List中每个元素都有索引标记。可以根据元素的索引标记(在List中的位置)访问元素，从而精确控制这些元素。<br>2. 可重复：List允许加入重复的元素。更确切地讲，List通常允许满足 e1.equals(e2) 的元素重复加入容器。</p>
-<h3 id="二、List的常用方法"><a href="#二、List的常用方法" class="headerlink" title="二、List的常用方法"></a>二、List的常用方法</h3><p><strong>void add(int index,Object element)<br><br>在指定位置插入元素，以前元素全部后移一位<br><br>Object set(int index,Object element)<br><br>修改指定位置的元素<br><br>Object get(int index)<br><br>获取指定位置的元素<br><br>Object remove(int index)<br><br>删除指定位置的元素，后面的元素全部前移一位<br><br>int indexOf(Object o)<br><br>返回第一个元素的索引，如果没有该元素，返回-1<br><br>int lastIndexOf(Object o)<br><br>返回最后一个元素的索引，如果没有该元素，返回-1</strong><br></p>
-<h3 id="三、List方法的运用"><a href="#三、List方法的运用" class="headerlink" title="三、List方法的运用"></a>三、List方法的运用</h3><p>1.List的常用方法的运用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        System.out.println(list.isEmpty());//判断list中是否包含元素【此时为空】</span><br><span class="line">        list.add(&quot;黄&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        System.out.println(list.isEmpty());//再次判断list中是否包含元素【此时非空】</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.remove(0);//移除索引为0的元素</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        System.out.println(list.size());//输出list此时的元素数量</span><br><span class="line">        System.out.println(list.contains(&quot;黄&quot;));//判断list中是否包含“黄”这个元素【此时为false】</span><br><span class="line">        Object[] objs = list.toArray();//将list转化为数组</span><br><span class="line">        System.out.println(&quot;转换为Object数组&quot; + Arrays.toString(objs));</span><br><span class="line">        list.clear();//清空list中所有的元素</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">[黄, 丫, 丫]</span><br><span class="line">[丫, 丫]</span><br><span class="line">2</span><br><span class="line">false</span><br><span class="line">转换为Object数组[丫, 丫]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
-<p>2.两个List之间的元素处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        list.add(&quot;黄&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; list2 = new ArrayList&lt;String&gt;();//创建String类型的list2</span><br><span class="line">        list2.add(&quot;黄&quot;);//加入元素到list中2</span><br><span class="line">        list2.add(&quot;大&quot;);</span><br><span class="line">        list2.add(&quot;小&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(list.containsAll(list2));//判断list中是否包含list2容器中的所有元素【此时为false】</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.addAll(list2);//将list2中的所有元素添加到list中</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        list.removeAll(list2);//从list中删除同时在list和list2中存在的元素</span><br><span class="line">        System.out.println(list);</span><br><span class="line">        list.retainAll(list2);//取list和list2的交集</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">false</span><br><span class="line">[黄, 丫, 丫]</span><br><span class="line">[黄, 丫, 丫, 黄, 大, 小]</span><br><span class="line">[丫, 丫]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
-<p>3.List中操作索引的常用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        list.add(&quot;A&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;B&quot;);</span><br><span class="line">        list.add(&quot;C&quot;);</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.add(2,&quot;黄&quot;);//在索引为2的位置添加元素“黄”</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.remove(2);//移除索引为2的元素</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.set(2,&quot;c&quot;);//将索引为2的元素置换为c</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        System.out.println(list.get(1));//输出索引位置为1的元素</span><br><span class="line">        list.add(&quot;B&quot;);//添加元素“B”</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        System.out.println(list.indexOf(&quot;B&quot;));//输出第一个元素为“B”的索引位置</span><br><span class="line">        System.out.println(list.lastIndexOf(&quot;B&quot;));//输出最后一个元素为“B”的索引位置</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[A, B, C]</span><br><span class="line">[A, B, 黄, C]</span><br><span class="line">[A, B, C]</span><br><span class="line">[A, B, c]</span><br><span class="line">B</span><br><span class="line">[A, B, c, B]</span><br><span class="line">1</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjyph19vz002w98tnqloejecp" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjyr8j4yq0032w8tnb0pdhjab" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -756,7 +795,7 @@ void close() ： 关闭输出流对象，释放相关系统资源。
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -802,6 +841,10 @@ void close() ： 关闭输出流对象，释放相关系统资源。
       <ul>
         
           <li>
+            <a href="/2019/07/31/新文档8888/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/">(no title)</a>
           </li>
         
@@ -815,10 +858,6 @@ void close() ： 关闭输出流对象，释放相关系统资源。
         
           <li>
             <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
           </li>
         
       </ul>

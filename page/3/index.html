@@ -62,6 +62,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之request.getParameter()在get和post方法中文乱码问题小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" class="article-date">
+  <time datetime="2019-07-21T03:39:48.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/">JavaEE之request.getParameter()在get和post方法中文乱码问题小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>乱码原因：Http请求传输时将url以ISO-8859-1编码，服务器收到字节流后默认会以ISO-8859-1编码来解码成字符流（造成中文乱码）</p>
+<p>post请求：</p>
+<p>假设提交请求的jsp页面是UTF-8编码</p>
+<p>&lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&gt;</p>
+<p>解决方法1：在服务端获取参数前，先设置解码方式。<br>原文：<a href="https://blog.csdn.net/u013476542/article/details/52845547" target="_blank" rel="noopener">https://blog.csdn.net/u013476542/article/details/52845547</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//设置解码方式，对于简体中文，使用UTF-8解码</span><br><span class="line">request.setCharacterEncoding(&quot;UTF-8&quot;);</span><br><span class="line">request.getParameter(&quot;参数名&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>解决方法2：Tomcat默认编码ISO8859-1，设置成其他的编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;   </span><br><span class="line">    connectionTimeout=&quot;20000&quot;   </span><br><span class="line">    redirectPort=&quot;8444&quot;   </span><br><span class="line">    useBodyEncodingForURI=&quot;true&quot; URIEncoding=&quot;UTF-8&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>重点在 userBodyEncodingForURI 和 URIEncoding 这两个属性</p>
+<p>下面来解释一下这两个属性的意义</p>
+<p>useBodyEncodingForURI参数表示是否用request.setCharacterEncoding参数对URL提交的数据和表单中GET方式提交的数据进行重新编码，在默认情况下，该参数为false。</p>
+<p>URIEncoding参数指定对所有GET方式请求进行统一的重新编码（解码）的编码。</p>
+<p>URIEncoding和useBodyEncodingForURI区别是，</p>
+<p>URIEncoding是对所有GET方式的请求的数据进行统一的重新编码，</p>
+<p>而useBodyEncodingForURI则是根据响应该请求的页面的request.setCharacterEncoding参数对数据进行的重新编码，不同的页面可以有不同的重新编码的编码</p>
+<p>解决方法3：通过字符串和字节流转换时使用正确的编码获取中文参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String str = new String(request.getParameter(&quot;参数名&quot;).getBytes(&quot;iso-8859-1&quot;), &quot;utf-8&quot;);</span><br></pre></td></tr></table></figure>
+<p>get请求：</p>
+<p>对于get请求，上面针对于post的请求的三种解决方法，只有第三种可以用，第一种和第二种并没有效果，这和tomcat的内部机制有关。<br>对于get请求，还有一个很笨拙的方法，不推荐使用，贴出来，以供了解：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/获取请求里包含的查询字符串</span><br><span class="line">String rawQueryStr = request.getQueryString();</span><br><span class="line">out.println(&quot;原始查询字符串为：&quot; + rawQueryStr + &quot;&lt;hr/&gt;&quot;);</span><br><span class="line">//使用URLDecoder解码字符串</span><br><span class="line">String queryStr = java.net.URLDecoder.decode(</span><br><span class="line">	rawQueryStr , &quot;gbk&quot;);</span><br><span class="line">out.println(&quot;解码后的查询字符串为：&quot; + queryStr + &quot;&lt;hr/&gt;&quot;);</span><br><span class="line">//以&amp;符号分解查询字符串</span><br><span class="line">String[] paramPairs = queryStr.split(&quot;&amp;&quot;);</span><br><span class="line">for(String paramPair : paramPairs)</span><br><span class="line">&#123;</span><br><span class="line">	out.println(&quot;每个请求参数名、值对为：&quot; + paramPair + &quot;&lt;br/&gt;&quot;);</span><br><span class="line">	//以=来分解请求参数名和值</span><br><span class="line">	String[] nameValue = paramPair.split(&quot;=&quot;);</span><br><span class="line">	out.println(nameValue[0] + &quot;参数的值是：&quot; + </span><br><span class="line">		nameValue[1]+ &quot;&lt;hr/&gt;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;/pre&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color:rgb(56,56,56); font-family:&quot;Trebuchet MS&quot;,Helvetica,&quot;Microsoft YaHei&quot;,Georgia,sans-serif; font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">乱码原因：Http请求传输时将url以ISO-8859-1编码，服务器收到字节流后默认会以ISO-8859-1编码来解码成字符流（造成中文乱码）</span><br><span class="line">&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">post请求：&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">假设提交请求的jsp页面是UTF-8编码&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;    pageEncoding=&quot;UTF-8&quot;%&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;</span><br><span class="line">解决方法1：在服务端获取参数前，先设置解码方式。&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family:Trebuchet MS,Helvetica,Microsoft YaHei,Georgia,sans-serif; color:#383838&quot;&gt;&lt;span style=&quot;font-size:13px; line-height:23px&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;pre name=&quot;code&quot; class=&quot;java&quot; style=&quot;color: rgb(56, 56, 56); font-size: 13px; line-height: 23px;&quot;&gt;</span><br><span class="line">//设置解码方式，对于简体中文，使用UTF-8解码</span><br><span class="line">request.setCharacterEncoding(&quot;UTF-8&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getParameter(&quot;参数名&quot;);</span><br></pre></td></tr></table></figure>
+<p>该文档来自<a href="https://blog.csdn.net/huawuque004/article/details/83178248" target="_blank" rel="noopener">https://blog.csdn.net/huawuque004/article/details/83178248</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjyr8j4wu001rw8tn8cr7ps4i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之登录练习小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/21/JavaEE之登录练习小结/" class="article-date">
@@ -112,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjyph19xd003e98tniaoropjh" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjyr8j4zt003ow8tnjmwgjl99" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -232,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjyph19t4000f98tnj4mhjkvk" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjyr8j4u3000iw8tnwixp3652" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -296,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Listener小结/" data-id="cjyph19tr000w98tn3obg3xh4" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Listener小结/" data-id="cjyr8j4uq000ww8tnid0v4ves" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -497,7 +555,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之XML小结/" data-id="cjyph19x9003a98tn8ds7ur64" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之XML小结/" data-id="cjyr8j4zo003mw8tnwu81eup1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -573,7 +631,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjyph19th000m98tn8r6ksh9f" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjyr8j4ug000ow8tnusvi15pc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -660,7 +718,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjyph19uw001w98tngp0t20rt" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjyr8j4xg0027w8tnyy6n89ll" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -712,7 +770,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC事务小结/" data-id="cjyph19tj000o98tn2ieoqncm" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC事务小结/" data-id="cjyr8j4ue000mw8tnrcwrsof3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1084,7 +1142,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjyph19xz003o98tnmbhn1hy6" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjyr8j4zd003ew8tnoscq6d79" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1127,93 +1185,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之三层架构小结/" data-id="cjyph19ug001g98tn4vf0o70z" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之JSTL表达式小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/19/JavaEE之JSTL表达式小结/" class="article-date">
-  <time datetime="2019-07-19T03:07:44.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/19/JavaEE之JSTL表达式小结/">JavaEE之JSTL表达式小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JSTL"><a href="#JSTL" class="headerlink" title="JSTL"></a>JSTL</h2><pre><code>1. 概念：JavaServer Pages Tag Library JSP标准标签库
-     *是由Apache组织提供的开源的免费的jsp标签
-
-2. 作用：用于简化和替换jsp页面上的java代码
-
-3. 步骤：
-     1.导入jstl相关的jar包
-     2.引入标签库：taglib指令： &lt;%@ taglib %&gt;
-     3.使用标签
-
-4. 常用的jstl标签
-    1.if       :相当于java代码的if语句
-         1.属性：
-            *test 必须属性，接受boolea表达式
-                *如果表达式为true，则显示if标签体内容。如果为false，则不需要显示标签体内容
-
-                *一般情况下，test属性会结合el表达式一起使用
-
-         2.注意：
-            *c:if标签无else情况，想要else情况，则可以再定义一个c:if标签
-    2.choose   :相当于java代码的switch语句
-         *完成数组编号对应星期几案例
-             1.域中存储一个数字
-             2.使用choose标签取出数字           相当于switch声明
-             3.使用when标签做数字判断           相当于case
-             4.otherwise标签做其他情况的声明    相当于default
-    3.foreach  :相当于java代码的for语句
-         1.完成重复的操作
-         for(int i=0;i&lt;10;i++){
-         }
-         *属性：
-            begin：开始值
-            end：结束值
-            var：临时变量
-            step：步长（临时变量每次增长多少）
-            varStatus:循环状态对象
-                 index:容器中元素的索引，从0开始
-                 count：循环次数从1开始
-         2.遍历容器
-         List&lt;User&gt; list = new ArrayList&lt;User&gt;();
-         foreach(User user:list){
-         }
-         *属性：
-             items：容器对象
-             var：容器中元素的临时变量
-             varStatus:循环状态对象
-                 index:容器中元素的索引，从0开始
-                 count：循环次数从1开始
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/" data-id="cjyph19tt000y98tnkwxzq9k6" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之三层架构小结/" data-id="cjyr8j4wx001tw8tnor1e7pj1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1229,7 +1201,7 @@ public boolean login2(String username,String password){
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -1275,6 +1247,10 @@ public boolean login2(String username,String password){
       <ul>
         
           <li>
+            <a href="/2019/07/31/新文档8888/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/">(no title)</a>
           </li>
         
@@ -1288,10 +1264,6 @@ public boolean login2(String username,String password){
         
           <li>
             <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
           </li>
         
       </ul>

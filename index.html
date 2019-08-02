@@ -62,6 +62,95 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-新文档8888" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/31/新文档8888/" class="article-date">
+  <time datetime="2019-07-31T13:24:17.469Z" itemprop="datePublished">2019-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h2><h3 id="SpringMVC的基本概念"><a href="#SpringMVC的基本概念" class="headerlink" title="SpringMVC的基本概念"></a>SpringMVC的基本概念</h3><pre><code>1. SpringMVC是什么：
+     * SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻量级Web框架。
+     * SpringMVC通过一套注解，让一个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。
+
+2. 环境搭建：
+     * 导入jar包
+     * 搭建前端控制器
+     * 搭建服务器
+
+3. 入门案例总结：
+     1. 启动服务器，加载一些配置文件
+          * DispatchherServlet对象创建
+          * springmvc.xml被加载了
+          * HelloController创建成对象
+     2. 发送请求，后台处理请求
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">          项目名称(/hello)</span><br><span class="line">       &lt;a href=&quot;hello&quot;&gt;入门程序&lt;/a&gt; </span><br><span class="line">                |                          6</span><br><span class="line">            1   |   |———————————————————————————————————————————————— |                        </span><br><span class="line">               \|  \|/                                                |    </span><br><span class="line">       7  控制中心、指挥中心   4         视图解析器对象          5      /|\</span><br><span class="line">结果 &lt;————DispatcherServlet ————&gt;InternalResourceViewResolver————&gt;success.jsp</span><br><span class="line">                |   |\</span><br><span class="line">            2   |   |   3</span><br><span class="line">               \|   |</span><br><span class="line">          @RequestMapping(path=&quot;/hello&quot;)</span><br><span class="line">public String sayHello()&#123;</span><br><span class="line">    System.out.println(&quot;hello StringMVC&quot;);</span><br><span class="line">    return &quot;success&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>3. 入门案组件小结：
+     1. DispatcherServlet：前端控制器 
+          * 用户请求到达前端控制器，它就相当于 mvc 模式中的 c，dispatcherServlet 是整个流程控制的中心，由 它调用其它组件处理用户的请求，dispatcherServlet 的存在降低了组件之间的耦合性 
+
+     2. HandlerMapping：处理器映射器
+          * HandlerMapping 负责根据用户请求找到 Handler 即处理器，SpringMVC 提供了不同的映射器实现不同的 映射方式，例如：配置文件方式，实现接口方式，注解方式等。
+
+     3. Handler：处理器 
+          * 它就是我们开发中要编写的具体业务控制器。由 DispatcherServlet 把用户请求转发到 Handler。由 Handler 对具体的用户请求进行处理。
+
+     4. HandlAdapter：处理器适配器 
+          * 通过 HandlerAdapter 对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理 器进行执行。 
+
+     5. View Resolver：视图解析器 
+          * View Resolver 负责将处理结果生成 View 视图，View Resolver 首先根据逻辑视图名解析成物理视图名 即具体的页面地址，再生成 View 视图对象，最后对 View 进行渲染将处理结果通过页面展示给用户
+
+     6. View：视图 
+          * SpringMVC 框架提供了很多的 View 视图类型的支持，包括：jstlView、freemarkerView、pdfView 等。我们最常用的视图就是 jsp。 一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面
+
+     7. &lt;mvc:annotation-driven&gt;说明
+          * 在 SpringMVC 的各个组件中，处理器映射器、处理器适配器、视图解析器称为 SpringMVC 的三大组件。 
+          * 使用&lt;mvc:annotation-driven&gt; 自动加载 RequestMappingHandlerMapping （处理映射器）和 RequestMappingHandlerAdapter （ 处 理 适 配 器 ） ， 
+          * 可 用 在 SpringMVC.xml 配 置 文 件 中 使 用 &lt;mvc:annotation-driven&gt;替代注解处理器和适配器的配置。
+          *  它就相当于在 xml 中配置了：
+          *   &lt;!-- 上面的标签相当于 如下配置--&gt;
+          *   &lt;!-- Begin --&gt;
+          *   &lt;!-- HandlerMapping --&gt;
+          *   &lt;bean
+
+4. RequestMapping的作用：
+      * 用于建立请求 URL 和处理请求方法之间的对应关系。
+      * 出现位置：
+            1. 类上：请求 URL 的第一级访问目录。此处不写的话，就相当于应用的根目录。写的话需要以/开头。它出现的目的是为了使我们的 URL 可以按照模块化管理
+            2. 方法上：请求 URL 的第二级访问目录
+</code></pre><pre><code>   账户模块：
+     /account/add
+     /account/update 
+     /account/delete 
+* account：是在类上
+* add、update、delete：是在方法上 
+</code></pre><pre><code>5. RequestMapping的属性：
+       1. value：用于指定请求的URL。它和path属性的作用是一样的。
+       2. method：用于指定请求的方式。
+       3.   params：用于指定限制请求参数的条件。它支持简单的表达式。要求请求参数的 key 和 value 必须和 配置的一模一样。
+</code></pre><p><code>例如：     params = {&quot;accountName&quot;}，表示请求参数必须有 accountName     params = {&quot;moeny!100&quot;}，表示请求参数中 money 不能是 100。</code>  </p>
+<pre><code>4. headers：用于指定限制请求消息头的条件。
+* 注意：   以上四个属性只要出现 2 个或以上时，他们的关系是与的关系。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/31/新文档8888/" data-id="cjytwd15d0000bwtnuzsr38hr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之Spring快速入门之下小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/" class="article-date">
@@ -104,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/31/JavaEE之Spring快速入门之下小结/" data-id="cjyr8i5w10000cwtn70w3cl24" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/31/JavaEE之Spring快速入门之下小结/" data-id="cjyr8j4vh001ew8tn7w0g55tj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -288,7 +377,7 @@ p:tracks-ref=&quot;trackList&quot;&gt;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/26/JavaEE之Spring快速入门之中小结/" data-id="cjyr8i5xe0001cwtnaduq56h6" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/26/JavaEE之Spring快速入门之中小结/" data-id="cjyr8j4za003dw8tnphm1wyqz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -504,7 +593,7 @@ p:tracks-ref=&quot;trackList&quot;&gt;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/26/JavaEE之Spring快速入门之上小结/" data-id="cjyph19xb003c98tn6vsu3y5a" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/26/JavaEE之Spring快速入门之上小结/" data-id="cjyr8j4wr001pw8tno4n0offm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -616,7 +705,7 @@ p:tracks-ref=&quot;trackList&quot;&gt;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之下小结/" data-id="cjyph19u4001498tno7nk5e54" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之下小结/" data-id="cjyr8j4uy0014w8tn0mvupe2p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -799,7 +888,7 @@ p:tracks-ref=&quot;trackList&quot;&gt;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之中小结/" data-id="cjyph19y4003t98tngzllr99y" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之中小结/" data-id="cjyr8j4zl003kw8tnqgdtkf23" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1133,7 +1222,7 @@ public List&lt;User&gt; findUserAndItemsResultMap() throws Exception;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之上小结/" data-id="cjyph19y2003r98tnd4fgy8bg" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/JavaEE之MyBatis高级知识之上小结/" data-id="cjyr8j4zi003iw8tnvw05a6ii" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1250,7 +1339,7 @@ public List&lt;User&gt; findUserAndItemsResultMap() throws Exception;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之下小结/" data-id="cjyph19wz003498tnwe8wtm83" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之下小结/" data-id="cjyr8j4wi001kw8tndd3wjw3i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1379,7 +1468,7 @@ public List&lt;User&gt; findUserAndItemsResultMap() throws Exception;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjyph19x4003698tnmgos0p1n" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjyr8j4wl001lw8tndjdrj4i6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1581,7 +1670,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之上小结/" data-id="cjyph19y0003p98tnps81g9ku" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之上小结/" data-id="cjyr8j4zf003gw8tnumksqbhq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1593,48 +1682,11 @@ sqlSession.close();
 
 
   
-    <article id="post-新文档" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/23/新文档/" class="article-date">
-  <time datetime="2019-07-23T11:16:14.579Z" itemprop="datePublished">2019-07-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="综合练习"><a href="#综合练习" class="headerlink" title="综合练习"></a>综合练习</h2><pre><code>1. 简单功能
-    1. 列表查询
-    2. 登录
-    3. 添加
-    4. 删除
-    5. 修改
-2. 复杂功能
-    1. 删除选中
-    2. 分页查询
-    3. 条件查询
-    4. 复杂条件查询，带有分页效果
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjyph19vo002m98tn2qxeonxe" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -1680,6 +1732,10 @@ sqlSession.close();
       <ul>
         
           <li>
+            <a href="/2019/07/31/新文档8888/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/">(no title)</a>
           </li>
         
@@ -1693,10 +1749,6 @@ sqlSession.close();
         
           <li>
             <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/25/JavaEE之MyBatis高级知识之中小结/">JavaEE之MyBatis高级知识之中小结</a>
           </li>
         
       </ul>
