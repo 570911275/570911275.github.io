@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JavaEE之Spring之AOP小结小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Spring之AOP小结一、AOP概念1. 面向切面编程，指扩展功能不修改源代码，将功能代码从业务逻辑代码中分离出来。      * 主要功能：日志记录、性能统计、安全控制、事务处理、异常处理等等      * 主要意图：将日志记录、性能统计、安全控制、事务管理、异常处理等代码从业务逻辑代码中划分出来，通过对这些行为的分离，我们希望可以将它们独立到非指导业务逻辑的方法中，进而改变这些行为的时候不影">
+<meta name="keywords" content="javaEE_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE之Spring之AOP小结小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/08/01/JavaEE之Spring之AOP小结小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Spring之AOP小结一、AOP概念1. 面向切面编程，指扩展功能不修改源代码，将功能代码从业务逻辑代码中分离出来。      * 主要功能：日志记录、性能统计、安全控制、事务处理、异常处理等等      * 主要意图：将日志记录、性能统计、安全控制、事务管理、异常处理等代码从业务逻辑代码中划分出来，通过对这些行为的分离，我们希望可以将它们独立到非指导业务逻辑的方法中，进而改变这些行为的时候不影">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-04T12:59:00.188Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaEE之Spring之AOP小结小结">
+<meta name="twitter:description" content="Spring之AOP小结一、AOP概念1. 面向切面编程，指扩展功能不修改源代码，将功能代码从业务逻辑代码中分离出来。      * 主要功能：日志记录、性能统计、安全控制、事务处理、异常处理等等      * 主要意图：将日志记录、性能统计、安全控制、事务管理、异常处理等代码从业务逻辑代码中划分出来，通过对这些行为的分离，我们希望可以将它们独立到非指导业务逻辑的方法中，进而改变这些行为的时候不影">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaEE之Spring之AOP小结小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/01/JavaEE之Spring之AOP小结小结/" class="article-date">
+  <time datetime="2019-08-01T01:40:11.000Z" itemprop="datePublished">2019-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaEE之Spring之AOP小结小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Spring之AOP小结"><a href="#Spring之AOP小结" class="headerlink" title="Spring之AOP小结"></a>Spring之AOP小结</h2><h3 id="一、AOP概念"><a href="#一、AOP概念" class="headerlink" title="一、AOP概念"></a>一、AOP概念</h3><pre><code>1. 面向切面编程，指扩展功能不修改源代码，将功能代码从业务逻辑代码中分离出来。
+     * 主要功能：日志记录、性能统计、安全控制、事务处理、异常处理等等
+     * 主要意图：将日志记录、性能统计、安全控制、事务管理、异常处理等代码从业务逻辑代码中划分出来，通过对这些行为的分离，我们希望可以将它们独立到非指导业务逻辑的方法中，进而改变这些行为的时候不影响业务逻辑的代码。
+</code></pre><h3 id="二、AOP特点"><a href="#二、AOP特点" class="headerlink" title="二、AOP特点"></a>二、AOP特点</h3><pre><code>1. 采用横向抽取机制，取代了传统纵向继承体系重复性代码
+</code></pre><h3 id="三、AOP底层实现"><a href="#三、AOP底层实现" class="headerlink" title="三、AOP底层实现"></a>三、AOP底层实现</h3><pre><code>1. AOP底层使用动态代理实现。包括两种方式：
+      * 使用JDK动态代理实现
+      * 使用cglib来实现
+
+2. JDK动态代理实现
+      * 只能对实现了接口的类生成代理，而不是针对类，该目标类型实现的接口都将被代理。原理是通过在运行期间创建一个接口的实现类来完成对目标对象的代理。
+      * 步骤：
+          1. 定义一个实现接口InvocationHandler的类
+          2. 通过构造函数，注入被代理类
+          3. 实现invoke（Object proxy,Method method,Object[] args）方法
+          4. 在主函数中获得被代理类的类加载器
+          5. 使用Proxy.newProxyInstance()产生一个代理对象
+          6. 通过代理对象调用各种方法
+
+3. cglib动态代理实现
+       * 针对类实现代理，对是否实现接口无要求。原理是对知道的类生成一个子类，覆盖其中的方法，因为是继承，所以被代理的类或方法最好不要声明被final类型。
+       * 步骤：
+           1. 如果目标对象实现了接口，默认情况下会采用JDK的动态代理实现AOP，也可以强制使用cglib实现AOP
+           2. 如果目标对象没有实现接口，必须采用cglib库，Spring会自动在JDK动态代理和cglib之间转换
+
+4. 静态代理和动态代理的区别：
+       * 静态代理：自己编写创建代理类，然后再进行编译，在程序运行前，代理类的.class文件就已经存在了
+       * 动态代理：在实现阶段不用关心代理水，而在运行阶段(通过反射机制)才指定代理哪一个对象
+</code></pre><h3 id="四、AOP操作术语"><a href="#四、AOP操作术语" class="headerlink" title="四、AOP操作术语"></a>四、AOP操作术语</h3><pre><code>1. 术语总结：
+ * Joinpoint(连接点)：类里面可以被增强的方法，这些方法被称为连接点
+ * Pointcut(切入点)：所谓切入点是指我们要对哪些Jpinpoint进行拦截的定义
+ * Advice(通知/增强): 所谓通知(增强)是指拦截到Joinpoint之后所要做的事情就是通知，通知分为前置通知、后置通知、异常通知、最终通知、环绕通知(切面要完成的功能)
+ * Aspect(切面): 是切入点和通知(引介)的结合
+ * Introduction(引介): 引介是一种特殊的通知在不修改类代码的前提下, Introduction可以在运行期为类动态地添加一些方法或Field
+ * Target(目标对象): 代理的目标对象(要增强的类) 
+ * Weaving(织入): 是把增强应用到目标的过程，把advice 应用到 target的过程
+ * Proxy(代理): 一个类被AOP织入增强后，就产生一个结果代理类  
+
+2. 常用术语：
+ * 切入点(Pointcut)：在类里边可以有很多方法被增强，比如实际操作中，只是增强了个别方法，则定义实际被增强的某个方法为切入点。
+ * 通知/增强(Advice) ：增强的逻辑，称为增强，比如扩展日志功能，这个日志功能称为增强
+       * 前置通知：在方法之前执行
+       * 后置通知：在方法之后执行
+       * 异常通知：方法出现异常执行
+       * 最终通知：在后置之后执行
+       * 环绕通知：在方法之前和之后执行​​​​​​​
+ * 切面：把增强应用到具体方法上面的过程称为切面。​​​​​​​
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/08/01/JavaEE之Spring之AOP小结小结/" data-id="cjywz3kuk00001stnatlis7ko" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/04/新文档8080/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/31/新文档8888/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/04/新文档8080/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/01/JavaEE之Spring之AOP小结小结/">JavaEE之Spring之AOP小结小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/31/新文档8888/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/JavaEE之Spring快速入门之中小结/">JavaEE之Spring快速入门之中小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

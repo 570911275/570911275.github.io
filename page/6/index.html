@@ -62,6 +62,95 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-集合之Map的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之Map的常用方法与特点/" class="article-date">
+  <time datetime="2019-07-09T08:07:53.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/集合之Map的常用方法与特点/">java_集合_Map的常用方法与特点小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Map的常用方法与特点"><a href="#Map的常用方法与特点" class="headerlink" title="Map的常用方法与特点"></a>Map的常用方法与特点</h2><h3 id="1-Map的特点"><a href="#1-Map的特点" class="headerlink" title="1. Map的特点"></a>1. Map的特点</h3><p>Map就是用来存储“<strong>键(key)-值(value) 对</strong>”的。<br> Map类中存储的“<strong>键值对</strong>”通过键来标识，所以“键对象”不能重复。</p>
+<h3 id="2-常用方法"><a href="#2-常用方法" class="headerlink" title="2.常用方法"></a>2.常用方法</h3><p><strong>Object put(Object key,Object value)<br><br>存放键值对<br><br>Object get(Object key)<br><br>通过键对象查找得到值对象<br><br>Object remove(Object key)<br><br>删除键对象对应的键值对<br><br>boolean containsKey(Object key)<br><br>Map容器中是否包含键对象对应的键值对<br><br>boolean containsValue(Object Value)<br><br>Map容器中是否包含值对象对应的键值对<br><br>int size()<br><br>包含键值对的数量<br><br>boolean isEmpty()<br><br>Map是否为空<br><br>void putAll(Map t)<br><br>将t的所有键值对存放到本map对象<br><br>void clear()<br><br>清空本map对象所有键值对</strong><br></p>
+<h3 id="3-Map中的常用方法"><a href="#3-Map中的常用方法" class="headerlink" title="3.Map中的常用方法"></a>3.Map中的常用方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class MapTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Map&lt;Integer,String&gt; m1 = new HashMap&lt;Integer,String&gt;();</span><br><span class="line">        Map&lt;Integer,String&gt; m2 = new HashMap&lt;Integer, String&gt;();</span><br><span class="line">        m1.put(1,&quot;one&quot;);</span><br><span class="line">        m1.put(2,&quot;two&quot;);</span><br><span class="line">        m1.put(3,&quot;three&quot;);</span><br><span class="line">        m2.put(1,&quot;一&quot;);</span><br><span class="line">        m2.put(2,&quot;二&quot;);</span><br><span class="line">        System.out.println(m1.size());</span><br><span class="line">        System.out.println(m1.containsKey(1));</span><br><span class="line">        System.out.println(m2.containsValue(&quot;two&quot;));</span><br><span class="line">        m1.put(3,&quot;third&quot;);</span><br><span class="line">        Map&lt;Integer,String&gt; m3 = new HashMap&lt;Integer, String&gt;();</span><br><span class="line">        m3.putAll(m1);</span><br><span class="line">        m3.putAll(m2);</span><br><span class="line">        System.out.println(&quot;m1&quot;+m1);</span><br><span class="line">        System.out.println(&quot;m2&quot;+m2);</span><br><span class="line">        System.out.println(&quot;m3&quot;+m3);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">3</span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">m1&#123;1=one, 2=two, 3=third&#125;</span><br><span class="line">m2&#123;1=一, 2=二&#125;</span><br><span class="line">m3&#123;1=一, 2=二, 3=third&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map的常用方法与特点/" data-id="cjytzxcp90035i8tnhnkn7jxb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-集合之List下的三种list类型的区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之List下的三种list类型的区别/" class="article-date">
+  <time datetime="2019-07-09T07:25:53.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/集合之List下的三种list类型的区别/">java_集合_List下的三种list类型的区别小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="List下的三种list类型的区别"><a href="#List下的三种list类型的区别" class="headerlink" title="List下的三种list类型的区别"></a>List下的三种list类型的区别</h2><h3 id="1-ArrayList"><a href="#1-ArrayList" class="headerlink" title="1.ArrayList"></a>1.ArrayList</h3><p>ArrayList底层是用<strong>数组</strong>实现的存储。<br> 特点：<strong>查询效率高，增删效率低，线程不安全</strong>。我们一般使用它<br><br>ArrayList底层使用<strong>Object数组</strong>来存储元素数据。所有的方法，都围绕这个核心的Object数组来开展。<br><br><strong>数组</strong>长度是<strong>有</strong>限的，而<strong>ArrayLis</strong>t是可以存放<strong>任意数量</strong>的对象，长度不受限制<br><br>本质上就是通过<strong>定义新的更大的数组</strong>，将<strong>旧数组中的内容拷贝到新数组</strong>，来实现扩容。<br> ArrayList的Object数组初始化长度为10，如果我们存储满了这个数组，需要存储第11个对象，就会定义新的长度更大的数组，并将原数组内容和新的元素一起加入到新数组中<br></p>
+<h3 id="2-LinkedList"><a href="#2-LinkedList" class="headerlink" title="2.LinkedList"></a>2.LinkedList</h3><p>LinkedList底层用<strong>双向链表</strong>实现的存储。<br><br>特点：<strong>查询效率低，增删效率高，线程不安全</strong>。<br><br>双向链表也叫<strong>双链表</strong>，是链表的一种，它的<strong>每个数据节点</strong>中都<strong>有两个指针</strong>，分别指向<strong>前一个节</strong>点和<strong>后一个节点</strong>。所以，从双向链表中的任意一个节点开始，都可以很方便地找到所有节点。<br><br>每个节点都应该有<strong>3部分内容</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  class  Node &#123;</span><br><span class="line">        Node  previous;     //前一个节点</span><br><span class="line">        Object  element;    //本节点保存的数据</span><br><span class="line">        Node  next;         //后一个节点</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-Vector"><a href="#3-Vector" class="headerlink" title="3.Vector"></a>3.Vector</h3><p>Vector底层是用<strong>数组</strong>实现的List，相关的方法都加了<strong>同步检查</strong>，因此“<strong>线程安全,效率低</strong>”。</p>
+<h3 id="4-选用标准"><a href="#4-选用标准" class="headerlink" title="4.选用标准"></a>4.选用标准</h3><ol>
+<li><p>需要<strong>线程安全</strong>时，用<strong>Vector</strong>。</p>
+</li>
+<li><p><strong>不存在线程安全</strong>问题时，并且<strong>查找较</strong>多用<strong>ArrayList</strong>(一般使用它)。</p>
+</li>
+<li><p><strong>不存在线程安全</strong>问题时，<strong>增加或删除元素较</strong>多用<strong>LinkedList</strong>。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List下的三种list类型的区别/" data-id="cjytzxcp40030i8tnrahoksh7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-集合之Set接口的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/09/集合之Set接口的常用方法与特点/" class="article-date">
@@ -91,50 +180,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjyr8j4z1003aw8tnjfqrhgwy" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-集合之List的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/09/集合之List的常用方法与特点/" class="article-date">
-  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/集合之List的常用方法与特点/">java_集合_List的常用方法与特点小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="List的常用方法以及特点"><a href="#List的常用方法以及特点" class="headerlink" title="List的常用方法以及特点"></a>List的常用方法以及特点</h2><h3 id="一、List的特点"><a href="#一、List的特点" class="headerlink" title="一、List的特点"></a>一、List的特点</h3><p>1.有序：List中每个元素都有索引标记。可以根据元素的索引标记(在List中的位置)访问元素，从而精确控制这些元素。<br>2. 可重复：List允许加入重复的元素。更确切地讲，List通常允许满足 e1.equals(e2) 的元素重复加入容器。</p>
-<h3 id="二、List的常用方法"><a href="#二、List的常用方法" class="headerlink" title="二、List的常用方法"></a>二、List的常用方法</h3><p><strong>void add(int index,Object element)<br><br>在指定位置插入元素，以前元素全部后移一位<br><br>Object set(int index,Object element)<br><br>修改指定位置的元素<br><br>Object get(int index)<br><br>获取指定位置的元素<br><br>Object remove(int index)<br><br>删除指定位置的元素，后面的元素全部前移一位<br><br>int indexOf(Object o)<br><br>返回第一个元素的索引，如果没有该元素，返回-1<br><br>int lastIndexOf(Object o)<br><br>返回最后一个元素的索引，如果没有该元素，返回-1</strong><br></p>
-<h3 id="三、List方法的运用"><a href="#三、List方法的运用" class="headerlink" title="三、List方法的运用"></a>三、List方法的运用</h3><p>1.List的常用方法的运用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        System.out.println(list.isEmpty());//判断list中是否包含元素【此时为空】</span><br><span class="line">        list.add(&quot;黄&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        System.out.println(list.isEmpty());//再次判断list中是否包含元素【此时非空】</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.remove(0);//移除索引为0的元素</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        System.out.println(list.size());//输出list此时的元素数量</span><br><span class="line">        System.out.println(list.contains(&quot;黄&quot;));//判断list中是否包含“黄”这个元素【此时为false】</span><br><span class="line">        Object[] objs = list.toArray();//将list转化为数组</span><br><span class="line">        System.out.println(&quot;转换为Object数组&quot; + Arrays.toString(objs));</span><br><span class="line">        list.clear();//清空list中所有的元素</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">[黄, 丫, 丫]</span><br><span class="line">[丫, 丫]</span><br><span class="line">2</span><br><span class="line">false</span><br><span class="line">转换为Object数组[丫, 丫]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
-<p>2.两个List之间的元素处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        list.add(&quot;黄&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; list2 = new ArrayList&lt;String&gt;();//创建String类型的list2</span><br><span class="line">        list2.add(&quot;黄&quot;);//加入元素到list中2</span><br><span class="line">        list2.add(&quot;大&quot;);</span><br><span class="line">        list2.add(&quot;小&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(list.containsAll(list2));//判断list中是否包含list2容器中的所有元素【此时为false】</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.addAll(list2);//将list2中的所有元素添加到list中</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        list.removeAll(list2);//从list中删除同时在list和list2中存在的元素</span><br><span class="line">        System.out.println(list);</span><br><span class="line">        list.retainAll(list2);//取list和list2的交集</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">false</span><br><span class="line">[黄, 丫, 丫]</span><br><span class="line">[黄, 丫, 丫, 黄, 大, 小]</span><br><span class="line">[丫, 丫]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
-<p>3.List中操作索引的常用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        list.add(&quot;A&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;B&quot;);</span><br><span class="line">        list.add(&quot;C&quot;);</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.add(2,&quot;黄&quot;);//在索引为2的位置添加元素“黄”</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.remove(2);//移除索引为2的元素</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.set(2,&quot;c&quot;);//将索引为2的元素置换为c</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        System.out.println(list.get(1));//输出索引位置为1的元素</span><br><span class="line">        list.add(&quot;B&quot;);//添加元素“B”</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        System.out.println(list.indexOf(&quot;B&quot;));//输出第一个元素为“B”的索引位置</span><br><span class="line">        System.out.println(list.lastIndexOf(&quot;B&quot;));//输出最后一个元素为“B”的索引位置</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[A, B, C]</span><br><span class="line">[A, B, 黄, C]</span><br><span class="line">[A, B, C]</span><br><span class="line">[A, B, c]</span><br><span class="line">B</span><br><span class="line">[A, B, c, B]</span><br><span class="line">1</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjyr8j4yw0036w8tnrprdfk2n" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Set接口的常用方法与特点/" data-id="cjytzxcpb0037i8tnznbclvca" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -181,7 +227,50 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjyr8j4yu0034w8tnmhulxu0f" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Map下三种map类型区别/" data-id="cjytzxcp60031i8tnhnf5meu8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-集合之List的常用方法与特点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/集合之List的常用方法与特点/" class="article-date">
+  <time datetime="2019-07-09T07:12:23.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/集合之List的常用方法与特点/">java_集合_List的常用方法与特点小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="List的常用方法以及特点"><a href="#List的常用方法以及特点" class="headerlink" title="List的常用方法以及特点"></a>List的常用方法以及特点</h2><h3 id="一、List的特点"><a href="#一、List的特点" class="headerlink" title="一、List的特点"></a>一、List的特点</h3><p>1.有序：List中每个元素都有索引标记。可以根据元素的索引标记(在List中的位置)访问元素，从而精确控制这些元素。<br>2. 可重复：List允许加入重复的元素。更确切地讲，List通常允许满足 e1.equals(e2) 的元素重复加入容器。</p>
+<h3 id="二、List的常用方法"><a href="#二、List的常用方法" class="headerlink" title="二、List的常用方法"></a>二、List的常用方法</h3><p><strong>void add(int index,Object element)<br><br>在指定位置插入元素，以前元素全部后移一位<br><br>Object set(int index,Object element)<br><br>修改指定位置的元素<br><br>Object get(int index)<br><br>获取指定位置的元素<br><br>Object remove(int index)<br><br>删除指定位置的元素，后面的元素全部前移一位<br><br>int indexOf(Object o)<br><br>返回第一个元素的索引，如果没有该元素，返回-1<br><br>int lastIndexOf(Object o)<br><br>返回最后一个元素的索引，如果没有该元素，返回-1</strong><br></p>
+<h3 id="三、List方法的运用"><a href="#三、List方法的运用" class="headerlink" title="三、List方法的运用"></a>三、List方法的运用</h3><p>1.List的常用方法的运用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        System.out.println(list.isEmpty());//判断list中是否包含元素【此时为空】</span><br><span class="line">        list.add(&quot;黄&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        System.out.println(list.isEmpty());//再次判断list中是否包含元素【此时非空】</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.remove(0);//移除索引为0的元素</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        System.out.println(list.size());//输出list此时的元素数量</span><br><span class="line">        System.out.println(list.contains(&quot;黄&quot;));//判断list中是否包含“黄”这个元素【此时为false】</span><br><span class="line">        Object[] objs = list.toArray();//将list转化为数组</span><br><span class="line">        System.out.println(&quot;转换为Object数组&quot; + Arrays.toString(objs));</span><br><span class="line">        list.clear();//清空list中所有的元素</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">[黄, 丫, 丫]</span><br><span class="line">[丫, 丫]</span><br><span class="line">2</span><br><span class="line">false</span><br><span class="line">转换为Object数组[丫, 丫]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
+<p>2.两个List之间的元素处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        list.add(&quot;黄&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line">        list.add(&quot;丫&quot;);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; list2 = new ArrayList&lt;String&gt;();//创建String类型的list2</span><br><span class="line">        list2.add(&quot;黄&quot;);//加入元素到list中2</span><br><span class="line">        list2.add(&quot;大&quot;);</span><br><span class="line">        list2.add(&quot;小&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(list.containsAll(list2));//判断list中是否包含list2容器中的所有元素【此时为false】</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.addAll(list2);//将list2中的所有元素添加到list中</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        list.removeAll(list2);//从list中删除同时在list和list2中存在的元素</span><br><span class="line">        System.out.println(list);</span><br><span class="line">        list.retainAll(list2);//取list和list2的交集</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">false</span><br><span class="line">[黄, 丫, 丫]</span><br><span class="line">[黄, 丫, 丫, 黄, 大, 小]</span><br><span class="line">[丫, 丫]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
+<p>3.List中操作索引的常用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();//创建String类型的list</span><br><span class="line">        list.add(&quot;A&quot;);//加入元素到list中</span><br><span class="line">        list.add(&quot;B&quot;);</span><br><span class="line">        list.add(&quot;C&quot;);</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.add(2,&quot;黄&quot;);//在索引为2的位置添加元素“黄”</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.remove(2);//移除索引为2的元素</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        list.set(2,&quot;c&quot;);//将索引为2的元素置换为c</span><br><span class="line">        System.out.println(list);//输出list</span><br><span class="line">        System.out.println(list.get(1));//输出索引位置为1的元素</span><br><span class="line">        list.add(&quot;B&quot;);//添加元素“B”</span><br><span class="line">        System.out.println(list);//输出新的list</span><br><span class="line">        System.out.println(list.indexOf(&quot;B&quot;));//输出第一个元素为“B”的索引位置</span><br><span class="line">        System.out.println(list.lastIndexOf(&quot;B&quot;));//输出最后一个元素为“B”的索引位置</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[A, B, C]</span><br><span class="line">[A, B, 黄, C]</span><br><span class="line">[A, B, C]</span><br><span class="line">[A, B, c]</span><br><span class="line">B</span><br><span class="line">[A, B, c, B]</span><br><span class="line">1</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之List的常用方法与特点/" data-id="cjytzxcp70033i8tnfnfl96mc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -220,7 +309,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjyr8j4yn0030w8tn0pip9omh" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/09/集合之Collection接口/" data-id="cjytzxcp1002wi8tn82geqpdy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -258,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjyr8j4xr002fw8tn3gf7zrew" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/04/java-图形用户接口之下小结/" data-id="cjytzxco80028i8tnhx8rn1rz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -296,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/03/java-图形用户接口之中小结/" data-id="cjyr8j4xt002hw8tnij62ckmi" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/03/java-图形用户接口之中小结/" data-id="cjytzxcoc002ci8tn8kmter0q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -334,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/02/java-图形用户接口之上小结/" data-id="cjyr8j4xp002dw8tn5qcjpaad" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/02/java-图形用户接口之上小结/" data-id="cjytzxco60027i8tncvj731yu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -402,109 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/01/java-异常处理小结/" data-id="cjyr8j4zy003sw8tnujwvc6qj" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-数字与静态之下小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/31/java-数字与静态之下小结/" class="article-date">
-  <time datetime="2019-05-31T14:52:33.000Z" itemprop="datePublished">2019-05-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/31/java-数字与静态之下小结/">java_数字与静态之下小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-静态方法"><a href="#1-静态方法" class="headerlink" title="1.静态方法"></a>1.静态方法</h2><p>4.静态<strong>final</strong>常数<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>静态</strong>的<strong>final变量</strong>是<strong>常数</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//被标记为final的变量代表它一旦<strong>被初始化之后就不会改动了</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//命名惯例:<strong>全部都是大写字母以下划线分隔</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static final double PI = 3.1415923</span><br><span class="line">关键词:</span><br><span class="line">public: 可供各方读取</span><br><span class="line">static: 静态,不需要Math的实例</span><br><span class="line">final : 不变值,因为圆周率是不变的</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;b.静态<strong>final</strong>变量的<strong>初始化</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1.声明的时候</span><br><span class="line">public class Foo&#123;</span><br><span class="line">    public static final int FOO_X = 25;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">2.在静态初始化程序中</span><br><span class="line">public class Bar&#123;</span><br><span class="line">    public static final double BAR_SIGN;</span><br><span class="line">    </span><br><span class="line">    static&#123;</span><br><span class="line">        BAR_SIGN = (double) Math.random();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;c.final的<strong>方法与类</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//final的<strong>方法</strong>代表<strong>不能覆盖掉该方法</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//final的<strong>类</strong>代表<strong>不能继承该类(即创建他的子类)</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.final的方法</span><br><span class="line">class Poof&#123;</span><br><span class="line">    final void calcWhuffie()&#123;</span><br><span class="line">        //该方法无法被覆盖</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">2.final的类</span><br><span class="line">final class MyMostPerfectClass&#123;</span><br><span class="line">    //不能被继承</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="3-包装类型的方法-autoboxing"><a href="#3-包装类型的方法-autoboxing" class="headerlink" title="3.包装类型的方法(autoboxing)"></a>3.包装类型的方法(autoboxing)<br></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>primitive主数据类型</strong>的<strong>包装</strong>用的类<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意<strong>包装的类的名字不是</strong>完全和<strong>primitive主数据类型</strong>的名称<strong>相同</strong>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Boolean 布尔        Character 字符</span><br><span class="line">Byte    字节        Short     短整形</span><br><span class="line">Integer 整形        Long      长整形</span><br><span class="line">Float   单精度浮点  Double    双精度浮点</span><br><span class="line"></span><br><span class="line">包装值</span><br><span class="line">int i = 288;</span><br><span class="line">Integer iWrap = new Integer(i);</span><br><span class="line"></span><br><span class="line">解开包装</span><br><span class="line">int unWrapped - iWrap.intValue();</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;b.包装的<strong>作用</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>autoboxing</strong>功能能够<strong>自动</strong>地将<strong>primitive</strong>主数据类型<strong>转换成包装过的对象</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void doNumsNewWay()&#123;</span><br><span class="line">    ArrayList&lt;Integer&gt; listOfNumbers = new ArrayList&lt;Integer&gt;();</span><br><span class="line">    //创建Integer类型的ArrayList</span><br><span class="line">    listOfNumbers.add(3);</span><br><span class="line">    //直接加3</span><br><span class="line">    //虽然ArrayList没有add(int)这样的方法,但是编译器会自动帮用户包装</span><br><span class="line">    int num = listOfNumbers.get(0);</span><br><span class="line">    //编译器会自动接口Integer对象的包装,因此可以直接赋值给&quot;num&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;c.包装的<strong>运用</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">1.方法的参数</span><br><span class="line">//发给参数是某种包装类型,则可以传入相对应的primitive主数据类型。</span><br><span class="line">void takeNumber(Integer i)&#123;</span><br><span class="line">    //Integer对象与int数据类型皆可以作为参数传入</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">2.返回值</span><br><span class="line">//如果method声明返回某种primitive主数据类型</span><br><span class="line">//也可以返回兼容的primitive主数据类型或者该primitive主数据类型的包装类型</span><br><span class="line">int fiveNumber()&#123;</span><br><span class="line">    ...</span><br><span class="line">    return x;</span><br><span class="line">    //Integer对象和int数据类型皆可以作为返回值返回</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">3.boolean表达式</span><br><span class="line">//任何预期boolean值的位置都可以用求出boolean的表达式来代替</span><br><span class="line">//例如Boolean包装类型的引用或者&quot;4&gt;2&quot;</span><br><span class="line">if(bool)&#123;</span><br><span class="line">    System.out.println(&quot;true&quot;);</span><br><span class="line">    //boolean对象与boolean数据皆可以传入</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">4.数值运算</span><br><span class="line">//可以在使用primitive主数据类型作为运算子的操作中用包装类型类替换</span><br><span class="line">//这意味着可以对Integer的对象作递增运算</span><br><span class="line">Integer i = new Integer(42);</span><br><span class="line">i++;</span><br><span class="line">或者</span><br><span class="line">Integer j = new Integer(25);</span><br><span class="line">Integer k = j+3;</span><br><span class="line"></span><br><span class="line">5.赋值</span><br><span class="line">//可以将包装类型或primitive主数据类型赋给声明给相对应的包装或primitive主数据类型</span><br><span class="line">Double d = x;</span><br><span class="line">//Integer对象和int数据皆可作为&quot;x&quot;赋值给&quot;d&quot;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;4.包装的静态方法<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.将<strong>String</strong>转换成<strong>primitive</strong>主数据类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String s = &quot;2&quot;;</span><br><span class="line">int    x = Integer.parseInt(s);</span><br><span class="line">double d = Double.parseDouble(&quot;40.24&quot;);</span><br><span class="line">//boolean不一样，并没有BooleanparseBpplean()</span><br><span class="line">boolean b = new Boolean(&quot;true&quot;).booleanValue();</span><br><span class="line">//Boolean的构造函数可以取用String来创建对象</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.将<strong>primitive</strong>主数据类型转换成<strong>String</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.将数字接上现有的String</span><br><span class="line">double b = 42.5;</span><br><span class="line">String doubleString = &quot; &quot;+d;</span><br><span class="line">2.使用静态方法</span><br><span class="line">double b = 42.5;</span><br><span class="line">String doubleString = Doouble.toString(d);</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="2-格式化"><a href="#2-格式化" class="headerlink" title="2.格式化"></a>2.格式化</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;1.<strong>格式化</strong>的说明<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式化说明最多会有<strong>5个部分</strong>(<strong>不包括”%”符号</strong>)，下面”<strong>[]</strong>“中的内容都是<strong>可选项目</strong>，因此<strong>只有%与type是必要</strong>的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%[argument number] [flags] [width] [.precision] type</span><br><span class="line">argument number:如果格式化的参数超过一个以上，可以在此处指定是哪一个</span><br><span class="line">flags:特定类型的特定选项，例如数字要加逗号或正负号</span><br><span class="line">width:最小的字符数，(这不是总数)输出可以超过此宽度，若不足则主动补0</span><br><span class="line">.precision:精确度</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;2.<strong>日期</strong>的格式<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数值与日期时间格式化的区别在于<strong>日期格式的类型是用”t”开头</strong>的<strong>两个字符</strong>表示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">完整的日期与时间:%tc</span><br><span class="line">String.format(&quot;%tc&quot;,new Date());</span><br><span class="line"></span><br><span class="line">只有时间:%tr</span><br><span class="line">String.format(&quot;%tr&quot;,new Date());</span><br><span class="line"></span><br><span class="line">周、月、日:%tA %tB %td</span><br><span class="line">Date today = new Date();</span><br><span class="line">String.format(&quot;tA,%tB %td&quot;,today,today,today);</span><br><span class="line">//此处的&quot;,&quot;为直接输出的</span><br><span class="line">//输出为 Sunday, November 28</span><br><span class="line">//此种输入需要将Date对象传入3次</span><br><span class="line"></span><br><span class="line">同上但是使用&quot;&lt;&quot;，此时无需重复传参</span><br><span class="line">Date today = new Date();</span><br><span class="line">String.format(&quot;tA,%&lt;tB %&lt;td&quot;,today);</span><br><span class="line">//&quot;&lt;&quot;这个符号是告知程序重复利用之前用过的参数</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;3.操作日期<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在2中使用<strong>java.util.Date</strong>来<strong>查询日期</strong>，现在使用<strong>java.util.Calendar</strong>来<strong>操作日期</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为<strong>Calendar</strong>是一个<strong>抽象的类</strong>，使用只能用到他的<strong>具体子类</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">取得继承过Calendar的对象:</span><br><span class="line">1.Calendar cal = new Calendar();</span><br><span class="line">//无法通过编译</span><br><span class="line"></span><br><span class="line">2.Calendar cal = Calendar.getInstance();</span><br><span class="line">//通过调用静态方法</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运用<strong>Calendar对象</strong>的几个概念<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.<strong>字段会保存状态</strong>——Calendar对象使用许多<strong>字段</strong>来表示<strong>日期和时间</strong>。(用户可以读取和设定他的year或month字段)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.<strong>日期和时间可以运算</strong>——Calendar的方法可以使得用户对<strong>不同的字段</strong>做<strong>加法或减法的运算</strong>。(用户可以对month字段加一个月或者对year字段减去3年)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.<strong>日期和时间可以用millisecond来表示</strong>——Calendar可以<strong>将日期</strong>转换成<strong>微秒</strong>的表示法，或将<strong>微秒</strong>转换成<strong>日期</strong>。(用户可以<strong>执行精确的相对时间计算</strong>)<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Calendar c = Calendar.getInstance();</span><br><span class="line"></span><br><span class="line">c.set(2004,1,7,15,40);</span><br><span class="line">//蛇精睡觉为2004年1月7日15:40</span><br><span class="line"></span><br><span class="line">long day1 = c.getTimeInMillis();</span><br><span class="line">//讲时间转换成用millisecond微秒来表示</span><br><span class="line"></span><br><span class="line">day1 += 1000*60*60;</span><br><span class="line">//将时间将上一个小时</span><br><span class="line"></span><br><span class="line">c.setTimeInMillis(day1);</span><br><span class="line">//将微秒转换成日期</span><br><span class="line"></span><br><span class="line">System.out.println(&quot;new hour&quot; + c.get(c.HOUR_OF_DAY));</span><br><span class="line">//打印出时间</span><br><span class="line"></span><br><span class="line">c.add(c.DATE, 35);</span><br><span class="line">//加上35天，所以此时的月份变为了2月</span><br><span class="line"></span><br><span class="line">c.roll(c.DATE, 35);</span><br><span class="line">//滚动35天，此时只有日期改变，月份不改变</span><br><span class="line"></span><br><span class="line">c.set(c.DATE, 1);</span><br><span class="line">//直接设定DATE的值</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/31/java-数字与静态之下小结/" data-id="cjyr8j4xz002lw8tnbxipmnrt" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-数字与静态之上小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/30/java-数字与静态之上小结/" class="article-date">
-  <time datetime="2019-05-30T14:45:41.000Z" itemprop="datePublished">2019-05-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/30/java-数字与静态之上小结/">java_数字与静态之上小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-Math的方法"><a href="#1-Math的方法" class="headerlink" title="1.Math的方法"></a>1.Math的方法</h2><p>1.Math这个类中<strong>所有的方法</strong>都不需要实例变量值。因为这些方法都是<strong>静态</strong>的,所有<strong>无需Math的实例</strong>。只会用到他的<strong>类</strong>本身。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int x = Math.round(42.2);</span><br><span class="line">int y = Math.min(56,12);</span><br></pre></td></tr></table></figure></p>
-<p>2.Math的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Math.random()</span><br><span class="line">//返回介于0.0~1.0之间的双精度浮点数</span><br><span class="line">double r1 = Math.random();</span><br><span class="line">int r2 = (int) (Math.random() * 5);</span><br><span class="line"></span><br><span class="line">Math.abs()</span><br><span class="line">//返回双精度浮点类型参数的绝对值。</span><br><span class="line">//这个方法有覆盖的版本,传入整数会返回整数,传入双精度浮点数会返回双精度浮点数。</span><br><span class="line">int x = Math.abs(-24); //返回24</span><br><span class="line">double d = Math.abs(240.25); //返回240.25</span><br><span class="line"></span><br><span class="line">Math.min()</span><br><span class="line">//返回两个精度中较小的那一个</span><br><span class="line">//这个有int,long,float或double的覆盖版本</span><br><span class="line">int x = Math.min(24,240); //返回24</span><br><span class="line">double y = Math.min(982.25,654.32); //返回982.25</span><br><span class="line"></span><br><span class="line">Math.max()</span><br><span class="line">//返回两个精度中较大的一个</span><br><span class="line">//同Math.min()一致</span><br></pre></td></tr></table></figure></p>
-<hr>
-
-<h2 id="2-静态方法"><a href="#2-静态方法" class="headerlink" title="2.静态方法"></a>2.静态方法</h2><p>1.非静态方法与静态方法的差别<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.”<strong>static</strong>“这个关键词可以标记出<strong>不需类实例</strong>的方法。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.一个静态方法代表说<strong>一种不依靠实例变量</strong>也就<strong>不需要对象</strong>的行为。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//静态方法中<strong>绝对没有对象</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;c.区别:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;静态方法:<strong>不依靠实例变量</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;非静态方法:<strong>实例变量</strong>的值会<strong>影响到方法</strong>的行为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">非静态方法:</span><br><span class="line">public class Song&#123;</span><br><span class="line">    String title;</span><br><span class="line">    //实例变量将影响方法的行为</span><br><span class="line">    public Song(String t)&#123;</span><br><span class="line">        title = t;</span><br><span class="line">    &#125;</span><br><span class="line">    public void play()&#123;</span><br><span class="line">        SoundPlayer player = new SoundPlayer();</span><br><span class="line">        player.playSound(title);</span><br><span class="line">        //&quot;title&quot;的值会决定&quot;play()&quot;的行为</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">静态方法:</span><br><span class="line">public static int min(int a,int b)&#123;</span><br><span class="line">    //返回a与b之间较小的值</span><br><span class="line">    //没有实例变量</span><br><span class="line">    //没有对象</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2.静态方法的调用<br><br>&nbsp;&nbsp;&nbsp;&nbsp;a.以<strong>类的名称</strong>调用<strong>静态的方法</strong><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Math.min(86,88);</code><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//虽然可以用引用变量的名称调用静态方法但是<strong>不建议</strong>使用。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;b.以<strong>引用变量的名称</strong>调用<strong>非静态的方法</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Song t2 = new Song();</span><br><span class="line">t2.play();</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;c.静态方法<strong>不能调用</strong>非静态的变量:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>静态方法</strong>是在<strong>无关特定特定类</strong>的实例情况下执行的。甚至<strong>不会有该类的实例</strong>出现。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为<strong>静态方法是通过类的名称</strong>调用的,所以静态方法<strong>无法引用</strong>到该类的<strong>任何实例变量</strong>。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所以静态方法<strong>无法识别</strong>可以使用哪一个实例变量。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Duck&#123;</span><br><span class="line">    private int size;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        System.out.println(&quot;Size of duck is &quot; + size);</span><br><span class="line">        //此刻静态方法&quot;main()&quot;无法得知堆上是否有Duck</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setSize(int s)&#123;</span><br><span class="line">        size = s;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getSize()&#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;d.静态方法<strong>不能调用</strong>非静态方法<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;非静态方法同上是<strong>以实例变量的状态</strong>来影响该<strong>方法</strong>的行为。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同上方c同理<strong>静态方法无法识别</strong>是哪一个实例变量。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//即便非静态方法中<strong>无使用到实例变量</strong>也<strong>无法</strong>通过编译。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//因为<strong>无法确保</strong>之后是否会将非静态方法<strong>改为需要</strong>实例变量的。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//亦或者是无法保证不发生<strong>子类去覆盖</strong>这个方法成有用到实例变量的版本。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Duck&#123;</span><br><span class="line">    private int size;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        System.out.println(&quot;Size of duck is &quot; + getSize());</span><br><span class="line">        //同c一样此刻静态方法&quot;main()&quot;无法识别需要的是哪一个实例变量</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setSize(int s)&#123;</span><br><span class="line">        size = s;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getSize()&#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>3.静态变量<br><br>静态变量对<strong>所有的实例</strong>来说都相同。<br><br>静态变量是<strong>共享的</strong>。<br><br><strong>同一个类</strong>所有的实例变量<strong>共享一份静态变量</strong>。<br><br>实例变量:每个<strong>实例</strong>一个。<br><br>静态变量:每个<strong>类</strong>一个。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">在构造函数中增加静态变量</span><br><span class="line">class Duck&#123;</span><br><span class="line">    int duckCount = 0;</span><br><span class="line">    public Duck()&#123;</span><br><span class="line">        duckCount++;</span><br><span class="line">        //这无法在创建Duck对象的时候执行递增</span><br><span class="line">        //因为duckCount是一个实例变量</span><br><span class="line">        //所以每个Duck在初始化的时候duckCount的值都是0</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Duck&#123;</span><br><span class="line">    private int size; </span><br><span class="line">    private static int duckCount = 0;</span><br><span class="line">    //静态变量&quot;duckCount&quot;只有在类第一次载入的时候被初始化</span><br><span class="line">    </span><br><span class="line">    public Duck()&#123;</span><br><span class="line">        duckCount++;</span><br><span class="line">        //每当构造函数执行的时候</span><br><span class="line">        //这个值就会递增</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setSize(int s)&#123;</span><br><span class="line">        size = s;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getSize()&#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>静态变量会在该类的<strong>任何对象</strong>创建之前就完成初始化。<br>静态变量会在该类<strong>任何静态方法</strong>执行之前就初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Player&#123;</span><br><span class="line">    static int palyerCount = 0;</span><br><span class="line">    private String name;</span><br><span class="line">    public Player(String n)&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        playerCount++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public calss PlayerTestDrive&#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        System.out.println(Player.playerCount);</span><br><span class="line">        Player one = new Player(&quot;Tiger Woods&quot;);</span><br><span class="line">        Systrm.out.println(Player.playerCount);</span><br><span class="line">        //静态变量通过类的名称来存取</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出为:</span><br><span class="line">0    //实例创建之前</span><br><span class="line">1    //对象创建之后</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/05/30/java-数字与静态之上小结/" data-id="cjyr8j4xw002jw8tnm5t3shd4" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/06/01/java-异常处理小结/" data-id="cjytzxcq3003pi8tnri1o01ts" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
@@ -553,7 +540,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
     </div>
   </div>
 
@@ -566,6 +553,14 @@
       <ul>
         
           <li>
+            <a href="/2019/08/04/新文档8080/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/01/JavaEE之Spring之AOP小结小结/">JavaEE之Spring之AOP小结小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/31/新文档8888/">(no title)</a>
           </li>
         
@@ -575,14 +570,6 @@
         
           <li>
             <a href="/2019/07/26/JavaEE之Spring快速入门之中小结/">JavaEE之Spring快速入门之中小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/26/JavaEE之Spring快速入门之上小结/">JavaEE之Spring快速入门之上小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/25/JavaEE之MyBatis高级知识之下小结/">JavaEE之MyBatis高级知识之下小结</a>
           </li>
         
       </ul>
