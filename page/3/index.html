@@ -62,6 +62,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之登录练习2小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之登录练习2小结/" class="article-date">
+  <time datetime="2019-07-21T07:34:16.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之登录练习2小结/">JavaEE之登录练习2小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="登录练习2"><a href="#登录练习2" class="headerlink" title="登录练习2"></a>登录练习2</h3><ul>
+<li><p>思路：<br> 可看登录练习1中有详解。只讲文件跳转路线</p>
+</li>
+<li><p>文件跳转</p>
+<ol>
+<li>jsp获取用户输入账号与密码</li>
+<li>跳转至Servlet层，执行业务逻辑</li>
+<li>在Servlet中，将使用到Service</li>
+<li>在Service中，将使用到Dao</li>
+</ol>
+</li>
+</ul>
+<h4 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/loginServlet&quot;)</span><br><span class="line">public class LoginServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.设置编码</span><br><span class="line">        request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line"></span><br><span class="line">        //2.1获取验证码</span><br><span class="line">        String verifycode = request.getParameter(&quot;verifycode&quot;);</span><br><span class="line">        //2.2对比验证码</span><br><span class="line">        String checkcode_server = (String) request.getSession().getAttribute(&quot;CHECKCODE_SERVER&quot;);</span><br><span class="line">        request.getSession().removeAttribute(&quot;CHECKCODE_SERVER&quot;);//确保验证码一次性</span><br><span class="line">        if(!checkcode_server.equalsIgnoreCase(verifycode))&#123;</span><br><span class="line">            //验证码不正确</span><br><span class="line">            //提示信息</span><br><span class="line">            request.setAttribute(&quot;login_msg&quot;,&quot;验证码错误&quot;);</span><br><span class="line">            //跳转登录页面</span><br><span class="line">            request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,response);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //3.获取用户输入</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //4封装user对象</span><br><span class="line">        //4.1创建user对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        //4.2使用BeanUtils封装</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //4.调用service查询</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        User loginUser = service.login(user);</span><br><span class="line">        //5.判断是否成功</span><br><span class="line">        if(loginUser!=null)&#123;</span><br><span class="line">            //登录成功</span><br><span class="line">            //将用户存人session</span><br><span class="line">            request.getSession().setAttribute(&quot;user&quot;,loginUser);</span><br><span class="line">            //跳转页面</span><br><span class="line">            response.sendRedirect(request.getContextPath()+&quot;/index.jsp&quot;);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            //登录失败</span><br><span class="line">            request.setAttribute(&quot;login_msg&quot;,&quot;用户名或密码错误&quot;);</span><br><span class="line">            //跳转登录页面</span><br><span class="line">            request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     *登录方法</span><br><span class="line">     * 判断用户输入的账号与密码是否错误</span><br><span class="line">     */</span><br><span class="line">    public User login(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类 </span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">     * 登录方法</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public User login(User user) &#123;</span><br><span class="line">        return dao.findUserByUsernameandPassword(user.getUsername(),user.getPassword());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 登录方法</span><br><span class="line">     */</span><br><span class="line">    public User findUserByUsernameandPassword(String username,String Password);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 登录方法</span><br><span class="line">     * @param username</span><br><span class="line">     * @param password</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public User findUserByUsernameandPassword(String username, String password) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            String sql = &quot;select * from user where username=? and password=?&quot;;</span><br><span class="line">            User loginUser = template.queryForObject(sql,new BeanPropertyRowMapper&lt;User&gt;(User.class),username,password);</span><br><span class="line">            return loginUser;</span><br><span class="line">        &#125; catch (DataAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjywzvwl100233ctn375j9wjd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之列表查询练习小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/21/JavaEE之列表查询练习小结/" class="article-date">
@@ -122,7 +174,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjytzxcnv001xi8tn121h3vuf" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjywzvwkp001v3ctnala3ff97" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -215,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjytzxcl00005i8tnc9rneawe" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjywzvwgl00083ctnsn3x6vll" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -273,7 +325,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjytzxcnn001pi8tn7iovt90j" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjywzvwkl001t3ctnrynzieku" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -335,7 +387,71 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjytzxcpz003li8tniyd3uprn" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjywzvwnt003o3ctnlv0sp2nj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之Listener小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/20/JavaEE之Listener小结/" class="article-date">
+  <time datetime="2019-07-20T08:20:11.000Z" itemprop="datePublished">2019-07-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/20/JavaEE之Listener小结/">JavaEE之Listener小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Listener-监听器："><a href="#Listener-监听器：" class="headerlink" title="Listener 监听器："></a>Listener 监听器：</h2><pre><code>* 概念：web的三大组件之一。
+    *事件监听机制
+        * 事件：一件事情（点击）
+        * 事件源：事件发生的地方（按钮）
+        * 监听器：一段代码/一个对象
+        * 注册监听：将事件、事件源、监听器绑定在一起。当事件源上发生某个事件后，执行监听器代码
+
+
+* ServletContextListener:监听ServletContext对象的创建和销毁
+      *方法：
+        * void contextDestroyed(ServletContextEvent sce)：ServletContext对象被销毁之前会调用该方法
+
+        * void contestInitialized(ServletContextEvent sce)：ServletContext对象创建后会调用该方法
+
+      *步骤：
+        1. 定义一个类，师兄ServletContextListener接口
+        2. 复写方法
+        3. 配置
+              1. web.xml
+                     &lt;listener&gt;
+                     &lt;listener-class&gt;cn.itcast.web.listener.ContextLoaderListener&lt;/listener-class&gt;
+                     &lt;/listener&gt;
+
+                     * 指定初始化参数&lt;context-param&gt;
+              2. 注解配置
+                     @webListener
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Listener小结/" data-id="cjywzvwhs000y3ctn5pu0nkl4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -455,71 +571,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjytzxcli000ji8tncvzit7md" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之Listener小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/20/JavaEE之Listener小结/" class="article-date">
-  <time datetime="2019-07-20T08:20:11.000Z" itemprop="datePublished">2019-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/JavaEE之Listener小结/">JavaEE之Listener小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Listener-监听器："><a href="#Listener-监听器：" class="headerlink" title="Listener 监听器："></a>Listener 监听器：</h2><pre><code>* 概念：web的三大组件之一。
-    *事件监听机制
-        * 事件：一件事情（点击）
-        * 事件源：事件发生的地方（按钮）
-        * 监听器：一段代码/一个对象
-        * 注册监听：将事件、事件源、监听器绑定在一起。当事件源上发生某个事件后，执行监听器代码
-
-
-* ServletContextListener:监听ServletContext对象的创建和销毁
-      *方法：
-        * void contextDestroyed(ServletContextEvent sce)：ServletContext对象被销毁之前会调用该方法
-
-        * void contestInitialized(ServletContextEvent sce)：ServletContext对象创建后会调用该方法
-
-      *步骤：
-        1. 定义一个类，师兄ServletContextListener接口
-        2. 复写方法
-        3. 配置
-              1. web.xml
-                     &lt;listener&gt;
-                     &lt;listener-class&gt;cn.itcast.web.listener.ContextLoaderListener&lt;/listener-class&gt;
-                     &lt;/listener&gt;
-
-                     * 指定初始化参数&lt;context-param&gt;
-              2. 注解配置
-                     @webListener
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Listener小结/" data-id="cjytzxclv000wi8tn5fnh98iz" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjywzvwgw000f3ctnha0hifp4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -720,7 +772,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之XML小结/" data-id="cjytzxcpx003ji8tnae1qnsvp" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之XML小结/" data-id="cjywzvwnq003m3ctnh3v42d5k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -796,7 +848,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjytzxclg000hi8tnandwsehw" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjywzvwhd000o3ctn9y3p4g9s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -883,59 +935,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjytzxcoa002ai8tn1v1b9l52" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之JDBC事务小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/19/JavaEE之JDBC事务小结/" class="article-date">
-  <time datetime="2019-07-19T10:38:57.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/19/JavaEE之JDBC事务小结/">JavaEE之JDBC事务小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JDBC控制事务："><a href="#JDBC控制事务：" class="headerlink" title="JDBC控制事务："></a>JDBC控制事务：</h2><pre><code>1. 事务：一个包含多个步骤的业务操作。如果这个业务操作被事务管理，则这多个步骤要么同时成功，要么同时失败。
-
-2. 操作：
-    1. 开启事务
-    2. 提交事务
-    3. 回滚事务
-
-3. 使用Connection对象来管理事务
-    *开启事务：setAutoCommit(boolean autoCommit)
-         *在执行SQL语句之前开启事务
-    *提交事务：commit（）
-         *在所有SQL语句都执行提交后提交事务
-    *回滚事务：rollback（）
-         *在catch中回滚事务，此时catch的异常捕获范围要增大
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC事务小结/" data-id="cjytzxcln000oi8tnhnfknxzg" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjywzvwld002b3ctn493azxws" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1001,6 +1001,10 @@
           </li>
         
           <li>
+            <a href="/2019/08/02/JavaEE之SpringMVC之Restful小结/">JavaEE之SpringMVC之Restful小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/01/JavaEE之Spring之AOP小结小结/">JavaEE之Spring之AOP小结小结</a>
           </li>
         
@@ -1010,10 +1014,6 @@
         
           <li>
             <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/26/JavaEE之Spring快速入门之中小结/">JavaEE之Spring快速入门之中小结</a>
           </li>
         
       </ul>

@@ -62,6 +62,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之JDBC事务小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/19/JavaEE之JDBC事务小结/" class="article-date">
+  <time datetime="2019-07-19T10:38:57.000Z" itemprop="datePublished">2019-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/19/JavaEE之JDBC事务小结/">JavaEE之JDBC事务小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JDBC控制事务："><a href="#JDBC控制事务：" class="headerlink" title="JDBC控制事务："></a>JDBC控制事务：</h2><pre><code>1. 事务：一个包含多个步骤的业务操作。如果这个业务操作被事务管理，则这多个步骤要么同时成功，要么同时失败。
+
+2. 操作：
+    1. 开启事务
+    2. 提交事务
+    3. 回滚事务
+
+3. 使用Connection对象来管理事务
+    *开启事务：setAutoCommit(boolean autoCommit)
+         *在执行SQL语句之前开启事务
+    *提交事务：commit（）
+         *在所有SQL语句都执行提交后提交事务
+    *回滚事务：rollback（）
+         *在catch中回滚事务，此时catch的异常捕获范围要增大
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC事务小结/" data-id="cjywzvwha000m3ctnjuezld83" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之JDBC小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/19/JavaEE之JDBC小结/" class="article-date">
@@ -422,7 +474,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjytzxcpo003ai8tnu9qfd5e7" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBC小结/" data-id="cjywzvwnd003d3ctnx0d1mvt1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -465,7 +517,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之三层架构小结/" data-id="cjytzxcnk001oi8tnf8k85jhm" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之三层架构小结/" data-id="cjywzvwke001q3ctniqx4mkhe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -551,7 +603,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/" data-id="cjytzxclx000yi8tnoxhfz6zw" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JSTL表达式小结/" data-id="cjywzvwhl000t3ctn4yy4srcl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -648,7 +700,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/" data-id="cjytzxcl40008i8tn2c1fbc3a" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之EL表达式小结/" data-id="cjywzvwgo000a3ctny1ofc6q1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -726,7 +778,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之MVC概念小结/" data-id="cjytzxclz0010i8tnp7whmsc9" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之MVC概念小结/" data-id="cjywzvwhv00103ctnpa4jfvjv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -807,7 +859,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP补充学习小结/" data-id="cjytzxcls000ti8tn90zurasb" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP补充学习小结/" data-id="cjywzvwhp000w3ctn3gakfz7s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -907,7 +959,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Session小结/" data-id="cjytzxcpt003fi8tnt3iy2tuw" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Session小结/" data-id="cjywzvwni003g3ctnmbw9s7vj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -969,7 +1021,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP入门学习小结/" data-id="cjytzxclq000ri8tnemoe9evx" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之JSP入门学习小结/" data-id="cjywzvwh5000j3ctn32mfhw9b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1060,55 +1112,7 @@ public boolean login2(String username,String password){
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjytzxclc000ei8tn9rox9guf" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之会话技术概念小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/18/JavaEE之会话技术概念小结/" class="article-date">
-  <time datetime="2019-07-18T05:41:56.000Z" itemprop="datePublished">2019-07-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/18/JavaEE之会话技术概念小结/">JavaEE之会话技术概念小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="会话技术："><a href="#会话技术：" class="headerlink" title="会话技术："></a>会话技术：</h2><pre><code>1. 会话：一次会话中包含多次请求和响应。
-   *一次会话：浏览器第一次给服务器资源发送请求，会话建立，直到有一方断开为止。
-
-2. 功能：在一次会话的范围内的多次请求间，共享数据
-
-3. 方式：
-     1.客户端会话技术:Cookie
-          *将数据存在客户端
-     2.服务器端会话技术：Session
-          *将数据存在服务器端
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之会话技术概念小结/" data-id="cjytzxcnp001ri8tnhqpe16n8" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/18/JavaEE之Cookie小结/" data-id="cjywzvwh2000i3ctn7050vqah" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -1174,6 +1178,10 @@ public boolean login2(String username,String password){
           </li>
         
           <li>
+            <a href="/2019/08/02/JavaEE之SpringMVC之Restful小结/">JavaEE之SpringMVC之Restful小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/01/JavaEE之Spring之AOP小结小结/">JavaEE之Spring之AOP小结小结</a>
           </li>
         
@@ -1183,10 +1191,6 @@ public boolean login2(String username,String password){
         
           <li>
             <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/26/JavaEE之Spring快速入门之中小结/">JavaEE之Spring快速入门之中小结</a>
           </li>
         
       </ul>

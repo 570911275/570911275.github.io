@@ -62,6 +62,123 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之MyBatis基础知识之下小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/" class="article-date">
+  <time datetime="2019-07-24T09:58:56.000Z" itemprop="datePublished">2019-07-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/24/JavaEE之MyBatis基础知识之下小结/">JavaEE之MyBatis基础知识之下小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><pre><code>1. 基础知识（重点，内容多）
+    对原生态jdbc程序（单独使用jdbc开发）问题总结√
+    mybatis框架原理（掌握）√
+    mybatis入门程序:√
+         用户的增删改查√
+    mybatis开发两种方法：
+         原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）√
+         mybaits的mapper接口（相当于dao接口）代理开发方法（掌握）√
+    mybatis配置文件SqlMapConfig.xml√
+    mybatis核心：
+         mybatis输入映射（掌握）
+         mybatis输出映射（掌握）
+    mybatis的动态SQL（掌握）
+
+ 2. 高级知识
+    订单商品数据模型分析
+    高级结果集映射（一对一，一对多，多对多）
+    mybatis延迟加载
+    mybatis查询缓冲（一级缓冲、二级缓冲）
+    mybaits和spring进行整合（掌握）
+    mybatis逆向工程
+</code></pre><h3 id="一、基础知识"><a href="#一、基础知识" class="headerlink" title="一、基础知识"></a>一、基础知识</h3><pre><code>1. 输入映射(*)
+     * 通过parameterType指定输入参数的类型，类型可以是简单类型、hashmap、pojo的包装类型
+     * 核心：传递pojo的包装对象
+           * 当传入查询监听很复杂（可能包括用户信息、其他信息、比如商品、订单）为完成用户信息的综合查询，建议使用自定义的包装类型的pojo。
+    1.1 传递pojo包装对象
+       1. 定义包装对象：
+           * 定义包装对象将查询条件(pojo)以类组合的方式包装起来
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class UserQueryVo &#123;</span><br><span class="line">    //在这里包装所需要的查询条件</span><br><span class="line">    //用户查询条件</span><br><span class="line">    private UserCustom userCustom;</span><br><span class="line"></span><br><span class="line">    public UserCustom getUserCustom() &#123;</span><br><span class="line">        return userCustom;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserCustom(UserCustom userCustom) &#123;</span><br><span class="line">        this.userCustom = userCustom;</span><br><span class="line">    &#125;</span><br><span class="line">    //可以包装其他的查询条件，订单，商品</span><br><span class="line">    //....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>2. 定义用户的扩展类：
+     * 定义一个扩展类，未来建立多表关联时使用
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class UserCustom extends User &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>3. UserMapper.xml(映射文件)
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--用户信息的综合查询</span><br><span class="line">     #&#123;userCustom.sex&#125;:取出pojo包装对象中性别值</span><br><span class="line">     $&#123;userCustom.username&#125;:取出pojo包装对象中用户的名称--&gt;</span><br><span class="line">&lt;select id=&quot;findUserList&quot; parameterType=&quot;cn.itcast.po.UserQueryVo&quot;</span><br><span class="line">                          resultType=&quot;cn.itcast.po.UserCustom&quot;&gt;</span><br><span class="line">    select * from user where user.sex= #&#123;userCustom.sex&#125; and user.username like &apos;%$&#123;userCustom.username&#125;%&apos;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 测试类
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public void findUserList() throws Exception &#123;</span><br><span class="line">    //mybatis配置文件</span><br><span class="line">    String resource = &quot;SqlMapConfig.xml&quot;;</span><br><span class="line">    //得到配置文件流</span><br><span class="line">    InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">    //创建会话工厂,传入mybatis的配置文件信息</span><br><span class="line">    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">    SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">    //创建UserMapper对象，mybatis自动生成mapper代理对象</span><br><span class="line">    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">    //创建包装对象，设置查询条件</span><br><span class="line">    UserQueryVo userQueryVo = new UserQueryVo();</span><br><span class="line">    UserCustom userCustom = new UserCustom();</span><br><span class="line">    userCustom.setSex(&quot;1&quot;);</span><br><span class="line">    userCustom.setUsername(&quot;小明&quot;);</span><br><span class="line">    userQueryVo.setUserCustom(userCustom);</span><br><span class="line"></span><br><span class="line">    //调用userMapper的方法</span><br><span class="line">    List&lt;UserCustom&gt; list = userMapper.findUserList(userQueryVo);</span><br><span class="line">    System.out.println(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>2. 输出映射(*)
+  1. resultType：
+      使用resultType进行输出映射，只有查询出来的列名和pojo的属性名一致，该列才可以映射成功。
+      如果查询出来的列名和pojo中的属性名全部不一致，没有创建pojo对象
+      只要查询出来的列名和pojo中的属性有一个不一致，就会创建pojo对象
+  2. resultMap：
+      mybatis中使用resultMap完成高级输出结果映射
+      如果查询出来的列名和pojo的属性名不一致，通过定义一个resultMap对列名和pojo属性名之间作一个映射关系
+     2.1 使用步骤：
+         1. 定义resultMap
+         2. 使用resultMap作为statement的输出映射类型
+     2.2 练习需求将下边的SQL使用UserCustom完成映射  
+           * select id id_,username username_ from user where id=#{value}
+           * user类中属性名和上边查询列名不一致
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">UserMapper.xml</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;!--定义resultMap</span><br><span class="line">        将SELECT id id_,username username_ FROM USER 和 User类中的属性作一个映射关系</span><br><span class="line">        type:resultMap最终映射的java对象类型，可以使用别名</span><br><span class="line">        id：对resultMap的唯一标识</span><br><span class="line">        --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;resultMap type=&quot;user&quot; id=&quot;userResultMap&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--id标识查询结果集中唯一标识</span><br><span class="line">            column：查询出来的列名</span><br><span class="line">            property：type指定的pojo类型中的属性名</span><br><span class="line">            最终resultMap对column和property作一个映射关系(对应关系)--&gt;</span><br><span class="line"></span><br><span class="line">        &lt;id column=&quot;id_&quot; property=&quot;id&quot;/&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--result:对普通名映射定义</span><br><span class="line">            column:查询出来的列名</span><br><span class="line">            property：type指定的pojo类型中的属性名</span><br><span class="line">            最终resultMap对column和property作一个映射关系(对应关系)--&gt;</span><br><span class="line"></span><br><span class="line">        &lt;result column=&quot;username_&quot; property=&quot;username&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--使用resultMap进行输出映射</span><br><span class="line">        resultMap:指定定义的resultMap的id，如果这个resultMap在其它的mapper文件，前边需要加namespace</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id=&quot;findUserByIdResultMap&quot; parameterType=&quot;int&quot; resultMap=&quot;userResultMap&quot;&gt;</span><br><span class="line">        select id id_,username username_ from user where id=#&#123;value&#125;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">测试类</span><br><span class="line"></span><br><span class="line">    public void findUserByIdRsultMap() throws Exception &#123;</span><br><span class="line">        //mybatis配置文件</span><br><span class="line">        String resource = &quot;SqlMapConfig.xml&quot;;</span><br><span class="line">        //得到配置文件流</span><br><span class="line">        InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">        //创建会话工厂,传入mybatis的配置文件信息</span><br><span class="line">        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        //创建UserMapper对象，mybatis自动生成mapper代理对象</span><br><span class="line">        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        //调用userMapper的方法</span><br><span class="line">        User user = userMapper.findUserByIdResultMap(1);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UserMapper</span><br><span class="line"></span><br><span class="line">        //6.根据id查询用户信息使用resultMap输出</span><br><span class="line">        public User findUserByIdResultMap(int id) throws Exception;</span><br></pre></td></tr></table></figure>
+<pre><code>     2.3 小结：
+        * 使用resultType进行输出映射，只有查询出来的列名和pojo中的属性名一致，该列才可以映射成功。
+        * 如果查询出来的列名和pojo的属性名不一致，通过定义搞一个resultMap对列名和pojo属性名之间做一个映射关系
+
+
+
+3. 动态SQL
+   3.1 概念：
+       * mybatis核心对SQL语句进行灵活操作，通过表达式进行判断，对SQL进行灵活拼接、组装
+   3.2 练习需求：
+       * 用户信息综合查询列表和用户信息列表总数这两个statement的定义使用动态SQL 
+            * 对查询条件进行判断，如果输入参数不为空，才进行查询条件的拼接
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">原sql:</span><br><span class="line"></span><br><span class="line">&lt;!--    &lt;select id=&quot;findUserList&quot; parameterType=&quot;cn.itcast.po.UserQueryVo&quot;--&gt;</span><br><span class="line">&lt;!--                              resultType=&quot;cn.itcast.po.UserCustom&quot;&gt;--&gt;</span><br><span class="line">&lt;!--        select * from user where user.sex= #&#123;userCustom.sex&#125; and user.username like &apos;%$&#123;userCustom.username&#125;%&apos;--&gt;</span><br><span class="line">&lt;!--    &lt;/select&gt;--&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">动态SQL：</span><br><span class="line"></span><br><span class="line">    &lt;select id=&quot;findUserCount&quot; parameterType=&quot;cn.itcast.po.UserQueryVo&quot;</span><br><span class="line">                               resultType=&quot;int&quot;&gt;</span><br><span class="line">         select count(*) from user</span><br><span class="line">        &lt;where&gt;</span><br><span class="line">            &lt;if test=&quot;userCustom!=null&quot;&gt;</span><br><span class="line">                &lt;if test=&quot;userCustom.sex!=null and userCustom.sex!=&apos;&apos;&quot;&gt;</span><br><span class="line">                    user.sex= #&#123;userCustom.sex&#125;</span><br><span class="line">                &lt;/if&gt;</span><br><span class="line">                &lt;if test=&quot;userCustom.username!=null and userCustom.username!=&apos;&apos;&quot;&gt;</span><br><span class="line">                    and user.username like &apos;%$&#123;userCustom.username&#125;%&apos;</span><br><span class="line">                &lt;/if&gt;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">        &lt;/where&gt;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>3.3 SQL片段：
+    * 练习需求：
+         * 将上边实现的SQL判断代码块抽取出来，组成一个SQL片段。其他的statement中就可以引用SQL片段。
+         * 方便程序员开发
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">sql片段</span><br><span class="line">    &lt;!--定义SQL片段--&gt;</span><br><span class="line">    &lt;!--id：SQL片段的唯一标识</span><br><span class="line">        使用include标签引用SQL片段的id,如果refid指定的id不在本map文件中，需要在前边加namespace</span><br><span class="line">        经验：是基于单表来定义SQL片段你，这样的话SQL片段的可重用性才高</span><br><span class="line">              在SQL片段中不要包括where--&gt;</span><br><span class="line">    &lt;sql id=&quot;query_user_where&quot;&gt;</span><br><span class="line">        &lt;if test=&quot;userCustom!=null&quot;&gt;</span><br><span class="line">            &lt;if test=&quot;userCustom.sex!=null and userCustom.sex!=&apos;&apos;&quot;&gt;</span><br><span class="line">                user.sex= #&#123;userCustom.sex&#125;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;userCustom.username!=null and userCustom.username!=&apos;&apos;&quot;&gt;</span><br><span class="line">                and user.username like &apos;%$&#123;userCustom.username&#125;%&apos;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">        &lt;/if&gt;</span><br><span class="line">    &lt;/sql&gt;</span><br><span class="line"></span><br><span class="line">引用</span><br><span class="line">           &lt;where&gt;</span><br><span class="line">                  &lt;include refid=&quot;query_user_where&quot;&gt;&lt;/include&gt;</span><br><span class="line">                  &lt;!--使用include标签引用SQL片段的id,如果refid指定的id不在本map文件中，需要在前边加namespace--&gt;</span><br><span class="line">                  &lt;!--在这里还要引用其他的SQL片段--&gt;</span><br><span class="line">           &lt;/where&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>3.4 foreach：
+  1. 向SQL传递数组或list，mybatis使用foreach解析
+  2. 练习需求
+     * 在用户查询列表和查询总数的statement中增加多个id输入查询
+     * SQL语句：
+         * SELECT * FROM USER WHERE id=1 OR id=10 OR id=16
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">UserMapper.xnl</span><br><span class="line"></span><br><span class="line">    &lt;sql id=&quot;query_user_where&quot;&gt;</span><br><span class="line">        &lt;if test=&quot;userCustom!=null&quot;&gt;</span><br><span class="line">            &lt;if test=&quot;userCustom.sex!=null and userCustom.sex!=&apos;&apos;&quot;&gt;</span><br><span class="line">                user.sex= #&#123;userCustom.sex&#125;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;userCustom.username!=null and userCustom.username!=&apos;&apos;&quot;&gt;</span><br><span class="line">                and user.username like &apos;%$&#123;userCustom.username&#125;%&apos;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;ids!=null&quot;&gt;</span><br><span class="line">                &lt;!--使用foreach遍历IDS</span><br><span class="line">                    collection：指定输入对象中集合属性</span><br><span class="line">                    item：每个遍历生成对象名</span><br><span class="line">                    open：开始遍历时拼接的字符串</span><br><span class="line">                    close：结束遍历时拼接的字符串</span><br><span class="line">                    separator：遍历两个对象中需要拼接的字符串--&gt;</span><br><span class="line">                &lt;!--使用实现下边的SQL拼接</span><br><span class="line">                    AND (id=1 OR id=10 OR id=16)--&gt;</span><br><span class="line">                &lt;foreach collection=&quot;ids&quot; item=&quot;user_id&quot; open=&quot;AND(&quot; close=&quot;)&quot; separator=&quot;OR&quot;&gt;</span><br><span class="line">                  &lt;!--每次遍历需要拼接的字符串--&gt;</span><br><span class="line">                  id = #&#123;user_id&#125;</span><br><span class="line">                &lt;/foreach&gt;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/if&gt;</span><br><span class="line">    &lt;/sql&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">测试类</span><br><span class="line"></span><br><span class="line">        //传入多个id</span><br><span class="line">        List&lt;Integer&gt; ids = new ArrayList&lt;Integer&gt;();</span><br><span class="line">        ids.add(1);</span><br><span class="line">        ids.add(10);</span><br><span class="line">        ids.add(16);</span><br><span class="line">        userQueryVo.setIds(ids);</span><br><span class="line">        userQueryVo.setUserCustom(userCustom);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UserMapper</span><br><span class="line"></span><br><span class="line">    //传入多个id</span><br><span class="line">    private List&lt;Integer&gt; ids;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之下小结/" data-id="cjywzvwjm001c3ctni7pvwpb4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之MyBatis基础知识之中小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/24/JavaEE之MyBatis基础知识之中小结/" class="article-date">
@@ -179,7 +296,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjytzxcn3001ai8tnnww1v3ai" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之中小结/" data-id="cjywzvwjj001a3ctn1uhg2c5h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -381,7 +498,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之上小结/" data-id="cjytzxcpq003bi8tnhkbpigqk" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/24/JavaEE之MyBatis基础知识之上小结/" data-id="cjywzvwnf003e3ctnox84abtz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -420,7 +537,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjytzxcot002ri8tnipfadn0n" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/23/新文档/" data-id="cjywzvwmb002t3ctnnyslrr86" class="article-share-link">Share</a>
       
       
     </footer>
@@ -477,7 +594,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/新文档2/" data-id="cjytzxcoy002ui8tn5ub21kiy" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/新文档2/" data-id="cjywzvwmh002w3ctnfjnrjtn7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -544,7 +661,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之框架的介绍小结/" data-id="cjytzxcnt001vi8tnodlkgnmf" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之框架的介绍小结/" data-id="cjywzvwky00213ctng0l3m95a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -674,7 +791,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之Maven小结/" data-id="cjytzxcm10012i8tnqiek73ve" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/22/JavaEE之Maven小结/" data-id="cjywzvwhy00123ctnqwhnyx6n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -739,7 +856,65 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之修改用户练习小结/" data-id="cjytzxcnr001ti8tncl0eqvqr" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之修改用户练习小结/" data-id="cjywzvwkv001z3ctn7woavq5c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之添加用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之添加用户练习小结/" class="article-date">
+  <time datetime="2019-07-21T08:24:43.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之添加用户练习小结/">JavaEE之添加用户练习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="添加用户练习"><a href="#添加用户练习" class="headerlink" title="添加用户练习"></a>添加用户练习</h3><ul>
+<li><p>思路：</p>
+<ol>
+<li>点击添加按钮</li>
+<li>获取新用户数据</li>
+<li>添加数据</li>
+<li>跳转回原界面</li>
+</ol>
+</li>
+<li><p>文件跳转：</p>
+<ol>
+<li>jsp获取用户输入新用户信息</li>
+<li>跳转至Servlet层，执行业务逻辑</li>
+<li>在Servlet中，将使用到Service</li>
+<li>在Service中，将使用到Dao</li>
+</ol>
+</li>
+</ul>
+<h4 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line">import org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/addUserServlet&quot;)</span><br><span class="line">public class addUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.设置编码</span><br><span class="line">        request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">        //2.获取数据</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //3.封装User对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //4.调用Service方法添加数据</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.addUser(user);</span><br><span class="line">        //5.跳转到userListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     */</span><br><span class="line">    public void  addUser(User user);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     * @param user</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void addUser(User user) &#123;</span><br><span class="line">       dao.addUser(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     */</span><br><span class="line">    public void addUser(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     * @param user</span><br><span class="line">     */</span><br><span class="line">    public void addUser(User user)&#123;</span><br><span class="line">        //1.定义SQL</span><br><span class="line">        String sql = &quot;insert into user values(null,?,?,?,?,?,?,null,null)&quot;;</span><br><span class="line">        //2.执行SQL</span><br><span class="line">        template.update(sql,user.getName(),user.getGender(),user.getAge(),</span><br><span class="line">                            user.getAddress(),user.getQq(),user.getEmail());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之添加用户练习小结/" data-id="cjywzvwl400253ctngwh6wnaj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -798,117 +973,7 @@ sqlSession.close();
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之删除用户练习小结/" data-id="cjytzxcnz0021i8tni9m2k9c9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之添加用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/21/JavaEE之添加用户练习小结/" class="article-date">
-  <time datetime="2019-07-21T08:24:43.000Z" itemprop="datePublished">2019-07-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/21/JavaEE之添加用户练习小结/">JavaEE之添加用户练习小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="添加用户练习"><a href="#添加用户练习" class="headerlink" title="添加用户练习"></a>添加用户练习</h3><ul>
-<li><p>思路：</p>
-<ol>
-<li>点击添加按钮</li>
-<li>获取新用户数据</li>
-<li>添加数据</li>
-<li>跳转回原界面</li>
-</ol>
-</li>
-<li><p>文件跳转：</p>
-<ol>
-<li>jsp获取用户输入新用户信息</li>
-<li>跳转至Servlet层，执行业务逻辑</li>
-<li>在Servlet中，将使用到Service</li>
-<li>在Service中，将使用到Dao</li>
-</ol>
-</li>
-</ul>
-<h4 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line">import org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/addUserServlet&quot;)</span><br><span class="line">public class addUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.设置编码</span><br><span class="line">        request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">        //2.获取数据</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //3.封装User对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //4.调用Service方法添加数据</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.addUser(user);</span><br><span class="line">        //5.跳转到userListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     */</span><br><span class="line">    public void  addUser(User user);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     * @param user</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void addUser(User user) &#123;</span><br><span class="line">       dao.addUser(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     */</span><br><span class="line">    public void addUser(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加用户</span><br><span class="line">     * @param user</span><br><span class="line">     */</span><br><span class="line">    public void addUser(User user)&#123;</span><br><span class="line">        //1.定义SQL</span><br><span class="line">        String sql = &quot;insert into user values(null,?,?,?,?,?,?,null,null)&quot;;</span><br><span class="line">        //2.执行SQL</span><br><span class="line">        template.update(sql,user.getName(),user.getGender(),user.getAge(),</span><br><span class="line">                            user.getAddress(),user.getQq(),user.getEmail());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之添加用户练习小结/" data-id="cjytzxcnx001zi8tnsbi32pxd" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之登录练习2小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/21/JavaEE之登录练习2小结/" class="article-date">
-  <time datetime="2019-07-21T07:34:16.000Z" itemprop="datePublished">2019-07-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/21/JavaEE之登录练习2小结/">JavaEE之登录练习2小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="登录练习2"><a href="#登录练习2" class="headerlink" title="登录练习2"></a>登录练习2</h3><ul>
-<li><p>思路：<br> 可看登录练习1中有详解。只讲文件跳转路线</p>
-</li>
-<li><p>文件跳转</p>
-<ol>
-<li>jsp获取用户输入账号与密码</li>
-<li>跳转至Servlet层，执行业务逻辑</li>
-<li>在Servlet中，将使用到Service</li>
-<li>在Service中，将使用到Dao</li>
-</ol>
-</li>
-</ul>
-<h4 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.domain.User;</span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line">import org.apache.commons.beanutils.BeanUtils;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/loginServlet&quot;)</span><br><span class="line">public class LoginServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.设置编码</span><br><span class="line">        request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line"></span><br><span class="line">        //2.1获取验证码</span><br><span class="line">        String verifycode = request.getParameter(&quot;verifycode&quot;);</span><br><span class="line">        //2.2对比验证码</span><br><span class="line">        String checkcode_server = (String) request.getSession().getAttribute(&quot;CHECKCODE_SERVER&quot;);</span><br><span class="line">        request.getSession().removeAttribute(&quot;CHECKCODE_SERVER&quot;);//确保验证码一次性</span><br><span class="line">        if(!checkcode_server.equalsIgnoreCase(verifycode))&#123;</span><br><span class="line">            //验证码不正确</span><br><span class="line">            //提示信息</span><br><span class="line">            request.setAttribute(&quot;login_msg&quot;,&quot;验证码错误&quot;);</span><br><span class="line">            //跳转登录页面</span><br><span class="line">            request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,response);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //3.获取用户输入</span><br><span class="line">        Map&lt;String, String[]&gt; map = request.getParameterMap();</span><br><span class="line">        //4封装user对象</span><br><span class="line">        //4.1创建user对象</span><br><span class="line">        User user = new User();</span><br><span class="line">        //4.2使用BeanUtils封装</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(user,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        //4.调用service查询</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        User loginUser = service.login(user);</span><br><span class="line">        //5.判断是否成功</span><br><span class="line">        if(loginUser!=null)&#123;</span><br><span class="line">            //登录成功</span><br><span class="line">            //将用户存人session</span><br><span class="line">            request.getSession().setAttribute(&quot;user&quot;,loginUser);</span><br><span class="line">            //跳转页面</span><br><span class="line">            response.sendRedirect(request.getContextPath()+&quot;/index.jsp&quot;);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            //登录失败</span><br><span class="line">            request.setAttribute(&quot;login_msg&quot;,&quot;用户名或密码错误&quot;);</span><br><span class="line">            //跳转登录页面</span><br><span class="line">            request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     *登录方法</span><br><span class="line">     * 判断用户输入的账号与密码是否错误</span><br><span class="line">     */</span><br><span class="line">    public User login(User user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类 </span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">     * 登录方法</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public User login(User user) &#123;</span><br><span class="line">        return dao.findUserByUsernameandPassword(user.getUsername(),user.getPassword());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 登录方法</span><br><span class="line">     */</span><br><span class="line">    public User findUserByUsernameandPassword(String username,String Password);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 登录方法</span><br><span class="line">     * @param username</span><br><span class="line">     * @param password</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public User findUserByUsernameandPassword(String username, String password) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            String sql = &quot;select * from user where username=? and password=?&quot;;</span><br><span class="line">            User loginUser = template.queryForObject(sql,new BeanPropertyRowMapper&lt;User&gt;(User.class),username,password);</span><br><span class="line">            return loginUser;</span><br><span class="line">        &#125; catch (DataAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjytzxco10023i8tnori9bkqe" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之删除用户练习小结/" data-id="cjywzvwks001x3ctn2t238nhn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -974,6 +1039,10 @@ sqlSession.close();
           </li>
         
           <li>
+            <a href="/2019/08/02/JavaEE之SpringMVC之Restful小结/">JavaEE之SpringMVC之Restful小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/01/JavaEE之Spring之AOP小结小结/">JavaEE之Spring之AOP小结小结</a>
           </li>
         
@@ -983,10 +1052,6 @@ sqlSession.close();
         
           <li>
             <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/26/JavaEE之Spring快速入门之中小结/">JavaEE之Spring快速入门之中小结</a>
           </li>
         
       </ul>
