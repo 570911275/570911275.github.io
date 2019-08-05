@@ -102,7 +102,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjywzvwl100233ctn375j9wjd" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjyx0wlq0002bectngynz18rc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -174,7 +174,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjywzvwkp001v3ctnala3ff97" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjyx0wlpn0023ectnntwfxiyc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -267,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjywzvwgl00083ctnsn3x6vll" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjyx0wll70004ectntuf5l6n9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -325,7 +325,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjywzvwkl001t3ctnrynzieku" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjyx0wlpa001vectnrvmfiyre" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -387,71 +387,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjywzvwnt003o3ctnlv0sp2nj" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之Listener小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/20/JavaEE之Listener小结/" class="article-date">
-  <time datetime="2019-07-20T08:20:11.000Z" itemprop="datePublished">2019-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/JavaEE之Listener小结/">JavaEE之Listener小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Listener-监听器："><a href="#Listener-监听器：" class="headerlink" title="Listener 监听器："></a>Listener 监听器：</h2><pre><code>* 概念：web的三大组件之一。
-    *事件监听机制
-        * 事件：一件事情（点击）
-        * 事件源：事件发生的地方（按钮）
-        * 监听器：一段代码/一个对象
-        * 注册监听：将事件、事件源、监听器绑定在一起。当事件源上发生某个事件后，执行监听器代码
-
-
-* ServletContextListener:监听ServletContext对象的创建和销毁
-      *方法：
-        * void contextDestroyed(ServletContextEvent sce)：ServletContext对象被销毁之前会调用该方法
-
-        * void contestInitialized(ServletContextEvent sce)：ServletContext对象创建后会调用该方法
-
-      *步骤：
-        1. 定义一个类，师兄ServletContextListener接口
-        2. 复写方法
-        3. 配置
-              1. web.xml
-                     &lt;listener&gt;
-                     &lt;listener-class&gt;cn.itcast.web.listener.ContextLoaderListener&lt;/listener-class&gt;
-                     &lt;/listener&gt;
-
-                     * 指定初始化参数&lt;context-param&gt;
-              2. 注解配置
-                     @webListener
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Listener小结/" data-id="cjywzvwhs000y3ctn5pu0nkl4" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjyx0wlt2003uectnotcgrols" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -571,7 +507,71 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjywzvwgw000f3ctnha0hifp4" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjyx0wllr000fectn9ijg69kz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaEE之Listener小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/20/JavaEE之Listener小结/" class="article-date">
+  <time datetime="2019-07-20T08:20:11.000Z" itemprop="datePublished">2019-07-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/20/JavaEE之Listener小结/">JavaEE之Listener小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Listener-监听器："><a href="#Listener-监听器：" class="headerlink" title="Listener 监听器："></a>Listener 监听器：</h2><pre><code>* 概念：web的三大组件之一。
+    *事件监听机制
+        * 事件：一件事情（点击）
+        * 事件源：事件发生的地方（按钮）
+        * 监听器：一段代码/一个对象
+        * 注册监听：将事件、事件源、监听器绑定在一起。当事件源上发生某个事件后，执行监听器代码
+
+
+* ServletContextListener:监听ServletContext对象的创建和销毁
+      *方法：
+        * void contextDestroyed(ServletContextEvent sce)：ServletContext对象被销毁之前会调用该方法
+
+        * void contestInitialized(ServletContextEvent sce)：ServletContext对象创建后会调用该方法
+
+      *步骤：
+        1. 定义一个类，师兄ServletContextListener接口
+        2. 复写方法
+        3. 配置
+              1. web.xml
+                     &lt;listener&gt;
+                     &lt;listener-class&gt;cn.itcast.web.listener.ContextLoaderListener&lt;/listener-class&gt;
+                     &lt;/listener&gt;
+
+                     * 指定初始化参数&lt;context-param&gt;
+              2. 注解配置
+                     @webListener
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Listener小结/" data-id="cjyx0wlmn000yectnj0jilh8b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -772,7 +772,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之XML小结/" data-id="cjywzvwnq003m3ctnh3v42d5k" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之XML小结/" data-id="cjyx0wlsw003qectnpo0m5ty2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -848,7 +848,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjywzvwhd000o3ctn9y3p4g9s" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjyx0wlm6000mectnm0ptpqge" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -935,7 +935,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjywzvwld002b3ctn493azxws" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjyx0wlq7002fectn489ggg2l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -965,7 +965,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaSSM-基础/">javaSSM_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
     </div>
   </div>
 
@@ -975,7 +975,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/java-基础/" style="font-size: 10px;">java_基础</a>
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/javaSSM-基础/" style="font-size: 10px;">javaSSM_基础</a> <a href="/tags/java-基础/" style="font-size: 15px;">java_基础</a>
     </div>
   </div>
 
@@ -1001,19 +1001,19 @@
           </li>
         
           <li>
-            <a href="/2019/08/02/JavaEE之SpringMVC之Restful小结/">JavaEE之SpringMVC之Restful小结</a>
+            <a href="/2019/08/03/javaSSM之SpringMVC快速入门之上小结/">javaSSM之SpringMVC快速入门之上小结</a>
           </li>
         
           <li>
-            <a href="/2019/08/01/JavaEE之Spring之AOP小结小结/">JavaEE之Spring之AOP小结小结</a>
+            <a href="/2019/08/02/javaSSM之SpringMVC之Restful小结/">javaSSM之SpringMVC之Restful小结</a>
           </li>
         
           <li>
-            <a href="/2019/07/31/新文档8888/">(no title)</a>
+            <a href="/2019/08/01/javaSSM之Spring之AOP小结小结/">javaSSM之Spring之AOP小结小结</a>
           </li>
         
           <li>
-            <a href="/2019/07/31/JavaEE之Spring快速入门之下小结/">(no title)</a>
+            <a href="/2019/07/26/javaSSM之Spring快速入门之下小结/">javaSSM之Spring快速入门之中小结</a>
           </li>
         
       </ul>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>javaSSM之MyBatis高级知识之下小结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MyBatis1. 基础知识（重点，内容多）     对原生态jdbc程序（单独使用jdbc开发）问题总结     mybatis框架原理（掌握）     mybatis入门程序          用户的增删改查     mybatis开发两种方法：          原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）          mybaits的mapper接口（相当于da">
+<meta name="keywords" content="javaSSM_基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaSSM之MyBatis高级知识之下小结">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/07/25/javaSSM之MyBatis高级知识之下小结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MyBatis1. 基础知识（重点，内容多）     对原生态jdbc程序（单独使用jdbc开发）问题总结     mybatis框架原理（掌握）     mybatis入门程序          用户的增删改查     mybatis开发两种方法：          原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）          mybaits的mapper接口（相当于da">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-05T02:28:30.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javaSSM之MyBatis高级知识之下小结">
+<meta name="twitter:description" content="MyBatis1. 基础知识（重点，内容多）     对原生态jdbc程序（单独使用jdbc开发）问题总结     mybatis框架原理（掌握）     mybatis入门程序          用户的增删改查     mybatis开发两种方法：          原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）          mybaits的mapper接口（相当于da">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-javaSSM之MyBatis高级知识之下小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/25/javaSSM之MyBatis高级知识之下小结/" class="article-date">
+  <time datetime="2019-07-25T10:52:11.000Z" itemprop="datePublished">2019-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javaSSM之MyBatis高级知识之下小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><pre><code>1. 基础知识（重点，内容多）
+    对原生态jdbc程序（单独使用jdbc开发）问题总结
+    mybatis框架原理（掌握）
+    mybatis入门程序
+         用户的增删改查
+    mybatis开发两种方法：
+         原始dao开发方法（程序需要编写dao接口和dao实现类）（掌握）
+         mybaits的mapper接口（相当于dao接口）代理开发方法（掌握）
+    mybatis配置文件SqlMapConfig.xml
+    mybatis核心：
+         mybatis输入映射（掌握）
+         mybatis输出映射（掌握）
+    mybatis的动态SQL（掌握）
+
+ 2. 高级知识
+    订单商品数据模型分析
+    高级结果集映射（一对一，一对多，多对多）
+    mybatis延迟加载
+    mybatis查询缓冲（一级缓冲、二级缓冲）
+    mybaits和spring进行整合（掌握）
+    mybatis逆向工程
+</code></pre><h3 id="一、高级知识"><a href="#一、高级知识" class="headerlink" title="一、高级知识"></a>一、高级知识</h3><h4 id="1-mybatis查询缓存（一级缓存、二级缓存）————mybatis整合ehcache："><a href="#1-mybatis查询缓存（一级缓存、二级缓存）————mybatis整合ehcache：" class="headerlink" title="1. mybatis查询缓存（一级缓存、二级缓存）————mybatis整合ehcache："></a>1. mybatis查询缓存（一级缓存、二级缓存）————mybatis整合ehcache：</h4><pre><code>1. ehcache:
+    * ehcache是一个分布式缓存框架
+
+2. 分布缓存：
+    * 我们系统为了提高系统并发，性能、一般对系统进行分布式部署（集群部署方式）
+    * 不使用分布缓存，缓存的数据在各各服务单独存储，不方便系统 开发。所以要使用分布式缓存对缓存数据进行集中管理。
+    * 对缓存数据进行集中管理（redis集群）使用分布式缓存框架
+       * 如：redis、memcached、ehcache。。。
+    * mybatis无法实现分布式缓存，因此需要和其它分布式缓存框架进行整合。
+
+3. 整合方法：
+    1. 引入缓存的依赖包
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.ehcache&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;ehcache&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.8.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.caches&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-ehcache&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.1.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>2. 引入缓存配置文件
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;ehcache xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:noNamespaceSchemaLocation=&quot;http://ehcache.org/ehcache.xsd&quot;&gt;</span><br><span class="line">    &lt;diskStore path=&quot;D:\ehcache&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 默认缓存配置 --&gt;</span><br><span class="line">    &lt;defaultCache</span><br><span class="line">            maxElementsInMemory=&quot;10000&quot;</span><br><span class="line">            eternal=&quot;false&quot;</span><br><span class="line">            timeToIdleSeconds=&quot;120&quot;</span><br><span class="line">            timeToLiveSeconds=&quot;120&quot;</span><br><span class="line">            overflowToDisk=&quot;true&quot;</span><br><span class="line">    /&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/ehcache&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>3. 引入xsd的url
+   * 打开settings-&gt;languages&amp;frameworks-&gt;schemas and dtds ,添加地址 http://ehcache.org/ehcache.xsd
+
+4. 开启ehcache缓存
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">修改mapper.xml文件，在cache中指定EhcacheCache。</span><br><span class="line">&lt;cache type=&quot;org.mybatis.caches.ehcache.EhcacheCache&quot;/&gt;</span><br><span class="line"></span><br><span class="line">根据需求调整缓存参数：</span><br><span class="line">&lt;cache type=&quot;org.mybatis.caches.ehcache.EhcacheCache&quot; &gt; </span><br><span class="line">        &lt;property name=&quot;timeToIdleSeconds&quot; value=&quot;3600&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;timeToLiveSeconds&quot; value=&quot;3600&quot;/&gt;</span><br><span class="line">        &lt;!-- 同ehcache参数maxElementsInMemory --&gt;</span><br><span class="line">		&lt;property name=&quot;maxEntriesLocalHeap&quot; value=&quot;1000&quot;/&gt;</span><br><span class="line">		&lt;!-- 同ehcache参数maxElementsOnDisk --&gt;</span><br><span class="line">        &lt;property name=&quot;maxEntriesLocalDisk&quot; value=&quot;10000000&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;memoryStoreEvictionPolicy&quot; value=&quot;LRU&quot;/&gt;</span><br><span class="line">    &lt;/cache&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-mybaits和spring进行整合（掌握）"><a href="#2-mybaits和spring进行整合（掌握）" class="headerlink" title="2. mybaits和spring进行整合（掌握）"></a>2. mybaits和spring进行整合（掌握）</h4><pre><code>1. 整合思路：
+    1. 需要spring通过单例方式管理SqlSessionFactory
+    2. spring和mybatis整合生成代理对象，使用SqlSessionFactory创建SqlSession。（Spring和mybatis整合自动完成）
+    3. 持久层的mapper都需要由spring进行管理
+
+2. 整合环境
+    1. 导入jar包
+        * mybatis
+        * spring
+        * mybatis_spring整合包
+        * 此处为了方便，直接导入mybatis、spring、springMVC的整合
+
+3. sqlSessionFactory
+     1. 在applicationContext.xml配置sqlSessionFactory和数据源
+     2. sqlSessionFactory在mybatis和spring的整合包下
+</code></pre><pre><code>&lt;!-- 加载db.properties文件 --&gt;
+&lt;context:property-placeholder location=&quot;classpath:db.properties&quot;/&gt;
+
+   &lt;!-- 配置数据库连接池 --&gt;
+   &lt;bean id=&quot;dataSource&quot; class=&quot;com.alibaba.druid.pool.DruidDataSource&quot;&gt;
+       &lt;property name=&quot;driverClassName&quot; value=&quot;${jdbc.driver}&quot;&gt;&lt;/property&gt;
+       &lt;property name=&quot;url&quot; value=&quot;${jdbc.url}&quot;&gt;&lt;/property&gt;
+       &lt;property name=&quot;username&quot; value=&quot;${jdbc.username}&quot;&gt;&lt;/property&gt;
+       &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot;&gt;&lt;/property&gt;
+   &lt;/bean&gt;
+
+   &lt;!--sqlSessionFactory--&gt;
+   &lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
+       &lt;!--加载mybatis的配置文件--&gt;
+       &lt;property name=&quot;configLocation&quot; value=&quot;SqlMapConfig.xml&quot;/&gt;
+       &lt;!--数据源--&gt;
+       &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+   &lt;/bean&gt;
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/25/javaSSM之MyBatis高级知识之下小结/" data-id="cjyxs5fvh0001pctnnpb2mfmk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaSSM-基础/">javaSSM_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/26/javaSSM之Spring快速入门之上小结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          javaSSM之Spring快速入门之上小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/25/javaSSM之MyBatis高级知识之中小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">javaSSM之MyBatis高级知识之中小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaSSM-基础/">javaSSM_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/javaSSM-基础/" style="font-size: 10px;">javaSSM_基础</a> <a href="/tags/java-基础/" style="font-size: 15px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/04/新文档8080/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/03/javaSSM之SpringMVC快速入门之上小结/">javaSSM之SpringMVC快速入门之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/javaSSM之SpringMVC之Restful小结/">javaSSM之SpringMVC之Restful小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/01/javaSSM之Spring之AOP小结小结/">javaSSM之Spring之AOP小结小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/javaSSM之Spring快速入门之下小结/">javaSSM之Spring快速入门之中小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
