@@ -62,6 +62,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaEE之删除用户练习小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/JavaEE之删除用户练习小结/" class="article-date">
+  <time datetime="2019-07-21T08:24:43.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/JavaEE之删除用户练习小结/">JavaEE之删除用户练习小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="删除用户练习"><a href="#删除用户练习" class="headerlink" title="删除用户练习"></a>删除用户练习</h3><ul>
+<li><p>思路：</p>
+<ol>
+<li>点击删除按钮（携带该用户的id）</li>
+<li>跳转确认画面，让客户确认是否删除</li>
+<li>确认删除后</li>
+<li>删除数据</li>
+<li>跳转回原界面</li>
+</ol>
+</li>
+<li><p>文件跳转：</p>
+<ol>
+<li>jsp获取用户选择删除用户id</li>
+<li>跳转至Servlet层，执行业务逻辑</li>
+<li>在Servlet中，将使用到Service</li>
+<li>在Service中，将使用到Dao</li>
+</ol>
+</li>
+</ul>
+<h4 id="Servleet"><a href="#Servleet" class="headerlink" title="Servleet"></a>Servleet</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line">import cn.itcast.service.UserService;</span><br><span class="line">import cn.itcast.service.impl.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;/delUserServlet&quot;)</span><br><span class="line">public class delUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //1.获取id</span><br><span class="line">        String id = request.getParameter(&quot;id&quot;);</span><br><span class="line">        //2.调用Service</span><br><span class="line">        UserService service = new UserServiceImpl();</span><br><span class="line">        service.delUser(id);</span><br><span class="line">        //3.跳转回/UserListServlet</span><br><span class="line">        response.sendRedirect(request.getContextPath()+&quot;/UserListServlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">    public void delUser(String id);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">     public void delUser(String id)&#123;</span><br><span class="line">         dao.delUser(Integer.parseInt(id));</span><br><span class="line">     &#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">接口类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     */</span><br><span class="line">    public void delUser(int id);</span><br><span class="line"></span><br><span class="line">实现类</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除用户</span><br><span class="line">     * @param id</span><br><span class="line">     */</span><br><span class="line">    public void delUser(int id)&#123;</span><br><span class="line">        //定义SQL</span><br><span class="line">        String sql = &quot;delete from user where id = ?&quot;;</span><br><span class="line">        //执行SQL</span><br><span class="line">        template.update(sql,id);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之删除用户练习小结/" data-id="cjyxscjqn001mwgtnn4gabtw1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JavaEE之登录练习2小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/21/JavaEE之登录练习2小结/" class="article-date">
@@ -102,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjyxs69gg001wmgtnu3mgc4vk" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习2小结/" data-id="cjyxscjqz001uwgtn94vxt5gu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -174,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjyxs69ft001omgtnrbfqxzdj" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之列表查询练习小结/" data-id="cjyxscjqq001owgtn1lyi47a6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -267,7 +326,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjyxs69ch0005mgtnlel32om4" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之BeanUtils工具类小结/" data-id="cjyxscjnf0005wgtnd9ewudwn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -325,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjyxs69f3001cmgtn9amrjy1z" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之request.getParameter()在get和post方法中文乱码问题小结/" data-id="cjyxscjq8001cwgtnxyndvodt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -387,7 +446,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjyxs69jx003cmgtn2c3sonxy" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/21/JavaEE之登录练习小结/" data-id="cjyxscjt1002gwgtnbyhuvvcj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -451,7 +510,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Listener小结/" data-id="cjyxs69ea000xmgtn2nug5bd1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Listener小结/" data-id="cjyxscjp8000wwgtnqpuqfn2g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -571,7 +630,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjyxs69cx000dmgtnxdjrvp2j" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之Filter小结/" data-id="cjyxscjo3000fwgtnqxksg0g0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -772,7 +831,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之XML小结/" data-id="cjyxs69jp003amgtnz5mmphbb" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/20/JavaEE之XML小结/" data-id="cjyxscjsx002ewgtnmvojczgl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -848,94 +907,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjyxs69d6000hmgtnjpil4wde" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JavaEE之连接池小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/19/JavaEE之连接池小结/" class="article-date">
-  <time datetime="2019-07-19T13:00:41.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/19/JavaEE之连接池小结/">JavaEE之连接池小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h2><pre><code>1. 概念：其实就是一个容器（集合），存放数据库连接的容器。
-        当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。
-
-2. 优点：
-     1. 节约资源
-     2. 用户访问高效
-
-3. 实现：
-     1. 标准接口：DataSource javax.sql包下的
-          1. 方法：
-              *获取连接：getConnection（） 
-              *归还连接：如果连接对象Connection是从连接池中获取的，那么调用Connection.close（）方法，则不会再关闭连接了，而是归还连接。
-
-     2. 一般我们不去实现它，由数据库厂商来实现
-          1. C3P0：数据库连接池技术（比较老）
-          2. Druid：数据库连接池实现技术，由阿里巴巴提供的，高效（比较新）
-
-
- 4. C3P0：数据库连接池技术 （由于版本配置环境的问题，无法上手训练）
-     1. 导入jar包【两个】  c3p0-0.9.5.2.jar   mchange-commons-java-0.2.12.jar
-         *不要忘记导入数据库驱动jar包
-         *留意配置环境，避免无法运行
-     2. 定义配置文件：
-            *名称：c3p0.properties 或者 c3p0-config.xml(常用)
-            *路径：直接将文件放在src目录下即可。
-     3. 创建核心对象————&gt;数据库连接池对象 ComboPooledDateSource
-     4. 获取连接：getConnection
-
- 5. Druid：数据库连接池技术，阿里巴巴提供
-     1. 步骤：
-             1. 导入jar包     druid-1.0.9.jar
-             2. 定义配置文件：
-                   *特点：是properties形式的
-                   *可以叫任意名称，可以放在任意目录下
-             3. 加载配置文件。Properties
-                     Properties pro = new Properties();
-                     InputStream is = DruidDemo1.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;);
-                     pro.load(is);
-             4. 获取数据库连接池对象：通过一个工厂类来获取   DruidDataSourceFactory
-             5. 获取连接：getConnection
-
-      2. 定义工具类：
-           1. 定义一个类 JDBCUtils
-           2. 提供静态代码块加载配置文件，初始化连接池对象
-           3. 提供方法
-                1.获取连接方法：通过数据库连接池获取连接
-                2.释放资源
-                3.获取连接池的方法
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">JDBCUtils工具类</span><br><span class="line"></span><br><span class="line">package utils;</span><br><span class="line"></span><br><span class="line">import DruidTest.DruidDemo1;</span><br><span class="line">import com.alibaba.druid.pool.DruidDataSourceFactory;</span><br><span class="line"></span><br><span class="line">import javax.sql.DataSource;</span><br><span class="line">import javax.xml.crypto.Data;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.ResultSet;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line">import java.sql.Statement;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">public class JDBCUtils &#123;</span><br><span class="line">    //1.定义成员变量 DataSource</span><br><span class="line">    private static DataSource ds;</span><br><span class="line">    static &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            Properties pro = new Properties();</span><br><span class="line">            InputStream is = DruidDemo1.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;);</span><br><span class="line">            pro.load(is);</span><br><span class="line">            //2.获取DataSource</span><br><span class="line">            ds = DruidDataSourceFactory.createDataSource(pro);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取连接</span><br><span class="line">     */</span><br><span class="line">    public static Connection getConnection() throws SQLException &#123;</span><br><span class="line">        return ds.getConnection();</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 释放资源</span><br><span class="line">     */</span><br><span class="line">    public static void close(Statement stmt, Connection conn)&#123;</span><br><span class="line">        close(null,stmt,conn);</span><br><span class="line">    &#125;</span><br><span class="line">    public static void close(ResultSet rs ,Statement stmt, Connection conn)&#123;</span><br><span class="line">        if(rs!=null)&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125; catch (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(stmt!=null)&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125; catch (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(conn!=null)&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125; catch (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 获取连接池</span><br><span class="line">     */</span><br><span class="line">    public static DataSource getDataSource()&#123;</span><br><span class="line">        return ds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">工具类的使用</span><br><span class="line"></span><br><span class="line">package DruidTest;</span><br><span class="line"></span><br><span class="line">import utils.JDBCUtils;</span><br><span class="line"></span><br><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.PreparedStatement;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 使用新的工具类</span><br><span class="line"> */</span><br><span class="line">public class DruidDemo02 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        /**</span><br><span class="line">         * 完成一个添加操作，给bookstores___user_info一条记录</span><br><span class="line">         */</span><br><span class="line">        Connection conn = null;</span><br><span class="line">        PreparedStatement pstmt = null;</span><br><span class="line">        //1.获取连接</span><br><span class="line">        try &#123;</span><br><span class="line">            conn = JDBCUtils.getConnection();</span><br><span class="line">            //2.定义SQL</span><br><span class="line">            String sql = &quot;insert into test values(null,?,?)&quot;;</span><br><span class="line">            //3.获取pstmt对象</span><br><span class="line">            pstmt = conn.prepareStatement(sql);</span><br><span class="line">            //4.给？赋值</span><br><span class="line">            pstmt.setString(1,&quot;张三&quot;);</span><br><span class="line">            pstmt.setString(2,&quot;123&quot;);</span><br><span class="line">            //5.执行SQL</span><br><span class="line">            int count = pstmt.executeUpdate();</span><br><span class="line">            System.out.println(count);</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            JDBCUtils.close(pstmt,conn);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之连接池小结/" data-id="cjyxs69g6001smgtnp7nsg012" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/07/19/JavaEE之JDBCTemplate小结/" data-id="cjyxscjog000jwgtnpjnz2vzh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li></ul>
@@ -997,7 +969,11 @@
       <ul>
         
           <li>
-            <a href="/2019/08/04/新文档8080/">(no title)</a>
+            <a href="/2019/08/12/新文档123/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/03/新文档8080/">javaSSM之SpringMVC快速入门之中小结</a>
           </li>
         
           <li>
@@ -1010,10 +986,6 @@
         
           <li>
             <a href="/2019/08/01/javaSSM之Spring之AOP小结小结/">javaSSM之Spring之AOP小结小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/26/javaSSM之Spring快速入门之下小结/">javaSSM之Spring快速入门之中小结</a>
           </li>
         
       </ul>

@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="SpringMVC一、SpringMVC的基本概念1. SpringMVC是什么：      * SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻量级Web框架。      * SpringMVC通过一套注解，让一个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。  2. 环境搭建：      * 导入jar包">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-05T02:36:29.569Z">
+<meta property="og:updated_time" content="2019-08-05T02:37:25.550Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javaSSM之SpringMVC快速入门之上小结">
 <meta name="twitter:description" content="SpringMVC一、SpringMVC的基本概念1. SpringMVC是什么：      * SpringMVC是一种基于Java的实现MVC设计模型的请求驱动类型的轻量级Web框架。      * SpringMVC通过一套注解，让一个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。  2. 环境搭建：      * 导入jar包">
@@ -184,14 +184,15 @@ return date;
 <p>二、注册自定义类型转换器，在SpringMVC.xml配置文件中编写配置  </p>
 <!-- 注册自定义类型转换器 -->
 <pre><code>&lt;bean id=&quot;conversionService&quot;
-</code></pre><p> class=”org.springframework.context.support.ConversionServiceFactoryBean”&gt;<br>        <property name="converters"><br>            <set><br>                <bean class="cn.itcast.utils.StringToDateConverter"><br>            </bean></set><br>        </property><br>    <br>        <!-- 开启Spring对MVC注解的支持 --><br>    &lt;mvc:annotation-driven conversion-service=”conversionService”/&gt;<br><code>`</code></p>
+</code></pre><p> class=”org.springframework.context.support.ConversionServiceFactoryBean”&gt;<br>        <property name="converters"><br>            <set><br>                <bean class="cn.itcast.utils.StringToDateConverter"><br>            </bean></set><br>        </property><br>    <br>        <!-- 开启Spring对MVC注解的支持 --><br>    &lt;mvc:annotation-driven conversion-service=”conversionService”/&gt;</p>
+<p><code>`</code></p>
 <pre><code>7. 在控制器中使用原生的ServletAPI对象
        1. 只需要在控制器的方法参数定义HttpServletRequest和HttpServletResponse对象 
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/570911275/570911275.github.io/2019/08/03/javaSSM之SpringMVC快速入门之上小结/" data-id="cjyxs69kn003pmgtn0xi2u255" class="article-share-link">Share</a>
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/08/03/javaSSM之SpringMVC快速入门之上小结/" data-id="cjyxscjvi003wwgtn52lqq9qf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaSSM-基础/">javaSSM_基础</a></li></ul>
@@ -202,11 +203,11 @@ return date;
     
 <nav id="article-nav">
   
-    <a href="/2019/08/04/新文档8080/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/03/新文档8080/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          javaSSM之SpringMVC快速入门之中小结
         
       </div>
     </a>
@@ -265,7 +266,11 @@ return date;
       <ul>
         
           <li>
-            <a href="/2019/08/04/新文档8080/">(no title)</a>
+            <a href="/2019/08/12/新文档123/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/03/新文档8080/">javaSSM之SpringMVC快速入门之中小结</a>
           </li>
         
           <li>
@@ -278,10 +283,6 @@ return date;
         
           <li>
             <a href="/2019/08/01/javaSSM之Spring之AOP小结小结/">javaSSM之Spring之AOP小结小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/26/javaSSM之Spring快速入门之下小结/">javaSSM之Spring快速入门之中小结</a>
           </li>
         
       </ul>
