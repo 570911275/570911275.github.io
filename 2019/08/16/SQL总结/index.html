@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SQL题库总结 175.组合两个表(简单): 答案： 12345正确答案：select Person.FirstName, Person.LastName, Address.City, Address.State from Person left join Address on Address.PersonId = Person.PersonId错误答案：select Person.FirstNa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://github.com/570911275/570911275.github.io/2019/08/16/SQL总结/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SQL题库总结 175.组合两个表(简单): 答案： 12345正确答案：select Person.FirstName, Person.LastName, Address.City, Address.State from Person left join Address on Address.PersonId = Person.PersonId错误答案：select Person.FirstNa">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-16T00:53:19.041Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="SQL题库总结 175.组合两个表(简单): 答案： 12345正确答案：select Person.FirstName, Person.LastName, Address.City, Address.State from Person left join Address on Address.PersonId = Person.PersonId错误答案：select Person.FirstNa">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/570911275/570911275.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SQL总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/16/SQL总结/" class="article-date">
+  <time datetime="2019-08-16T00:16:30.340Z" itemprop="datePublished">2019-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="SQL题库总结"><a href="#SQL题库总结" class="headerlink" title="SQL题库总结"></a>SQL题库总结</h2><ol>
+<li><p>175.组合两个表(简单):<br> 答案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">正确答案：</span><br><span class="line">select Person.FirstName, Person.LastName, Address.City, Address.State from Person left join Address on Address.PersonId = Person.PersonId</span><br><span class="line"></span><br><span class="line">错误答案：</span><br><span class="line">select Person.FirstName, Person.LastName, Address.City, Address.State from Person, Address where Address.PersonId = Person.PersonId</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关键点：<ol>
+<li>使用left join … on … 左连接查询；确保左表数据可在右表无数据的情况下依旧被查询得出</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>176.第二高的薪水(简单)：<br> 答案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">正确答案：</span><br><span class="line">select IFNULL((select distinct(Salary) </span><br><span class="line">from Employee </span><br><span class="line">order by Salary desc </span><br><span class="line">limit 1 offset 1), null) </span><br><span class="line">as SecondHighestSalary</span><br><span class="line"></span><br><span class="line">错误答案：</span><br><span class="line">select IFNULL (select distinct Salary </span><br><span class="line">from Employee </span><br><span class="line">Order By Salary desc limit (1,1),null) </span><br><span class="line">as SecondHighestSalary;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关键点：<ol>
+<li>注意括号的使用，此处错误答案便为括号问题</li>
+<li>使用ifnull(a,b)：此语句为如果a不为null的话，则返回a内容，如果a为null的话，则返回b内容。此题由于题目要求返回null，所以b处位置为null</li>
+<li>使用distinct(a)：此语句为去掉重复的a字段，即若数据库中Salary字段中出现两次200；则只按1次处理</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>181.超过经理收入的员工(简单)：<br> 答案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">改进答案：</span><br><span class="line">select E1.Name As Employee</span><br><span class="line">from Employee As E1, Employee As E2</span><br><span class="line">where E1.ManagerId is not null and </span><br><span class="line">E1.ManagerId = E2.Id and </span><br><span class="line">E1.Salary &gt; E2.Salary</span><br><span class="line"></span><br><span class="line">原先答案：</span><br><span class="line">select E1.Name Employee</span><br><span class="line">from Employee E1 , Employee E2 </span><br><span class="line">where E1.Salary &gt; E2.Salary and </span><br><span class="line">E1.ManagerId = E2.Id</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关键点：<ol>
+<li>原先未考虑E1(员工表)的ManagerId非空的判断语句；此语句在数据量大时可减少工作量</li>
+<li>使用了两个表的关系查询；但无需如同 175.组合两个表 一样进行左连接left join … on …</li>
+</ol>
+</li>
+</ul>
+</li>
+<li></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/570911275/570911275.github.io/2019/08/16/SQL总结/" data-id="cjzdf847k0000ustn2judzdvt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/12/新文档123/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaEE-基础/">javaEE_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaSSM-基础/">javaSSM_基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-基础/">java_基础</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javaEE-基础/" style="font-size: 20px;">javaEE_基础</a> <a href="/tags/javaSSM-基础/" style="font-size: 10px;">javaSSM_基础</a> <a href="/tags/java-基础/" style="font-size: 15px;">java_基础</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/16/SQL总结/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/12/新文档123/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/03/新文档8080/">javaSSM之SpringMVC快速入门之中小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/03/javaSSM之SpringMVC快速入门之上小结/">javaSSM之SpringMVC快速入门之上小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/javaSSM之SpringMVC之Restful小结/">javaSSM之SpringMVC之Restful小结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
